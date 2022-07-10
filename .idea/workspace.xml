@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="y">
+    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="big work, but it's not all">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langos.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langos.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langos.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langos.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langosLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langosLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langosLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/langosParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/langos.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langos.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myLangosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/langosWalker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/example/LangosWalker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myLangosListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/example/myLangosListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyLangosVisitor.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657481310241</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="big work, but it's not all">
+      <created>1657486663737</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1657486663737</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -132,7 +136,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="y" />
-    <option name="LAST_COMMIT_MESSAGE" value="y" />
+    <MESSAGE value="big work, but it's not all" />
+    <option name="LAST_COMMIT_MESSAGE" value="big work, but it's not all" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

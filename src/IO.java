@@ -3,9 +3,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
 public class IO {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -19,10 +18,10 @@ public class IO {
         ParseTree tree = parser.entry_point();
        /* ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new langosWalker(), tree);*/
-      /*  ParseTreeListener listener = new myLangosListener();
+      /*  ParseTreeListener listener = new org.example.myLangosListener();
         ParseTreeWalker.DEFAULT.walk(listener, tree); */
 
-        ParseTreeVisitor visitor = new myLangosVisitor();
+        ParseTreeVisitor visitor = new MyLangosVisitor();
         visitor.visit(tree);
 
     }

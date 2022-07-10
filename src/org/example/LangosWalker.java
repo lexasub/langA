@@ -1,5 +1,7 @@
+package org.example;
+
 //[MB TODO]
-public class langosWalker extends langosBaseListener {
+public class LangosWalker extends langosBaseListener {
     public void enterEntry_point(langosParser.Entry_pointContext ctx) {
         System.out.println("Entering Entry_point : " );
     }
