@@ -187,26 +187,6 @@ public interface langosListener extends ParseTreeListener {
 	 */
 	void exitSyntax_lambda(langosParser.Syntax_lambdaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link langosParser#syntax_with_body}.
-	 * @param ctx the parse tree
-	 */
-	void enterSyntax_with_body(langosParser.Syntax_with_bodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosParser#syntax_with_body}.
-	 * @param ctx the parse tree
-	 */
-	void exitSyntax_with_body(langosParser.Syntax_with_bodyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link langosParser#syntax_with}.
-	 * @param ctx the parse tree
-	 */
-	void enterSyntax_with(langosParser.Syntax_withContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosParser#syntax_with}.
-	 * @param ctx the parse tree
-	 */
-	void exitSyntax_with(langosParser.Syntax_withContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link langosParser#syntax_object_getter}.
 	 * @param ctx the parse tree
 	 */

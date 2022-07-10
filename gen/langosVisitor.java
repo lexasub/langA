@@ -118,18 +118,6 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSyntax_lambda(langosParser.Syntax_lambdaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosParser#syntax_with_body}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSyntax_with_body(langosParser.Syntax_with_bodyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosParser#syntax_with}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSyntax_with(langosParser.Syntax_withContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosParser#syntax_object_getter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

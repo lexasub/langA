@@ -44,7 +44,7 @@ rule_  : ID COLON alternatives SEMI;
 alternatives  : alternative (BAR alternative)*  ;
 alternatives_strong : RPAREN alternatives LPAREN;
 
-alternative : element*  ;
+alternative : element+  ;
 bnf_not : RPAREN CIRCUMFLEX element LPAREN;
 element :   bnf_not | zeroormore_non_gready | optional_ | zeroormore  | oneormore |
             ID |  range_ | CHAR | STRING;
@@ -61,17 +61,17 @@ syntax_namespace_obj : ID DOUBLECOLON ID;
 syntax_impl : SYNTAX syntax_namespace_obj id_list_strong RBRACE syntax_impl_body LBRACE;
 syntax_return : RETURN syntax_expr;
 syntax_method_call : DOT ID RPAREN syntax_expr LPAREN;
-syntax_lambda : RPAREN id_list LPAREN ARROW RBRACE syntax_expr SEMI LBRACE;
-syntax_with_body : ID ARROW id_strong RBRACE syntax_expr LBRACE;
-syntax_with : WITH syntax_expr_strong RBRACE syntax_with_body (COMA syntax_with_body)* LBRACE;
+syntax_lambda : RPAREN id_list LPAREN ARROW RBRACE (syntax_expr SEMI)+ LBRACE;
+/*syntax_with_body : ID ARROW id_strong RBRACE syntax_expr LBRACE;
+syntax_with : WITH syntax_expr_strong RBRACE syntax_with_body (COMA syntax_with_body)* LBRACE;*/
 syntax_object_getter : ID syntax_expr_strong;
 syntax_text_getter : ID REND syntax_expr LEND;
 syntax_expr : syntax_namespace_obj (syntax_expr_strong | syntax_method_call) |
-              syntax_lambda | syntax_return | syntax_with |
+              syntax_lambda | syntax_return /*| syntax_with*/ |
               syntax_object_getter | syntax_text_getter;
 syntax_expr_strong : RPAREN syntax_expr LPAREN;
 syntax_impl_body : (syntax_expr SEMI) +;
-import_ : IMPORT ID SEMI;
+import_ : IMPORT ID (DOT ID)* SEMI;
 program : import_ * (syntax_ | syntax_impl)*;
 entry_point : program EOF;
 

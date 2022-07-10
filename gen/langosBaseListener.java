@@ -231,30 +231,6 @@ public class langosBaseListener implements langosListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSyntax_with_body(langosParser.Syntax_with_bodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSyntax_with_body(langosParser.Syntax_with_bodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSyntax_with(langosParser.Syntax_withContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSyntax_with(langosParser.Syntax_withContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSyntax_object_getter(langosParser.Syntax_object_getterContext ctx) { }
 	/**
 	 * {@inheritDoc}
