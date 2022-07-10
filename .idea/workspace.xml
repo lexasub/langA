@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="big work, but it's not all">
+    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="..">
+      <change afterPath="$PROJECT_DIR$/src/Promise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/langos.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langos.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/langosWalker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/example/LangosWalker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myLangosListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/example/myLangosListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyLangosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyLangosVisitor.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657486663737</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="..">
+      <created>1657489688230</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1657489688230</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,7 +143,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="y" />
     <MESSAGE value="big work, but it's not all" />
-    <option name="LAST_COMMIT_MESSAGE" value="big work, but it's not all" />
+    <MESSAGE value=".." />
+    <option name="LAST_COMMIT_MESSAGE" value=".." />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

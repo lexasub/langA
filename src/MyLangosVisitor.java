@@ -3,6 +3,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
+
 public class MyLangosVisitor implements langosVisitor {
 
     IR ir = new IR();
@@ -47,6 +52,18 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitElement(langosParser.ElementContext ctx) {
+        /*List<Object> elems = Arrays.asList(
+                ctx.bnf_not(),
+                ctx.zeroormore_non_gready()
+        );
+        List<Object> funcs = Arrays.asList(
+          (Function<langosParser.Bnf_notContext,Object>)
+                  (i) -> visitBnf_not(i),
+          (Function<langosParser.Zeroormore_non_greadyContext,Object>)
+                  (i) -> visitZeroormore_non_gready(i)
+        );
+        if (!v.isEmpty())
+            return ir.promiseElement(f(v));*/
         if (!ctx.bnf_not().isEmpty())
             return ir.promiseElement(visitBnf_not(ctx.bnf_not()));
         if (!ctx.zeroormore_non_gready().isEmpty())
