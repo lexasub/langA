@@ -1,3 +1,5 @@
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -91,15 +93,13 @@ public class PromisedIR {
 
     public Promise promiseProgram(Stream<Object> objectStream, Stream<Object> objectStream1, Stream<Object> objectStream2) {
         return Promise.add(() -> {
-            /*Object elem = objectStream.findFirst().orElse(null);
-            Object firstElem = elem;//nonCopy!!
-            TODO while(objectStream.count() != 0){
-                newDependency = objectStream.findFirst().orElse(null);//next
-                elem.addAfterDependency(newDependency);
-                elem = newDependency;
+            ListIterator<Object> elem = objectStream.toList().listIterator();
+            Object firstElem = elem.next();//nonCopy!!
+            while(objectStream.count() != 0){
+                var tmp = elem.next();
+                elem.previous().addAfterDependency(tmp);
             }
-            return firstElem*/
-            return null;
+            return firstElem;
         });
     }
 
