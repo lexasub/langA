@@ -66,7 +66,8 @@ syntax_lambda : RPAREN id_list LPAREN ARROW RBRACE (syntax_expr SEMI)+ LBRACE;
 syntax_with : WITH syntax_expr_strong RBRACE syntax_with_body (COMA syntax_with_body)* LBRACE;*/
 syntax_object_getter : ID syntax_expr_strong; //TODO? ID->ID.ID/*example*/
 syntax_text_getter : ID REND syntax_expr LEND; //
-syntax_expr : syntax_namespace_obj (syntax_expr_strong | syntax_method_call) |
+syntax_expr_helper : syntax_expr_strong | syntax_method_call;
+syntax_expr : syntax_namespace_obj syntax_expr_helper |
               syntax_lambda | syntax_return /*| syntax_with*/ |
               syntax_object_getter | syntax_text_getter;
 syntax_expr_strong : RPAREN syntax_expr LPAREN;

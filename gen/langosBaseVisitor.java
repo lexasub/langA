@@ -156,6 +156,13 @@ public class langosBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitSyntax_expr(langosParser.Syntax_exprContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

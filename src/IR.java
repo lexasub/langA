@@ -68,7 +68,7 @@ public class IR {
 
     public Object addHandlerExpression(Object visitSyntax_expr) {
     }
-    public static Object findSyntaxNamespace(){
+    public static Object findSyntaxNamespace(Promise promise){
 //TODO
     }
 

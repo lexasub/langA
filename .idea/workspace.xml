@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="..">
-      <change afterPath="$PROJECT_DIR$/checkstyle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="some improvmements in project files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langos.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langos.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/langA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/langA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/langos.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langos.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MyLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyLangosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Promise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Promise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PromisedIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PromisedIR.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
@@ -147,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657515572147</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="some improvmements in project files">
+      <created>1657530508068</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1657530508068</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,7 +180,8 @@
     <MESSAGE value="y" />
     <MESSAGE value="big work, but it's not all" />
     <MESSAGE value=".." />
-    <option name="LAST_COMMIT_MESSAGE" value=".." />
+    <MESSAGE value="some improvmements in project files" />
+    <option name="LAST_COMMIT_MESSAGE" value="some improvmements in project files" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

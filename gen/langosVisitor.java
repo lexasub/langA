@@ -130,6 +130,12 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSyntax_text_getter(langosParser.Syntax_text_getterContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosParser#syntax_expr_helper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosParser#syntax_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

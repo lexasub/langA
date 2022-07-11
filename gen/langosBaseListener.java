@@ -255,6 +255,18 @@ public class langosBaseListener implements langosListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSyntax_expr(langosParser.Syntax_exprContext ctx) { }
 	/**
 	 * {@inheritDoc}
