@@ -99,6 +99,7 @@ public class PromisedIR {
                 elem = newDependency;
             }
             return firstElem*/
+            return null;
         });
     }
 
