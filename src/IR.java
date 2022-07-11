@@ -1,101 +1,75 @@
 import java.util.stream.Stream;
 
 public class IR {
-    Object obj;//TODO replace to singleton obj
-    public Object promiseID(String text) {
-        return Promise::add(() -> obj.createID(text));
+    static IR createID(String s){
+        return new IR();
     }
 
-    public Object promiseElement(Object promiseID) {
+    public static Object createSyntax(Object promiseID, Stream<Object> t, Object visitRulelist) {
     }
 
-    public Object promiseSyntax(Object promiseID, Stream<Object> objectStream, Object visitRulelist) {
-        return Promise::add(() -> {
-            var t = objectStream.map((i) -> i.addAfterDependency(visitRulelist));
-            return obj.createSyntax(promiseID, t, visitRulelist);
-        });
+    public static Object createBnfNamespaceObj(Object promiseID, Object promiseID1) {
     }
 
-    public Object promiseBnfNamespaceObj(Object promiseID, Object promiseID1) {
-        return Promise::add(() -> obj.createBnfNamespaceObj(promiseID,promiseID1));
+    public static IR findSyntax(Object promiseID) {
+        return new IR();
     }
 
-    public Object promiseBnfMethodCall(Object promiseID, Object visitSyntax_expr) {
-        return Promise::add(
-                () -> obj.findSyntax(promiseID).addHandlerExpression(visitSyntax_expr)
-        );
+    public static Object createOneormore(Object visitAlternatives_strong) {
     }
 
-    public Object promiseBnfObjectGetter(Object promiseID, Object visitSyntax_expr_strong) {
-        return null;
+    public static Object createChar(String text) {
     }
 
-    public Object promiseBnfTextGetter(Object promiseID, Object visitSyntax_expr) {
+    public static Object createString(String text) {
     }
 
-    public Object promiseOneormore(Object visitAlternatives_strong) {
-        /*return Promise::add(
-                () -> {visitAlternatives_strong.}
-        );*/
+    public static Object createRange(Object promiseCHAR, Object promiseCHAR1) {
     }
 
-    public Object promiseCHAR(String text) {
-        return Promise::add(() -> obj.createChar(text));
+    public static Object createOptional(Object visitAlternatives_strong) {
     }
 
-    public Object promiseSTRING(String text) {
-        return Promise::add(() -> obj.createString(text));
+    public static Object createZeroormore(Object visitAlternatives_strong) {
     }
 
-    public Object promiseBnfRange(Object promiseCHAR, Object promiseCHAR1) {
-        return Promise::add(() -> obj.createRange(promiseCHAR, promiseCHAR1));
+    public static Object createZeroormoreNoneGready(Object visitAlternatives_strong) {
     }
 
-    public Object promiseBnfOptional(Object visitAlternatives_strong) {
-        return Promise::add(() -> obj.createOptional(visitAlternatives_strong));
+    public static Object createReturn(Object visitSyntax_expr) {
     }
 
-    public Object promiseZeroormore(Object visitAlternatives_strong) {
-        return Promise::add(() -> obj.createZeroormore(visitAlternatives_strong));
+    public static Object createLambda(Object visitId_list, Stream<Object> objectStream) {
     }
 
-    public Object promiseZeroormoreNoneGready(Object visitAlternatives_strong) {
-        return Promise::add(() -> obj.createZeroormoreNoneGready(visitAlternatives_strong));
+    public static Object createImplBody(Stream<Object> objectStream) {
     }
 
-    public Object promiseSyntaxImpl(Object visitSyntax_namespace_obj, Object visitId_list_strong, Object visitSyntax_impl_body) {
+    public static Object createImport(Stream<Object> objectStream) {
     }
 
-    public Object promiseSyntaxReturn(Object visitSyntax_expr) {
+    public static Object createIdList(Stream<Object> objectStream) {
     }
 
-    public Object promiseLambda(Object visitId_list, Stream<Object> objectStream) {
+    public static Object createNot(Object visitElement) {
     }
 
-    public Object promiseBnfImplBody(Stream<Object> objectStream) {
+    public static Object createAlternative(Stream<Object> objectStream) {
     }
 
-    public Object promiseImport(Stream<Object> objectStream) {
+    public static Object createAlternatives(Stream<Object> objectStream) {
     }
 
-    public Object promiseProgram(Stream<Object> objectStream, Stream<Object> objectStream1, Stream<Object> objectStream2) {
+    public static Object createRule(Object id, Object alt) {
     }
 
-    public Object promiseIdList(Stream<Object> objectStream) {
+    public static Object createRuleList(Stream<Object> objectStream) {
     }
 
-    public Object promiseBnfNot(Object visitElement) {
+    public Object addHandlerExpression(Object visitSyntax_expr) {
+    }
+    public static Object findSyntaxNamespace(){
+//TODO
     }
 
-    public Object promiseBnfAlternative(Stream<Object> objectStream) {
-    }
-
-    public Object promiseBnfAlternatives(Stream<Object> objectStream) {
-    }
-
-    public Object promiseRule_(Object id, Object alt) {
-    }
-
-    public Object promiseRuleList(Stream<Object> objectStream) {
-    }
 }

@@ -3,32 +3,27 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
-
 public class MyLangosVisitor implements langosVisitor {
 
-    IR ir = new IR();
+    PromisedIR promisedIr = new PromisedIR();
 
     @Override
     public Object visitRulelist(langosParser.RulelistContext ctx) {
-        return ir.promiseRuleList(
+        return promisedIr.promiseRuleList(
                 ctx.rule_().stream().map(this::visitRule_)
         );
     }
 
     @Override
     public Object visitRule_(langosParser.Rule_Context ctx) {
-        var id = ir.promiseID(ctx.ID().getText());
+        var id = promisedIr.promiseID(ctx.ID().getText());
         var alt = visitAlternatives(ctx.alternatives());
-        return ir.promiseRule_(id, alt);
+        return promisedIr.promiseRule_(id, alt);
     }
 
     @Override
     public Object visitAlternatives(langosParser.AlternativesContext ctx) {
-        return ir.promiseBnfAlternatives(
+        return promisedIr.promiseBnfAlternatives(
                 ctx.alternative().stream().map(this::visitAlternative)
         );
     }
@@ -40,14 +35,14 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitAlternative(langosParser.AlternativeContext ctx) {
-        return ir.promiseBnfAlternative(
+        return promisedIr.promiseBnfAlternative(
                 ctx.element().stream().map(this::visitElement)
         );
     }
 
     @Override
     public Object visitBnf_not(langosParser.Bnf_notContext ctx) {
-        return ir.promiseBnfNot(visitElement(ctx.element()));
+        return promisedIr.promiseBnfNot(visitElement(ctx.element()));
     }
 
     @Override
@@ -65,78 +60,78 @@ public class MyLangosVisitor implements langosVisitor {
         if (!v.isEmpty())
             return ir.promiseElement(f(v));*/
         if (!ctx.bnf_not().isEmpty())
-            return ir.promiseElement(visitBnf_not(ctx.bnf_not()));
+            return promisedIr.promiseElement(visitBnf_not(ctx.bnf_not()));
         if (!ctx.zeroormore_non_gready().isEmpty())
-            return ir.promiseElement(
+            return promisedIr.promiseElement(
                     visitZeroormore_non_gready(
                             ctx.zeroormore_non_gready()));
         if (!ctx.optional_().isEmpty())
-            return ir.promiseElement(visitOptional_(ctx.optional_()));
+            return promisedIr.promiseElement(visitOptional_(ctx.optional_()));
         if (!ctx.zeroormore().isEmpty())
-            return ir.promiseElement(visitZeroormore(ctx.zeroormore()));
+            return promisedIr.promiseElement(visitZeroormore(ctx.zeroormore()));
         if (!ctx.oneormore().isEmpty())
-            return ir.promiseElement(visitOneormore(ctx.oneormore()));
+            return promisedIr.promiseElement(visitOneormore(ctx.oneormore()));
         if (!ctx.range_().isEmpty())
-            return ir.promiseElement(visitRange_(ctx.range_()));
+            return promisedIr.promiseElement(visitRange_(ctx.range_()));
 
         if (!ctx.ID().isEmpty())
-            return ir.promiseElement(ir.promiseID(ctx.ID().getText()));
+            return promisedIr.promiseElement(promisedIr.promiseID(ctx.ID().getText()));
         if (!ctx.CHAR().isEmpty())
-            return ir.promiseElement(ir.promiseCHAR(ctx.CHAR().getText()));
+            return promisedIr.promiseElement(promisedIr.promiseCHAR(ctx.CHAR().getText()));
         if (!ctx.STRING().isEmpty())
-            return ir.promiseElement(ir.promiseSTRING(ctx.STRING().getText()));
+            return promisedIr.promiseElement(promisedIr.promiseSTRING(ctx.STRING().getText()));
         return null;
     }
 
     @Override
     public Object visitRange_(langosParser.Range_Context ctx) {
-        return ir.promiseBnfRange(
-                ir.promiseCHAR(ctx.CHAR(0).getText()),
-                ir.promiseCHAR(ctx.CHAR(1).getText())
+        return promisedIr.promiseBnfRange(
+                promisedIr.promiseCHAR(ctx.CHAR(0).getText()),
+                promisedIr.promiseCHAR(ctx.CHAR(1).getText())
         );
     }
 
     @Override
     public Object visitOptional_(langosParser.Optional_Context ctx) {
-        return ir.promiseBnfOptional(visitAlternatives_strong(ctx.alternatives_strong()));
+        return promisedIr.promiseBnfOptional(visitAlternatives_strong(ctx.alternatives_strong()));
     }
 
     @Override
     public Object visitZeroormore(langosParser.ZeroormoreContext ctx) {
-        return ir.promiseZeroormore(visitAlternatives_strong(ctx.alternatives_strong()));
+        return promisedIr.promiseZeroormore(visitAlternatives_strong(ctx.alternatives_strong()));
     }
 
     @Override
     public Object visitZeroormore_non_gready(langosParser.Zeroormore_non_greadyContext ctx) {
-        return ir.promiseZeroormoreNoneGready(
+        return promisedIr.promiseZeroormoreNoneGready(
                 visitAlternatives_strong(ctx.zeroormore().alternatives_strong())
         );
     }
 
     @Override
     public Object visitOneormore(langosParser.OneormoreContext ctx) {
-        return ir.promiseOneormore(visitAlternatives_strong(ctx.alternatives_strong()));
+        return promisedIr.promiseOneormore(visitAlternatives_strong(ctx.alternatives_strong()));
     }
 
     @Override
     public Object visitSyntax_(langosParser.Syntax_Context ctx) {
-        return ir.promiseSyntax(ir.promiseID(ctx.ID().getText()),
+        return promisedIr.promiseSyntax(promisedIr.promiseID(ctx.ID().getText()),
                 ctx.import_().stream().map(this::visitImport_),
                 visitRulelist(ctx.rulelist())
         );
     }
 
     @Override
-    public Object visitSyntax_namespace_obj(langosParser.Syntax_namespace_objContext ctx) {
-        return ir.promiseBnfNamespaceObj(
-                ir.promiseID(ctx.ID(0).getText()),
-                ir.promiseID(ctx.ID(1).getText())
+    public Promise visitSyntax_namespace_obj(langosParser.Syntax_namespace_objContext ctx) {
+        return promisedIr.promiseBnfNamespaceObj(
+                promisedIr.promiseID(ctx.ID(0).getText()),
+                promisedIr.promiseID(ctx.ID(1).getText())
         );
     }
 
     @Override
-    public Object visitSyntax_impl(langosParser.Syntax_implContext ctx) {
-        return ir.promiseSyntaxImpl(
+    public Promise visitSyntax_impl(langosParser.Syntax_implContext ctx) {
+        return promisedIr.promiseSyntaxImpl(
                 visitSyntax_namespace_obj(ctx.syntax_namespace_obj()),
                 visitId_list_strong(ctx.id_list_strong()),
                 visitSyntax_impl_body(ctx.syntax_impl_body())
@@ -145,20 +140,20 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitSyntax_return(langosParser.Syntax_returnContext ctx) {
-        return ir.promiseSyntaxReturn(visitSyntax_expr(ctx.syntax_expr()));
+        return promisedIr.promiseSyntaxReturn(visitSyntax_expr(ctx.syntax_expr()));
     }
 
     @Override
     public Object visitSyntax_method_call(langosParser.Syntax_method_callContext ctx) {
-        return ir.promiseBnfMethodCall(
-                ir.promiseID(ctx.ID().getText()),
+        return promisedIr.promiseBnfMethodCall(
+                promisedIr.promiseID(ctx.ID().getText()),
                 visitSyntax_expr(ctx.syntax_expr())
         );
     }
 
     @Override
     public Object visitSyntax_lambda(langosParser.Syntax_lambdaContext ctx) {
-        return ir.promiseLambda(visitId_list(ctx.id_list()),
+        return promisedIr.promiseLambda(visitId_list(ctx.id_list()),
                 ctx.syntax_expr().stream().map(this::visitSyntax_expr)
         );
     }
@@ -178,16 +173,16 @@ public class MyLangosVisitor implements langosVisitor {
     */
     @Override
     public Object visitSyntax_object_getter(langosParser.Syntax_object_getterContext ctx) {
-        return ir.promiseBnfObjectGetter(
-                ir.promiseID(ctx.ID().getText()),
+        return promisedIr.promiseBnfObjectGetter(
+                promisedIr.promiseID(ctx.ID().getText()),
                 visitSyntax_expr_strong(ctx.syntax_expr_strong())
         );
     }
 
     @Override
     public Object visitSyntax_text_getter(langosParser.Syntax_text_getterContext ctx) {
-        return ir.promiseBnfTextGetter(
-                ir.promiseID(ctx.ID().getText()),
+        return promisedIr.promiseBnfTextGetter(
+                promisedIr.promiseID(ctx.ID().getText()),
                 visitSyntax_expr(ctx.syntax_expr())
         );
     }
@@ -205,21 +200,21 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitSyntax_impl_body(langosParser.Syntax_impl_bodyContext ctx) {
-        return ir.promiseBnfImplBody(
+        return promisedIr.promiseBnfImplBody(
                 ctx.syntax_expr().stream().map(this::visitSyntax_expr)
         );
     }
 
     @Override
-    public Object visitImport_(langosParser.Import_Context ctx) {
-        return ir.promiseImport(
-                ctx.ID().stream().map(i -> ir.promiseID(i.getText()))
+    public Promise visitImport_(langosParser.Import_Context ctx) {
+        return promisedIr.promiseImport(
+                ctx.ID().stream().map(i -> promisedIr.promiseID(i.getText()))
         );
     }
 
     @Override
     public Object visitProgram(langosParser.ProgramContext ctx) {
-        return ir.promiseProgram(
+        return promisedIr.promiseProgram(
                 ctx.import_().stream().map(this::visitImport_),
                 ctx.syntax_().stream().map(this::visitSyntax_),
                 ctx.syntax_impl().stream().map(this::visitSyntax_impl)
@@ -233,8 +228,8 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitId_list(langosParser.Id_listContext ctx) {
-        return ir.promiseIdList(ctx.ID().stream().map(
-                i -> ir.promiseID(i.getText())
+        return promisedIr.promiseIdList(ctx.ID().stream().map(
+                i -> promisedIr.promiseID(i.getText())
         ));
     }
 
@@ -245,7 +240,7 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitId_strong(langosParser.Id_strongContext ctx) {
-        return ir.promiseID(ctx.ID().getText());
+        return promisedIr.promiseID(ctx.ID().getText());
     }
 
     @Override
