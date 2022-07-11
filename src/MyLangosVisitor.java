@@ -16,8 +16,8 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Object visitRule_(langosParser.Rule_Context ctx) {
-        var id = promisedIr.promiseID(ctx.ID().getText());
-        var alt = visitAlternatives(ctx.alternatives());
+        Promise id = promisedIr.promiseID(ctx.ID().getText());
+        Object alt = visitAlternatives(ctx.alternatives());
         return promisedIr.promiseRule_(id, alt);
     }
 
