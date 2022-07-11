@@ -1,75 +1,88 @@
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.Vector;
 
 public class IR {
-    static IR createID(String s){
+    static List syn = new LinkedList<Syntax>();
+    ASM asm;
+    public Object createID(String s){
+        return asm.addToTableIDs(s);
+    }
+
+    public Object createSyntax(Promise promiseID, Stream<Object> t, Object visitRulelist) {
+
+    }
+
+    public Object createBnfNamespaceObj(Promise promiseID, Promise promiseID1) {
+    }
+
+    public IR findSyntax(Promise promiseID) {
         return new IR();
     }
 
-    public static Object createSyntax(Object promiseID, Stream<Object> t, Object visitRulelist) {
+    public Object createOneormore(Object visitAlternatives_strong) {
     }
 
-    public static Object createBnfNamespaceObj(Object promiseID, Object promiseID1) {
+    public Object createChar(String text) {
     }
 
-    public static IR findSyntax(Object promiseID) {
-        return new IR();
+    public Object createString(String text) {
     }
 
-    public static Object createOneormore(Object visitAlternatives_strong) {
+    public Object createRange(Promise promiseCHAR, Promise promiseCHAR1) {
     }
 
-    public static Object createChar(String text) {
+    public Object createOptional(Object visitAlternatives_strong) {
     }
 
-    public static Object createString(String text) {
+    public Object createZeroormore(Object visitAlternatives_strong) {
     }
 
-    public static Object createRange(Object promiseCHAR, Object promiseCHAR1) {
+    public Object createZeroormoreNoneGready(Object visitAlternatives_strong) {
     }
 
-    public static Object createOptional(Object visitAlternatives_strong) {
+    public Object createReturn(Object visitSyntax_expr) {
     }
 
-    public static Object createZeroormore(Object visitAlternatives_strong) {
+    public Object createLambda(Object visitId_list, Stream<Object> objectStream) {
     }
 
-    public static Object createZeroormoreNoneGready(Object visitAlternatives_strong) {
+    public Object createImplBody(Stream<Object> objectStream) {
     }
 
-    public static Object createReturn(Object visitSyntax_expr) {
+    public Object createImport(Stream<Object> objectStream) {
     }
 
-    public static Object createLambda(Object visitId_list, Stream<Object> objectStream) {
+    public Object createIdList(Stream<Object> objectStream) {
     }
 
-    public static Object createImplBody(Stream<Object> objectStream) {
+    public Object createNot(Object visitElement) {
     }
 
-    public static Object createImport(Stream<Object> objectStream) {
+    public Object createAlternative(Stream<Object> objectStream) {
     }
 
-    public static Object createIdList(Stream<Object> objectStream) {
+    public Object createAlternatives(Stream<Object> objectStream) {
     }
 
-    public static Object createNot(Object visitElement) {
+    public Object createRule(Object id, Object alt) {
     }
 
-    public static Object createAlternative(Stream<Object> objectStream) {
+    public Object createRuleList(Stream<Object> objectStream) {
     }
 
-    public static Object createAlternatives(Stream<Object> objectStream) {
-    }
-
-    public static Object createRule(Object id, Object alt) {
-    }
-
-    public static Object createRuleList(Stream<Object> objectStream) {
+    public Object createRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {
     }
 
     public Object addHandlerExpression(Object visitSyntax_expr) {
     }
-    public static Object findSyntaxNamespace(Promise promise){
-//TODO
+    public static Syntax findSyntaxNamespace(Promise promise){
+        Optional<Syntax> stream = syn.stream().filter(o -> o.name == promise.get()).findFirst();
+        if(!stream.isEmpty());
+            return stream.get();
+        return null;
     }
 
 }

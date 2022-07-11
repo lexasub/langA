@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="ss">
-      <change afterPath="$PROJECT_DIR$/src/utils/PrevThatIterator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ASM.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Syntax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/langosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/langosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/langA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/langA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/IR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MyLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyLangosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Promise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Promise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PromisedIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PromisedIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/langos.interp" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/langos.interp" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +77,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="IO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="IO" />

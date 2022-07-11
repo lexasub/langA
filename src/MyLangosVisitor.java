@@ -206,8 +206,16 @@ public class MyLangosVisitor implements langosVisitor {
             return visitSyntax_object_getter(ctx.syntax_object_getter());
         if(!ctx.syntax_text_getter().isEmpty())
             return visitSyntax_text_getter(ctx.syntax_text_getter());
+        if(!ctx.syntax_namespace_obj().isEmpty()){
+            if(!ctx.syntax_expr_helper().syntax_expr_strong().isEmpty())
+                return promisedIr.promiseRuleCall(
+                        visitSyntax_namespace_obj(ctx.syntax_namespace_obj()),
+                        visitSyntax_expr_helper(ctx.syntax_expr_helper())
+                );
+
+        }
         //TODO
-        // syntax_expr_helper : syntax_expr_strong | syntax_method_call;
+        // syntax_expr_helper : syntax_method_call;
         // syntax_expr : syntax_namespace_obj syntax_expr_helper
         return null;
     }

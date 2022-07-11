@@ -27,4 +27,7 @@ public class Promise {
 
         return this;
     }
+    public Object get(){
+        return null;
+    }
 }
