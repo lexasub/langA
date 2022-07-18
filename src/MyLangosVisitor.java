@@ -76,11 +76,11 @@ public class MyLangosVisitor implements langosVisitor {
         if (!ctx.range_().isEmpty())
             return promisedIr.promiseElement(visitRange_(ctx.range_()));
 
-        if (!ctx.ID().isEmpty())
+        if (ctx.ID().getText() != "") //[TODO check]
             return promisedIr.promiseElement(promisedIr.promiseID(ctx.ID().getText()));
-        if (!ctx.CHAR().isEmpty())
+        if (ctx.CHAR().getText() != "")//[TODO check]
             return promisedIr.promiseElement(promisedIr.promiseCHAR(ctx.CHAR().getText()));
-        if (!ctx.STRING().isEmpty())
+        if (ctx.STRING().getText() != "")//[TODO check]
             return promisedIr.promiseElement(promisedIr.promiseSTRING(ctx.STRING().getText()));
         return null;
     }
@@ -273,7 +273,7 @@ public class MyLangosVisitor implements langosVisitor {
     @Override
     public Promise visit(ParseTree parseTree) {
         return null;
-    }
+    }//visitEntryPoint()??
 
     @Override
     public Promise visitChildren(RuleNode ruleNode) {

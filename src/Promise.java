@@ -1,6 +1,5 @@
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 
 public class Promise {
     class tmp {
@@ -29,5 +28,9 @@ public class Promise {
     }
     public Object get(){
         return null;
+    }
+
+    public boolean equals(Object obj){
+        return true;
     }
 }

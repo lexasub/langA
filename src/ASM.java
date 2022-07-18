@@ -1,10 +1,30 @@
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
+import java.util.stream.Stream;
 
 public class ASM {
-    List ids = new Vector<String>();
-    public Integer addToTableIDs(String s) {
+    List ids = new LinkedList<String>();
+    List uniqStr = new LinkedList<String>();
+    public String addToTableIDs(String s) {
         ids.add(s);
-        return ids.size() - 1;
+        return s;
+    }
+
+    public <R> R addCode(Object o) {
+        //ASM должен приходить
+        return null;
+    }
+
+    public String addToTableUniqStr(String text) {
+        uniqStr.add(text);
+        return text;
+    }
+
+    public ASM addLambda(Object visitId_list, Stream<Object> objectStream) {
+        return  this;
+    }
+
+    public ASMMODULE findModule(Object next) {
+        return null;
     }
 }

@@ -14,7 +14,7 @@ public class PromisedIR {
 
     public Promise promiseSyntax(Promise promiseID, Stream<Promise> objectStream, Promise visitRulelist) {
         return Promise.add(() -> {
-            Stream<Object> t = objectStream.map((i) -> i.addAfterDependency(visitRulelist));
+            Stream<Promise> t = objectStream.map((i) -> i.addAfterDependency(visitRulelist));
             return (new IR()).createSyntax(promiseID, t, visitRulelist);
         });
     }
@@ -67,13 +67,11 @@ public class PromisedIR {
 
     public Promise promiseSyntaxImpl(Promise visitSyntax_namespace_obj, Promise visitId_list_strong, Promise visitSyntax_impl_body) {
         return Promise.add(() ->
-            (new IR()).findSyntaxNamespace(
-                    visitSyntax_namespace_obj.addWaiter((i) -> i.namespace())
-            ).addHandler(
-                    visitSyntax_namespace_obj.addWaiter((i) -> i.name()),
+                Syntax.linkSyntaxImpl(
+                    visitSyntax_namespace_obj,
                     visitId_list_strong,
                     visitSyntax_impl_body
-            )
+                )
         );
     }
 
@@ -105,7 +103,7 @@ public class PromisedIR {
         });
     }
 
-    public Promise promiseIdList(Stream<Object> objectStream) {
+    public Promise promiseIdList(Stream<Promise> objectStream) {
         return Promise.add(() -> (new IR()).createIdList(objectStream));
     }
 
