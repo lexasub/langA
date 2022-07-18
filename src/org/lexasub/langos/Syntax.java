@@ -1,4 +1,6 @@
-import java.util.stream.Stream;
+package org.lexasub.langos;
+
+import org.lexasub.langos.utils.Promise;
 
 public class Syntax {
     public Promise name;

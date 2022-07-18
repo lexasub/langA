@@ -1,7 +1,8 @@
-import java.util.Iterator;
+package org.lexasub.langos;
+
+import org.lexasub.langos.utils.Promise;
+
 import java.util.ListIterator;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 public class PromisedIR {
     public Promise promiseID(String text) {

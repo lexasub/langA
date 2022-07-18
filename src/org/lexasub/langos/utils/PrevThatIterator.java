@@ -1,4 +1,4 @@
-package utils;
+package org.lexasub.langos.utils;
 
 import org.antlr.v4.runtime.misc.Pair;
 

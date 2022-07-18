@@ -1,3 +1,5 @@
+package org.lexasub.langos.asm;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -11,7 +13,7 @@ public class ASM {
     }
 
     public <R> R addCode(Object o) {
-        //ASM должен приходить
+        //org.lexasub.langos.asm.ASM должен приходить
         return null;
     }
 

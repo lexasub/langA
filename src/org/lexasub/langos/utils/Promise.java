@@ -1,3 +1,5 @@
+package org.lexasub.langos.utils;
+
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -14,7 +16,7 @@ public class Promise {
         }
     };
 
-    static Promise add(Supplier op) {
+    public static Promise add(Supplier op) {
         return new Promise();
     }
 

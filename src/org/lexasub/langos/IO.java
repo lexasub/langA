@@ -1,3 +1,5 @@
+package org.lexasub.langos;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;

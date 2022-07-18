@@ -1,8 +1,10 @@
+package org.lexasub.langos;
+
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import java.util.Collections;
+import org.lexasub.langos.utils.Promise;
 
 public class MyLangosVisitor implements langosVisitor {
 
@@ -162,13 +164,13 @@ public class MyLangosVisitor implements langosVisitor {
 
     /*
         @Override
-        public Promise visitSyntax_with_body(langosParser.Syntax_with_bodyContext ctx) {
+        public org.lexasub.langos.utils.Promise visitSyntax_with_body(langosParser.Syntax_with_bodyContext ctx) {
             //OLDTODO
             return null;
         }
 
         @Override
-        public Promise visitSyntax_with(langosParser.Syntax_withContext ctx) {
+        public org.lexasub.langos.utils.Promise visitSyntax_with(langosParser.Syntax_withContext ctx) {
             //OLDTODO
             return null;
         }

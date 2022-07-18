@@ -1,10 +1,16 @@
+package org.lexasub.langos;
+
+import org.lexasub.langos.asm.ASM;
+import org.lexasub.langos.asm.ASMMODULE;
+import org.lexasub.langos.utils.Promise;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class IR {//TODO? normal asm usage
+public class IR {//TODO? normal org.lexasub.langos.asm usage
     static List syn = new LinkedList<Syntax>();
     ASM asm;
     public Object createID(String s){
