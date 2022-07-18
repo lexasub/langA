@@ -2,6 +2,8 @@ package org.lexasub.langos;
 
 import org.lexasub.langos.utils.Promise;
 
+import java.util.stream.Stream;
+
 public class Syntax {
     public Promise name;
 
@@ -24,13 +26,17 @@ public class Syntax {
     public void addImport(Promise t) {
     }
 
-    public void addRuleList(Promise rulelist) {
+    public void addRuleList(Stream<Promise> rulelist) {
     }
 
     public void apply() {
     }
 
     public Object findRule(Promise promiseID1) {
+        return null;
+    }
+
+    public Object createRule(Object id, Object alt) {
         return null;
     }
 }

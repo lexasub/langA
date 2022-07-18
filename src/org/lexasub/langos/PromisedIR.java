@@ -9,37 +9,37 @@ public class PromisedIR {
        return Promise.add(() ->  (new IR()).createID(text));
     }
 
-    public Promise promiseElement(Promise promiseID) {
-        return promiseID;
+    public Promise promiseElement(Promise elem) {
+        return elem;
     }
 
-    public Promise promiseSyntax(Promise promiseID, Stream<Promise> objectStream, Promise visitRulelist) {
+    public Promise promiseSyntax(Promise syntaxName, Stream<Promise> syntaxImports, Stream<Promise> syntaxRules) {
         return Promise.add(() -> {
-            Stream<Promise> t = objectStream.map((i) -> i.addAfterDependency(visitRulelist));
-            return (new IR()).createSyntax(promiseID, t, visitRulelist);
+            Stream<Promise> t = syntaxImports.map((i) -> i.addAfterDependency(syntaxRules));
+            return (new IR()).createSyntax(syntaxName, t, syntaxRules);
         });
     }
 
-    public Promise promiseBnfNamespaceObj(Promise promiseID, Promise promiseID1) {
-        return Promise.add(() -> (new IR()).createBnfNamespaceObj(promiseID, promiseID1));
+    public Promise promiseBnfNamespaceObj(Promise namespace_, Promise objectName) {
+        return Promise.add(() -> (new IR()).createBnfNamespaceObj(namespace_, objectName));
     }
 
-    public Promise promiseBnfMethodCall(Promise promiseID, Promise visitSyntax_expr) {
+    public Promise promiseBnfMethodCall(Promise methodName, Promise methodArgs) {
         return Promise.add(
-                () -> (new IR()).findSyntax(promiseID).addHandlerExpression(visitSyntax_expr)
+                () -> (new IR()).findSyntax(methodName).addHandlerExpression(methodArgs)
         );
     }
 
-    public Promise promiseBnfObjectGetter(Promise promiseID, Promise visitSyntax_expr_strong) {
+    public Promise promiseBnfObjectGetter(Promise objectName, Promise expr) {
         return null;
     }
 
-    public Promise promiseBnfTextGetter(Promise promiseID, Promise visitSyntax_expr) {
+    public Promise promiseBnfTextGetter(Promise objectName, Promise expr) {
         return null;
     }
 
-    public Promise promiseOneormore(Promise visitAlternatives_strong) {
-        return Promise.add(() -> (new IR()).createOneormore(visitAlternatives_strong));
+    public Promise promiseOneormore(Promise alternatives) {
+        return Promise.add(() -> (new IR()).createOneormore(alternatives));
     }
 
     public Promise promiseCHAR(String text) {
@@ -50,53 +50,53 @@ public class PromisedIR {
         return Promise.add(() -> (new IR()).createString(text));
     }
 
-    public Promise promiseBnfRange(Promise promiseCHAR, Promise promiseCHAR1) {
-        return Promise.add(() -> (new IR()).createRange(promiseCHAR, promiseCHAR1));
+    public Promise promiseBnfRange(Promise charFrom, Promise charTo) {
+        return Promise.add(() -> (new IR()).createRange(charFrom, charTo));
     }
 
-    public Promise promiseBnfOptional(Promise visitAlternatives_strong) {
-        return Promise.add(() -> (new IR()).createOptional(visitAlternatives_strong));
+    public Promise promiseBnfOptional(Promise alternatives) {
+        return Promise.add(() -> (new IR()).createOptional(alternatives));
     }
 
-    public Promise promiseZeroormore(Promise visitAlternatives_strong) {
-        return Promise.add(() -> (new IR()).createZeroormore(visitAlternatives_strong));
+    public Promise promiseZeroormore(Promise alternatives) {
+        return Promise.add(() -> (new IR()).createZeroormore(alternatives));
     }
 
-    public Promise promiseZeroormoreNoneGready(Promise visitAlternatives_strong) {
-        return Promise.add(() -> (new IR()).createZeroormoreNoneGready(visitAlternatives_strong));
+    public Promise promiseZeroormoreNoneGready(Promise alternatives) {
+        return Promise.add(() -> (new IR()).createZeroormoreNoneGready(alternatives));
     }
 
-    public Promise promiseSyntaxImpl(Promise visitSyntax_namespace_obj, Promise visitId_list_strong, Promise visitSyntax_impl_body) {
+    public Promise promiseSyntaxImpl(Promise namespaceObj, Promise syntaxMethodArgs, Promise syntaxMethodBody) {
         return Promise.add(() ->
                 Syntax.linkSyntaxImpl(
-                    visitSyntax_namespace_obj,
-                    visitId_list_strong,
-                    visitSyntax_impl_body
+                    namespaceObj,
+                    syntaxMethodArgs,
+                    syntaxMethodBody
                 )
         );
     }
 
-    public Promise promiseSyntaxReturn(Promise visitSyntax_expr) {
-        return Promise.add(() -> (new IR()).createReturn(visitSyntax_expr));
+    public Promise promiseSyntaxReturn(Promise returnExpr) {
+        return Promise.add(() -> (new IR()).createReturn(returnExpr));
     }
 
-    public Promise promiseLambda(Promise visitId_list, Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createLambda(visitId_list,objectStream));
+    public Promise promiseLambda(Promise lambdaArgs, Stream<Object> lambdaBody) {
+        return Promise.add(() -> (new IR()).createLambda(lambdaArgs,lambdaBody));
     }
 
-    public Promise promiseBnfImplBody(Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createImplBody(objectStream));
+    public Promise promiseBnfImplBody(Stream<Object> expressions) {
+        return Promise.add(() -> (new IR()).createImplBody(expressions));
     }
 
-    public Promise promiseImport(Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createImport(objectStream));
+    public Promise promiseImport(Stream<Object> imports) {
+        return Promise.add(() -> (new IR()).createImport(imports));
     }
 
-    public Promise promiseProgram(Stream<Promise> objectStream, Stream<Object> objectStream1, Stream<Object> objectStream2) {
+    public Promise promiseProgram(Stream<Promise> importPath, Stream<Object> syntax_, Stream<Object> syntaxImpl) {
         return Promise.add(() -> {
-            ListIterator<Promise> elem = objectStream.toList().listIterator();
+            ListIterator<Promise> elem = importPath.toList().listIterator();
             Object firstElem = elem.next();//nonCopy!!
-            while(objectStream.count() != 0){
+            while(importPath.count() != 0){
                 var tmp = elem.next();
                 elem.previous().addAfterDependency(tmp);
             }
@@ -104,31 +104,28 @@ public class PromisedIR {
         });
     }
 
-    public Promise promiseIdList(Stream<Promise> objectStream) {
-        return Promise.add(() -> (new IR()).createIdList(objectStream));
+    public Promise promiseIdList(Stream<Promise> ids) {
+        return Promise.add(() -> (new IR()).createIdList(ids));
     }
 
-    public Promise promiseBnfNot(Promise visitElement) {
-        return Promise.add(() -> (new IR()).createNot(visitElement));
+    public Promise promiseBnfNot(Promise elem) {
+        return Promise.add(() -> (new IR()).createNot(elem));
     }
 
-    public Promise promiseBnfAlternative(Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createAlternative(objectStream));
+    public Promise promiseBnfAlternative(Stream<Object> elements) {
+        return Promise.add(() -> (new IR()).createAlternative(elements));
     }
 
-    public Promise promiseBnfAlternatives(Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createAlternatives(objectStream));
+    public Promise promiseBnfAlternatives(Stream<Object> alternatives) {
+        return Promise.add(() -> (new IR()).createAlternatives(alternatives));
     }
 
-    public Promise promiseRule_(Object id, Object alt) {
-        return Promise.add(() -> (new IR()).createRule(id, alt));
+    public Promise promiseRule_(Promise id, Promise alt, Promise syntaxName) {
+        return Promise.add(() -> (new IR()).findSyntaxNamespace(syntaxName).createRule(id, alt));
     }
 
-    public Promise promiseRuleList(Stream<Object> objectStream) {
-        return Promise.add(() -> (new IR()).createRuleList(objectStream));
-    }
 
-    public Promise promiseRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {
+    public Promise promiseRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {//TODO разобраться
         return Promise.add(() -> (new IR()).createRuleCall(visitSyntax_namespace_obj, visitSyntax_expr_helper));
     }
 }

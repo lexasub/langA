@@ -17,27 +17,27 @@ public class IR {//TODO? normal org.lexasub.langos.asm usage
         return asm.addToTableIDs(s);
     }
 
-    public Object createSyntax(Promise promiseID, Stream<Promise> t, Promise rulelist) {
-        Syntax syn_ = new Syntax(promiseID);
-        t.forEach(syn_::addImport);
+    public Object createSyntax(Promise syntaxName, Stream<Promise> imports, Stream<Promise> rulelist) {
+        Syntax syn_ = new Syntax(syntaxName);
+        imports.forEach(syn_::addImport);
         syn_.addRuleList(rulelist);
         syn_.apply();
         syn.add(syn_);
         return syn_;
     }
 
-    public Object createBnfNamespaceObj(Promise promiseID, Promise promiseID1) {
-        Syntax sn = findSyntaxNamespace(promiseID);
+    public Object createBnfNamespaceObj(Promise namespace_, Promise ruleName) {
+        Syntax sn = findSyntaxNamespace(namespace_);
         if (sn == null) return null;
-        return sn.findRule(promiseID1);
+        return sn.findRule(ruleName);
     }
 
-    public IR findSyntax(Promise promiseID) {
+    public IR findSyntax(Promise promiseID) {//TODO разобраться
         return new IR();
     }
 
-    public ASM createOneormore(Promise visitAlternatives_strong) {
-        ((Stream<Object>) visitAlternatives_strong.get()).map(asm::addCode);
+    public ASM createOneormore(Promise alternatives) {
+        ((Stream<Object>) alternatives.get()).map(asm::addCode);
         return asm;
     }
 
@@ -49,40 +49,40 @@ public class IR {//TODO? normal org.lexasub.langos.asm usage
         return asm.addToTableUniqStr(text);
     }
 
-    public Object createRange(Promise promiseCHAR, Promise promiseCHAR1) {
-        return Syntax.addRangeCheck(promiseCHAR, promiseCHAR1);
+    public Object createRange(Promise charFrom, Promise charTo) {
+        return Syntax.addRangeCheck(charFrom, charTo);
     }
 
-    public ASM createOptional(Promise visitAlternatives_strong) {
-        ((Stream<Object>) visitAlternatives_strong.get()).map(asm::addCode);
+    public ASM createOptional(Promise alternatives) {
+        ((Stream<Object>) alternatives.get()).map(asm::addCode);
         return asm;
     }
 
-    public ASM createZeroormore(Promise visitAlternatives_strong) {
-        ((Stream<Object>) visitAlternatives_strong.get()).map(asm::addCode);
+    public ASM createZeroormore(Promise alternatives) {
+        ((Stream<Object>) alternatives.get()).map(asm::addCode);
         return asm;
     }
 
-    public ASM createZeroormoreNoneGready(Promise visitAlternatives_strong) {
-        ((Stream<Object>) visitAlternatives_strong.get()).map(asm::addCode);
+    public ASM createZeroormoreNoneGready(Promise alternatives) {
+        ((Stream<Object>) alternatives.get()).map(asm::addCode);
         return asm;
     }
 
-    public Object createReturn(Object visitSyntax_expr) {
+    public Object createReturn(Promise returnExpr) {
 
     }
 
-    public ASM createLambda(Object visitId_list, Stream<Object> objectStream) {
-        return asm.addLambda(visitId_list, objectStream);
+    public ASM createLambda(Promise lambdaArgs, Stream<Object> lambdaBody) {
+        return asm.addLambda(lambdaArgs, lambdaBody);
     }
 
-    public Object createImplBody(Stream<Object> objectStream) {
-        objectStream.map(asm::addCode);
+    public ASM createImplBody(Stream<Object> expressions) {
+        expressions.map(asm::addCode);
         return asm;
     }
 
-    public Object createImport(Stream<Object> objectStream) {
-        Iterator<Object> it = objectStream.iterator();
+    public ASM createImport(Stream<Object> imports) {
+        Iterator<Object> it = imports.iterator();
         ASMMODULE mod = asm.findModule(it.next());
         while(it.hasNext()) {
             mod = mod.findSubModule(it.next());
@@ -91,28 +91,22 @@ public class IR {//TODO? normal org.lexasub.langos.asm usage
         return asm;
     }
 
-    public Object createIdList(Stream<Promise> objectStream) {
-        objectStream.map(i -> asm.addToTableIDs((String) i.get()));
+    public ASM createIdList(Stream<Promise> ids) {
+        ids.map(i -> asm.addToTableIDs((String) i.get()));
         return asm;
     }
 
-    public Object createNot(Object visitElement) {
+    public Object createNot(Promise elem) {
     }
 
-    public Object createAlternative(Stream<Object> objectStream) {
+    public Object createAlternative(Stream<Object> elements) {
     }
 
-    public Stream<Object> createAlternatives(Stream<Object> objectStream) {
-        return objectStream;
+    public Stream<Object> createAlternatives(Stream<Object> alternatives) {
+        return alternatives;
     }
 
-    public Object createRule(Object id, Object alt) {
-    }
-
-    public Object createRuleList(Stream<Object> objectStream) {
-    }
-
-    public Object createRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {
+    public Object createRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {//TODO разобраться
     }
 
     public Object addHandlerExpression(Object visitSyntax_expr) {

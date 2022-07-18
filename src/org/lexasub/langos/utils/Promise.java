@@ -2,8 +2,12 @@ package org.lexasub.langos.utils;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Promise {
+    public void addAfterDependency(Promise tmp) {
+    }
+
     class tmp {
         public String namespace="", name="";
 
@@ -20,7 +24,7 @@ public class Promise {
         return new Promise();
     }
 
-    public Promise addAfterDependency(Promise visitRulelist) {
+    public Promise addAfterDependency(Stream<Promise> visitRulelist) {
         return this;
     }
 
