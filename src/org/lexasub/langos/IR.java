@@ -97,6 +97,7 @@ public class IR {//TODO? normal org.lexasub.langos.asm usage
     }
 
     public Object createNot(Promise elem) {
+        //elem.get()
     }
 
     public Object createAlternative(Stream<Object> elements) {
@@ -104,7 +105,7 @@ public class IR {//TODO? normal org.lexasub.langos.asm usage
 
     public Stream<Object> createAlternatives(Stream<Object> alternatives) {
         return alternatives;
-    }
+    }//MB it's wrong
 
     public Object createRuleCall(Promise visitSyntax_namespace_obj, Promise visitSyntax_expr_helper) {//TODO разобраться
     }

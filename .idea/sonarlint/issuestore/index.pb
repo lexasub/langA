@@ -1,14 +1,10 @@
 
-S
-#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
 8
 test.old,b/7/b7428968cfc98f099463e3934540a1e12e5582c4
 7
 fff.txt,c/0/c0aea652715a0a65432135f1ec43b3ade3307573
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
-C
-src/Processing.java,0/9/094621d67fbcf721e2428a1109a3a70016547c52
 >
 checkstyle.xml,0/d/0d7fcbf2189c1d04b7686bca0ee60fdded230e2d
 :
@@ -18,7 +14,3 @@ U
 %src/org/example/myLangosListener.java,e/e/ee636ad9a4113e1e6682ba691cadb5607f19e9dd
 Q
 !src/org/example/LangosWalker.java,2/7/27077e29b69d5f41b3986efc785d900425b51af0
-O
-src/utils/PrevThatIterator.java,c/a/ca336c79d3a79c29bb945a23c83f18aebb9786b8
-;
-src/IO.java,6/5/6524a28cdb2a9db930446033463b75376b4bd9db
