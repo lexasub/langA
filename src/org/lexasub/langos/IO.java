@@ -1,11 +1,13 @@
 package org.lexasub.langos;
 
-import java.io.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 public class IO {
     public static void main(String[] args) throws IOException {
@@ -23,8 +25,10 @@ public class IO {
       /*  ParseTreeListener listener = new org.example.myLangosListener();
         ParseTreeWalker.DEFAULT.walk(listener, tree); */
 
-        ParseTreeVisitor visitor = new MyLangosVisitor();
-        visitor.visit(tree);
+        MyLangosVisitor visitor = new MyLangosVisitor();
+        //visitor.visit(tree);
+        visitor.visitEntry_point(parser.entry_point());
+        //langosParser.Entry_pointContext s = parser.entry_point();
 
     }
 }
