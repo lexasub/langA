@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langos.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langos.g4 by ANTLR 4.10.1
 package org.lexasub.langos;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

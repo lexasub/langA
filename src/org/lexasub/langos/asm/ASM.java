@@ -1,5 +1,9 @@
 package org.lexasub.langos.asm;
 
+import org.lexasub.langos.Syntax;
+import org.lexasub.langos.Rule;
+import org.lexasub.langos.utils.Promise;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -12,7 +16,7 @@ public class ASM {
         return s;
     }
 
-    public <R> R addCode(Object o) {
+    public <R> R addCode(ASM o) {
         //org.lexasub.langos.asm.ASM должен приходить
         return null;
     }
@@ -22,11 +26,20 @@ public class ASM {
         return text;
     }
 
-    public ASM addLambda(Object visitId_list, Stream<Object> objectStream) {
+    public ASM addLambda(Object visitId_list, Stream<Object> objectStream) {//TODO
         return  this;
     }
 
-    public ASMMODULE findModule(Object next) {
+    public ASMMODULE findModule(Object next) {//TODO
+
         return null;
+    }
+
+    public void neg(ASM asm) {//TODO
+
+    }
+
+    public void generateRunRule(Rule Rule, Promise methodArgs, List<Syntax> syn) {//TODO
+
     }
 }

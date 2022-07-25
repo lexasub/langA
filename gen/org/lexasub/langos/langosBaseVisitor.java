@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langos.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langos.g4 by ANTLR 4.10.1
 package org.lexasub.langos;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -129,7 +129,7 @@ public class langosBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSyntax_method_call(langosParser.Syntax_method_callContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSyntax_rule_call(langosParser.Syntax_rule_callContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -157,7 +157,21 @@ public class langosBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSyntax_method_call_begin(langosParser.Syntax_method_call_beginContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSyntax_method_call_body(langosParser.Syntax_method_call_bodyContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSyntax_method_call(langosParser.Syntax_method_callContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

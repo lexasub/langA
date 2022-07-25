@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langos.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langos.g4 by ANTLR 4.10.1
 package org.lexasub.langos;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -208,13 +208,13 @@ public class langosBaseListener implements langosListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSyntax_method_call(langosParser.Syntax_method_callContext ctx) { }
+	@Override public void enterSyntax_rule_call(langosParser.Syntax_rule_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSyntax_method_call(langosParser.Syntax_method_callContext ctx) { }
+	@Override public void exitSyntax_rule_call(langosParser.Syntax_rule_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -256,13 +256,37 @@ public class langosBaseListener implements langosListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { }
+	@Override public void enterSyntax_method_call_begin(langosParser.Syntax_method_call_beginContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx) { }
+	@Override public void exitSyntax_method_call_begin(langosParser.Syntax_method_call_beginContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSyntax_method_call_body(langosParser.Syntax_method_call_bodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSyntax_method_call_body(langosParser.Syntax_method_call_bodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSyntax_method_call(langosParser.Syntax_method_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSyntax_method_call(langosParser.Syntax_method_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

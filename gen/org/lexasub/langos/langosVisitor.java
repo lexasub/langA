@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langos.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langos.g4 by ANTLR 4.10.1
 package org.lexasub.langos;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -107,11 +107,11 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSyntax_return(langosParser.Syntax_returnContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosParser#syntax_method_call}.
+	 * Visit a parse tree produced by {@link langosParser#syntax_rule_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSyntax_method_call(langosParser.Syntax_method_callContext ctx);
+	T visitSyntax_rule_call(langosParser.Syntax_rule_callContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosParser#syntax_lambda}.
 	 * @param ctx the parse tree
@@ -131,11 +131,23 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSyntax_text_getter(langosParser.Syntax_text_getterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosParser#syntax_expr_helper}.
+	 * Visit a parse tree produced by {@link langosParser#syntax_method_call_begin}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSyntax_expr_helper(langosParser.Syntax_expr_helperContext ctx);
+	T visitSyntax_method_call_begin(langosParser.Syntax_method_call_beginContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosParser#syntax_method_call_body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSyntax_method_call_body(langosParser.Syntax_method_call_bodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosParser#syntax_method_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSyntax_method_call(langosParser.Syntax_method_callContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosParser#syntax_expr}.
 	 * @param ctx the parse tree
