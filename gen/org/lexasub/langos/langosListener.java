@@ -28,6 +28,16 @@ public interface langosListener extends ParseTreeListener {
 	 */
 	void exitRule_(langosParser.Rule_Context ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosParser#alternative}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlternative(langosParser.AlternativeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosParser#alternative}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlternative(langosParser.AlternativeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosParser#alternatives}.
 	 * @param ctx the parse tree
 	 */
@@ -47,16 +57,6 @@ public interface langosListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAlternatives_strong(langosParser.Alternatives_strongContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link langosParser#alternative}.
-	 * @param ctx the parse tree
-	 */
-	void enterAlternative(langosParser.AlternativeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosParser#alternative}.
-	 * @param ctx the parse tree
-	 */
-	void exitAlternative(langosParser.AlternativeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosParser#bnf_not}.
 	 * @param ctx the parse tree

@@ -40,6 +40,18 @@ public class langosBaseListener implements langosListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAlternative(langosParser.AlternativeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAlternative(langosParser.AlternativeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAlternatives(langosParser.AlternativesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -59,18 +71,6 @@ public class langosBaseListener implements langosListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAlternatives_strong(langosParser.Alternatives_strongContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAlternative(langosParser.AlternativeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAlternative(langosParser.AlternativeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

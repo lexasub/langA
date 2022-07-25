@@ -10,18 +10,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class FIR {//FRONTENDIR
+public class FIR {//FRONTEND IR
     //TODO? normal org.lexasub.langos.asm usage
-    static List syn = new LinkedList<Syntax>();
+    static List<Syntax> syn = new LinkedList<>();
     ASM asm;
     public Object createID(String s){
         return asm.addToTableIDs(s);
     }
 
-    public Object createSyntax(Promise syntaxName, Stream<Promise> imports, Stream<Promise> rulelist) {
+    public Object createSyntax(Promise syntaxName, Stream<Promise> imports, Stream<Promise> ruleList) {
         Syntax syn_ = new Syntax(syntaxName);
         imports.forEach(syn_::addImport);
-        syn_.addRuleList(rulelist);
+        syn_.addRuleList(ruleList);
         syn_.apply();
         syn.add(syn_);
         return syn_;

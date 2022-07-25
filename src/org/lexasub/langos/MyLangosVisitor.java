@@ -220,14 +220,7 @@ public class MyLangosVisitor implements langosVisitor {
             return visitSyntax_object_getter(ctx.syntax_object_getter());
         if(!ctx.syntax_text_getter().isEmpty())
             return visitSyntax_text_getter(ctx.syntax_text_getter());
-    /*    if(!ctx.syntax_namespace_obj().isEmpty()){
-            if(!ctx.syntax_expr_helper().syntax_expr_strong().isEmpty())
-                return promisedIr.promiseRuleCall(
-                        visitSyntax_namespace_obj(ctx.syntax_namespace_obj()),
-                        visitSyntax_expr_helper(ctx.syntax_expr_helper())
-                );
-
-        }*/
+        if (ctx.ID().getText() != "") {} //TODO
         if(!ctx.syntax_method_call().isEmpty()){}//TODO
         if(!ctx.syntax_rule_call().isEmpty())
             return visitSyntax_rule_call(ctx.syntax_rule_call());

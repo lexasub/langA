@@ -23,6 +23,12 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRule_(langosParser.Rule_Context ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosParser#alternative}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAlternative(langosParser.AlternativeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosParser#alternatives}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -34,12 +40,6 @@ public interface langosVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAlternatives_strong(langosParser.Alternatives_strongContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosParser#alternative}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAlternative(langosParser.AlternativeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosParser#bnf_not}.
 	 * @param ctx the parse tree

@@ -37,14 +37,14 @@ STRING :  '\'' (ANY | '\\\'') *? '\'' ;
 
 //нафиг возможность перезаписывать правила, просто по другому именовать будем
 /*rule_ <- ((ident  ':' bnf_right* ';')*);*/
-rulelist : rule_*;
+rulelist : rule_+;
 
 rule_  : ID COLON alternatives SEMI;
 
+alternative : element+  ;
 alternatives  : alternative (BAR alternative)*  ;
 alternatives_strong : RPAREN alternatives LPAREN;
 
-alternative : element+  ;
 bnf_not : RPAREN CIRCUMFLEX element LPAREN;
 element :   bnf_not | zeroormore_non_gready | optional_ | zeroormore  | oneormore |
             ID |  range_ | CHAR | STRING;
@@ -73,9 +73,9 @@ syntax_method_call_body : (DOT  syntax_expr_strong)+;
 syntax_method_call : syntax_method_call_begin  syntax_method_call_body;//TODO
 syntax_expr :  syntax_method_call | syntax_rule_call |
               syntax_lambda | syntax_return /*| syntax_with*/ |
-              syntax_object_getter | syntax_text_getter; //add real_method_call
+              syntax_object_getter | syntax_text_getter | ID; //add real_method_call
 syntax_expr_strong : RPAREN syntax_expr LPAREN;
-syntax_impl_body : (syntax_expr SEMI) +;
+syntax_impl_body : (syntax_expr SEMI) *;
 import_ : IMPORT ID (DOT ID)* SEMI;
 program : import_ * (syntax_ | syntax_impl)*;
 entry_point : program EOF;

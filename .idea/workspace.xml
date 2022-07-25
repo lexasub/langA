@@ -5,29 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="ss">
-      <change afterPath="$PROJECT_DIR$/lib/ST4-4.3.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/antlr-runtime-3.5.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/antlr4-4.10.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/antlr4-runtime-4.10.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/icu4j-69.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.json-1.0.4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/org.abego.treelayout.core-1.0.3.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langos.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langos.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosBaseListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/langosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/langosVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/langA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/langA.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/langos.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langos.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/IR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/FIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/FIR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/MyLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/MyLangosVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/Processing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/Rule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/PromisedIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/PromisedFIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/Syntax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/Syntax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/asm/ASM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/asm/ASM.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -202,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658173382722</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="ss">
+      <created>1658768355245</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1658768355245</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -222,9 +216,9 @@
     <MESSAGE value="big work, but it's not all" />
     <MESSAGE value=".." />
     <MESSAGE value="some improvmements in project files" />
-    <MESSAGE value="ss" />
     <MESSAGE value="make packages" />
-    <option name="LAST_COMMIT_MESSAGE" value="make packages" />
+    <MESSAGE value="ss" />
+    <option name="LAST_COMMIT_MESSAGE" value="ss" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
