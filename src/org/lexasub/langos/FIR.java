@@ -100,18 +100,18 @@ public class FIR {//FRONTEND IR
 
     public Object createAlternative(Stream<Promise> elements) {//TODO
         return null;
-    }
+    }//TODO
 
     public Stream<Object> createAlternatives(Stream<Object> alternatives) {
         return alternatives;
     }//MB it's wrong
 
-    public Object bnfRuleCall(Promise methodFullName, Promise methodArgs) {
-        asm.generateRunRule((Rule) methodFullName.get(), methodArgs, syn);
+    public Object bnfRuleCall(Promise methodLink, Promise methodArgs) {
+        asm.generateRunRule((Rule) methodLink.get(), methodArgs, syn);
         return asm;
     }
     public static Syntax findSyntaxNamespace(Promise promise){
-        Optional<Syntax> stream = syn.stream().filter(o -> ((Syntax)o).name == promise.get()).findFirst();
+        Optional<Syntax> stream = syn.stream().filter(o -> o.name == promise.get()).findFirst();
         if(!stream.isEmpty())
             return stream.get();
         return null;

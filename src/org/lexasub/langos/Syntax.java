@@ -15,7 +15,7 @@ public class Syntax {
         this.name = name;
     }
 
-    public static Object linkSyntaxImpl(Promise ruleLink, Promise visitId_list_strong, Promise visitSyntax_impl_body) {//TODO
+    public static Object linkSyntaxImpl(Promise ruleLink, Promise args, Promise body) {//TODO
         return null;
     }
 

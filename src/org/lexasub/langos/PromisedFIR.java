@@ -1,5 +1,6 @@
 package org.lexasub.langos;
 
+import org.lexasub.langos.runtime.LangosRuntime;
 import org.lexasub.langos.utils.Promise;
 
 import java.util.ListIterator;
@@ -66,14 +67,11 @@ public class PromisedFIR {
         return Promise.add(() -> (new FIR()).createZeroormoreNoneGready(alternatives));
     }
 
-    public Promise promiseSyntaxImpl(Promise namespaceObj, Promise syntaxMethodArgs, Promise syntaxMethodBody) {
-        return Promise.add(() ->
-                Syntax.linkSyntaxImpl(
-                    namespaceObj,
-                    syntaxMethodArgs,
-                    syntaxMethodBody
-                )
-        );
+    public Object insertSyntaxImplToRuntime(Promise namespaceObj, Promise syntaxMethodArgs, Promise syntaxMethodBody) {
+        return LangosRuntime.insertSyntaxImpl(Syntax.linkSyntaxImpl(
+                namespaceObj,
+                syntaxMethodArgs,
+                syntaxMethodBody));
     }
 
     public Promise promiseSyntaxReturn(Promise returnExpr) {
@@ -93,6 +91,7 @@ public class PromisedFIR {
     }
 
     public Promise promiseProgram(Stream<Promise> importPath, Stream<Object> syntax_, Stream<Object> syntaxImpl) {//TODO
+        //MAYBE skip syntaxImpl
         return Promise.add(() -> {
             ListIterator<Promise> elem = importPath.toList().listIterator();
             Object firstElem = elem.next();//nonCopy!!

@@ -138,12 +138,12 @@ public class MyLangosVisitor implements langosVisitor {
     }
 
     @Override
-    public Promise visitSyntax_impl(langosParser.Syntax_implContext ctx) {
-        return promisedFIR.promiseSyntaxImpl(
+    public Object visitSyntax_impl(langosParser.Syntax_implContext ctx) {
+        return promisedFIR.insertSyntaxImplToRuntime(
                 visitSyntax_namespace_obj(ctx.syntax_namespace_obj()),
                 visitId_list_strong(ctx.id_list_strong()),
                 visitSyntax_impl_body(ctx.syntax_impl_body())
-        );
+        ) ;
     }
 
     @Override

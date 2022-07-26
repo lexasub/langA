@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="ss">
+      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/runtime/LangosRuntime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/IO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/FIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/MyLangosVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/MyLangosVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/PromisedFIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/PromisedFIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/Syntax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/Syntax.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +66,7 @@
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/su/src/nomyprojects/git/intellij-community&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
@@ -195,7 +200,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658775449207</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="ss">
+      <created>1658778739438</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1658778739439</updated>
+    </task>
+    <task id="LOCAL-00016" summary="ss">
+      <created>1658778754241</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1658778754241</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
