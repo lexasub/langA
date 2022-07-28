@@ -1,8 +1,6 @@
 
 8
 test.old,b/7/b7428968cfc98f099463e3934540a1e12e5582c4
-7
-fff.txt,c/0/c0aea652715a0a65432135f1ec43b3ade3307573
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
 >
