@@ -35,19 +35,6 @@ public class MyLangosVisitor implements langosVisitor {
 
     @Override
     public Promise visitElement(langosParser.ElementContext ctx) {
-        /*List<Object> elems = Arrays.asList(
-                ctx.bnf_not(),
-                ctx.zeroormore_non_gready()
-        );
-        List<Object> funcs = Arrays.asList(
-          (Function<langosParser.Bnf_notContext,Object>)
-                  (i) -> visitBnf_not(i),
-          (Function<langosParser.Zeroormore_non_greadyContext,Object>)
-                  (i) -> visitZeroormore_non_gready(i)
-        );
-        if (!v.isEmpty())
-            return ir.promiseElement(f(v));*/
-
         if (!ctx.bnf_not().isEmpty())
             return promisedFIR.promiseElement(visitBnf_not(ctx.bnf_not()));
         if (!ctx.zeroormore_non_gready().isEmpty())
