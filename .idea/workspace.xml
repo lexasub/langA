@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="new subproject(oslang without syntax in runtime)">
-      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FIR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/PromisedFIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/PromisedFIR.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />

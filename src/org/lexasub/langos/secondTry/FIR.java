@@ -30,6 +30,24 @@ public class FIR {
     public static Object createProgram(Stream<Object> imports, Stream<Promise> elems) {
     }
 
+    public static Object createListOfIds(Stream<Promise> ids) {
+    }
+
+    public static Object doImport(Stream<Promise> imports) {
+    }
+
+    public static Object doReturn(Promise expr) {
+    }
+
+    public static Object createId(String id) {
+    }
+
+    public static Object doBreak() {
+    }
+
+    public static Object doContinue() {
+    }
+
     public void declareFunctionArg(Promise type, Promise name) {
     }
 }

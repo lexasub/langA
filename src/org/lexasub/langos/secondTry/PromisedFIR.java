@@ -59,20 +59,26 @@ public class PromisedFIR {
     }
 
     public Promise promiseIds(Stream<Promise> ids) {
+        return Promise.add(() -> FIR.createListOfIds(ids));
     }
 
     public Promise promiseImport(Stream<Promise> imports) {
+        return Promise.add(() -> FIR.doImport(imports));
+    }
+
+    public Promise promiseId(String id) {
+        return Promise.add(() -> FIR.createId(id));
     }
 
     public Promise promiseReturn(Promise expr) {
-    }
-
-    public Promise promiseId(String text) {
+        return Promise.add(() -> FIR.doReturn(expr));
     }
 
     public Promise promiseBreak() {
+        return Promise.add(() -> FIR.doBreak());
     }
 
     public Promise promiseContinue() {
+        return Promise.add(() -> FIR.doContinue());
     }
 }
