@@ -10,35 +10,33 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor {
-    PromisedFIR promisedFIR = new PromisedFIR();
-    FunctionGenerators fgen = new FunctionGenerators();
 
     @Override
     public Function visitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) {
         if (ctx == null) return null;
         if(ctx.IF().getText() != "")
-            return fgen.ifGenerator();
+            return FunctionGenerators.ifGenerator();
         if(ctx.WHILE().getText() != "")
-            return fgen.whileGenerator();
+            return FunctionGenerators.whileGenerator();
         if(ctx.PAIRMAP().getText() != "")
-            return fgen.pairMapGenerator();
+            return FunctionGenerators.pairMapGenerator();
         if(ctx.MAP().getText() != "")
-            return fgen.mapGenerator();
+            return FunctionGenerators.mapGenerator();
         if(ctx.ID().getText() != "")
-            return fgen.userFunGenerator(ctx.ID().getText());
+            return FunctionGenerators.userFunGenerator(ctx.ID().getText());
         return null;
     }
 
     @Override
     public Promise visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx) {
-        return promisedFIR.promiseFuncArgs(
+        return PromisedFIR.promiseFuncArgs(
                 ctx.type_name().stream().map(this::visitType_name),
                 ctx.var_name().stream().map(this::visitVar_name));
     }
 
     @Override
     public Promise visitFunction(langosWithoutSyntaxParser.FunctionContext ctx) {
-        return promisedFIR.promiseFunction(
+        return PromisedFIR.promiseFunction(
                visitFunction_specifier(ctx.function_specifier()),
                visitType_name(ctx.type_name()),
                visitNamspce_obj(ctx.namspce_obj()),
@@ -50,13 +48,13 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     @Override
     public Object visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
         if(ctx == null) return null;
-        return promisedFIR.declareNamespace(ctx.ID().stream().map(this::visitId));
+        return PromisedFIR.declareNamespace(ctx.ID().stream().map(this::visitId));
     }
 
     @Override
     public Promise visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
         if(ctx == null) return null;
-        return promisedFIR.promiseMethodCall(
+        return PromisedFIR.promiseMethodCall(
                 visitNamspce_obj(ctx.namspce_obj()),
                 visitClass_name(ctx.class_name()),
                 visitFunction_call(ctx.function_call()));
@@ -65,7 +63,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     @Override
     public Promise visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
         if(ctx == null) return null;
-        return promisedFIR.promiseFunctionCall(
+        return PromisedFIR.promiseFunctionCall(
                 visitFun_name(ctx.fun_name()),
                 visitParened_expr_list(ctx.parened_expr_list()));
     }
@@ -79,7 +77,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     @Override
     public Promise visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) {
-        return promisedFIR.promiseFunctionCall_(
+        return PromisedFIR.promiseFunctionCall_(
                 visitMethod_call(ctx.method_call()),
                 visitFunction_call(ctx.function_call()),
                 ctx.function_call_helper().stream().map(this::visitFunction_call_helper));
@@ -87,7 +85,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) {
-        return promisedFIR.promiseGetMember(
+        return PromisedFIR.promiseGetMember(
                 visitId(ctx.ID()),
                 visitMember_name(ctx.member_name()));
     }
@@ -98,9 +96,9 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.return_expr().isEmpty())
            return visitReturn_expr(ctx.return_expr());
        if(ctx.BREAK().getText() != "")
-           return promisedFIR.promiseBreak();
+           return PromisedFIR.promiseBreak();
        if(ctx.CONTINUE().getText() != "")
-           return promisedFIR.promiseContinue();
+           return PromisedFIR.promiseContinue();
         if(!ctx.function_call_().isEmpty())
             return visitFunction_call_(ctx.function_call_());
         if(!ctx.lambda().isEmpty())
@@ -114,7 +112,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitLambda(langosWithoutSyntaxParser.LambdaContext ctx) {
-       return promisedFIR.promiseLambda (
+       return PromisedFIR.promiseLambda (
                visitParened_id_list(ctx.parened_id_list()),
                visitBraced_element(ctx.braced_element()),
                visitExpr(ctx.expr()));
@@ -132,7 +130,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitProgram(langosWithoutSyntaxParser.ProgramContext ctx) {
-        return promisedFIR.promiseProgram(
+        return PromisedFIR.promiseProgram(
             ctx.import_().stream().map(this::visitImport_),
             ctx.element().stream().map(this::visitElement));
     }
@@ -144,12 +142,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitId_list(langosWithoutSyntaxParser.Id_listContext ctx) {
-        return promisedFIR.promiseIds(ctx.ID().stream().map(this::visitId));
+        return PromisedFIR.promiseIds(ctx.ID().stream().map(this::visitId));
     }
 
     @Override
     public Promise visitImport_(langosWithoutSyntaxParser.Import_Context ctx) {
-        return promisedFIR.promiseImport(ctx.ID().stream().map(this::visitId));
+        return PromisedFIR.promiseImport(ctx.ID().stream().map(this::visitId));
     }
 
     @Override
@@ -160,7 +158,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
-        return promisedFIR.promiseReturn(visitExpr(ctx.expr()));
+        return PromisedFIR.promiseReturn(visitExpr(ctx.expr()));
     }
 
     @Override
@@ -179,7 +177,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     private Promise visitId(TerminalNode id) {//TODO
-        return promisedFIR.promiseId(id.getText());
+        return PromisedFIR.promiseId(id.getText());
     }
 
     @Override

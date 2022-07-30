@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class PromisedFIR {
-    public Promise promiseFuncArgs(Stream<Promise> types, Stream<Promise> names) {
+    public static Promise promiseFuncArgs(Stream<Promise> types, Stream<Promise> names) {
         Iterator<Promise> iTypes = types.iterator();
         Iterator<Promise> iArgs = names.iterator();
         return Promise.add(() -> {
@@ -19,66 +19,66 @@ public class PromisedFIR {
         });
     }
 
-    public Promise promiseFunction(Object spec, Promise type, Object nmspace, Function func,
-                                   Promise args, Stream<Promise> body) {
+    public static Promise promiseFunction(Object spec, Promise type, Object nmspace, Function func,
+                                          Promise args, Stream<Promise> body) {
         //skip spec//пока их нету
-        return Promise.add(() -> FIR.createFunction(type, (nmspace != null)?nmspace:func,args,body));
+        return Promise.add(() -> FIR.createFunction(type, (nmspace != null) ? nmspace : func, args, body));
 
     }
 
-    public Object declareNamespace(Stream<Promise> ids) {
+    public static Object declareNamespace(Stream<Promise> ids) {
         return Promise.add(() -> FIR.declareNamespace(ids));
     }
 
-    public Promise promiseMethodCall(Object nmspace, Promise className, Object funCall) {
-        return Promise.add(() -> FIR.createMethodCall((nmspace != null)?nmspace:className, funCall));
+    public static Promise promiseMethodCall(Object nmspace, Promise className, Object funCall) {
+        return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
     }
 
-    public Promise promiseFunctionCall(Function funName, Stream<Promise> args) {
+    public static Promise promiseFunctionCall(Function funName, Stream<Promise> args) {
         return Promise.add(() -> FIR.createFunctionCall(funName, args));
     }
 
-    public Promise promiseFunctionCall_(Promise methCall, Promise funCall, Stream<Promise> op) {
+    public static Promise promiseFunctionCall_(Promise methCall, Promise funCall, Stream<Promise> op) {
         //op it's property or funcall
         return Promise.add(() -> FIR.createFunctionCall_(
-                    (methCall!=null)?methCall:funCall,
-                    op
+                (methCall != null) ? methCall : funCall,
+                op
         ));
     }
 
-    public Promise promiseGetMember(Promise id, Promise property) {
-        return Promise.add(() -> FIR.createGetMember(id,property));
+    public static Promise promiseGetMember(Promise id, Promise property) {
+        return Promise.add(() -> FIR.createGetMember(id, property));
     }
 
-    public Promise promiseLambda(Promise args, Stream<Promise> elems, Promise expr) {
-        return Promise.add(() -> FIR.createLambda(args, (elems != null)? elems : expr));//maybe convert expr to Stream?? but how?
+    public static Promise promiseLambda(Promise args, Stream<Promise> elems, Promise expr) {
+        return Promise.add(() -> FIR.createLambda(args, (elems != null) ? elems : expr));//maybe convert expr to Stream?? but how?
     }
 
-    public Promise promiseProgram(Stream<Object> imports, Stream<Promise> elems) {
+    public static Promise promiseProgram(Stream<Object> imports, Stream<Promise> elems) {
         return Promise.add(() -> FIR.createProgram(imports, elems));
     }
 
-    public Promise promiseIds(Stream<Promise> ids) {
+    public static Promise promiseIds(Stream<Promise> ids) {
         return Promise.add(() -> FIR.createListOfIds(ids));
     }
 
-    public Promise promiseImport(Stream<Promise> imports) {
+    public static Promise promiseImport(Stream<Promise> imports) {
         return Promise.add(() -> FIR.doImport(imports));
     }
 
-    public Promise promiseId(String id) {
+    public static Promise promiseId(String id) {
         return Promise.add(() -> FIR.createId(id));
     }
 
-    public Promise promiseReturn(Promise expr) {
+    public static Promise promiseReturn(Promise expr) {
         return Promise.add(() -> FIR.doReturn(expr));
     }
 
-    public Promise promiseBreak() {
-        return Promise.add(() -> FIR.doBreak());
+    public static Promise promiseBreak() {
+        return Promise.add(FIR::doBreak);
     }
 
-    public Promise promiseContinue() {
-        return Promise.add(() -> FIR.doContinue());
+    public static Promise promiseContinue() {
+        return Promise.add(FIR::doContinue);
     }
 }
