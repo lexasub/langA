@@ -131,6 +131,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitElement(langosWithoutSyntaxParser.ElementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#class_}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClass_(langosWithoutSyntaxParser.Class_Context ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#import_}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

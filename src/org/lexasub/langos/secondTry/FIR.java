@@ -7,15 +7,18 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FIR {
-    public static IIR createFunction(Promise type, Object name, Promise args, Stream<Promise> body) {
-        return IIR.addFunction(type, name).addArgs(args.get()).addBody(body.map(i -> (ClassElem)i.get()));
+    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
+        return IIR.addFunction(type, name).
+                addArgs(argType.map(i -> (ClassID) i.get()),
+                        argName.map(i -> (ClassID) i.get())
+                ).addBody(body.map(i -> (ClassElem) i.get()));
     }
 
     public static Object declareNamespace(Stream<Promise> ids) {
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
-        //it.next().text;
+        ClassNamespace np = ClassNamespace.findNamespace(it.next().text);
         while(it.hasNext()){
-          //  it.next().text
+           np = np.findSubNamespace(it.next().text);
         }
     }
 
@@ -60,7 +63,8 @@ public class FIR {
     public static Object doContinue() {
     }
 
-    public void declareFunctionArg(Promise type, Promise name) {
-        IIR.addNewVar(type, name);
+
+    public static ClassClass createClass(Promise name, Stream<Promise> body) {
+        return IIR.addClass(name).addBody(body.map(i -> (ClassElem) i.get()));
     }
 }

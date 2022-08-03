@@ -29,9 +29,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx) {
-        return PromisedFIR.promiseFuncArgs(
-                ctx.type_name().stream().map(this::visitType_name),
-                ctx.var_name().stream().map(this::visitVar_name));
+        return null;
+
     }
 
     @Override
@@ -39,9 +38,9 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return PromisedFIR.promiseFunction(
                visitFunction_specifier(ctx.function_specifier()),
                visitType_name(ctx.type_name()),
-               visitNamspce_obj(ctx.namspce_obj()),
-               visitFun_name(ctx.fun_name()),
-               visitFunc_args(ctx.func_args()),
+               visitId(ctx.ID()),
+               ctx.func_args().type_name().stream().map(this::visitType_name),
+               ctx.func_args().var_name().stream().map(this::visitVar_name),
                visitBraced_element(ctx.braced_element()));
     }
 
@@ -126,6 +125,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.expr().isEmpty())
             return visitExpr(ctx.expr());
         return null;
+    }
+
+    @Override
+    public Promise visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
+        return PromisedFIR.promiseClass(visitClass_name(ctx.class_name()),
+                visitBraced_element(ctx.braced_element()));
     }
 
     @Override

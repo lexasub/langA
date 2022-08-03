@@ -2,27 +2,15 @@ package org.lexasub.langos.secondTry;
 
 import org.lexasub.langos.secondTry.utils.Promise;
 
-import java.util.Iterator;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class PromisedFIR {
-    public static Promise promiseFuncArgs(Stream<Promise> types, Stream<Promise> names) {
-        Iterator<Promise> iTypes = types.iterator();
-        Iterator<Promise> iArgs = names.iterator();
-        return Promise.add(() -> {
-            FIR fir = new FIR();
-            IntStream.iterate(0, i -> i < types.count(), i -> i + 1).
-                    forEachOrdered(i -> fir.declareFunctionArg(iTypes.next(), iArgs.next()));
-            return fir;
-        });
-    }
 
-    public static Promise promiseFunction(Object spec, Promise type, Object nmspace, Function func,
-                                          Promise args, Stream<Promise> body) {
+    public static Promise promiseFunction(Object spec, Promise type, Promise name,
+                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
         //skip spec//пока их нету
-        return Promise.add(() -> FIR.createFunction(type, (nmspace != null) ? nmspace : func, args, body));
+        return Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
 
     }
 
@@ -80,5 +68,9 @@ public class PromisedFIR {
 
     public static Promise promiseContinue() {
         return Promise.add(FIR::doContinue);
+    }
+
+    public static Promise promiseClass(Promise name, Stream<Promise> body) {
+        return Promise.add(() -> FIR.createClass(name, body));
     }
 }
