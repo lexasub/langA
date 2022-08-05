@@ -1,4 +1,4 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
 public class ClassElem {
     public Object replaceIDToClass(ClassID name) {

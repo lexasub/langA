@@ -1,4 +1,4 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
 import java.util.LinkedList;
 import java.util.Optional;
@@ -13,8 +13,10 @@ public class ClassNamespace {
        return namespaces.stream().filter(i-> i.name == text).findFirst().get();
     }
 
-    public ClassNamespace findSubNamespace(String text) {
-        Optional<ClassNamespace> sn = subNamespaces.stream().filter(i -> i.name == text).findFirst();
-        return (!sn.isEmpty())?sn.get(): elems.stream().filter(i -> i.name == text).findFirst().get();
+    public Optional<ClassNamespace> findSubNamespace(String text) {
+        return subNamespaces.stream().filter(i -> i.name == text).findFirst();
+    }
+    public ClassNamespaceLeaf findSubElem(String text) {
+        return elems.stream().filter(i -> i.name == text).findFirst().get();
     }
 }

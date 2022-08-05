@@ -1,10 +1,10 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.lexasub.langos.secondTry.utils.Promise;
+import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -45,7 +45,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     @Override
-    public Object visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
+    public Promise visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
         if(ctx == null) return null;
         return PromisedFIR.declareNamespace(ctx.ID().stream().map(this::visitId));
     }
@@ -94,9 +94,9 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(ctx == null) return null;
         if(!ctx.return_expr().isEmpty())
            return visitReturn_expr(ctx.return_expr());
-       if(ctx.BREAK().getText() != "")
+        if(ctx.BREAK().getText() != "")
            return PromisedFIR.promiseBreak();
-       if(ctx.CONTINUE().getText() != "")
+        if(ctx.CONTINUE().getText() != "")
            return PromisedFIR.promiseContinue();
         if(!ctx.function_call_().isEmpty())
             return visitFunction_call_(ctx.function_call_());
@@ -111,10 +111,13 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public Promise visitLambda(langosWithoutSyntaxParser.LambdaContext ctx) {
+        if(ctx.braced_element() != null)//lambda with one expr
+            return PromisedFIR.promiseSimpleLambda (
+                    visitParened_id_list(ctx.parened_id_list()),
+                    visitExpr(ctx.expr()));
        return PromisedFIR.promiseLambda (
                visitParened_id_list(ctx.parened_id_list()),
-               visitBraced_element(ctx.braced_element()),
-               visitExpr(ctx.expr()));
+               visitBraced_element(ctx.braced_element()));
     }
 
 

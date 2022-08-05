@@ -1,6 +1,6 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
-import org.lexasub.langos.secondTry.utils.Promise;
+import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -14,11 +14,11 @@ public class PromisedFIR {
 
     }
 
-    public static Object declareNamespace(Stream<Promise> ids) {
+    public static Promise declareNamespace(Stream<Promise> ids) {
         return Promise.add(() -> FIR.declareNamespace(ids));
     }
 
-    public static Promise promiseMethodCall(Object nmspace, Promise className, Object funCall) {
+    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall) {
         return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
     }
 
@@ -37,12 +37,14 @@ public class PromisedFIR {
     public static Promise promiseGetMember(Promise id, Promise property) {
         return Promise.add(() -> FIR.createGetMember(id, property));
     }
-
-    public static Promise promiseLambda(Promise args, Stream<Promise> elems, Promise expr) {
-        return Promise.add(() -> FIR.createLambda(args, (elems != null) ? elems : expr));//maybe convert expr to Stream?? but how?
+    public static Promise promiseSimpleLambda(Promise args, Promise expr) {
+        return Promise.add(() -> FIR.createSimpleLambda(args, expr));//maybe convert expr to Stream?? but how?
+    }
+    public static Promise promiseLambda(Promise args, Stream<Promise> elems) {
+        return Promise.add(() -> FIR.createLambda(args, elems));//maybe convert expr to Stream?? but how?
     }
 
-    public static Promise promiseProgram(Stream<Object> imports, Stream<Promise> elems) {
+    public static Promise promiseProgram(Stream<Promise> imports, Stream<Promise> elems) {
         return Promise.add(() -> FIR.createProgram(imports, elems));
     }
 

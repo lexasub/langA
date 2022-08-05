@@ -1,4 +1,4 @@
-package org.lexasub.langos.secondTry.utils;
+package org.lexasub.langosSecondTry.utils;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

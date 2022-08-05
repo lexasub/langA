@@ -1,4 +1,4 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
 import java.util.LinkedList;
 import java.util.stream.Stream;

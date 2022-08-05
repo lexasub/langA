@@ -1,13 +1,10 @@
 // Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class langosWithoutSyntaxParser extends Parser {

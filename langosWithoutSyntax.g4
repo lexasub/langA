@@ -54,7 +54,7 @@ braced_element: RBRACE element* LBRACE;
 expr_list: expr? (COMA expr)*;
 func_args: RPAREN type_name var_name (COMA type_name var_name)* LPAREN;
 function: function_specifier? type_name ID func_args braced_element;
-namspce_obj : ID DOUBLECOLON ID;
+namspce_obj : ID (DOUBLECOLON ID)+;
 method_call : (namspce_obj | class_name)  DOT function_call;
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;

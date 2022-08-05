@@ -1,8 +1,9 @@
-package org.lexasub.langos.secondTry;
+package org.lexasub.langosSecondTry;
 
-import org.lexasub.langos.secondTry.utils.Promise;
+import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -14,15 +15,18 @@ public class FIR {
                 ).addBody(body.map(i -> (ClassElem) i.get()));
     }
 
-    public static Object declareNamespace(Stream<Promise> ids) {
+    public static ClassNamespaceLeaf declareNamespace(Stream<Promise> ids) {
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
         ClassNamespace np = ClassNamespace.findNamespace(it.next().text);
         while(it.hasNext()){
-           np = np.findSubNamespace(it.next().text);
+            String text = it.next().text;
+            Optional<ClassNamespace> i = np.findSubNamespace(text);
+            if(i.isEmpty()) return np.findSubElem(text);
         }
+        return null;
     }
 
-    public static Object createMethodCall(Object o, Object funCall) {
+    public static Object createMethodCall(Promise o, Object funCall) {
     }
 
     public static Object createFunctionCall(Function funName, Stream<Promise> args) {
@@ -36,11 +40,15 @@ public class FIR {
         return IIR.getClassLink((ClassID)id.get()).getProperty(property.get());
     }
 
-    public static Object createLambda(Promise args, Object o) {
-
+    public static ClassLambda createSimpleLambda(Promise args, Promise expr) {
+        return IIR.addSimpleLambda((Stream<Promise>) args.get(), expr);
     }
 
-    public static Object createProgram(Stream<Object> imports, Stream<Promise> elems) {
+    public static ClassLambda createLambda(Promise args, Stream<Promise> elems) {
+        return IIR.addLambda((Stream<Promise>) args.get(), elems);
+    }
+
+    public static Object createProgram(Stream<Promise> imports, Stream<Promise> elems) {
     }
 
     public static Stream<ClassID> createListOfIds(Stream<Promise> ids) {
