@@ -55,7 +55,7 @@ public class FIR {
         return ids.map(i -> (ClassID) i.get());
     }
 
-    public static Object doImport(Stream<Promise> imports) {
+    public static Object doImport(Stream<Promise> importPath) {
     }
 
     public static Object doReturn(Promise expr) {

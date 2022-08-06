@@ -11,7 +11,6 @@ public class PromisedFIR {
                                           Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
         //skip spec//пока их нету
         return Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
-
     }
 
     public static Promise declareNamespace(Stream<Promise> ids) {
@@ -52,8 +51,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.createListOfIds(ids));
     }
 
-    public static Promise promiseImport(Stream<Promise> imports) {
-        return Promise.add(() -> FIR.doImport(imports));
+    public static Promise promiseImport(Stream<Promise> importPath) {
+        return Promise.add(() -> FIR.doImport(importPath));
     }
 
     public static Promise promiseId(String id) {
