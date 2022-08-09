@@ -16,15 +16,15 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     @Override
     public Function visitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) {
         if (ctx == null) return null;
-        if(ctx.IF().getText() != "")
+        if(!ctx.IF().getText().isEmpty())
             return FunctionGenerators.ifGenerator();
-        if(ctx.WHILE().getText() != "")
+        if(!ctx.WHILE().getText().isEmpty())
             return FunctionGenerators.whileGenerator();
-        if(ctx.PAIRMAP().getText() != "")
+        if(!ctx.PAIRMAP().getText().isEmpty())
             return FunctionGenerators.pairMapGenerator();
-        if(ctx.MAP().getText() != "")
+        if(!ctx.MAP().getText().isEmpty())
             return FunctionGenerators.mapGenerator();
-        if(ctx.ID().getText() != "")
+        if(!ctx.ID().getText().isEmpty())
             return FunctionGenerators.userFunGenerator(ctx.ID().getText());
         return null;
     }
@@ -84,9 +84,9 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(ctx == null) return null;
         if(!ctx.return_expr().isEmpty())
            return visitReturn_expr(ctx.return_expr(), nmspace);
-        if(ctx.BREAK().getText() != "")
+        if(!ctx.BREAK().getText().isEmpty())
            return PromisedFIR.promiseBreak();
-        if(ctx.CONTINUE().getText() != "")
+        if(!ctx.CONTINUE().getText().isEmpty())
            return PromisedFIR.promiseContinue();
         if(!ctx.function_call_().isEmpty())
             return visitFunction_call_(ctx.function_call_(), nmspace);
@@ -94,7 +94,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
             return visitLambda(ctx.lambda(), nmspace);
         if(!ctx.get_member().isEmpty())
             return visitGet_member(ctx.get_member(), nmspace);
-        if(ctx.ID().getText() != "")
+        if(!ctx.ID().getText().isEmpty())
             return visitId(ctx.ID(), nmspace);
         return null;
     }
