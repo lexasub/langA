@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.function.Function;
@@ -100,14 +101,15 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     public Promise visitLambda(langosWithoutSyntaxParser.LambdaContext ctx, ClassNamespace nmspace) {
-        nmspace.addSubNamespace("randomLambdaName", "lambda");//TODO randomLambdaName
+        String lambdaName = IdGenerator.lambda();
+        nmspace.addSubNamespace(lambdaName, "lambda");
         if(ctx.braced_element() != null)//lambda with one expr
             return PromisedFIR.promiseSimpleLambda (
-                    visitParened_id_list(ctx.parened_id_list(), nmspace.findSubNamespace("randomLambdaName").get()),
-                    visitExpr(ctx.expr(), nmspace.findSubNamespace("randomLambdaName").get()));
+                    visitParened_id_list(ctx.parened_id_list(), nmspace.findSubNamespace(lambdaName).get()),
+                    visitExpr(ctx.expr(), nmspace.findSubNamespace(lambdaName).get()));
        return PromisedFIR.promiseLambda (
-               visitParened_id_list(ctx.parened_id_list(), nmspace.findSubNamespace("randomLambdaName").get()),
-               visitBraced_element(ctx.braced_element(), nmspace.findSubNamespace("randomLambdaName").get()));
+               visitParened_id_list(ctx.parened_id_list(), nmspace.findSubNamespace(lambdaName).get()),
+               visitBraced_element(ctx.braced_element(), nmspace.findSubNamespace(lambdaName).get()));
     }
 
 
@@ -185,7 +187,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Stream<Promise> visitBraced_element(langosWithoutSyntaxParser.Braced_elementContext ctx, ClassNamespace nmspace) {
         if(ctx == null) return null;
-        return ctx.element().stream().map(i->visitElement(i, nmspace.addSubNamespace("randomElementName", "brace")));
+        return ctx.element().stream().map(i->visitElement(i, nmspace.addSubNamespace(IdGenerator.element(), "brace")));
     }
 
     public Stream<Promise> visitExpr_list(langosWithoutSyntaxParser.Expr_listContext ctx, ClassNamespace nmspace) {
