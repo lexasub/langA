@@ -200,9 +200,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     @Override
-    public Object visit(ParseTree parseTree) {
-        return null;
-    }
+    public Object visit(ParseTree parseTree) { return null; }
 
     @Override
     public Object visitChildren(RuleNode ruleNode) {
