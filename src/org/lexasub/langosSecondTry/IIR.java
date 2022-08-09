@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 public class IIR {//intermidiate IR
     private static final IIR iir = new IIR();
 
-    public static ClassID getOrAddID(String id) {
-        return new ClassID(id);
+    public static ClassID getOrAddID(String id, ClassNamespace nmspace) {
+        return new ClassID(id, nmspace);
     }
 
     public static ClassFunction addFunction(Promise type, Promise name) {

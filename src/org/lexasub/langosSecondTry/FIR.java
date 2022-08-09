@@ -61,8 +61,8 @@ public class FIR {
     public static Object doReturn(Promise expr) {
     }
 
-    public static ClassID createId(String id) {
-       return IIR.getOrAddID(id);
+    public static ClassID createId(String id, ClassNamespace nmspace) {
+       return IIR.getOrAddID(id, nmspace);
     }
 
     public static Object doBreak() {

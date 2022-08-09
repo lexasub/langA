@@ -55,8 +55,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.doImport(importPath));
     }
 
-    public static Promise promiseId(String id) {
-        return Promise.add(() -> FIR.createId(id));
+    public static Promise promiseId(String id, ClassNamespace nmspace) {
+        return Promise.add(() -> FIR.createId(id, nmspace));
     }
 
     public static Promise promiseReturn(Promise expr) {

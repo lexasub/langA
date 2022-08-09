@@ -3,7 +3,7 @@ package org.lexasub.langosSecondTry;
 import java.util.LinkedList;
 import java.util.Optional;
 
-public class ClassNamespace {
+public class ClassNamespace {//TODO поменять примениния этого класса и наверное что-то статическое поменять
     String name;
     //LinkedList<Classes,mbFunctions,lambdas,subfunctions,for_,..> elements
     LinkedList<ClassNamespaceLeaf> elems = new LinkedList<>();
