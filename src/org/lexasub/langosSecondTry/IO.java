@@ -28,7 +28,7 @@ public class IO {
 
         MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
         //visitor.visit(tree);
-        visitor.visitEntry_point(parser.entry_point());
+        visitor.visitEntry_point(parser.entry_point(),new ClassNamespace());
         //langosParser.Entry_pointContext s = parser.entry_point();
 
     }

@@ -16,7 +16,8 @@ public class IIR {//intermidiate IR
     }
 
 
-    public static ClassClass getClassLink(ClassID classID) {
+    public static ClassClass getClassLink(ClassID classID, ClassNamespace nmspace) {
+        return nmspace.findSubNamespace(classID.text).get().....;
     }
 
     public static ClassClass addClass(Promise name) {

@@ -13,8 +13,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
     }
 
-    public static Promise declareNamespace(Stream<Promise> ids) {
-        return Promise.add(() -> FIR.declareNamespace(ids));
+    public static Promise declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+        return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
     public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall) {
@@ -33,8 +33,8 @@ public class PromisedFIR {
         ));
     }
 
-    public static Promise promiseGetMember(Promise id, Promise property) {
-        return Promise.add(() -> FIR.createGetMember(id, property));
+    public static Promise promiseGetMember(Promise id, Promise property, ClassNamespace nmspace) {
+        return Promise.add(() -> FIR.createGetMember(id, property, nmspace));
     }
     public static Promise promiseSimpleLambda(Promise args, Promise expr) {
         return Promise.add(() -> FIR.createSimpleLambda(args, expr));//maybe convert expr to Stream?? but how?
