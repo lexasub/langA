@@ -9,14 +9,14 @@ public class PromisedFIR {
 
     public static Promise promiseFunction(Object spec, Promise type, Promise name,
                                           Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body,
-                                          ClassNamespace nmspace) {
+                                          Promise nmspace) {
         //skip spec//пока их нету
         Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
-        nmspace.obj = pr;
+        ((ClassNamespace)(nmspace.get())).obj = pr;
         return pr;
     }
 
-    public static Promise declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+    public static Promise declareNamespace(Stream<Promise> ids, Promise nmspace) {
         //что тут делать??? c nmspace.obj = ?
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
@@ -39,7 +39,7 @@ public class PromisedFIR {
         ));
     }
 
-    public static Promise promiseGetMember(Promise id, Promise property, ClassNamespace nmspace) {
+    public static Promise promiseGetMember(Promise id, Promise property, Promise nmspace) {
         return Promise.add(() -> FIR.createGetMember(id, property, nmspace));
     }
     public static Promise promiseSimpleLambda(Promise args, Promise expr) {
