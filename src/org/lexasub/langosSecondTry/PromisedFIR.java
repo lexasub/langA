@@ -8,17 +8,23 @@ import java.util.stream.Stream;
 public class PromisedFIR {
 
     public static Promise promiseFunction(Object spec, Promise type, Promise name,
-                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
+                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body,
+                                          ClassNamespace nmspace) {
         //skip spec//пока их нету
-        return Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
+        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
+        nmspace.obj = pr;
+        return pr;
     }
 
     public static Promise declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+        //что тут делать??? c nmspace.obj = ?
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall) {
-        return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
+    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, Promise nmspace_) {
+        Promise pr = Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
+        ((ClassNamespace)(nmspace_.get())).addSubNamespace("TODOwriteFunctionName","expr",pr);
+        return pr;
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args) {
@@ -55,8 +61,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.doImport(importPath));
     }
 
-    public static Promise promiseId(String id, ClassNamespace nmspace) {
-        return Promise.add(() -> FIR.createId(id, nmspace));
+    public static Promise promiseId(String id, Promise nmspace) {
+        return Promise.add(() -> FIR.createId(id, (ClassNamespace)(nmspace.get()));
     }
 
     public static Promise promiseReturn(Promise expr) {

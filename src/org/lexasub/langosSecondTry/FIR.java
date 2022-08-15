@@ -15,13 +15,13 @@ public class FIR {
                 ).addBody(body.map(i -> (ClassElem) i.get()));
     }
 
-    public static ClassNamespaceLeaf declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+    public static ClassNamespace declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
         ClassNamespace np = nmspace.findSubNamespace(it.next().text).get();
         while(it.hasNext()){
             String text = it.next().text;
             Optional<ClassNamespace> i = np.findSubNamespace(text);
-            if(i.isEmpty()) return np.findSubElem(text);
+            if(i.isEmpty()) return np;
         }
         return null;
     }
