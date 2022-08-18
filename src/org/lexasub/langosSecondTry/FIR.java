@@ -9,24 +9,30 @@ import java.util.stream.Stream;
 
 public class FIR {
     public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
-        return IIR.addFunction(type, name).
-                addArgs(argType.map(i -> (ClassID) i.get()),
+        return IIR.addFunction(type, name)
+                .addArgs(argType.map(i -> (ClassID) i.get()),
                         argName.map(i -> (ClassID) i.get())
-                ).addBody(body.map(i -> (ClassElem) i.get()));
+                )
+                .addBody(body.map(i -> (ClassElem) i.get()));
     }
 
     public static ClassNamespace declareNamespace(Stream<Promise> ids, Promise nmspace) {
+        //что тут делать??? c nmspace.obj = ?
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
-        ClassNamespace np = ((ClassNamespace) (nmspace.get())).findSubNamespace(it.next().text).get();
+        ClassNamespace np = ((ClassNamespace) nmspace.get()).findSubNamespace(it.next().text).get();
         while(it.hasNext()){
-            String text = it.next().text;
+            ClassID next = it.next();
+            String text = next.text;
+            //mb np.obj = next??
             Optional<ClassNamespace> i = np.findSubNamespace(text);
             if(i.isEmpty()) return np;
+            np = i.get();
         }
         return null;
     }
 
     public static Object createMethodCall(Promise o, Object funCall) {
+
     }
 
     public static Object createFunctionCall(Function funName, Stream<Promise> args) {
@@ -48,7 +54,8 @@ public class FIR {
         return IIR.addLambda((Stream<Promise>) args.get(), elems);
     }
 
-    public static Object createProgram(Stream<Promise> imports, Stream<Promise> elems) {
+    public static Stream<Promise> createProgram(Stream<Promise> imports, Stream<Promise> elems) {
+        return Stream.concat(imports, elems);//may be run promises
     }
 
     public static Stream<ClassID> createListOfIds(Stream<Promise> ids) {
@@ -56,21 +63,24 @@ public class FIR {
     }
 
     public static Object doImport(Stream<Promise> importPath) {
+        return IIR.import_(importPath);
     }
 
-    public static Object doReturn(Promise expr) {
+    public static Object doReturn(Promise expr, Promise nmspace) {
+        return IIR.return_(expr, nmspace);
     }
 
     public static ClassID createId(String id, ClassNamespace nmspace) {
        return IIR.getOrAddID(id, nmspace);
     }
 
-    public static Object doBreak() {
+    public static Object doBreak(Promise nmspace) {
+        return IIR.break_(nmspace);
     }
 
-    public static Object doContinue() {
+    public static Object doContinue(Promise nmspace) {
+        return IIR.continue_(nmspace);
     }
-
 
     public static ClassClass createClass(Promise name, Stream<Promise> body) {
         return IIR.addClass(name).addBody(body.map(i -> (ClassElem) i.get()));

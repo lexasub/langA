@@ -5,7 +5,7 @@ import org.lexasub.langosSecondTry.utils.Promise;
 import java.util.stream.Stream;
 
 public class IIR {//intermidiate IR
-    private static final IIR iir = new IIR();
+    //private static final IIR iir = new IIR();
 
     public static ClassID getOrAddID(String id, ClassNamespace nmspace) {
         return new ClassID(id, nmspace);
@@ -17,7 +17,7 @@ public class IIR {//intermidiate IR
 
 
     public static ClassClass getClassLink(ClassID classID, Promise nmspace) {
-        return nmspace.addWaiter(i -> ((ClassNamespace)i).findSubNamespace(classID.text).get().....;
+        return (ClassClass) ((ClassNamespace)nmspace.get()).findSubNamespace(classID.text).get().obj;
     }
 
     public static ClassClass addClass(Promise name) {
@@ -34,4 +34,15 @@ public class IIR {//intermidiate IR
         return lambda;
     }
 
+    public static Object import_(Stream<Promise> importPath) {
+    }
+
+    public static Object return_(Promise expr, Promise nmspace) {
+    }
+
+    public static Object break_(Promise nmspace) {
+    }
+
+    public static Object continue_(Promise nmspace) {
+    }
 }

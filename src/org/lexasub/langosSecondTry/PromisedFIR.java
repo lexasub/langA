@@ -1,5 +1,6 @@
 package org.lexasub.langosSecondTry;
 
+import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.function.Function;
@@ -12,23 +13,24 @@ public class PromisedFIR {
                                           Promise nmspace) {
         //skip spec//пока их нету
         Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
-        ((ClassNamespace)(nmspace.get())).obj = pr;
+        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
         return pr;
     }
 
     public static Promise declareNamespace(Stream<Promise> ids, Promise nmspace) {
-        //что тут делать??? c nmspace.obj = ?
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
     public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, Promise nmspace_) {
         Promise pr = Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
-        ((ClassNamespace)(nmspace_.get())).addSubNamespace("TODOwriteFunctionName","expr",pr);
+        nmspace_.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),"expr",pr));//addSubNamespace??expr??
         return pr;
     }
 
-    public static Promise promiseFunctionCall(Function funName, Stream<Promise> args) {
-        return Promise.add(() -> FIR.createFunctionCall(funName, args));
+    public static Promise promiseFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
+        Promise pr = Promise.add(() -> FIR.createFunctionCall(funName, args));
+        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),"expr",pr));//addSubNamespace??expr??
+        return pr;
     }
 
     public static Promise promiseFunctionCall_(Promise methCall, Promise funCall, Stream<Promise> op) {
@@ -42,11 +44,15 @@ public class PromisedFIR {
     public static Promise promiseGetMember(Promise id, Promise property, Promise nmspace) {
         return Promise.add(() -> FIR.createGetMember(id, property, nmspace));
     }
-    public static Promise promiseSimpleLambda(Promise args, Promise expr) {
-        return Promise.add(() -> FIR.createSimpleLambda(args, expr));//maybe convert expr to Stream?? but how?
+    public static Promise promiseSimpleLambda(Promise args, Promise expr, Promise nmspace) {
+        Promise pr = Promise.add(() -> FIR.createSimpleLambda(args, expr));//maybe convert expr to Stream?? but how?
+        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
+        return pr;
     }
-    public static Promise promiseLambda(Promise args, Stream<Promise> elems) {
-        return Promise.add(() -> FIR.createLambda(args, elems));//maybe convert expr to Stream?? but how?
+    public static Promise promiseLambda(Promise args, Stream<Promise> elems, Promise nmspace) {
+        Promise pr = Promise.add(() -> FIR.createLambda(args, elems));//maybe convert expr to Stream?? but how?
+        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
+        return pr;
     }
 
     public static Promise promiseProgram(Stream<Promise> imports, Stream<Promise> elems) {
@@ -62,19 +68,19 @@ public class PromisedFIR {
     }
 
     public static Promise promiseId(String id, Promise nmspace) {
-        return Promise.add(() -> FIR.createId(id, (ClassNamespace)(nmspace.get()));
+        return Promise.add(() -> FIR.createId(id, (ClassNamespace)(nmspace.get())));
     }
 
-    public static Promise promiseReturn(Promise expr) {
-        return Promise.add(() -> FIR.doReturn(expr));
+    public static Promise promiseReturn(Promise expr, Promise nmspace) {
+        return Promise.add(() -> FIR.doReturn(expr,nmspace));
     }
 
-    public static Promise promiseBreak() {
-        return Promise.add(FIR::doBreak);
+    public static Promise promiseBreak(Promise nmspace) {
+        return Promise.add(() -> FIR.doBreak(nmspace));
     }
 
-    public static Promise promiseContinue() {
-        return Promise.add(FIR::doContinue);
+    public static Promise promiseContinue(Promise nmspace) {
+        return Promise.add(() -> FIR.doContinue(nmspace));
     }
 
     public static Promise promiseClass(Promise name, Stream<Promise> body) {
