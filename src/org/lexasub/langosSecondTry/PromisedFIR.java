@@ -17,8 +17,11 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall) {
-        return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
+    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, ClassNamespace np) {
+        Promise class_ = className.addWaiter((Function<Object, Object>) i -> {
+            return np.findSubElem(((ClassID) i).text);//subelem or subnamespace???
+        });
+        return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : class_, funCall));
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args) {

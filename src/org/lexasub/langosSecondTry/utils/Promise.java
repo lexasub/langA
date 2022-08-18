@@ -28,7 +28,7 @@ public class Promise {
         return this;
     }
 
-    public Promise addWaiter(Function<tmp,Object> o) {
+    public Promise addWaiter(Function<Object,Object> o) {
 
         return this;
     }
