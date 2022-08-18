@@ -15,13 +15,13 @@ public class FIR {
                 ).addBody(body.map(i -> (ClassElem) i.get()));
     }
 
-    public static ClassNamespaceLeaf declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+    public static ClassNamespace declareNamespace(Stream<Promise> ids, Promise nmspace) {
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
-        ClassNamespace np = nmspace.findSubNamespace(it.next().text).get();
+        ClassNamespace np = ((ClassNamespace) (nmspace.get())).findSubNamespace(it.next().text).get();
         while(it.hasNext()){
             String text = it.next().text;
             Optional<ClassNamespace> i = np.findSubNamespace(text);
-            if(i.isEmpty()) return np.findSubElem(text);
+            if(i.isEmpty()) return np;
         }
         return null;
     }
@@ -36,7 +36,7 @@ public class FIR {
     public static Object createFunctionCall_(Promise promise, Stream<Promise> op) {
     }
 
-    public static Object createGetMember(Promise id, Promise property, ClassNamespace nmspace) {
+    public static Object createGetMember(Promise id, Promise property, Promise nmspace) {
         return IIR.getClassLink((ClassID)id.get(), nmspace).getProperty(property.get());
     }
 

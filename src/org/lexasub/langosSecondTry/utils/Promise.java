@@ -8,6 +8,10 @@ public class Promise {
     public void addAfterDependency(Promise tmp) {
     }
 
+    public Promise addWaiter(Function<Object,Object> o) {
+        return null;
+    }
+
     class tmp {
         public String namespace="", name="";
 
@@ -28,10 +32,10 @@ public class Promise {
         return this;
     }
 
-    public Promise addWaiter(Function<Object,Object> o) {
+    /*public Promise addWaiter(Function<tmp,Object> o) {
 
         return this;
-    }
+    }*/
     public Object get(){
         return null;
     }

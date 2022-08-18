@@ -8,20 +8,23 @@ import java.util.stream.Stream;
 public class PromisedFIR {
 
     public static Promise promiseFunction(Object spec, Promise type, Promise name,
-                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
+                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body,
+                                          Promise nmspace) {
         //skip spec//пока их нету
-        return Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
+        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
+        ((ClassNamespace)(nmspace.get())).obj = pr;
+        return pr;
     }
 
-    public static Promise declareNamespace(Stream<Promise> ids, ClassNamespace nmspace) {
+    public static Promise declareNamespace(Stream<Promise> ids, Promise nmspace) {
+        //что тут делать??? c nmspace.obj = ?
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, ClassNamespace np) {
-        Promise class_ = className.addWaiter((Function<Object, Object>) i -> {
-            return np.findSubElem(((ClassID) i).text);//subelem or subnamespace???
-        });
-        return Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : class_, funCall));
+    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, Promise nmspace_) {
+        Promise pr = Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
+        ((ClassNamespace)(nmspace_.get())).addSubNamespace("TODOwriteFunctionName","expr",pr);
+        return pr;
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args) {
@@ -36,7 +39,7 @@ public class PromisedFIR {
         ));
     }
 
-    public static Promise promiseGetMember(Promise id, Promise property, ClassNamespace nmspace) {
+    public static Promise promiseGetMember(Promise id, Promise property, Promise nmspace) {
         return Promise.add(() -> FIR.createGetMember(id, property, nmspace));
     }
     public static Promise promiseSimpleLambda(Promise args, Promise expr) {
@@ -58,8 +61,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.doImport(importPath));
     }
 
-    public static Promise promiseId(String id, ClassNamespace nmspace) {
-        return Promise.add(() -> FIR.createId(id, nmspace));
+    public static Promise promiseId(String id, Promise nmspace) {
+        return Promise.add(() -> FIR.createId(id, (ClassNamespace)(nmspace.get()));
     }
 
     public static Promise promiseReturn(Promise expr) {
