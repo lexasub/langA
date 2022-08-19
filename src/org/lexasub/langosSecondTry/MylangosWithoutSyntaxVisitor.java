@@ -34,7 +34,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         Promise id = visitId(ctx.ID(), _nmspace);
         String _id = ctx.ID().getText();
         //ctx.ID() or id?
-        Promise nmspaceFunction = _nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(_id, "function"));
+        Promise nmspaceFunction = _nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(_id, ClassNamespace.Type.function));
         Stream<Promise> type_names = ctx.func_args().type_name().stream().map(
                 i -> visitType_name(i, nmspaceFunction)
         );
@@ -116,7 +116,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Promise visitLambda(langosWithoutSyntaxParser.LambdaContext ctx, Promise nmspace) {
         String lambdaName = IdGenerator.lambda();
-        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(lambdaName, "lambda"));
+        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(lambdaName, ClassNamespace.Type.lambda));
         Promise lambdaNamespace = nmspace.addWaiter(i -> ((ClassNamespace) i).findSubNamespace(lambdaName).get());
         Promise args = visitParened_id_list(
                 ctx.parened_id_list(),
@@ -159,7 +159,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitClass_(langosWithoutSyntaxParser.Class_Context ctx, ClassNamespace nmspace) {//TODO entrypoint for class
         return PromisedFIR.promiseClass(visitClass_name(ctx.class_name(), nmspace),
                 visitBraced_element(ctx.braced_element(),
-                nmspace.addSubNamespace(ctx.class_name().getText(), "class")));
+                nmspace.addSubNamespace(ctx.class_name().getText(), ClassNamespace.Type.class_)));
     }
 
     public Promise visitProgram(langosWithoutSyntaxParser.ProgramContext ctx, ClassNamespace nmspace) {
@@ -234,7 +234,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(ctx == null) return null;
         return ctx.element().stream().map(
                 i->visitElement(i, nmspace.addWaiter(
-                        j -> ((ClassNamespace)j).addSubNamespace(IdGenerator.element(), "brace")))
+                        j -> ((ClassNamespace)j).addSubNamespace(IdGenerator.element(), ClassNamespace.Type.brace)))
         );
     }
 

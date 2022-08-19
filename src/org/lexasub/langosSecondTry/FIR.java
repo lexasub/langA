@@ -25,14 +25,14 @@ public class FIR {
             String text = next.text;
             //mb np.obj = next??
             Optional<ClassNamespace> i = np.findSubNamespace(text);
-            if(i.isEmpty()) return np;
+            if(i.isEmpty()) return null;
             np = i.get();
         }
-        return null;
+        return np;
     }
 
     public static Object createMethodCall(Promise o, Object funCall) {
-
+//o it's classNamespace or classID
     }
 
     public static Object createFunctionCall(Function funName, Stream<Promise> args) {
@@ -55,7 +55,12 @@ public class FIR {
     }
 
     public static Stream<Promise> createProgram(Stream<Promise> imports, Stream<Promise> elems) {
-        return Stream.concat(imports, elems);//may be run promises
+        /*
+        //may be run promises
+        imports.map(Promise::get);
+        elems.map(Promise::get);
+        */
+        return Stream.concat(imports, elems);
     }
 
     public static Stream<ClassID> createListOfIds(Stream<Promise> ids) {

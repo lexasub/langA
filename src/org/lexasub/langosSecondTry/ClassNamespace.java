@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public class ClassNamespace {//TODO поменять примениния этого класса и наверное что-то статическое поменять
     String name;
-    String type;
+    enum Type {expr,brace,class_, function, lambda}
+    Type type;
     ClassNamespace parent;
 
     public Object obj;
@@ -16,7 +17,7 @@ public class ClassNamespace {//TODO поменять примениния это
    // static LinkedList<ClassNamespace> namespaces = new LinkedList<>();
     LinkedList<Promise> subNamespaces = new LinkedList<>();//Promise<ClassNamespace>
 
-    public ClassNamespace(String text, String _type) {
+    public ClassNamespace(String text, Type _type) {
         name = text;
         type = _type;
     }
@@ -37,7 +38,7 @@ public class ClassNamespace {//TODO поменять примениния это
         return elems.stream().filter(i -> i.name == text).findFirst().get();
     }*/
 
-    public Promise addSubNamespace(String text, String _type) {
+    public Promise addSubNamespace(String text, Type _type) {
         Promise nmspace = Promise.add(() -> {
             ClassNamespace _nmspace = new ClassNamespace(text, _type);
             _nmspace.parent = this;
@@ -46,7 +47,7 @@ public class ClassNamespace {//TODO поменять примениния это
         subNamespaces.add(nmspace);
         return nmspace;
     }
-    public Promise addSubNamespace(String text, String _type, Promise pr) {
+    public Promise addSubNamespace(String text, Type _type, Promise pr) {
         Promise nmspace = Promise.add(() -> {
             ClassNamespace _nmspace = new ClassNamespace(text, _type);
             _nmspace.parent = this;

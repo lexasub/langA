@@ -23,13 +23,15 @@ public class PromisedFIR {
 
     public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, Promise nmspace_) {
         Promise pr = Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
-        nmspace_.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),"expr",pr));//addSubNamespace??expr??
+        nmspace_.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),
+                ClassNamespace.Type.expr,pr));//addSubNamespace??expr??
         return pr;
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
         Promise pr = Promise.add(() -> FIR.createFunctionCall(funName, args));
-        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),"expr",pr));//addSubNamespace??expr??
+        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),
+                ClassNamespace.Type.expr,pr));//addSubNamespace??expr??
         return pr;
     }
 
