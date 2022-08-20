@@ -33,7 +33,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitFunction(langosWithoutSyntaxParser.FunctionContext ctx, Promise _nmspace) {
         Promise id = visitId(ctx.ID(), _nmspace);
         String _id = ctx.ID().getText();
-        //ctx.ID() or id?
+        //id or _id?
         Promise nmspaceFunction = _nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(_id, ClassNamespace.Type.function));
         Stream<Promise> type_names = ctx.func_args().type_name().stream().map(
                 i -> visitType_name(i, nmspaceFunction)
@@ -157,9 +157,11 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     public Promise visitClass_(langosWithoutSyntaxParser.Class_Context ctx, ClassNamespace nmspace) {//TODO entrypoint for class
-        return PromisedFIR.promiseClass(visitClass_name(ctx.class_name(), nmspace),
+        /*return PromisedFIR.promiseClass(visitClass_name(ctx.class_name(), nmspace),
                 visitBraced_element(ctx.braced_element(),
                 nmspace.addSubNamespace(ctx.class_name().getText(), ClassNamespace.Type.class_)));
+                */
+        return null;
     }
 
     public Promise visitProgram(langosWithoutSyntaxParser.ProgramContext ctx, ClassNamespace nmspace) {
@@ -219,6 +221,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Promise visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx, Promise nmspace) {
         if(ctx == null) return null;
+
         return visitId(ctx.ID(), nmspace);
     }
     public Promise visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx, ClassNamespace nmspace) {

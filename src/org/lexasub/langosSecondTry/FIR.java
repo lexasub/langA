@@ -33,6 +33,13 @@ public class FIR {
 
     public static Object createMethodCall(Promise o, Object funCall) {
 //o it's classNamespace or classID
+        if(o.get() instanceof ClassID){
+            ClassID t = (ClassID) o.get();
+            
+        }
+        else if (o.get() instanceof  ClassNamespace){
+            ClassNamespace t = (ClassNamespace) o.get();
+        }
     }
 
     public static Object createFunctionCall(Function funName, Stream<Promise> args) {
