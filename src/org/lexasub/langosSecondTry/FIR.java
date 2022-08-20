@@ -35,10 +35,11 @@ public class FIR {
 //o it's classNamespace or classID
         if(o.get() instanceof ClassID){
             ClassID t = (ClassID) o.get();
-            
+
         }
         else if (o.get() instanceof  ClassNamespace){
             ClassNamespace t = (ClassNamespace) o.get();
+            t.findSubNamespace(...)
         }
     }
 
@@ -47,6 +48,9 @@ public class FIR {
     }
 
     public static Object createFunctionCall_(Promise promise, Stream<Promise> op) {
+        //method_call | function_call
+        (IIR) promise.get()
+        //nmspace.findSubele,hmmmm. неверно сгенерированно op походу(nmspace должны меняться a.b().v().c.)
     }
 
     public static Object createGetMember(Promise id, Promise property, Promise nmspace) {
