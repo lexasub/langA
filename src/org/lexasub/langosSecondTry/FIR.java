@@ -34,8 +34,18 @@ public class FIR {
     public static Object createMethodCall(Promise o, Object funCall) {
 //o it's classNamespace or classID
         if(o.get() instanceof ClassID){
-            ClassID t = (ClassID) o.get();
-
+            ClassNamespace t = ((ClassID) o.get()).np;
+//хм. тут что-то не так,
+            /*
+            int f (){
+            }
+            f()
+            or
+            f()
+            int f(){
+            }
+            create or add may be different
+             */
         }
         else if (o.get() instanceof  ClassNamespace){
             ClassNamespace t = (ClassNamespace) o.get();

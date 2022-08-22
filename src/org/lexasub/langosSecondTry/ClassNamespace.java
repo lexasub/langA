@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class ClassNamespace {//TODO поменять примениния этого класса и наверное что-то статическое поменять
     String name;
-    enum Type {expr,brace,class_, function, lambda}
+    enum Type {expr,brace,class_, function, lambda,id}
     Type type;
     ClassNamespace parent;
 

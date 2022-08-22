@@ -2,13 +2,17 @@ package org.lexasub.langosSecondTry;
 
 import org.lexasub.langosSecondTry.utils.Promise;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class IIR {//intermidiate IR
     //private static final IIR iir = new IIR();
 
     public static ClassID getOrAddID(String id, ClassNamespace nmspace) {
-        return new ClassID(id, nmspace);
+        Optional<ClassNamespace> i = nmspace.findSubNamespace(id);
+        if(i.isEmpty())
+            return new ClassID(id, nmspace);
+        return (ClassID) i.get().obj;
     }
 
     public static ClassFunction addFunction(Promise type, Promise name) {
