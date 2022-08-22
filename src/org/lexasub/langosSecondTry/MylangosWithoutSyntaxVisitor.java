@@ -60,9 +60,11 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Promise visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx, Promise nmspace) {
         if(ctx == null) return null;
+        Promise nmspace1 = visitNamspce_obj(ctx.namspce_obj(), nmspace);
+        Promise className = visitClass_name(ctx.class_name(), nmspace);
         return PromisedFIR.promiseMethodCall(
-                visitNamspce_obj(ctx.namspce_obj(), nmspace),
-                visitClass_name(ctx.class_name(), nmspace),
+                (nmspace1 != null) ? nmspace1 :
+                className.addWaiter(i ->((ClassID) i).np),
                 visitFunction_call(ctx.function_call()),nmspace);
     }
 

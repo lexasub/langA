@@ -21,8 +21,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace, Promise className, Object funCall, Promise nmspace_) {
-        Promise pr = Promise.add(() -> FIR.createMethodCall((nmspace != null) ? nmspace : className, funCall));
+    public static Promise promiseMethodCall(Promise nmspace/*, Promise className*/, Object funCall, Promise nmspace_) {
+        Promise pr = Promise.add(() -> FIR.createMethodCall(nmspace, funCall));
         nmspace_.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),
                 ClassNamespace.Type.expr,pr));//addSubNamespace??expr??
         return pr;
