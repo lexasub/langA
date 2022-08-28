@@ -63,7 +63,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return PromisedFIR.promiseMethodCall(
                 (nmspace1 != null) ? nmspace1 :
                         visitClass_name(ctx.class_name(), nmspace),
-                visitFunction_call(ctx.function_call(), nmspace),nmspace);
+                visitFunction_call(ctx.function_call(), nmspace),nmspace);//ASM
     }
 
     public Promise visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx, Promise nmspace) {
@@ -75,7 +75,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     public Promise visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx,
                                              Promise nmspace) {
-        if(!ctx.function_call().isEmpty()) //Object
+        if(!ctx.function_call().isEmpty()) //ASM
             return visitFunction_call(ctx.function_call(), nmspace);
         if(!ctx.member_name().isEmpty()) //ClassID
             return visitMember_name(ctx.member_name(), nmspace);
@@ -85,14 +85,14 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         Promise nmspace2 = (ctx.method_call() != null)
                 ? visitMethod_call(ctx.method_call(), nmspace)
-                : visitFunction_call(ctx.function_call(), nmspace);
+                : visitFunction_call(ctx.function_call(), nmspace);//ASM
         // (method_call | function_call) (DOT function_call_helper)* ;
         //if method_call -> namespace
         //if function_call -> namespace (.obj = Asm)
         while (it.hasNext()){
             Promise fch = visitFunction_call_helper(it.next(), nmspace2);
             if(!it.hasNext()) break;
-            //nmspace2 = fch ... -> Promise<ClassNamespace>
+            //~    nmspace2 = fch
         }
         Promise somePromise = null;
         return PromisedFIR.promiseFunctionCall_(

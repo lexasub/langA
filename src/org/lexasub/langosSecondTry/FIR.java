@@ -57,6 +57,7 @@ public class FIR {
         Promise pr = ((Scope) nmspace.get()).addSubScope(id, Scope.Type.expr);
         Asm asm = (Asm) funName.apply(args.map(i -> (ClassExpr) i.get()));
         pr.addWaiter(i -> ((Scope)i).obj=asm);
+        //TODO change return type to ClassNamespace?
         return asm;
     }
 
