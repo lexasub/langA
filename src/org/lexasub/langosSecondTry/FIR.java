@@ -1,5 +1,6 @@
 package org.lexasub.langosSecondTry;
 
+import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.Iterator;
@@ -8,31 +9,31 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FIR {
-    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body) {
-        return IIR.addFunction(type, name)
+    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body, Promise nmspace) {
+       return IIR.addFunction(type, name, nmspace)
                 .addArgs(argType.map(i -> (ClassID) i.get()),
                         argName.map(i -> (ClassID) i.get())
                 )
                 .addBody(body.map(i -> (ClassElem) i.get()));
     }
 
-    public static ClassNamespace declareNamespace(Stream<Promise> ids, Promise nmspace) {
+    public static Scope declareNamespace(Stream<Promise> ids, Promise nmspace) {
         //что тут делать??? c nmspace.obj = ?
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
-        ClassNamespace np = ((ClassNamespace) nmspace.get()).findSubNamespace(it.next().text).get();
+        Scope np = ((Scope) nmspace.get()).findSubNamespace(it.next().text).get();
         while(it.hasNext()){
             ClassID next = it.next();
             String text = next.text;
             //mb np.obj = next??
-            Optional<ClassNamespace> i = np.findSubNamespace(text);
+            Optional<Scope> i = np.findSubNamespace(text);
             if(i.isEmpty()) return null;
             np = i.get();
         }
         return np;
     }
 
-    public static Object createMethodCall(Promise o, Object funCall) {
-//o it's classNamespace or classID
+    public static Object createMethodCall(Promise nmspace, Object funCall) {
+//o it's classNamespace or classNamespace
 
 
 //хм. тут что-то не так,
@@ -47,15 +48,19 @@ public class FIR {
             create or add may be different
              */
 
-            ClassNamespace t = (ClassNamespace) o.get();
+            Scope t = (Scope) nmspace.get();
             t.findSubNamespace(...)
     }
 
-    public static Object createFunctionCall(Function funName, Stream<Promise> args) {
-        return funName.apply(args.map(i -> (ClassExpr) i.get()));
+    public static Asm createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
+        String id = IdGenerator.functionCall();
+        Promise pr = ((Scope) nmspace.get()).addSubScope(id, Scope.Type.expr);
+        Asm asm = (Asm) funName.apply(args.map(i -> (ClassExpr) i.get()));
+        pr.addWaiter(i -> ((Scope)i).obj=asm);
+        return asm;
     }
 
-    public static Object createFunctionCall_(Promise promise, Stream<Promise> op) {
+    public static Object createFunctionCall_(Promise promise, Promise op) {
         //method_call | function_call
         (IIR) promise.get()
         //nmspace.findSubele,hmmmm. неверно сгенерированно op походу(nmspace должны меняться a.b().v().c.)
@@ -94,7 +99,7 @@ public class FIR {
         return IIR.return_(expr, nmspace);
     }
 
-    public static ClassID createId(String id, ClassNamespace nmspace) {
+    public static ClassID createId(String id, Scope nmspace) {
        return IIR.getOrAddID(id, nmspace);
     }
 

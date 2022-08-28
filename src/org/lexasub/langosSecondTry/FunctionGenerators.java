@@ -3,10 +3,11 @@ package org.lexasub.langosSecondTry;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class FunctionGenerators {
+public class FunctionGenerators {// ClassExpr?? -> Asm
     public static Function ifGenerator() {
         return (expr) -> {
             Stream<ClassExpr> e = (Stream<ClassExpr>) expr;
+
             e.findFirst().get();//logic expression lambda
             e.findFirst().get();//body lambda
             return 'a';

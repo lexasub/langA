@@ -28,7 +28,7 @@
           <option name="outputDir" value="" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="org.lexasub.langos.secondTry" />
+          <option name="pkg" value="org.lexasub.langosSecondTry" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>

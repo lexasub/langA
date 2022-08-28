@@ -1,10 +1,13 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class langosWithoutSyntaxLexer extends Lexer {
@@ -151,8 +154,8 @@ public class langosWithoutSyntaxLexer extends Lexer {
 		"\u0005\u000b\u0006\r\u0007\u000f\b\u0011\t\u0013\n\u0015\u000b\u0017\f"+
 		"\u0019\r\u001b\u000e\u001d\u000f\u001f\u0010!\u0011#\u0012%\u0013\'\u0014"+
 		")\u0015+\u0016-\u0017/\u00181\u00193\u001a5\u001b7\u001c9\u001d;\u001e"+
-		"=\u001f? A!C\"E\u0000G#I$\u0001\u0000\u0003\u0003\u0000\t\n\r\r  \u0002"+
-		"\u0000AZaz\u0005\u0000--09AZ__az\u00d9\u0000\u0001\u0001\u0000\u0000\u0000"+
+		"=\u001f? A!C\"E\u0000G#I$\u0001\u0000\u0003\u0003\u0000\t\n\r\r  \u0003"+
+		"\u0000AZ__az\u0004\u000009AZ__az\u00d9\u0000\u0001\u0001\u0000\u0000\u0000"+
 		"\u0000\u0003\u0001\u0000\u0000\u0000\u0000\u0005\u0001\u0000\u0000\u0000"+
 		"\u0000\u0007\u0001\u0000\u0000\u0000\u0000\t\u0001\u0000\u0000\u0000\u0000"+
 		"\u000b\u0001\u0000\u0000\u0000\u0000\r\u0001\u0000\u0000\u0000\u0000\u000f"+

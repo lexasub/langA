@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -177,6 +177,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpr(langosWithoutSyntaxParser.ExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#flow_control}.
+	 * @param ctx the parse tree
+	 */
+	void enterFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#flow_control}.
+	 * @param ctx the parse tree
+	 */
+	void exitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#lambda}.
 	 * @param ctx the parse tree

@@ -61,7 +61,9 @@ function_call_helper : function_call| member_name;
 function_call_ : (method_call | function_call) (DOT function_call_helper)* ;
 //ID-it's getmember
 get_member : ID DOT member_name;
-expr : return_expr | BREAK | CONTINUE |  function_call_ | lambda| get_member | ID ;
+expr : flow_control |  function_call_ | lambda| get_member | ID ;
+
+flow_control : return_expr | BREAK | CONTINUE ;
 lambda : parened_id_list ARROW (braced_element | expr);
 return_expr : RETURN expr;
 element :  function | expr ;

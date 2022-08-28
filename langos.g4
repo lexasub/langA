@@ -72,7 +72,7 @@ syntax_method_call_begin : syntax_rule_call | syntax_object_getter |
                         syntax_method_call_begin  syntax_method_call_body
               ;
 syntax_method_call_body : (DOT  syntax_expr_strong)+;
-syntax_method_call : syntax_method_call_begin  syntax_method_call_body;//TODO
+syntax_method_call : syntax_method_call_begin syntax_method_call_body;//TODO
 syntax_expr :  syntax_method_call | syntax_rule_call |
               syntax_lambda | syntax_return /*| syntax_with*/ |
               syntax_object_getter | syntax_text_getter | ID; //add real_method_call

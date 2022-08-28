@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -215,6 +215,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(langosWithoutSyntaxParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

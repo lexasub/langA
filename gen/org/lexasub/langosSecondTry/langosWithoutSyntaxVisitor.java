@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -112,6 +112,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(langosWithoutSyntaxParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#flow_control}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#lambda}.
 	 * @param ctx the parse tree

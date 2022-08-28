@@ -12,8 +12,8 @@ public class PromisedFIR {
                                           Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body,
                                           Promise nmspace) {
         //skip spec//пока их нету
-        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body));
-        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
+        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body, nmspace));
+        nmspace.addWaiter(i -> ((Scope)i).obj = pr);
         return pr;
     }
 
@@ -21,24 +21,21 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace/*, Promise className*/, Object funCall, Promise nmspace_) {
+    public static Promise promiseMethodCall(Promise nmspace, Object funCall, Promise nmspace_) {
         Promise pr = Promise.add(() -> FIR.createMethodCall(nmspace, funCall));
-        nmspace_.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),
-                ClassNamespace.Type.expr,pr));//addSubNamespace??expr??
+        nmspace_.addWaiter(i -> ((Scope)i).addSubScope(IdGenerator.functionCall(),
+                Scope.Type.expr,pr));//addSubNamespace??expr??
         return pr;
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
-        Promise pr = Promise.add(() -> FIR.createFunctionCall(funName, args));
-        nmspace.addWaiter(i -> ((ClassNamespace)i).addSubNamespace(IdGenerator.functionCall(),
-                ClassNamespace.Type.expr,pr));//addSubNamespace??expr??
-        return pr;
+        return Promise.add(() -> FIR.createFunctionCall(funName, args, nmspace));
     }
 
-    public static Promise promiseFunctionCall_(Promise methCall, Promise funCall, Stream<Promise> op) {
+    public static Promise promiseFunctionCall_(Promise promise, Promise op) {
         //op it's property or funcall
         return Promise.add(() -> FIR.createFunctionCall_(
-                (methCall != null) ? methCall : funCall,
+                promise,
                 op
         ));
     }
@@ -48,12 +45,12 @@ public class PromisedFIR {
     }
     public static Promise promiseSimpleLambda(Promise args, Promise expr, Promise nmspace) {
         Promise pr = Promise.add(() -> FIR.createSimpleLambda(args, expr));//maybe convert expr to Stream?? but how?
-        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
+        nmspace.addWaiter(i -> ((Scope)i).obj = pr);
         return pr;
     }
     public static Promise promiseLambda(Promise args, Stream<Promise> elems, Promise nmspace) {
         Promise pr = Promise.add(() -> FIR.createLambda(args, elems));//maybe convert expr to Stream?? but how?
-        nmspace.addWaiter(i -> ((ClassNamespace)i).obj = pr);
+        nmspace.addWaiter(i -> ((Scope)i).obj = pr);
         return pr;
     }
 
@@ -70,7 +67,7 @@ public class PromisedFIR {
     }
 
     public static Promise promiseId(String id, Promise nmspace) {
-        return Promise.add(() -> FIR.createId(id, (ClassNamespace)(nmspace.get())));
+        return Promise.add(() -> FIR.createId(id, (Scope)(nmspace.get())));
     }
 
     public static Promise promiseReturn(Promise expr, Promise nmspace) {

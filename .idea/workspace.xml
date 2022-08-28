@@ -5,30 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="new subproject(oslang without syntax in runtime)">
-      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassArg.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassNamespace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassNamespaceLeaf.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Asm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/PreAsm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntax.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntax.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntax.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntax.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langos/secondTry/langosWithoutSyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntax.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntax.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxBaseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxBaseVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/gen/org/lexasub/langosSecondTry/langosWithoutSyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/langos.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langos.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/langosWithoutSyntax.g4" beforeDir="false" afterPath="$PROJECT_DIR$/langosWithoutSyntax.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassElem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassElem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/ClassID.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FunctionGenerators.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/FunctionGenerators.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/IIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/IIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/MylangosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/MylangosWithoutSyntaxVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/PromisedFIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langos/secondTry/PromisedFIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassArg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassArg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassNamespace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Scope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FunctionGenerators.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FunctionGenerators.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/IIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/IIR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/IO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/IO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/MylangosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/MylangosWithoutSyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/PromisedFIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/PromisedFIR.java" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +42,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -70,28 +71,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/su/IdeaProjects/langA/src/org/lexasub/langos/secondTry&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "/home/su/IdeaProjects/langA/src/org/lexasub/langos/secondTry",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.lexasub.langosSecondTry" />
       <recent name="org.lexasub.langos.secondTry" />
       <recent name="org.lexasub.langos" />
       <recent name="" />
