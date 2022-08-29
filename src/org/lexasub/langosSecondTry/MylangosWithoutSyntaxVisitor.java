@@ -12,9 +12,9 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor {
-    //TODO поменять namespace вызовы, добавить вхождение в новую область видимости//MB OK
-    //TODO напихать addSubNamespace в разные места//MB OK
-    //TODO promising all(addWaiter)//MB OK
+    //T ODO поменять namespace вызовы, добавить вхождение в новую область видимости//MB OK
+    //T ODO напихать addSubNamespace в разные места//MB OK
+    //T ODO promising all(addWaiter)//MB OK
 
     @Override
     public Function visitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) {
@@ -27,7 +27,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
             return FunctionGenerators.pairMapGenerator();
         if(!ctx.MAP().getText().isEmpty())
             return FunctionGenerators.mapGenerator();
-        if(!ctx.ID().getText().isEmpty())//may be add ids.table.addfuntotable..
+        if(!ctx.ID().getText().isEmpty())//may be add ids.table.addfuntotable..//TODO?
             return FunctionGenerators.userFunGenerator(ctx.ID().getText());
         return null;
     }
@@ -51,7 +51,6 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     public Promise visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx, Promise nmspace) {
-        if(ctx == null) return null;
         return PromisedFIR.declareNamespace(
                 ctx.ID().stream().map(i->visitId(i, nmspace)),
                 nmspace
@@ -59,10 +58,10 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
 
     public Promise visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx, Promise nmspace) {
-        Promise nmspace1 = visitNamspce_obj(ctx.namspce_obj(), nmspace);
         return PromisedFIR.promiseMethodCall(
-                (nmspace1 != null) ? nmspace1 :
-                        visitClass_name(ctx.class_name(), nmspace),
+                (ctx.namspce_obj() != null)
+                        ?visitNamspce_obj(ctx.namspce_obj(), nmspace)
+                        :visitClass_name(ctx.class_name(), nmspace),
                 visitFunction_call(ctx.function_call(), nmspace),nmspace);//ASM
     }
 
@@ -77,8 +76,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
                                              Promise nmspace) {
         if(!ctx.function_call().isEmpty()) //ASM
             return visitFunction_call(ctx.function_call(), nmspace);
-        if(!ctx.member_name().isEmpty()) //ClassID
-            return visitMember_name(ctx.member_name(), nmspace);
+        if(!ctx.member_name().isEmpty()) //Scope
+            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);
         return null;
     }
     public Promise visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx, Promise nmspace) {
@@ -91,7 +90,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         //if function_call -> namespace (.obj = Asm)
         while (it.hasNext()){
             Promise fch = visitFunction_call_helper(it.next(), nmspace2);
-            if(!it.hasNext()) break;
+            if(!it.hasNext()) break;//TODO
             //~    nmspace2 = fch
         }
         Promise somePromise = null;

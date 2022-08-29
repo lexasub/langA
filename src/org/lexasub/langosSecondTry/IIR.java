@@ -52,7 +52,7 @@ public class IIR {//intermidiate IR
                 path = obj;
             else {
                 Promise finalObj = obj;
-                path = path.addWaiter(i -> ((String)i) + "/" + ((String) finalObj.get()));
+                path = path.addWaiter(i -> i + "/" + finalObj.get());
             }
             obj = it.next();
         }
