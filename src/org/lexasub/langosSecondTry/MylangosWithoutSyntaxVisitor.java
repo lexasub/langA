@@ -225,7 +225,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return PromisedFIR.promiseId(id.getText(), nmspace);
     }
 
-    private Promise visitId(TerminalNode id, Scope nmspace) {//TODO??
+    private Promise visitId(TerminalNode id, Scope nmspace) {
         return visitId(id, Promise.add(() -> nmspace));
     }
 
