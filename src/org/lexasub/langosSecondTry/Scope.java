@@ -4,7 +4,8 @@ import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.*;
 
-public class Scope {//TODO поменять примениния этого класса и наверное что-то статическое поменять
+public class Scope {
+    public String asm;//TODO поменять примениния этого класса и наверное что-то статическое поменять
     String name;
     List<List<ClassID>> localVars = new ArrayList<>();
 
@@ -12,7 +13,10 @@ public class Scope {//TODO поменять примениния этого кл
         localVars.add(Arrays.asList(name, type));
         return localVars.size() - 1;//element id
     }
-
+    public int declareVar(ClassID name) {
+        localVars.add(Arrays.asList(name, null));//may be ClassID(not null)
+        return localVars.size() - 1;//element id
+    }
     enum Type {expr,brace,class_, function, lambda,id}
     Type type;
     Scope parent;

@@ -7,15 +7,28 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ClassLambda {
+    Scope np;
     LinkedList<ClassID> args;
-    LinkedList<Object> exprs;
+    LinkedList<Scope> exprs;
     public ClassLambda(Stream<Promise> args) {
         //may be it not ClassID
         this.args = args.map(i -> (ClassID) i.get()).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public ClassLambda addExpr(Object expr) {//Object or ClassExpr
+    public ClassLambda addExpr(Scope expr) {
         exprs.add(expr);
         return this;
+    }
+
+    public String genAsm() {
+        Stream<String> head = args.stream()
+                .map(i -> np.declareVar(i))
+                .map(i -> Asm.POP("lr" + i.toString()));//lr0 ... - it's local register
+        Stream<String> body = exprs.stream().map(i -> {
+            if (i.obj instanceof Promise) ((Promise) i.obj).get();//хитрый трюк,
+            // в промисе должен быть addWaiter который сам обратиться к объекту, и объект сам в Scope 'asm' скинет
+            return i.asm;//Must not == null
+        });
+        return Asm.newScope() + Stream.concat(head, body) + Asm.endScope();
     }
 }

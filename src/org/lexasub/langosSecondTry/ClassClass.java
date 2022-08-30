@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 public class ClassClass {
     LinkedList<ClassElem> body = new LinkedList<>();
     String name;
+    Scope np;
 
     public ClassClass(Object _name) {
         name = (String) _name;//may be it ClassID

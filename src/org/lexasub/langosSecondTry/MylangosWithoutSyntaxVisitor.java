@@ -74,10 +74,10 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     public Promise visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx,
                                              Promise nmspace) {
-        if(!ctx.function_call().isEmpty()) //ASM
-            return visitFunction_call(ctx.function_call(), nmspace);
-        if(!ctx.member_name().isEmpty()) //Scope
-            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);
+        if(!ctx.function_call().isEmpty())
+            return visitFunction_call(ctx.function_call(), nmspace);//ASM
+        if(!ctx.member_name().isEmpty())
+            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope
         return null;
     }
     public Promise visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx, Promise nmspace) {
@@ -123,12 +123,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
             return visitFlow_control(ctx.flow_control(), nmspace);
         if(!ctx.function_call_().isEmpty())//Object
             return visitFunction_call_(ctx.function_call_(), nmspace);
-        if(!ctx.lambda().isEmpty())//ClassLambda
-            return visitLambda(ctx.lambda(), nmspace);
-        if(!ctx.get_member().isEmpty())//ClassClass
-            return visitGet_member(ctx.get_member(), nmspace);
+        if(!ctx.lambda().isEmpty())//ClassLambda//TODO
+            return visitLambda(ctx.lambda(), nmspace).addWaiter(i -> ((ClassLambda)i).np);
+        if(!ctx.get_member().isEmpty())//ClassClass//TODO
+            return visitGet_member(ctx.get_member(), nmspace).addWaiter(i -> ((ClassClass)i).np);
         if(!ctx.ID().getText().isEmpty())//ClassID
-            return visitId(ctx.ID(), nmspace);
+            return visitId(ctx.ID(), nmspace).addWaiter(i -> ((ClassID)i).np);
         return null;
     }
 
@@ -166,12 +166,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return null;
     }
     public Promise visitElement(langosWithoutSyntaxParser.ElementContext ctx, Scope _nmspace) {
-        Promise nmspace = Promise.add(() -> _nmspace);
-        if(!ctx.function().isEmpty())
-            return visitFunction(ctx.function(), nmspace);
-        if(!ctx.expr().isEmpty())
-            return visitExpr(ctx.expr(), nmspace);
-        return null;
+        return visitElement(ctx, Promise.add(() -> _nmspace));
     }
 
     public Promise visitClass_(langosWithoutSyntaxParser.Class_Context ctx, Scope nmspace) {//TODO entrypoint for class

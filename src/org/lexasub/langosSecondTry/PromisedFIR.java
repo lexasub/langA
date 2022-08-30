@@ -24,7 +24,7 @@ public class PromisedFIR {
     public static Promise promiseMethodCall(Promise nmspace, Object funCall, Promise nmspace_) {
         Promise pr = Promise.add(() -> FIR.createMethodCall(nmspace, funCall));
         nmspace_.addWaiter(i -> ((Scope)i).addSubScope(IdGenerator.functionCall(),
-                Scope.Type.expr,pr));//addSubNamespace??expr??
+                Scope.Type.expr,pr));//addSubScope??expr??
         return pr;
     }
 

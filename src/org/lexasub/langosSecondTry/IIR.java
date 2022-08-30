@@ -29,14 +29,14 @@ public class IIR {//intermidiate IR
         return new ClassClass(name.get());
     }
 
-    public static ClassLambda addSimpleLambda(Stream<Promise> args, Promise expr) {
-        return new ClassLambda(args).addExpr(expr.get());
+    public static String addSimpleLambda(Stream<Promise> args, Promise expr) {
+        return new ClassLambda(args).addExpr((Scope) expr.get()).genAsm();
     }
 
-    public static ClassLambda addLambda(Stream<Promise> args, Stream<Promise> elems) {
+    public static String addLambda(Stream<Promise> args, Stream<Promise> elems) {
         ClassLambda lambda = new ClassLambda(args);
-        elems.map(Promise::get).map(lambda::addExpr);
-        return lambda;
+        elems.map(Promise::get).map(i -> (Scope)i).map(lambda::addExpr);
+        return lambda.genAsm();
     }
 
     public static Object import_(Stream<Promise> importPath) {
@@ -75,5 +75,6 @@ public class IIR {//intermidiate IR
     }
 
     public static Object continue_(Promise nmspace) {
+
     }
 }

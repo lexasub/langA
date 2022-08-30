@@ -46,6 +46,7 @@ public class FIR {
             int a::s.f(){
             }
             create or add may be different
+            это семантика, id в любом случае генерятся одинаково
              */
 
             Scope t = (Scope) nmspace.get();
@@ -55,7 +56,7 @@ public class FIR {
     public static Asm createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
         String id = IdGenerator.functionCall();
         Promise pr = ((Scope) nmspace.get()).addSubScope(id, Scope.Type.expr);
-        Asm asm = (Asm) funName.apply(args.map(i -> (ClassExpr) i.get()));
+        Asm asm = (Asm) funName.apply(args.map(i -> (Scope) i.get()));
         pr.addWaiter(i -> ((Scope)i).obj=asm);
         //TODO change return type to ClassNamespace?
         return asm;
@@ -64,18 +65,17 @@ public class FIR {
     public static Object createFunctionCall_(Promise promise, Promise op) {
         //method_call | function_call
         (IIR) promise.get()
-        //nmspace.findSubele,hmmmm. неверно сгенерированно op походу(nmspace должны меняться a.b().v().c.)
     }
 
     public static Object createGetMember(Promise id, Promise property, Promise nmspace) {
         return IIR.getClassLink((ClassID)id.get(), nmspace).getProperty(property.get());
     }
 
-    public static ClassLambda createSimpleLambda(Promise args, Promise expr) {
+    public static String createSimpleLambda(Promise args, Promise expr) {
         return IIR.addSimpleLambda((Stream<Promise>) args.get(), expr);
     }
 
-    public static ClassLambda createLambda(Promise args, Stream<Promise> elems) {
+    public static String createLambda(Promise args, Stream<Promise> elems) {
         return IIR.addLambda((Stream<Promise>) args.get(), elems);
     }
 
