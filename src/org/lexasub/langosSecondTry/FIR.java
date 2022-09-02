@@ -37,21 +37,20 @@ public class FIR {
             create or add may be different
             это семантика, id в любом случае генерятся одинаково, все зависит от родителя
              */
-            Promise asm = funCall.addWaiter(i -> {
-                return Scope.genAsmFromList((Scope) nmspace.get()) +
-                ((Scope)i).asm;
-                /*
-                INTOSCOPE org
-                INTOSCOPE su
-                INTOSCOPE langos
-                INTOSCOPE classRRR
-                 */
-                /*~~~~~~~
-                POP ss
-                ...
-                CALL ee
-                ~~~~~~~~*/
-            });
+            Promise asm = funCall.addWaiter(i ->
+                    Scope.genAsmFromList((Scope) nmspace.get()) + ((Scope)i).asm
+            );
+            /*
+            INTOSCOPE org
+            INTOSCOPE su
+            INTOSCOPE langos
+            INTOSCOPE classRRR
+             */
+            /*~~~~~~~
+            POP ss
+            ...
+            CALL ee
+            ~~~~~~~~*/
             return nmspace_.addWaiter(i ->
                     ((Scope)i).addSubScope(new Scope(IdGenerator.functionCall(), Scope.Type.asm, (String) asm.get()))
             );
@@ -94,7 +93,7 @@ public class FIR {
         return ids.map(i -> (ClassID) i.get());
     }
 
-    public static Object doImport(Stream<Promise> importPath) {
+    public static String doImport(Stream<Promise> importPath) {
         return IIR.import_(importPath);
     }
 

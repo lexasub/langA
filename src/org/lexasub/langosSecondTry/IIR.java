@@ -39,7 +39,7 @@ public class IIR {//intermidiate IR
         return lambda.genAsm();
     }
 
-    public static Object import_(Stream<Promise> importPath) {
+    public static String import_(Stream<Promise> importPath) {
         Iterator<Promise> it = importPath.iterator();
         Promise obj  = it.next();
         Promise path = null;
@@ -59,11 +59,11 @@ public class IIR {//intermidiate IR
         return importModule((String) path.get(), (String)obj.get());
     }
 
-    private static Object importModule(String path, String moduleName) {
-        //TODO
+    private static String importModule(String path, String moduleName) {
+        return Asm.ImportOslang(path, moduleName);
     }
 
-    private static Object importSystem(Iterator<Promise> it) {
+    private static String importSystem(Iterator<Promise> it) {
         //TODO
     }
 

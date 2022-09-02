@@ -14,8 +14,12 @@ public class Asm {
     }
 
     public static String intoScope(String name) {
-        return "INTOSCOPE" + name + "\n";
+        return "INTOSCOPE " + name + "\n";
     }
 
-    public static String PUSH(String r) { return "PUSH" + r; }
+    public static String PUSH(String r) { return "PUSH " + r + "\n"; }
+
+    public static String ImportOslang(String path, String moduleName) {
+        return "IMPORT_OSLANG " + path + "/" + moduleName + "\n";
+     }
 }

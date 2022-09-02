@@ -143,7 +143,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
             return visitLambda(ctx.lambda(), nmspace).addWaiter(i -> ((ClassLambda)i).np);
         if(!ctx.get_member().isEmpty())//ClassClass//TODO
             return visitGet_member(ctx.get_member(), nmspace).addWaiter(i -> ((ClassClass)i).np);
-        if(!ctx.ID().getText().isEmpty())//ClassID
+        if(!ctx.ID().getText().isEmpty())//Scope
             return visitId(ctx.ID(), nmspace).addWaiter(i -> ((ClassID)i).np);
         return null;
     }
@@ -156,7 +156,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
                 ctx.parened_id_list(),
                 lambdaNamespace
         );
-        if(ctx.braced_element() != null)//lambda with one expr
+        if(ctx.expr() != null)//lambda with one expr
             return PromisedFIR.promiseSimpleLambda (
                     args,
                     visitExpr(

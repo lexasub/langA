@@ -1,4 +1,6 @@
-package org.lexasub.langosSecondTry;
+package org.lexasub.langosSecondTry.utils;
+
+import org.lexasub.langosSecondTry.ClassID;
 
 public class ClassArg {
     public ClassID type;

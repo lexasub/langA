@@ -1,5 +1,6 @@
 package org.lexasub.langosSecondTry;
 
+import org.lexasub.langosSecondTry.utils.ClassArg;
 import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.Iterator;
@@ -34,7 +35,7 @@ public class ClassFunction implements PreAsm {
     }
 
     @Override
-    public Asm GenASM() {
+    public String GenASM() {
         //generate variables table
         String scope = Asm.newScope();
         Stream<String> head = args.stream().map(i -> np.declareVar(i.name, i.type))

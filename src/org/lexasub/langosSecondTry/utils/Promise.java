@@ -1,46 +1,33 @@
 package org.lexasub.langosSecondTry.utils;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class Promise {
-    public void addAfterDependency(Promise tmp) {
+    Supplier op;
+    List<Promise> waiters = new LinkedList<>();
+    List<Promise> dependences = new LinkedList<>();
+    Object res;
+    boolean isReady = false;
+    public Promise(Supplier _op) {
+        op = _op;
     }
-
-    public Promise addWaiter(Function<Object,Object> o) {
-        return null;
+   public Promise addWaiter(Function<Object,Object> o) {
+        Promise pr = add(() -> o.apply(res));
+        pr.dependences.add(this);
+        waiters.add(pr);
+        return pr;
     }
-
-    class tmp {
-        public String namespace="", name="";
-
-        public Object namespace() {
-            return namespace;
-        }
-
-        public Object name() {
-            return name;
-        }
-    };
-
     public static Promise add(Supplier op) {
-        return new Promise();
+        return new Promise(op);
     }
-
-    public Promise addAfterDependency(Stream<Promise> visitRulelist) {
-        return this;
-    }
-
-    /*public Promise addWaiter(Function<tmp,Object> o) {
-
-        return this;
-    }*/
     public Object get(){
-        return null;
-    }
-
-    public boolean equals(Object obj){
-        return true;
+        if(isReady) return res;
+        dependences.stream().map(Promise::get);//getReady of deps
+        res = op.get();
+        isReady = true;
+        return res;
     }
 }
