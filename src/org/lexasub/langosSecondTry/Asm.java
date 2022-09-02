@@ -16,4 +16,6 @@ public class Asm {
     public static String intoScope(String name) {
         return "INTOSCOPE" + name + "\n";
     }
+
+    public static String PUSH(String r) { return "PUSH" + r; }
 }

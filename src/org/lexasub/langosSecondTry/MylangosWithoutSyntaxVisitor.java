@@ -7,8 +7,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
-import java.util.Iterator;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor {
@@ -77,26 +77,42 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.function_call().isEmpty())
             return visitFunction_call(ctx.function_call(), nmspace);//Scope
         if(!ctx.member_name().isEmpty())
-            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope
+            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope//TODO???
+        //if is member - mov address->rtmp0
         return null;
     }
     public Promise visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx, Promise nmspace) {
-        Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         Promise nmspace2 = (ctx.method_call() != null)
                 ? visitMethod_call(ctx.method_call(), nmspace)
                 : visitFunction_call(ctx.function_call(), nmspace);//Scope
         // (method_call | function_call) (DOT function_call_helper)* ;
-        //if method_call -> namespace
-        //if function_call -> namespace (.obj = Asm)
-        while (it.hasNext()){
-            Promise fch = visitFunction_call_helper(it.next(), nmspace2);//if Scope.type == asm, is bad for it(or not?)
-            if(!it.hasNext()) break;//TODO
-            //~    nmspace2 = fch
-        }
-        Promise somePromise = null;
+        //if method_call -> namespace (.asm = asm)
+        //if function_call -> namespace (.asm = asm)
+        Stream<Promise> pr_stream = ctx.function_call_helper().stream().map(i ->
+                visitFunction_call_helper(i, nmspace2).addWaiter(j ->
+                        (((Scope) j).type == Scope.Type.id) ?
+                                Asm.PUSH("r231") :
+                                ((Scope) j).asm)
+        );
+        Promise pr = Promise.add(() ->
+                pr_stream.map(i -> (String)i.get()).collect(Collectors.joining(""))
+        );
+        //change  r231 to ~~ ClassID.planedregister
+        /*
+        concat nmspace2, pr
+        INTOSCOPE ..
+        push r3
+        call ..
+        push r4
+        push r5
+        call ..
+        push r9
+        push r8
+        call ..
+         */
         return PromisedFIR.promiseFunctionCall_(
-                somePromise,
-                nmspace2);
+                nmspace2,
+                pr);
     }
 
     public Promise visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx, Promise nmspace) {
@@ -121,7 +137,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
         if(!ctx.flow_control().isEmpty())
             return visitFlow_control(ctx.flow_control(), nmspace);
-        if(!ctx.function_call_().isEmpty())//Object
+        if(!ctx.function_call_().isEmpty())//String(ASM)
             return visitFunction_call_(ctx.function_call_(), nmspace);
         if(!ctx.lambda().isEmpty())//ClassLambda//TODO
             return visitLambda(ctx.lambda(), nmspace).addWaiter(i -> ((ClassLambda)i).np);

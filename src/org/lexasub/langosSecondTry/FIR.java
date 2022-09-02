@@ -37,7 +37,7 @@ public class FIR {
             create or add may be different
             это семантика, id в любом случае генерятся одинаково, все зависит от родителя
              */
-            String asm = (String) funCall.addWaiter(i -> {
+            Promise asm = funCall.addWaiter(i -> {
                 return Scope.genAsmFromList((Scope) nmspace.get()) +
                 ((Scope)i).asm;
                 /*
@@ -51,35 +51,22 @@ public class FIR {
                 ...
                 CALL ee
                 ~~~~~~~~*/
-            }).get();
-            Scope scope = new Scope();
-            scope.type = Scope.Type.asm;
-            scope.asm = asm;//or addSubScope??
-
-            Promise pr = Promise.add(() -> asm);//asm1 or Scope or something??
-            //TODO!!!
-            nmspace_.addWaiter(i -> {
-                Promise j = ((Scope) i).addSubScope(IdGenerator.functionCall(),
-                        Scope.Type.expr, pr);
-                pr.addWaiter(k -> ((Scope)k));
-                return j;
-            });//addSubScope??expr??
-            return pr;
+            });
+            return nmspace_.addWaiter(i ->
+                    ((Scope)i).addSubScope(new Scope(IdGenerator.functionCall(), Scope.Type.asm, (String) asm.get()))
+            );
     }
 
-    public static Scope createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {//TODO check, strange func
-        String id = IdGenerator.functionCall();
+    public static Promise createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {//TODO check, strange func
         Scope scope = (Scope) nmspace.get();
-        Promise pr = scope.addSubScope(id, Scope.Type.expr);
+        Promise pr = scope.addSubScope(IdGenerator.functionCall(), Scope.Type.expr);
         String asm = (String) funName.apply(args.map(i -> (Scope) i.get()));
-        pr.addWaiter(i -> ((Scope)i).obj=asm);
-        scope.asm = asm;
-        return scope;
+        pr.addWaiter(i -> ((Scope)i).asm=asm);
+        return pr;
     }
 
-    public static Object createFunctionCall_(Promise promise, Promise op) {
-        //method_call | function_call
-        (IIR) promise.get()
+    public static String createFunctionCall_(Promise pr1, Promise pr2) {
+        return (String) pr1.addWaiter(i->((Scope)i).asm).get() + pr2.get();
     }
 
     public static Object createGetMember(Promise id, Promise property, Promise nmspace) {

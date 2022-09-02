@@ -25,14 +25,14 @@ public class PromisedFIR {
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
-        return Promise.add(() -> FIR.createFunctionCall(funName, args, nmspace));
+        return FIR.createFunctionCall(funName, args, nmspace);
     }
 
-    public static Promise promiseFunctionCall_(Promise promise, Promise op) {
+    public static Promise promiseFunctionCall_(Promise pr1, Promise pr2) {
         //op it's property or funcall
         return Promise.add(() -> FIR.createFunctionCall_(
-                promise,
-                op
+                pr1,
+                pr2
         ));
     }
 

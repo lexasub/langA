@@ -54,7 +54,11 @@ public class Scope {
         name = text;
         type = _type;
     }
-
+    public Scope(String text, Type _type, String _asm) {
+        name = text;
+        type = _type;
+        asm = _asm;
+    }
     public Scope() {
 
     }
@@ -86,6 +90,15 @@ public class Scope {
             _nmspace.parent = this;
             _nmspace.obj = pr;
             return _nmspace;
+        });
+        subNamespaces.add(nmspace);
+        return nmspace;
+    }
+
+    public Promise addSubScope(Scope scope) {
+        Promise nmspace = Promise.add(() -> {
+            scope.parent = this;
+            return scope;
         });
         subNamespaces.add(nmspace);
         return nmspace;
