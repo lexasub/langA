@@ -3,8 +3,7 @@ package org.lexasub.langosSecondTry;
 import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -21,22 +20,12 @@ public class FIR {
         //что тут делать??? c nmspace.obj = ?
         Iterator<ClassID> it = ids.map(i -> (ClassID) i.get()).iterator();
         Scope np = ((Scope) nmspace.get()).findSubNamespace(it.next().text).get();
-        while(it.hasNext()){
-            ClassID next = it.next();
-            String text = next.text;
-            //mb np.obj = next??
-            Optional<Scope> i = np.findSubNamespace(text);
-            if(i.isEmpty()) return null;
-            np = i.get();
-        }
+        if(!Scope.deepSearch(it, np)) return null;
         return np;
     }
-
-    public static Object createMethodCall(Promise nmspace, Object funCall) {
-//o it's classNamespace or classNamespace
-
-
-//хм. тут что-то не так,
+    public static Promise createMethodCall(Promise nmspace, Promise funCall, Promise nmspace_) {
+        //funCall it's Scope
+        //хм. тут что-то не так,
             /*
             int a::s.f (){
             }
@@ -46,20 +35,46 @@ public class FIR {
             int a::s.f(){
             }
             create or add may be different
-            это семантика, id в любом случае генерятся одинаково
+            это семантика, id в любом случае генерятся одинаково, все зависит от родителя
              */
+            String asm = (String) funCall.addWaiter(i -> {
+                return Scope.genAsmFromList((Scope) nmspace.get()) +
+                ((Scope)i).asm;
+                /*
+                INTOSCOPE org
+                INTOSCOPE su
+                INTOSCOPE langos
+                INTOSCOPE classRRR
+                 */
+                /*~~~~~~~
+                POP ss
+                ...
+                CALL ee
+                ~~~~~~~~*/
+            }).get();
+            Scope scope = new Scope();
+            scope.type = Scope.Type.asm;
+            scope.asm = asm;//or addSubScope??
 
-            Scope t = (Scope) nmspace.get();
-            t.findSubNamespace(...)
+            Promise pr = Promise.add(() -> asm);//asm1 or Scope or something??
+            //TODO!!!
+            nmspace_.addWaiter(i -> {
+                Promise j = ((Scope) i).addSubScope(IdGenerator.functionCall(),
+                        Scope.Type.expr, pr);
+                pr.addWaiter(k -> ((Scope)k));
+                return j;
+            });//addSubScope??expr??
+            return pr;
     }
 
-    public static Asm createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {
+    public static Scope createFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {//TODO check, strange func
         String id = IdGenerator.functionCall();
-        Promise pr = ((Scope) nmspace.get()).addSubScope(id, Scope.Type.expr);
-        Asm asm = (Asm) funName.apply(args.map(i -> (Scope) i.get()));
+        Scope scope = (Scope) nmspace.get();
+        Promise pr = scope.addSubScope(id, Scope.Type.expr);
+        String asm = (String) funName.apply(args.map(i -> (Scope) i.get()));
         pr.addWaiter(i -> ((Scope)i).obj=asm);
-        //TODO change return type to ClassNamespace?
-        return asm;
+        scope.asm = asm;
+        return scope;
     }
 
     public static Object createFunctionCall_(Promise promise, Promise op) {

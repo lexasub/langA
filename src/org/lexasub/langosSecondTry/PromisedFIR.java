@@ -1,6 +1,5 @@
 package org.lexasub.langosSecondTry;
 
-import org.lexasub.langosSecondTry.utils.IdGenerator;
 import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.util.function.Function;
@@ -21,11 +20,8 @@ public class PromisedFIR {
         return Promise.add(() -> FIR.declareNamespace(ids, nmspace));
     }
 
-    public static Promise promiseMethodCall(Promise nmspace, Object funCall, Promise nmspace_) {
-        Promise pr = Promise.add(() -> FIR.createMethodCall(nmspace, funCall));
-        nmspace_.addWaiter(i -> ((Scope)i).addSubScope(IdGenerator.functionCall(),
-                Scope.Type.expr,pr));//addSubScope??expr??
-        return pr;
+    public static Promise promiseMethodCall(Promise nmspace, Promise funCall, Promise nmspace_) {
+        return FIR.createMethodCall(nmspace, funCall, nmspace_);
     }
 
     public static Promise promiseFunctionCall(Function funName, Stream<Promise> args, Promise nmspace) {

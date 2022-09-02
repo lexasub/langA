@@ -9,6 +9,29 @@ public class Scope {
     String name;
     List<List<ClassID>> localVars = new ArrayList<>();
 
+    public static String genAsmFromList(Scope t) {
+        LinkedList<String> nmspaces = new LinkedList<>();
+        while (t.parent != null) {
+            nmspaces.add(Asm.intoScope(t.name));
+            t = t.parent;
+        }
+        nmspaces.add(Asm.intoScope(t.name));
+        Collections.reverse(nmspaces);
+        return nmspaces.stream().reduce("", String::concat);
+    }
+
+    public static boolean deepSearch(Iterator<ClassID> it, Scope np) {
+        while(it.hasNext()){
+            ClassID next = it.next();
+            String text = next.text;
+            //mb np.obj = next??
+            Optional<Scope> i = np.findSubNamespace(text);
+            if(i.isEmpty()) return false;
+            np = i.get();
+        }
+        return true;
+    }
+
     public int declareVar(ClassID name, ClassID type) {
         localVars.add(Arrays.asList(name, type));
         return localVars.size() - 1;//element id
@@ -17,7 +40,7 @@ public class Scope {
         localVars.add(Arrays.asList(name, null));//may be ClassID(not null)
         return localVars.size() - 1;//element id
     }
-    enum Type {expr,brace,class_, function, lambda,id}
+    enum Type {expr,brace,class_, function, lambda,id, asm}
     Type type;
     Scope parent;
 

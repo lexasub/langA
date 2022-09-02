@@ -60,9 +60,9 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx, Promise nmspace) {
         return PromisedFIR.promiseMethodCall(
                 (ctx.namspce_obj() != null)
-                        ?visitNamspce_obj(ctx.namspce_obj(), nmspace)
-                        :visitClass_name(ctx.class_name(), nmspace),
-                visitFunction_call(ctx.function_call(), nmspace),nmspace);//ASM
+                        ?visitNamspce_obj(ctx.namspce_obj(), nmspace)//Scope
+                        :visitClass_name(ctx.class_name(), nmspace),//Scope
+                visitFunction_call(ctx.function_call(), nmspace),nmspace);//Scope
     }
 
     public Promise visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx, Promise nmspace) {
@@ -75,7 +75,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx,
                                              Promise nmspace) {
         if(!ctx.function_call().isEmpty())
-            return visitFunction_call(ctx.function_call(), nmspace);//ASM
+            return visitFunction_call(ctx.function_call(), nmspace);//Scope
         if(!ctx.member_name().isEmpty())
             return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope
         return null;
@@ -84,12 +84,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         Promise nmspace2 = (ctx.method_call() != null)
                 ? visitMethod_call(ctx.method_call(), nmspace)
-                : visitFunction_call(ctx.function_call(), nmspace);//ASM
+                : visitFunction_call(ctx.function_call(), nmspace);//Scope
         // (method_call | function_call) (DOT function_call_helper)* ;
         //if method_call -> namespace
         //if function_call -> namespace (.obj = Asm)
         while (it.hasNext()){
-            Promise fch = visitFunction_call_helper(it.next(), nmspace2);
+            Promise fch = visitFunction_call_helper(it.next(), nmspace2);//if Scope.type == asm, is bad for it(or not?)
             if(!it.hasNext()) break;//TODO
             //~    nmspace2 = fch
         }
