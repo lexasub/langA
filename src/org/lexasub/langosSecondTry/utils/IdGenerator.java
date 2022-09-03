@@ -7,6 +7,7 @@ public class IdGenerator {
     static LinkedList<String> lambdas = new LinkedList<>();
     static LinkedList<String> elems = new LinkedList<>();
     static LinkedList<String> function_name = new LinkedList<>();
+    static LinkedList<String> lbl_name = new LinkedList<>();
     public static String randomString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -39,5 +40,9 @@ public class IdGenerator {
             if(e.stream().filter(i-> i == s).findFirst().isEmpty())
                 return text + s;
         }
+    }
+
+    public static String label() {
+        return  getString(lbl_name, "lbl_");
     }
 }

@@ -22,4 +22,10 @@ public class Asm {
     public static String ImportOslang(String path, String moduleName) {
         return "IMPORT_OSLANG " + path + "/" + moduleName + "\n";
      }
+
+    public static String NEQ(String lbl) { return "NEQ " + lbl + "\n"; }
+
+    public static String LABEL(String lbl) { return lbl + ":/n"; }
+
+    public static String JMP(String lbl) { return "JMP " + lbl + "\n"; }
 }

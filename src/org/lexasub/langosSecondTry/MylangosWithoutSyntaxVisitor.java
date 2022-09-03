@@ -62,7 +62,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
                 (ctx.namspce_obj() != null)
                         ?visitNamspce_obj(ctx.namspce_obj(), nmspace)//Scope
                         :visitClass_name(ctx.class_name(), nmspace),//Scope
-                visitFunction_call(ctx.function_call(), nmspace),nmspace);//Scope
+                visitFunction_call(ctx.function_call(), nmspace),nmspace);//Scope.asm
+        //Scope.asm
     }
 
     public Promise visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx, Promise nmspace) {
@@ -70,7 +71,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return PromisedFIR.promiseFunctionCall(
                 visitFun_name(ctx.fun_name()),
                 visitParened_expr_list(ctx.parened_expr_list(), nmspace),
-                nmspace);
+                nmspace);//Scope.asm
     }
     public Promise visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx,
                                              Promise nmspace) {
@@ -102,13 +103,13 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         concat nmspace2, pr
         INTOSCOPE ..
         push r3
-        call ..
+        call eee
         push r4
         push r5
-        call ..
+        call tww
         push r9
         push r8
-        call ..
+        call rewr
          */
         return PromisedFIR.promiseFunctionCall_(
                 nmspace2,
