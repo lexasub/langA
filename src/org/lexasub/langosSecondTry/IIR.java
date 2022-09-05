@@ -10,10 +10,7 @@ public class IIR {//intermidiate IR
     //private static final IIR iir = new IIR();
 
     public static ClassID getOrAddID(String id, Scope nmspace) {
-        Optional<Scope> i = nmspace.findSubNamespace(id);
-        if(i.isEmpty())
-            return new ClassID(id, nmspace);
-        return (ClassID) i.get().obj;
+        return ClassID.ClassIDGen(id, nmspace);
     }
 
     public static ClassFunction addFunction(Promise type, Promise name, Promise nmspace) {
@@ -35,7 +32,7 @@ public class IIR {//intermidiate IR
 
     public static String addLambda(Stream<Promise> args, Stream<Promise> elems) {
         ClassLambda lambda = new ClassLambda(args);
-        elems.map(Promise::get).map(i -> (Scope)i).map(lambda::addExpr);
+        elems.map(Promise::get).map(i -> lambda.addExpr((Scope)i));
         return lambda.genAsm();
     }
 

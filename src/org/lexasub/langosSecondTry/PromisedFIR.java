@@ -50,8 +50,8 @@ public class PromisedFIR {
         return pr;
     }
 
-    public static Promise promiseProgram(Stream<Promise> imports, Stream<Promise> elems) {
-        return Promise.add(() -> FIR.createProgram(imports, elems));
+    public static Stream<Promise> promiseProgram(Stream<Promise> imports, Stream<Promise> elems) {
+        return FIR.createProgram(imports, elems);
     }
 
     public static Promise promiseIds(Stream<Promise> ids) {

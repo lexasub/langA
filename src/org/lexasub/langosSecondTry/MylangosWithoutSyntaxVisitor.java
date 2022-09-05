@@ -71,7 +71,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return PromisedFIR.promiseFunctionCall(
                 visitFun_name(ctx.fun_name()),
                 visitParened_expr_list(ctx.parened_expr_list(), nmspace),
-                nmspace);//Scope.asm
+                nmspace);
+        //Scope.asm
     }
     public Promise visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx,
                                              Promise nmspace) {
@@ -194,13 +195,13 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return null;
     }
 
-    public Promise visitProgram(langosWithoutSyntaxParser.ProgramContext ctx, Scope nmspace) {
+    public Stream<Promise> visitProgram(langosWithoutSyntaxParser.ProgramContext ctx, Scope nmspace) {
         return PromisedFIR.promiseProgram(
             ctx.import_().stream().map(i->visitImport_(i,nmspace)),
             ctx.element().stream().map(i->visitElement(i,nmspace)));
     }
 
-    public Promise visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx, Scope nmspace) {
+    public Stream<Promise> visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx, Scope nmspace) {
         return visitProgram(ctx.program(), nmspace);
     }
 

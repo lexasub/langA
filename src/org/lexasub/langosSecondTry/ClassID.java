@@ -5,16 +5,18 @@ import java.util.Optional;
 public class ClassID {
     public String text = "";
     Scope np;
-    public ClassID(String id, Scope nmspace) {
-        text = id;
+
+    public static ClassID ClassIDGen(String id, Scope nmspace) {
         Optional<Scope> i = nmspace.findSubNamespace(id);
         if(i.isEmpty()) {
+            ClassID _ci = new ClassID();
+            _ci.text = id;
             nmspace.addSubScope(id, Scope.Type.id);
-            np = nmspace.findSubNamespace(id).get();
-            nmspace.findSubNamespace(id).get().obj = this;
+            _ci.np = nmspace.findSubNamespace(id).get();
+            _ci.np.obj = _ci;
+            return _ci;
         }
-        else {
-            //error
-        }
+        return (ClassID) i.get().obj;
+
     }
 }

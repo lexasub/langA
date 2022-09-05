@@ -5,10 +5,12 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.lexasub.langos.langosLexer;
+import org.lexasub.langosSecondTry.utils.Promise;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class IO {
     public static void main(String[] args) throws IOException {
@@ -28,7 +30,8 @@ public class IO {
 
         MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
         //visitor.visit(tree);
-        visitor.visitEntry_point(parser.entry_point(),new Scope());
+        Stream<Promise> res = visitor.visitEntry_point(parser.entry_point(),new Scope());
+        res.map(Promise::get);//...
         //langosParser.Entry_pointContext s = parser.entry_point();
 
     }
