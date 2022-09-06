@@ -28,4 +28,12 @@ public class Asm {
     public static String LABEL(String lbl) { return lbl + ":/n"; }
 
     public static String JMP(String lbl) { return "JMP " + lbl + "\n"; }
+
+    public static String getArg(String s) {
+        return POP(s);
+    }
+
+    public static Object setArg(String s) {
+        return PUSH(s);
+    }
 }

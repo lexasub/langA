@@ -39,7 +39,7 @@ public class ClassFunction implements PreAsm {
         //generate variables table
         String scope = Asm.newScope();
         Stream<String> head = args.stream().map(i -> np.declareVar(i.name, i.type))
-                .map(i -> Asm.POP("lr" + i.toString()));//lr0 ... - it's local register
+                .map(i -> Asm.getArg("lr" + i.toString()));//lr0 ... - it's local register
         //TODO body generate asm and replace arguments-variables in body to lr0... registers
         //Asm.endScope
         //+= Asm.call("ee")

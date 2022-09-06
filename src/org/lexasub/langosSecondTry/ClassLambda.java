@@ -23,12 +23,12 @@ public class ClassLambda {
     public String genAsm() {
         Stream<String> head = args.stream()
                 .map(i -> np.declareVar(i))
-                .map(i -> Asm.POP("lr" + i.toString()));//lr0 ... - it's local register
+                .map(i -> Asm.getArg("lr" + i.toString()));//lr0 ... - it's local register
         Stream<String> body = exprs.stream().map(i -> {
             if (i.obj instanceof Promise) ((Promise) i.obj).get();//хитрый трюк,
             // в промисе должен быть addWaiter который сам обратиться к объекту, и объект сам в Scope 'asm' скинет
             return i.asm;//Must not == null
         });
-        return Asm.newScope() + Stream.concat(head, body) + Asm.endScope();
+        return Asm.newScope() + Stream.concat(head, body) + Asm.endScope();//хмм лямбда не сразу вызывается, тот кто принимает эту строку, должен знать об этом
     }
 }

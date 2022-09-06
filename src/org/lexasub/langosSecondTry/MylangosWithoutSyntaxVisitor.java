@@ -79,7 +79,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.function_call().isEmpty())
             return visitFunction_call(ctx.function_call(), nmspace);//Scope
         if(!ctx.member_name().isEmpty())
-            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope//TODO???
+            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope
         //if is member - mov address->rtmp0
         return null;
     }
@@ -93,7 +93,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         Stream<Promise> pr_stream = ctx.function_call_helper().stream().map(i ->
                 visitFunction_call_helper(i, nmspace2).addWaiter(j ->
                         (((Scope) j).type == Scope.Type.id) ?
-                                Asm.PUSH("r231") :
+                                Asm.setArg("r231") :
                                 ((Scope) j).asm)
         );
         Promise pr = Promise.add(() ->
