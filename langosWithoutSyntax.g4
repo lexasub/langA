@@ -59,7 +59,7 @@ method_call : (namspce_obj | class_name)  DOT function_call;
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;
 function_call_ : (method_call | function_call) (DOT function_call_helper)* ;
-//ID-it's getmember
+
 get_member : ID DOT member_name;
 expr : flow_control |  function_call_ | lambda| get_member | ID ;
 
