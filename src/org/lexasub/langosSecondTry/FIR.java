@@ -8,7 +8,8 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FIR {
-    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Promise nmspace) {
+    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType,
+                                               Stream<Promise> argName, Promise nmspace) {
        return IIR.addFunction(type, name, nmspace)
                 .addArgs(argType.map(i -> (ClassID) ((Scope) i.get()).obj),
                         argName.map(i -> (ClassID) ((Scope) i.get()).obj)
