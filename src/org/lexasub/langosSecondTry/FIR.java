@@ -8,12 +8,11 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FIR {
-    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body, Promise nmspace) {
+    public static ClassFunction createFunction(Promise type,  Promise name, Stream<Promise> argType, Stream<Promise> argName, Promise nmspace) {
        return IIR.addFunction(type, name, nmspace)
                 .addArgs(argType.map(i -> (ClassID) ((Scope) i.get()).obj),
                         argName.map(i -> (ClassID) ((Scope) i.get()).obj)
-                )
-                .addBody(body.map(i -> (ClassElem) i.get()));
+                );
     }
 
     public static Scope declareNamespace(Stream<Promise> ids, Promise nmspace) {
@@ -57,7 +56,7 @@ public class FIR {
     }
 
     public static Object createGetMember(Promise id, Promise property, Promise nmspace) {
-        return IIR.getClassLink((ClassID) (((Scope)id.get()).obj), nmspace).getProperty((Scope) property.get());
+        return ClassClass.getClassLink((ClassID) (((Scope)id.get()).obj), nmspace).getProperty((Scope) property.get());
     }
 
     public static String createSimpleLambda(Promise args, Promise expr) {
@@ -90,7 +89,7 @@ public class FIR {
     }
 
     public static Scope createId(String id, Scope nmspace) {
-       return IIR.getOrAddID(id, nmspace);
+       return ClassID.ClassIDGen(id, nmspace);
     }
 
     public static Object doBreak(Promise nmspace) {

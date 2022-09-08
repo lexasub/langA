@@ -40,7 +40,7 @@ public class Scope {
         localVars.add(Arrays.asList(name, null));//may be ClassID(not null)
         return localVars.size() - 1;//element id
     }
-    enum Type {expr,brace,class_, function, lambda,id, asm}
+    enum Type {expr,brace,class_, function, lambda, id, asm}
     Type type;
     Scope parent;
 

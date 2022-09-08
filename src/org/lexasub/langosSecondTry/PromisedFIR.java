@@ -8,10 +8,12 @@ import java.util.stream.Stream;
 public class PromisedFIR {
 
     public static Promise promiseFunction(Object spec, Promise type, Promise name,
-                                          Stream<Promise> argType, Stream<Promise> argName, Stream<Promise> body,
+                                          Stream<Promise> argTypes, Stream<Promise> argNames, Stream<Promise> body,
                                           Promise nmspace) {
         //skip spec//пока их нету
-        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argType, argName, body, nmspace));
+        Promise pr = Promise.add(() -> FIR.createFunction(type, name, argTypes, argNames, nmspace)
+                                          .addBody(body.map(i -> (ClassElem) i.get()))
+        );
         nmspace.addWaiter(i -> ((Scope)i).obj = pr);
         return pr;
     }

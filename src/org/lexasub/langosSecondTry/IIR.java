@@ -9,18 +9,9 @@ import java.util.stream.Stream;
 public class IIR {//intermidiate IR
     //private static final IIR iir = new IIR();
 
-    public static Scope getOrAddID(String id, Scope nmspace) {
-        return ClassID.ClassIDGen(id, nmspace);
-    }
-
     public static ClassFunction addFunction(Promise type, Promise name, Promise nmspace) {
         //TODO or return type Scope?
         return new ClassFunction((Scope) type.get(), (Scope) name.get(), nmspace);
-    }
-
-
-    public static ClassClass getClassLink(ClassID classID, Promise nmspace) {
-        return (ClassClass) ((Scope)nmspace.get()).findSubNamespace(classID.text).get().obj;
     }
 
     public static ClassClass addClass(Promise name) {
@@ -40,19 +31,14 @@ public class IIR {//intermidiate IR
     public static String import_(Stream<Promise> importPath) {
         Iterator<Promise> it = importPath.iterator();
         Promise obj  = it.next();
-        Promise path = null;
         if(it.hasNext()){
             if((String) obj.get() == "system")
                 return importSystem(it);
         }
+        Promise path = obj;
         while(it.hasNext()) {
-            if(path == null)
-                path = obj;
-            else {
-                Promise finalObj = obj;
-                path = path.addWaiter(i -> i + "/" + ((ClassID) ((Scope) finalObj.get()).obj).text);
-            }
-            obj = it.next();
+            Promise finalObj = it.next();
+            path = path.addWaiter(i -> i + "/" + ((ClassID) ((Scope) finalObj.get()).obj).text);
         }
         return importModule((String) path.get(), (String)obj.get());
     }

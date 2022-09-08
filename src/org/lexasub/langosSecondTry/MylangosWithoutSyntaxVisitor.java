@@ -119,7 +119,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Promise visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx, Promise nmspace) {
         return PromisedFIR.promiseGetMember(
-                visitId(ctx.ID(), nmspace),
+                visitId(ctx.ID(), nmspace),//Scope
                 visitMember_name(ctx.member_name(), nmspace),//Scope
                 nmspace);
     }

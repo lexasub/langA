@@ -1,5 +1,7 @@
 package org.lexasub.langosSecondTry;
 
+import org.lexasub.langosSecondTry.utils.Promise;
+
 import java.util.LinkedList;
 import java.util.stream.Stream;
 
@@ -8,6 +10,9 @@ public class ClassClass {
     String name;
     Scope np;
 
+    public static ClassClass getClassLink(ClassID classID, Promise nmspace) {
+        return (ClassClass) ((Scope)nmspace.get()).findSubNamespace(classID.text).get().obj;
+    }
     public ClassClass(Object _name) {
         name = (String) _name;//may be it ClassID
     }
