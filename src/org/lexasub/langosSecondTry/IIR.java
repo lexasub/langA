@@ -9,12 +9,13 @@ import java.util.stream.Stream;
 public class IIR {//intermidiate IR
     //private static final IIR iir = new IIR();
 
-    public static ClassID getOrAddID(String id, Scope nmspace) {
+    public static Scope getOrAddID(String id, Scope nmspace) {
         return ClassID.ClassIDGen(id, nmspace);
     }
 
     public static ClassFunction addFunction(Promise type, Promise name, Promise nmspace) {
-        return new ClassFunction(type.get(), name.get(), nmspace);
+        //TODO or return type Scope?
+        return new ClassFunction((Scope) type.get(), (Scope) name.get(), nmspace);
     }
 
 
@@ -49,7 +50,7 @@ public class IIR {//intermidiate IR
                 path = obj;
             else {
                 Promise finalObj = obj;
-                path = path.addWaiter(i -> i + "/" + finalObj.get());
+                path = path.addWaiter(i -> i + "/" + ((ClassID) ((Scope) finalObj.get()).obj).text);
             }
             obj = it.next();
         }

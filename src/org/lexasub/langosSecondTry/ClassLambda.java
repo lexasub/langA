@@ -12,7 +12,7 @@ public class ClassLambda {
     LinkedList<Scope> exprs;
     public ClassLambda(Stream<Promise> args) {
         //may be it not ClassID
-        this.args = args.map(i -> (ClassID) i.get()).collect(Collectors.toCollection(LinkedList::new));
+        this.args = args.map(i -> (ClassID)((Scope) i.get()).obj).collect(Collectors.toCollection(LinkedList::new));
     }
 
     public ClassLambda addExpr(Scope expr) {

@@ -13,9 +13,9 @@ public class ClassFunction implements PreAsm {
     String type;
     String name;
     Scope np;
-    public ClassFunction(Object _type, Object _name, Promise nmspace) {
-        type = (String) _type;//may be it ClassID
-        name = (String) _name;
+    public ClassFunction(Scope _type, Scope _name, Promise nmspace) {
+        type = ((ClassID) _type.obj).text;//may be it ClassID
+        name = ((ClassID) _name.obj).text;
         np = (Scope) nmspace.get();
     }
 

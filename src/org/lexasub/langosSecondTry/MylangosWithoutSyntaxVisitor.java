@@ -79,7 +79,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.function_call().isEmpty())
             return visitFunction_call(ctx.function_call(), nmspace);//Scope
         if(!ctx.member_name().isEmpty())
-            return visitMember_name(ctx.member_name(), nmspace).addWaiter(i -> ((ClassID)i).np);//Scope
+            return visitMember_name(ctx.member_name(), nmspace);//Scope
         //if is member - mov address->rtmp0
         return null;
     }
@@ -120,7 +120,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx, Promise nmspace) {
         return PromisedFIR.promiseGetMember(
                 visitId(ctx.ID(), nmspace),
-                visitMember_name(ctx.member_name(), nmspace),
+                visitMember_name(ctx.member_name(), nmspace),//Scope
                 nmspace);
     }
 
@@ -146,7 +146,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.get_member().isEmpty())//ClassClass//TODO
             return visitGet_member(ctx.get_member(), nmspace).addWaiter(i -> ((ClassClass)i).np);
         if(!ctx.ID().getText().isEmpty())//Scope
-            return visitId(ctx.ID(), nmspace).addWaiter(i -> ((ClassID)i).np);
+            return visitId(ctx.ID(), nmspace);
         return null;
     }
 
@@ -234,7 +234,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     public Promise visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx, Scope nmspace) {
         return visitId(ctx.ID(), nmspace);
     }
-    private Promise visitId(TerminalNode id, Promise nmspace) {//TODO??
+    private Promise visitId(TerminalNode id, Promise nmspace) {//->Scope.obj (ClassID)
         return PromisedFIR.promiseId(id.getText(), nmspace);
     }
 
@@ -252,7 +252,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     public Promise visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx, Promise nmspace) {
         if(ctx == null) return null;
-        Promise pr = visitId(ctx.ID(), nmspace).addWaiter(i -> ((ClassID) i).np);
+        Promise pr = visitId(ctx.ID(), nmspace);
         //pr.addWaiter(i -> ((Scope)i).type = Scope.Type.class_);mb ??
         return pr;
     }

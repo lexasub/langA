@@ -6,7 +6,7 @@ public class ClassID {
     public String text = "";
     Scope np;
 
-    public static ClassID ClassIDGen(String id, Scope nmspace) {
+    public static Scope ClassIDGen(String id, Scope nmspace) {
         Scope nmspace2 = nmspace;
         Optional<Scope> i = nmspace2.findSubNamespace(id);
         while(i.isEmpty() || (nmspace2.parent != null)){
@@ -19,9 +19,9 @@ public class ClassID {
             nmspace.addSubScope(id, Scope.Type.id);
             _ci.np = nmspace.findSubNamespace(id).get();
             _ci.np.obj = _ci;
-            return _ci;
+            return _ci.np;
         }
-        return (ClassID) i.get().obj;
+        return i.get();//(ClassID) i.get().obj;
 
     }
 }

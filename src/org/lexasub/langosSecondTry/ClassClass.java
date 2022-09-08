@@ -12,7 +12,8 @@ public class ClassClass {
         name = (String) _name;//may be it ClassID
     }
 
-    public Object getProperty(Object o) {
+    public Object getProperty(Scope o) {
+        ClassID pr = (ClassID) o.obj;
     }
 
     public ClassClass addBody(Stream<ClassElem> _body) {
