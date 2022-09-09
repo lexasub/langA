@@ -1,4 +1,4 @@
-// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,13 +16,37 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx) { }
+	@Override public void enterImport_(langosWithoutSyntaxParser.Import_Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx) { }
+	@Override public void exitImport_(langosWithoutSyntaxParser.Import_Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_list(langosWithoutSyntaxParser.Id_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_list(langosWithoutSyntaxParser.Id_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -76,13 +100,73 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) { }
+	@Override public void enterNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx) { }
+	@Override public void exitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction(langosWithoutSyntaxParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction(langosWithoutSyntaxParser.FunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr(langosWithoutSyntaxParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr(langosWithoutSyntaxParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -119,30 +203,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunction(langosWithoutSyntaxParser.FunctionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunction(langosWithoutSyntaxParser.FunctionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -191,30 +251,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpr(langosWithoutSyntaxParser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpr(langosWithoutSyntaxParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -280,18 +316,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImport_(langosWithoutSyntaxParser.Import_Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitImport_(langosWithoutSyntaxParser.Import_Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterProgram(langosWithoutSyntaxParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -316,18 +340,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId_list(langosWithoutSyntaxParser.Id_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_list(langosWithoutSyntaxParser.Id_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterParened_expr_list(langosWithoutSyntaxParser.Parened_expr_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -347,18 +359,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParened_id_list(langosWithoutSyntaxParser.Parened_id_listContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

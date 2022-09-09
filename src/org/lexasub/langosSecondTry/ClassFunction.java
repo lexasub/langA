@@ -43,5 +43,6 @@ public class ClassFunction implements PreAsm {
         //TODO body generate asm and replace arguments-variables in body to lr0... registers
         //Asm.endScope
         //+= Asm.call("ee")
+        return null;
     }
 }

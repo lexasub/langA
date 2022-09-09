@@ -1,16 +1,13 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
-import com.ibm.icu.impl.Pair;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.lexasub.langosSecondTry.Scope;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxVisitor;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 class PairString extends org.antlr.v4.runtime.misc.Pair<String,String> {//заглушка против java
@@ -22,16 +19,16 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public String visitProgram(langosWithoutSyntaxParser.ProgramContext ctx){
-       return ctx.import_().stream().map(this::visitImport_).reduce("", String::concat) +
-               ctx.element().stream().map(this::visitElement).reduce("", String::concat);
+        if(!ctx.import_().isEmpty()) return visitImport_(ctx.import_());
+        return visitElement(ctx.element());
    }
    @Override
    public String visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx){
-       return visitProgram(ctx.program());
+       return ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
    }
     @Override
     public String visitImport_(langosWithoutSyntaxParser.Import_Context ctx){
-        return visitProgram(ctx.program());
+        return "";
     }
     @Override
     public String visitElement(langosWithoutSyntaxParser.ElementContext ctx){
@@ -52,7 +49,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     @Override
     public String visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx){
-        return visitId(ctx.ID().getText());
+        return Asm.intoScope(visitId(ctx.ID().getText()));
     }
     @Override
     public String visitVar_name(langosWithoutSyntaxParser.Var_nameContext ctx){
@@ -70,6 +67,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         //пока забъем на типы
         return s2.map(Asm::getArg).reduce("", String::concat);
     }
+
+    @Override
+    public String visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
+        return ctx.ID().stream().map(this::visitId).map(Asm::intoScope).reduce("", String::concat);
+    }
+
     @Override
     public String visitBraced_element(langosWithoutSyntaxParser.Braced_elementContext ctx){
         return ctx.element().stream().map(this::visitElement).reduce("", String::concat);//mb не совсем верно
@@ -98,13 +101,19 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         return visitId(s.getText());
     }
     public String visitId(String s){
-        return "";
+        return s;//TODO
     }
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx){
-        return "";
+        if(!ctx.flow_control().isEmpty()) return visitFlow_control(ctx.flow_control());
+        if(!ctx.function_call_().isEmpty()) return visitFunction_call_(ctx.function_call_());
+        if(!ctx.lambda().isEmpty()) return visitLambda(ctx.lambda());
+        if(!ctx.get_member().isEmpty()) return visitGet_member(ctx.get_member()).a;//std::kostyl
+        if(ctx.ID().getText() != "") return visitId(ctx.ID());
+        return null;
     }
-    @Override String visitLambda(langosWithoutSyntaxParser.LambdaContext ctx){
+    @Override
+    public String visitLambda(langosWithoutSyntaxParser.LambdaContext ctx){
         Stream<String> s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitId);
         String s2 = (ctx.expr().isEmpty())
                 ? visitBraced_element(ctx.braced_element())
@@ -117,6 +126,25 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         Stream<String> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExpr);
         return visitFun_name(ctx.fun_name(), args);
+    }
+
+    @Override
+    public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
+        if(!ctx.namspce_obj().isEmpty()) {
+            return visitNamspce_obj(ctx.namspce_obj()) + visitFunction_call(ctx.function_call());
+        }
+        String cn = visitClass_name(ctx.class_name());//TODO check cn == INTOSCOPE ClassName
+        return cn + visitFunction_call(ctx.function_call());
+    }
+
+    @Override
+    public String visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) {
+        String functionCalls = ctx.function_call_helper().stream().map(this::visitFunction_call_helper)
+                .reduce("", String::concat);
+        if(!ctx.method_call().isEmpty()){
+            return visitMethod_call(ctx.method_call())  + functionCalls;
+        }
+        return visitFunction_call(ctx.function_call()) + functionCalls;
     }
 
     public  String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<String> args) {
@@ -137,6 +165,21 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!funname.ID().getText().isEmpty())//may be add ids.table.addfuntotable..//TODO?
             return FunctionGenerators.userFunGenerator(funname.ID().getText());
         return null;
+    }
+
+    @Override
+    public String visitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx) {
+        if(!ctx.return_expr().isEmpty()) return visitReturn_expr(ctx.return_expr());
+        if(ctx.BREAK().getText() != "") return Asm.BREAK();
+        if(ctx.CONTINUE().getText() != "") return Asm.CONTINUE();
+        return null;
+    }
+
+    @Override
+    public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
+        return visitExpr(ctx.expr()) +
+                Asm.setArgLastRes() +
+                Asm.RETURN();
     }
 
     @Override
@@ -171,7 +214,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     @Override
     public Stream<String> visitId_list(langosWithoutSyntaxParser.Id_listContext ctx) {
-        return ctx.ID().stream().map(this::visitId);
+        return ctx.ID().stream().map(this::visitId);//TODO check , i don't want ','
     }
 
     @Override

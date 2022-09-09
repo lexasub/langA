@@ -9,8 +9,12 @@ public class Asm {
     public static String POP(String s) {
         return "POP " + s + "\n";
     }
+    public static String PUSH(String r) { return "PUSH " + r + "\n"; }
     public static String getArg(String s) {
         return POP(s);
+    }
+    public static Object setArg(String s) {
+        return PUSH(s);
     }
 
     public static String createFunction(String type, String name, String args, String body) {
@@ -56,5 +60,21 @@ public class Asm {
 
     public static String MOVMEMBER(String regName, String field) {
         return "MOVMEMBER " +  regName + ", " + field + "\n";
+    }
+
+    public static String setArgLastRes() {
+        return "LAST_RES_TO_STACK\n";
+    }
+
+    public static String RETURN() {
+        return "RETURN\n";//???
+    }
+
+    public static String CONTINUE() {
+        return "CONTINUE\n";
+    }
+
+    public static String BREAK() {
+        return "BREAK\n";
     }
 }

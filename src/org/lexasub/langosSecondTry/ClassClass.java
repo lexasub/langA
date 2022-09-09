@@ -19,6 +19,7 @@ public class ClassClass {
 
     public Object getProperty(Scope o) {
         ClassID pr = (ClassID) o.obj;
+        return null;
     }
 
     public ClassClass addBody(Stream<ClassElem> _body) {

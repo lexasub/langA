@@ -1,4 +1,4 @@
-// Generated from D:/langA\langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,11 +11,23 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_specifier}.
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#import_}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx);
+	T visitImport_(langosWithoutSyntaxParser.Import_Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#fun_name}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_list(langosWithoutSyntaxParser.Id_listContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#type_name}.
 	 * @param ctx the parse tree
@@ -41,11 +53,41 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMember_name(langosWithoutSyntaxParser.Member_nameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#fun_name}.
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#namspce_obj}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFun_name(langosWithoutSyntaxParser.Fun_nameContext ctx);
+	T visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_specifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_specifier(langosWithoutSyntaxParser.Function_specifierContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(langosWithoutSyntaxParser.FunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(langosWithoutSyntaxParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#get_member}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#braced_element}.
 	 * @param ctx the parse tree
@@ -64,18 +106,6 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction(langosWithoutSyntaxParser.FunctionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#namspce_obj}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#method_call}.
 	 * @param ctx the parse tree
@@ -100,18 +130,6 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#get_member}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpr(langosWithoutSyntaxParser.ExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#flow_control}.
 	 * @param ctx the parse tree
@@ -143,12 +161,6 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClass_(langosWithoutSyntaxParser.Class_Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#import_}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitImport_(langosWithoutSyntaxParser.Import_Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -161,12 +173,6 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_list}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_list(langosWithoutSyntaxParser.Id_listContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#parened_expr_list}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -178,10 +184,4 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParened_id_list(langosWithoutSyntaxParser.Parened_id_listContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
 }

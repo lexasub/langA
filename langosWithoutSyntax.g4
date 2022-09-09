@@ -2,7 +2,10 @@
 grammar langosWithoutSyntax;
 
 //TODO WS support
-WS:  [ \r\n\t] -> skip  ;
+fragment ANY :  .  ;
+CHAR :  '\'' ANY '\'' ;
+STRING :  '\'' (ANY | '\\\'') *? '\'' ;
+//WS:  [ \r\n\t] -> skip  ;
 
 IMPORT : 'import';
 SYNTAX : 'syntax';
@@ -15,6 +18,8 @@ WHILE : 'while';
 CONTINUE : 'continue';
 BREAK : 'break';
 CLASS : 'class';
+KWD : IMPORT | SYNTAX;//....
+
 QUEST :  '?' ;
 STAR :  '*'  ;
 PLUS :  '+' ;
@@ -31,37 +36,47 @@ BAR:  '|' ;
 GT:  '>'  ;
 LT:  '<' ;
 CIRCUMFLEX : '^' ;
-ID:  ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_' )*   ;
-COLON :  ': ' ;
+
+DOUBLECOLON: '::';
+COLON :  ':' ;
 SEMI :  ';' ;
 COMA : ',';
-DOUBLECOLON: '::';
 ARROW : '->';
 
-fragment ANY :  .  ;
-CHAR :  '\'' ANY '\'' ;
-STRING :  '\'' (ANY | '\\\'') *? '\'' ;
 
-function_specifier: ;
+fragment ID_LIT:  ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_' )*   ;
+DOT_ID : DOT ID_LIT;
+COMA_ID : COMA ID;
+
+import_ : IMPORT ID (DOT ID)* SEMI;
+ID: ID_LIT;
+fun_name : IF | WHILE | PAIRMAP | MAP | ID;
+
+id_list : ID (COMA ID)*;
+
 type_name: ID;
 var_name: ID;
 class_name : ID;
 member_name : ID;
 
-fun_name : IF | WHILE | PAIRMAP | MAP | ID;
+namspce_obj : ID (DOUBLECOLON ID)+;
+
+id_strong : RPAREN ID LPAREN;
+function_specifier: '$' ;
+function: function_specifier? type_name ID func_args braced_element;
+
+expr : flow_control |  function_call_ | lambda| get_member | ID ;
+
+get_member : ID DOT member_name;
 
 braced_element: RBRACE element* LBRACE;
 expr_list: expr? (COMA expr)*;
 func_args: RPAREN type_name var_name (COMA type_name var_name)* LPAREN;
-function: function_specifier? type_name ID func_args braced_element;
-namspce_obj : ID (DOUBLECOLON ID)+;
 method_call : (namspce_obj | class_name)  DOT function_call;
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;
 function_call_ : (method_call | function_call) (DOT function_call_helper)* ;
 
-get_member : ID DOT member_name;
-expr : flow_control |  function_call_ | lambda| get_member | ID ;
 
 flow_control : return_expr | BREAK | CONTINUE ;
 lambda : parened_id_list ARROW (braced_element | expr);
@@ -71,12 +86,10 @@ element :  function | expr ;
 class_ : CLASS class_name braced_element;
 
 
-import_ : IMPORT ID (DOT ID)* SEMI;
-program : import_ * element*;
-entry_point : program EOF;
+program : import_ | element;
+entry_point : program* EOF;
 
 
-id_list : ID (COMA ID)*;
 parened_expr_list: RPAREN expr_list LPAREN;
 parened_id_list : RPAREN id_list? LPAREN;
-id_strong : RPAREN ID LPAREN;
+
