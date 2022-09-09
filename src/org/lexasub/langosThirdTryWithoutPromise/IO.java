@@ -28,12 +28,11 @@ public class IO {
         ParseTreeWalker.DEFAULT.walk(listener, tree); */
 
 
-        //MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
-        langosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
+        MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
         //visitor.visit(tree);
-        visitor.visitEntry_point(parser.entry_point());
+
        // System.out.print( visitor.visitImport_(parser.import_()));
-        System.out.print(parser);
+        System.out.print(visitor.visitEntry_point(parser.entry_point()));
         //res.map(Promise::get);//...
         //langosParser.Entry_pointContext s = parser.entry_point();
 

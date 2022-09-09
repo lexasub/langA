@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -21,7 +21,7 @@ public class langosWithoutSyntaxParser extends Parser {
 		PAIRMAP=9, IF=10, WHILE=11, CONTINUE=12, BREAK=13, CLASS=14, KWD=15, QUEST=16, 
 		STAR=17, PLUS=18, MINUS=19, ASSIGN=20, DOT=21, LPAREN=22, RPAREN=23, LBRACE=24, 
 		RBRACE=25, LEND=26, REND=27, BAR=28, GT=29, LT=30, CIRCUMFLEX=31, DOUBLECOLON=32, 
-		COLON=33, SEMI=34, COMA=35, ARROW=36, DOT_ID=37, COMA_ID=38, ID=39;
+		COLON=33, SEMI=34, COMA=35, ARROW=36, ID=37;
 	public static final int
 		RULE_import_ = 0, RULE_fun_name = 1, RULE_id_list = 2, RULE_type_name = 3, 
 		RULE_var_name = 4, RULE_class_name = 5, RULE_member_name = 6, RULE_namspce_obj = 7, 
@@ -59,7 +59,7 @@ public class langosWithoutSyntaxParser extends Parser {
 			"PAIRMAP", "IF", "WHILE", "CONTINUE", "BREAK", "CLASS", "KWD", "QUEST", 
 			"STAR", "PLUS", "MINUS", "ASSIGN", "DOT", "LPAREN", "RPAREN", "LBRACE", 
 			"RBRACE", "LEND", "REND", "BAR", "GT", "LT", "CIRCUMFLEX", "DOUBLECOLON", 
-			"COLON", "SEMI", "COMA", "ARROW", "DOT_ID", "COMA_ID", "ID"
+			"COLON", "SEMI", "COMA", "ARROW", "ID"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -1880,7 +1880,7 @@ public class langosWithoutSyntaxParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\'\u00de\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001%\u00de\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -1916,7 +1916,7 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u0001\u001b\u0001\u001c\u0001\u001c\u0003\u001c\u00da\b\u001c\u0001\u001c"+
 		"\u0001\u001c\u0001\u001c\u0000\u0000\u001d\u0000\u0002\u0004\u0006\b\n"+
 		"\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.0246"+
-		"8\u0000\u0001\u0002\u0000\b\u000b\'\'\u00d7\u0000:\u0001\u0000\u0000\u0000"+
+		"8\u0000\u0001\u0002\u0000\b\u000b%%\u00d7\u0000:\u0001\u0000\u0000\u0000"+
 		"\u0002E\u0001\u0000\u0000\u0000\u0004G\u0001\u0000\u0000\u0000\u0006O"+
 		"\u0001\u0000\u0000\u0000\bQ\u0001\u0000\u0000\u0000\nS\u0001\u0000\u0000"+
 		"\u0000\fU\u0001\u0000\u0000\u0000\u000eW\u0001\u0000\u0000\u0000\u0010"+
@@ -1929,30 +1929,30 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u0000,\u00bc\u0001\u0000\u0000\u0000.\u00c1\u0001\u0000\u0000\u00000"+
 		"\u00c3\u0001\u0000\u0000\u00002\u00c9\u0001\u0000\u0000\u00004\u00ce\u0001"+
 		"\u0000\u0000\u00006\u00d3\u0001\u0000\u0000\u00008\u00d7\u0001\u0000\u0000"+
-		"\u0000:;\u0005\u0004\u0000\u0000;@\u0005\'\u0000\u0000<=\u0005\u0015\u0000"+
-		"\u0000=?\u0005\'\u0000\u0000><\u0001\u0000\u0000\u0000?B\u0001\u0000\u0000"+
+		"\u0000:;\u0005\u0004\u0000\u0000;@\u0005%\u0000\u0000<=\u0005\u0015\u0000"+
+		"\u0000=?\u0005%\u0000\u0000><\u0001\u0000\u0000\u0000?B\u0001\u0000\u0000"+
 		"\u0000@>\u0001\u0000\u0000\u0000@A\u0001\u0000\u0000\u0000AC\u0001\u0000"+
 		"\u0000\u0000B@\u0001\u0000\u0000\u0000CD\u0005\"\u0000\u0000D\u0001\u0001"+
 		"\u0000\u0000\u0000EF\u0007\u0000\u0000\u0000F\u0003\u0001\u0000\u0000"+
-		"\u0000GL\u0005\'\u0000\u0000HI\u0005#\u0000\u0000IK\u0005\'\u0000\u0000"+
+		"\u0000GL\u0005%\u0000\u0000HI\u0005#\u0000\u0000IK\u0005%\u0000\u0000"+
 		"JH\u0001\u0000\u0000\u0000KN\u0001\u0000\u0000\u0000LJ\u0001\u0000\u0000"+
 		"\u0000LM\u0001\u0000\u0000\u0000M\u0005\u0001\u0000\u0000\u0000NL\u0001"+
-		"\u0000\u0000\u0000OP\u0005\'\u0000\u0000P\u0007\u0001\u0000\u0000\u0000"+
-		"QR\u0005\'\u0000\u0000R\t\u0001\u0000\u0000\u0000ST\u0005\'\u0000\u0000"+
-		"T\u000b\u0001\u0000\u0000\u0000UV\u0005\'\u0000\u0000V\r\u0001\u0000\u0000"+
-		"\u0000WZ\u0005\'\u0000\u0000XY\u0005 \u0000\u0000Y[\u0005\'\u0000\u0000"+
+		"\u0000\u0000\u0000OP\u0005%\u0000\u0000P\u0007\u0001\u0000\u0000\u0000"+
+		"QR\u0005%\u0000\u0000R\t\u0001\u0000\u0000\u0000ST\u0005%\u0000\u0000"+
+		"T\u000b\u0001\u0000\u0000\u0000UV\u0005%\u0000\u0000V\r\u0001\u0000\u0000"+
+		"\u0000WZ\u0005%\u0000\u0000XY\u0005 \u0000\u0000Y[\u0005%\u0000\u0000"+
 		"ZX\u0001\u0000\u0000\u0000[\\\u0001\u0000\u0000\u0000\\Z\u0001\u0000\u0000"+
 		"\u0000\\]\u0001\u0000\u0000\u0000]\u000f\u0001\u0000\u0000\u0000^_\u0005"+
-		"\u0017\u0000\u0000_`\u0005\'\u0000\u0000`a\u0005\u0016\u0000\u0000a\u0011"+
+		"\u0017\u0000\u0000_`\u0005%\u0000\u0000`a\u0005\u0016\u0000\u0000a\u0011"+
 		"\u0001\u0000\u0000\u0000bc\u0005\u0001\u0000\u0000c\u0013\u0001\u0000"+
 		"\u0000\u0000df\u0003\u0012\t\u0000ed\u0001\u0000\u0000\u0000ef\u0001\u0000"+
 		"\u0000\u0000fg\u0001\u0000\u0000\u0000gh\u0003\u0006\u0003\u0000hi\u0005"+
-		"\'\u0000\u0000ij\u0003\u001e\u000f\u0000jk\u0003\u001a\r\u0000k\u0015"+
-		"\u0001\u0000\u0000\u0000lr\u0003(\u0014\u0000mr\u0003&\u0013\u0000nr\u0003"+
-		"*\u0015\u0000or\u0003\u0018\f\u0000pr\u0005\'\u0000\u0000ql\u0001\u0000"+
+		"%\u0000\u0000ij\u0003\u001e\u000f\u0000jk\u0003\u001a\r\u0000k\u0015\u0001"+
+		"\u0000\u0000\u0000lr\u0003(\u0014\u0000mr\u0003&\u0013\u0000nr\u0003*"+
+		"\u0015\u0000or\u0003\u0018\f\u0000pr\u0005%\u0000\u0000ql\u0001\u0000"+
 		"\u0000\u0000qm\u0001\u0000\u0000\u0000qn\u0001\u0000\u0000\u0000qo\u0001"+
 		"\u0000\u0000\u0000qp\u0001\u0000\u0000\u0000r\u0017\u0001\u0000\u0000"+
-		"\u0000st\u0005\'\u0000\u0000tu\u0005\u0015\u0000\u0000uv\u0003\f\u0006"+
+		"\u0000st\u0005%\u0000\u0000tu\u0005\u0015\u0000\u0000uv\u0003\f\u0006"+
 		"\u0000v\u0019\u0001\u0000\u0000\u0000w{\u0005\u0019\u0000\u0000xz\u0003"+
 		".\u0017\u0000yx\u0001\u0000\u0000\u0000z}\u0001\u0000\u0000\u0000{y\u0001"+
 		"\u0000\u0000\u0000{|\u0001\u0000\u0000\u0000|~\u0001\u0000\u0000\u0000"+

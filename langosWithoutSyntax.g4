@@ -44,12 +44,8 @@ COMA : ',';
 ARROW : '->';
 
 
-fragment ID_LIT:  ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_' )*   ;
-DOT_ID : DOT ID_LIT;
-COMA_ID : COMA ID;
-
+ID:  ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_' )*   ;
 import_ : IMPORT ID (DOT ID)* SEMI;
-ID: ID_LIT;
 fun_name : IF | WHILE | PAIRMAP | MAP | ID;
 
 id_list : ID (COMA ID)*;
