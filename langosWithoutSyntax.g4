@@ -13,7 +13,7 @@ STRING :  QUOTE STRINGBODY*? QUOTE;
 
 WS:  [ \r\n\t]  -> skip  ;
 
-IMPORT : 'import';// {System.out.println("import "+getText());} ;/*(DOT id)**/
+IMPORT : 'import';
 BREAK : 'break';
 CLASS : 'class';
 CONTINUE : 'continue';
@@ -52,7 +52,7 @@ ARROW : '->';
 
 fragment ID1: [a-zA-Z] | LOWBAR;
 fragment ID2: [0-9];
-ID:  ID1+ (ID1 | ID2 )* ;//   {System.out.println("id "+getText());} ;
+ID:  ID1+ (ID1 | ID2 )* ;
 import_ : IMPORT ID SEMI;
 id_strong : RPAREN ID LPAREN;
 fun_name : IF | WHILE | PAIRMAP | MAP | ID;
@@ -90,7 +90,7 @@ class_ : CLASS class_name braced_element;
 
 
 program : import_ | element;
-entry_point : program* EOF;// {System.out.println("entry_point "+entry_point().getText());} ;
+entry_point : program* EOF;
 
 
 parened_expr_list: RPAREN expr_list? LPAREN;
