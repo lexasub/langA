@@ -11,8 +11,7 @@ fragment LOWBAR: '_' ;
 CHAR :  QUOTE (NOTQUO | ESCQUO)  QUOTE ;
 STRING :  QUOTE STRINGBODY*? QUOTE;
 
-WS:  [ \r\n\t] -> skip  ;
-
+WS:  [ \r\n\t]  -> skip  ;
 
 IMPORT : 'import';// {System.out.println("import "+getText());} ;/*(DOT id)**/
 BREAK : 'break';
@@ -91,7 +90,7 @@ class_ : CLASS class_name braced_element;
 
 
 program : import_ | element;
-entry_point : import_ EOF;// {System.out.println("entry_point "+entry_point().getText());} ;
+entry_point : program* EOF;// {System.out.println("entry_point "+entry_point().getText());} ;
 
 
 parened_expr_list: RPAREN expr_list? LPAREN;

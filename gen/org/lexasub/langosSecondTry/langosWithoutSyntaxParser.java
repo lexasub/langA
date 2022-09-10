@@ -122,14 +122,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_import_; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterImport_(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitImport_(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitImport_(this);
 			else return visitor.visitChildren(this);
@@ -169,14 +161,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_id_strong; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterId_strong(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitId_strong(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitId_strong(this);
@@ -219,14 +203,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fun_name; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFun_name(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFun_name(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFun_name(this);
@@ -277,14 +253,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_id_list; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterId_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitId_list(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitId_list(this);
@@ -337,14 +305,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_type_name; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterType_name(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitType_name(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitType_name(this);
 			else return visitor.visitChildren(this);
@@ -378,14 +338,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_var_name; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterVar_name(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitVar_name(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitVar_name(this);
@@ -421,14 +373,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_class_name; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterClass_name(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitClass_name(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitClass_name(this);
 			else return visitor.visitChildren(this);
@@ -462,14 +406,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_member_name; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterMember_name(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitMember_name(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitMember_name(this);
@@ -511,14 +447,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_namspce_obj; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterNamspce_obj(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitNamspce_obj(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitNamspce_obj(this);
@@ -570,14 +498,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_function_specifier; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_specifier(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_specifier(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_specifier(this);
 			else return visitor.visitChildren(this);
@@ -625,14 +545,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction(this);
@@ -698,14 +610,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitExpr(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitExpr(this);
@@ -795,14 +699,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_get_member; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterGet_member(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitGet_member(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitGet_member(this);
 			else return visitor.visitChildren(this);
@@ -847,14 +743,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_braced_element; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterBraced_element(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitBraced_element(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitBraced_element(this);
@@ -915,14 +803,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr_list; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterExpr_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitExpr_list(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitExpr_list(this);
@@ -1000,14 +880,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_func_args; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunc_args(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunc_args(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunc_args(this);
 			else return visitor.visitChildren(this);
@@ -1084,14 +956,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_method_call; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterMethod_call(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitMethod_call(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitMethod_call(this);
 			else return visitor.visitChildren(this);
@@ -1149,14 +1013,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_function_call; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_call(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_call(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_call(this);
 			else return visitor.visitChildren(this);
@@ -1197,14 +1053,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function_call_helper; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_call_helper(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_call_helper(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_call_helper(this);
@@ -1267,14 +1115,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_function_call_; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_call_(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_call_(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_call_(this);
@@ -1345,14 +1185,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_flow_control; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFlow_control(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFlow_control(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFlow_control(this);
 			else return visitor.visitChildren(this);
@@ -1417,14 +1249,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_lambda; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterLambda(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitLambda(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitLambda(this);
@@ -1493,14 +1317,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_return_expr; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterReturn_expr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitReturn_expr(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitReturn_expr(this);
 			else return visitor.visitChildren(this);
@@ -1541,14 +1357,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_element; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitElement(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitElement(this);
@@ -1603,14 +1411,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_class_; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterClass_(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitClass_(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitClass_(this);
 			else return visitor.visitChildren(this);
@@ -1653,14 +1453,6 @@ public class langosWithoutSyntaxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterProgram(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitProgram(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitProgram(this);
@@ -1716,22 +1508,17 @@ public class langosWithoutSyntaxParser extends Parser {
 	}
 
 	public static class Entry_pointContext extends ParserRuleContext {
-		public Import_Context import_() {
-			return getRuleContext(Import_Context.class,0);
-		}
 		public TerminalNode EOF() { return getToken(langosWithoutSyntaxParser.EOF, 0); }
+		public List<ProgramContext> program() {
+			return getRuleContexts(ProgramContext.class);
+		}
+		public ProgramContext program(int i) {
+			return getRuleContext(ProgramContext.class,i);
+		}
 		public Entry_pointContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_entry_point; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterEntry_point(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitEntry_point(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitEntry_point(this);
@@ -1742,12 +1529,25 @@ public class langosWithoutSyntaxParser extends Parser {
 	public final Entry_pointContext entry_point() throws RecognitionException {
 		Entry_pointContext _localctx = new Entry_pointContext(_ctx, getState());
 		enterRule(_localctx, 52, RULE_entry_point);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
-			import_();
-			setState(202);
+			setState(204);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << CHAR) | (1L << STRING) | (1L << IMPORT) | (1L << BREAK) | (1L << CONTINUE) | (1L << IF) | (1L << MAP) | (1L << PAIRMAP) | (1L << RETURN) | (1L << WHILE) | (1L << RPAREN) | (1L << ID))) != 0)) {
+				{
+				{
+				setState(201);
+				program();
+				}
+				}
+				setState(206);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(207);
 			match(EOF);
 			}
 		}
@@ -1773,14 +1573,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_parened_expr_list; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterParened_expr_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitParened_expr_list(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitParened_expr_list(this);
 			else return visitor.visitChildren(this);
@@ -1793,19 +1585,19 @@ public class langosWithoutSyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(204);
+			setState(209);
 			match(RPAREN);
-			setState(206);
+			setState(211);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
 				{
-				setState(205);
+				setState(210);
 				expr_list();
 				}
 				break;
 			}
-			setState(208);
+			setState(213);
 			match(LPAREN);
 			}
 		}
@@ -1831,14 +1623,6 @@ public class langosWithoutSyntaxParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_parened_id_list; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterParened_id_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitParened_id_list(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitParened_id_list(this);
 			else return visitor.visitChildren(this);
@@ -1852,19 +1636,19 @@ public class langosWithoutSyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(210);
+			setState(215);
 			match(RPAREN);
-			setState(212);
+			setState(217);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ID) {
 				{
-				setState(211);
+				setState(216);
 				id_list();
 				}
 			}
 
-			setState(214);
+			setState(219);
 			match(LPAREN);
 			}
 		}
@@ -1880,7 +1664,7 @@ public class langosWithoutSyntaxParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001%\u00d9\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001%\u00de\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -1911,103 +1695,106 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u0003\u0015\u00b9\b\u0015\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0017"+
 		"\u0001\u0017\u0003\u0017\u00c0\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018"+
 		"\u0001\u0018\u0001\u0019\u0001\u0019\u0003\u0019\u00c8\b\u0019\u0001\u001a"+
-		"\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b\u0003\u001b\u00cf\b\u001b"+
-		"\u0001\u001b\u0001\u001b\u0001\u001c\u0001\u001c\u0003\u001c\u00d5\b\u001c"+
-		"\u0001\u001c\u0001\u001c\u0001\u001c\u0000\u0000\u001d\u0000\u0002\u0004"+
-		"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \""+
-		"$&(*,.02468\u0000\u0001\u0003\u0000\t\u000b\u000e\u000e%%\u00d4\u0000"+
-		":\u0001\u0000\u0000\u0000\u0002>\u0001\u0000\u0000\u0000\u0004B\u0001"+
-		"\u0000\u0000\u0000\u0006D\u0001\u0000\u0000\u0000\bL\u0001\u0000\u0000"+
-		"\u0000\nN\u0001\u0000\u0000\u0000\fP\u0001\u0000\u0000\u0000\u000eR\u0001"+
-		"\u0000\u0000\u0000\u0010T\u0001\u0000\u0000\u0000\u0012[\u0001\u0000\u0000"+
-		"\u0000\u0014^\u0001\u0000\u0000\u0000\u0016l\u0001\u0000\u0000\u0000\u0018"+
-		"n\u0001\u0000\u0000\u0000\u001ar\u0001\u0000\u0000\u0000\u001c|\u0001"+
-		"\u0000\u0000\u0000\u001e\u0085\u0001\u0000\u0000\u0000 \u0098\u0001\u0000"+
-		"\u0000\u0000\"\u009d\u0001\u0000\u0000\u0000$\u00a2\u0001\u0000\u0000"+
-		"\u0000&\u00a6\u0001\u0000\u0000\u0000(\u00b2\u0001\u0000\u0000\u0000*"+
-		"\u00b4\u0001\u0000\u0000\u0000,\u00ba\u0001\u0000\u0000\u0000.\u00bf\u0001"+
-		"\u0000\u0000\u00000\u00c1\u0001\u0000\u0000\u00002\u00c7\u0001\u0000\u0000"+
-		"\u00004\u00c9\u0001\u0000\u0000\u00006\u00cc\u0001\u0000\u0000\u00008"+
-		"\u00d2\u0001\u0000\u0000\u0000:;\u0005\u0005\u0000\u0000;<\u0005%\u0000"+
-		"\u0000<=\u0005\"\u0000\u0000=\u0001\u0001\u0000\u0000\u0000>?\u0005\u0017"+
-		"\u0000\u0000?@\u0005%\u0000\u0000@A\u0005\u0016\u0000\u0000A\u0003\u0001"+
-		"\u0000\u0000\u0000BC\u0007\u0000\u0000\u0000C\u0005\u0001\u0000\u0000"+
-		"\u0000DI\u0005%\u0000\u0000EF\u0005#\u0000\u0000FH\u0005%\u0000\u0000"+
-		"GE\u0001\u0000\u0000\u0000HK\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000"+
-		"\u0000IJ\u0001\u0000\u0000\u0000J\u0007\u0001\u0000\u0000\u0000KI\u0001"+
-		"\u0000\u0000\u0000LM\u0005%\u0000\u0000M\t\u0001\u0000\u0000\u0000NO\u0005"+
-		"%\u0000\u0000O\u000b\u0001\u0000\u0000\u0000PQ\u0005%\u0000\u0000Q\r\u0001"+
-		"\u0000\u0000\u0000RS\u0005%\u0000\u0000S\u000f\u0001\u0000\u0000\u0000"+
-		"TW\u0005%\u0000\u0000UV\u0005 \u0000\u0000VX\u0005%\u0000\u0000WU\u0001"+
-		"\u0000\u0000\u0000XY\u0001\u0000\u0000\u0000YW\u0001\u0000\u0000\u0000"+
-		"YZ\u0001\u0000\u0000\u0000Z\u0011\u0001\u0000\u0000\u0000[\\\u0005\u0001"+
-		"\u0000\u0000\\\u0013\u0001\u0000\u0000\u0000]_\u0003\u0012\t\u0000^]\u0001"+
-		"\u0000\u0000\u0000^_\u0001\u0000\u0000\u0000_`\u0001\u0000\u0000\u0000"+
-		"`a\u0003\b\u0004\u0000ab\u0003\n\u0005\u0000bc\u0003\u001e\u000f\u0000"+
-		"cd\u0003\u001a\r\u0000d\u0015\u0001\u0000\u0000\u0000em\u0003(\u0014\u0000"+
-		"fm\u0003&\u0013\u0000gm\u0003*\u0015\u0000hm\u0003\u0018\f\u0000im\u0005"+
-		"\u0002\u0000\u0000jm\u0005\u0003\u0000\u0000km\u0005%\u0000\u0000le\u0001"+
-		"\u0000\u0000\u0000lf\u0001\u0000\u0000\u0000lg\u0001\u0000\u0000\u0000"+
-		"lh\u0001\u0000\u0000\u0000li\u0001\u0000\u0000\u0000lj\u0001\u0000\u0000"+
-		"\u0000lk\u0001\u0000\u0000\u0000m\u0017\u0001\u0000\u0000\u0000no\u0003"+
-		"\f\u0006\u0000op\u0005\u0015\u0000\u0000pq\u0003\u000e\u0007\u0000q\u0019"+
-		"\u0001\u0000\u0000\u0000rv\u0005\u0019\u0000\u0000su\u0003.\u0017\u0000"+
-		"ts\u0001\u0000\u0000\u0000ux\u0001\u0000\u0000\u0000vt\u0001\u0000\u0000"+
-		"\u0000vw\u0001\u0000\u0000\u0000wy\u0001\u0000\u0000\u0000xv\u0001\u0000"+
-		"\u0000\u0000yz\u0005\u0018\u0000\u0000z\u001b\u0001\u0000\u0000\u0000"+
-		"{}\u0003\u0016\u000b\u0000|{\u0001\u0000\u0000\u0000|}\u0001\u0000\u0000"+
-		"\u0000}\u0082\u0001\u0000\u0000\u0000~\u007f\u0005#\u0000\u0000\u007f"+
-		"\u0081\u0003\u0016\u000b\u0000\u0080~\u0001\u0000\u0000\u0000\u0081\u0084"+
-		"\u0001\u0000\u0000\u0000\u0082\u0080\u0001\u0000\u0000\u0000\u0082\u0083"+
-		"\u0001\u0000\u0000\u0000\u0083\u001d\u0001\u0000\u0000\u0000\u0084\u0082"+
-		"\u0001\u0000\u0000\u0000\u0085\u0089\u0005\u0017\u0000\u0000\u0086\u0087"+
-		"\u0003\b\u0004\u0000\u0087\u0088\u0003\n\u0005\u0000\u0088\u008a\u0001"+
-		"\u0000\u0000\u0000\u0089\u0086\u0001\u0000\u0000\u0000\u0089\u008a\u0001"+
-		"\u0000\u0000\u0000\u008a\u0091\u0001\u0000\u0000\u0000\u008b\u008c\u0005"+
-		"#\u0000\u0000\u008c\u008d\u0003\b\u0004\u0000\u008d\u008e\u0003\n\u0005"+
-		"\u0000\u008e\u0090\u0001\u0000\u0000\u0000\u008f\u008b\u0001\u0000\u0000"+
-		"\u0000\u0090\u0093\u0001\u0000\u0000\u0000\u0091\u008f\u0001\u0000\u0000"+
-		"\u0000\u0091\u0092\u0001\u0000\u0000\u0000\u0092\u0094\u0001\u0000\u0000"+
-		"\u0000\u0093\u0091\u0001\u0000\u0000\u0000\u0094\u0095\u0005\u0016\u0000"+
-		"\u0000\u0095\u001f\u0001\u0000\u0000\u0000\u0096\u0099\u0003\u0010\b\u0000"+
-		"\u0097\u0099\u0003\f\u0006\u0000\u0098\u0096\u0001\u0000\u0000\u0000\u0098"+
-		"\u0097\u0001\u0000\u0000\u0000\u0099\u009a\u0001\u0000\u0000\u0000\u009a"+
-		"\u009b\u0005\u0015\u0000\u0000\u009b\u009c\u0003\"\u0011\u0000\u009c!"+
-		"\u0001\u0000\u0000\u0000\u009d\u009e\u0003\u0004\u0002\u0000\u009e\u009f"+
-		"\u00036\u001b\u0000\u009f#\u0001\u0000\u0000\u0000\u00a0\u00a3\u0003\""+
-		"\u0011\u0000\u00a1\u00a3\u0003\u000e\u0007\u0000\u00a2\u00a0\u0001\u0000"+
-		"\u0000\u0000\u00a2\u00a1\u0001\u0000\u0000\u0000\u00a3%\u0001\u0000\u0000"+
-		"\u0000\u00a4\u00a7\u0003 \u0010\u0000\u00a5\u00a7\u0003\"\u0011\u0000"+
-		"\u00a6\u00a4\u0001\u0000\u0000\u0000\u00a6\u00a5\u0001\u0000\u0000\u0000"+
-		"\u00a7\u00ac\u0001\u0000\u0000\u0000\u00a8\u00a9\u0005\u0015\u0000\u0000"+
-		"\u00a9\u00ab\u0003$\u0012\u0000\u00aa\u00a8\u0001\u0000\u0000\u0000\u00ab"+
-		"\u00ae\u0001\u0000\u0000\u0000\u00ac\u00aa\u0001\u0000\u0000\u0000\u00ac"+
-		"\u00ad\u0001\u0000\u0000\u0000\u00ad\'\u0001\u0000\u0000\u0000\u00ae\u00ac"+
-		"\u0001\u0000\u0000\u0000\u00af\u00b3\u0003,\u0016\u0000\u00b0\u00b3\u0005"+
-		"\u0006\u0000\u0000\u00b1\u00b3\u0005\b\u0000\u0000\u00b2\u00af\u0001\u0000"+
-		"\u0000\u0000\u00b2\u00b0\u0001\u0000\u0000\u0000\u00b2\u00b1\u0001\u0000"+
-		"\u0000\u0000\u00b3)\u0001\u0000\u0000\u0000\u00b4\u00b5\u00038\u001c\u0000"+
-		"\u00b5\u00b8\u0005$\u0000\u0000\u00b6\u00b9\u0003\u001a\r\u0000\u00b7"+
-		"\u00b9\u0003\u0016\u000b\u0000\u00b8\u00b6\u0001\u0000\u0000\u0000\u00b8"+
-		"\u00b7\u0001\u0000\u0000\u0000\u00b9+\u0001\u0000\u0000\u0000\u00ba\u00bb"+
-		"\u0005\f\u0000\u0000\u00bb\u00bc\u0003\u0016\u000b\u0000\u00bc-\u0001"+
-		"\u0000\u0000\u0000\u00bd\u00c0\u0003\u0014\n\u0000\u00be\u00c0\u0003\u0016"+
-		"\u000b\u0000\u00bf\u00bd\u0001\u0000\u0000\u0000\u00bf\u00be\u0001\u0000"+
-		"\u0000\u0000\u00c0/\u0001\u0000\u0000\u0000\u00c1\u00c2\u0005\u0007\u0000"+
-		"\u0000\u00c2\u00c3\u0003\f\u0006\u0000\u00c3\u00c4\u0003\u001a\r\u0000"+
-		"\u00c41\u0001\u0000\u0000\u0000\u00c5\u00c8\u0003\u0000\u0000\u0000\u00c6"+
-		"\u00c8\u0003.\u0017\u0000\u00c7\u00c5\u0001\u0000\u0000\u0000\u00c7\u00c6"+
-		"\u0001\u0000\u0000\u0000\u00c83\u0001\u0000\u0000\u0000\u00c9\u00ca\u0003"+
-		"\u0000\u0000\u0000\u00ca\u00cb\u0005\u0000\u0000\u0001\u00cb5\u0001\u0000"+
-		"\u0000\u0000\u00cc\u00ce\u0005\u0017\u0000\u0000\u00cd\u00cf\u0003\u001c"+
-		"\u000e\u0000\u00ce\u00cd\u0001\u0000\u0000\u0000\u00ce\u00cf\u0001\u0000"+
-		"\u0000\u0000\u00cf\u00d0\u0001\u0000\u0000\u0000\u00d0\u00d1\u0005\u0016"+
-		"\u0000\u0000\u00d17\u0001\u0000\u0000\u0000\u00d2\u00d4\u0005\u0017\u0000"+
-		"\u0000\u00d3\u00d5\u0003\u0006\u0003\u0000\u00d4\u00d3\u0001\u0000\u0000"+
-		"\u0000\u00d4\u00d5\u0001\u0000\u0000\u0000\u00d5\u00d6\u0001\u0000\u0000"+
-		"\u0000\u00d6\u00d7\u0005\u0016\u0000\u0000\u00d79\u0001\u0000\u0000\u0000"+
-		"\u0013IY^lv|\u0082\u0089\u0091\u0098\u00a2\u00a6\u00ac\u00b2\u00b8\u00bf"+
-		"\u00c7\u00ce\u00d4";
+		"\u0005\u001a\u00cb\b\u001a\n\u001a\f\u001a\u00ce\t\u001a\u0001\u001a\u0001"+
+		"\u001a\u0001\u001b\u0001\u001b\u0003\u001b\u00d4\b\u001b\u0001\u001b\u0001"+
+		"\u001b\u0001\u001c\u0001\u001c\u0003\u001c\u00da\b\u001c\u0001\u001c\u0001"+
+		"\u001c\u0001\u001c\u0000\u0000\u001d\u0000\u0002\u0004\u0006\b\n\f\u000e"+
+		"\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468\u0000\u0001"+
+		"\u0003\u0000\t\u000b\u000e\u000e%%\u00da\u0000:\u0001\u0000\u0000\u0000"+
+		"\u0002>\u0001\u0000\u0000\u0000\u0004B\u0001\u0000\u0000\u0000\u0006D"+
+		"\u0001\u0000\u0000\u0000\bL\u0001\u0000\u0000\u0000\nN\u0001\u0000\u0000"+
+		"\u0000\fP\u0001\u0000\u0000\u0000\u000eR\u0001\u0000\u0000\u0000\u0010"+
+		"T\u0001\u0000\u0000\u0000\u0012[\u0001\u0000\u0000\u0000\u0014^\u0001"+
+		"\u0000\u0000\u0000\u0016l\u0001\u0000\u0000\u0000\u0018n\u0001\u0000\u0000"+
+		"\u0000\u001ar\u0001\u0000\u0000\u0000\u001c|\u0001\u0000\u0000\u0000\u001e"+
+		"\u0085\u0001\u0000\u0000\u0000 \u0098\u0001\u0000\u0000\u0000\"\u009d"+
+		"\u0001\u0000\u0000\u0000$\u00a2\u0001\u0000\u0000\u0000&\u00a6\u0001\u0000"+
+		"\u0000\u0000(\u00b2\u0001\u0000\u0000\u0000*\u00b4\u0001\u0000\u0000\u0000"+
+		",\u00ba\u0001\u0000\u0000\u0000.\u00bf\u0001\u0000\u0000\u00000\u00c1"+
+		"\u0001\u0000\u0000\u00002\u00c7\u0001\u0000\u0000\u00004\u00cc\u0001\u0000"+
+		"\u0000\u00006\u00d1\u0001\u0000\u0000\u00008\u00d7\u0001\u0000\u0000\u0000"+
+		":;\u0005\u0005\u0000\u0000;<\u0005%\u0000\u0000<=\u0005\"\u0000\u0000"+
+		"=\u0001\u0001\u0000\u0000\u0000>?\u0005\u0017\u0000\u0000?@\u0005%\u0000"+
+		"\u0000@A\u0005\u0016\u0000\u0000A\u0003\u0001\u0000\u0000\u0000BC\u0007"+
+		"\u0000\u0000\u0000C\u0005\u0001\u0000\u0000\u0000DI\u0005%\u0000\u0000"+
+		"EF\u0005#\u0000\u0000FH\u0005%\u0000\u0000GE\u0001\u0000\u0000\u0000H"+
+		"K\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000\u0000IJ\u0001\u0000\u0000"+
+		"\u0000J\u0007\u0001\u0000\u0000\u0000KI\u0001\u0000\u0000\u0000LM\u0005"+
+		"%\u0000\u0000M\t\u0001\u0000\u0000\u0000NO\u0005%\u0000\u0000O\u000b\u0001"+
+		"\u0000\u0000\u0000PQ\u0005%\u0000\u0000Q\r\u0001\u0000\u0000\u0000RS\u0005"+
+		"%\u0000\u0000S\u000f\u0001\u0000\u0000\u0000TW\u0005%\u0000\u0000UV\u0005"+
+		" \u0000\u0000VX\u0005%\u0000\u0000WU\u0001\u0000\u0000\u0000XY\u0001\u0000"+
+		"\u0000\u0000YW\u0001\u0000\u0000\u0000YZ\u0001\u0000\u0000\u0000Z\u0011"+
+		"\u0001\u0000\u0000\u0000[\\\u0005\u0001\u0000\u0000\\\u0013\u0001\u0000"+
+		"\u0000\u0000]_\u0003\u0012\t\u0000^]\u0001\u0000\u0000\u0000^_\u0001\u0000"+
+		"\u0000\u0000_`\u0001\u0000\u0000\u0000`a\u0003\b\u0004\u0000ab\u0003\n"+
+		"\u0005\u0000bc\u0003\u001e\u000f\u0000cd\u0003\u001a\r\u0000d\u0015\u0001"+
+		"\u0000\u0000\u0000em\u0003(\u0014\u0000fm\u0003&\u0013\u0000gm\u0003*"+
+		"\u0015\u0000hm\u0003\u0018\f\u0000im\u0005\u0002\u0000\u0000jm\u0005\u0003"+
+		"\u0000\u0000km\u0005%\u0000\u0000le\u0001\u0000\u0000\u0000lf\u0001\u0000"+
+		"\u0000\u0000lg\u0001\u0000\u0000\u0000lh\u0001\u0000\u0000\u0000li\u0001"+
+		"\u0000\u0000\u0000lj\u0001\u0000\u0000\u0000lk\u0001\u0000\u0000\u0000"+
+		"m\u0017\u0001\u0000\u0000\u0000no\u0003\f\u0006\u0000op\u0005\u0015\u0000"+
+		"\u0000pq\u0003\u000e\u0007\u0000q\u0019\u0001\u0000\u0000\u0000rv\u0005"+
+		"\u0019\u0000\u0000su\u0003.\u0017\u0000ts\u0001\u0000\u0000\u0000ux\u0001"+
+		"\u0000\u0000\u0000vt\u0001\u0000\u0000\u0000vw\u0001\u0000\u0000\u0000"+
+		"wy\u0001\u0000\u0000\u0000xv\u0001\u0000\u0000\u0000yz\u0005\u0018\u0000"+
+		"\u0000z\u001b\u0001\u0000\u0000\u0000{}\u0003\u0016\u000b\u0000|{\u0001"+
+		"\u0000\u0000\u0000|}\u0001\u0000\u0000\u0000}\u0082\u0001\u0000\u0000"+
+		"\u0000~\u007f\u0005#\u0000\u0000\u007f\u0081\u0003\u0016\u000b\u0000\u0080"+
+		"~\u0001\u0000\u0000\u0000\u0081\u0084\u0001\u0000\u0000\u0000\u0082\u0080"+
+		"\u0001\u0000\u0000\u0000\u0082\u0083\u0001\u0000\u0000\u0000\u0083\u001d"+
+		"\u0001\u0000\u0000\u0000\u0084\u0082\u0001\u0000\u0000\u0000\u0085\u0089"+
+		"\u0005\u0017\u0000\u0000\u0086\u0087\u0003\b\u0004\u0000\u0087\u0088\u0003"+
+		"\n\u0005\u0000\u0088\u008a\u0001\u0000\u0000\u0000\u0089\u0086\u0001\u0000"+
+		"\u0000\u0000\u0089\u008a\u0001\u0000\u0000\u0000\u008a\u0091\u0001\u0000"+
+		"\u0000\u0000\u008b\u008c\u0005#\u0000\u0000\u008c\u008d\u0003\b\u0004"+
+		"\u0000\u008d\u008e\u0003\n\u0005\u0000\u008e\u0090\u0001\u0000\u0000\u0000"+
+		"\u008f\u008b\u0001\u0000\u0000\u0000\u0090\u0093\u0001\u0000\u0000\u0000"+
+		"\u0091\u008f\u0001\u0000\u0000\u0000\u0091\u0092\u0001\u0000\u0000\u0000"+
+		"\u0092\u0094\u0001\u0000\u0000\u0000\u0093\u0091\u0001\u0000\u0000\u0000"+
+		"\u0094\u0095\u0005\u0016\u0000\u0000\u0095\u001f\u0001\u0000\u0000\u0000"+
+		"\u0096\u0099\u0003\u0010\b\u0000\u0097\u0099\u0003\f\u0006\u0000\u0098"+
+		"\u0096\u0001\u0000\u0000\u0000\u0098\u0097\u0001\u0000\u0000\u0000\u0099"+
+		"\u009a\u0001\u0000\u0000\u0000\u009a\u009b\u0005\u0015\u0000\u0000\u009b"+
+		"\u009c\u0003\"\u0011\u0000\u009c!\u0001\u0000\u0000\u0000\u009d\u009e"+
+		"\u0003\u0004\u0002\u0000\u009e\u009f\u00036\u001b\u0000\u009f#\u0001\u0000"+
+		"\u0000\u0000\u00a0\u00a3\u0003\"\u0011\u0000\u00a1\u00a3\u0003\u000e\u0007"+
+		"\u0000\u00a2\u00a0\u0001\u0000\u0000\u0000\u00a2\u00a1\u0001\u0000\u0000"+
+		"\u0000\u00a3%\u0001\u0000\u0000\u0000\u00a4\u00a7\u0003 \u0010\u0000\u00a5"+
+		"\u00a7\u0003\"\u0011\u0000\u00a6\u00a4\u0001\u0000\u0000\u0000\u00a6\u00a5"+
+		"\u0001\u0000\u0000\u0000\u00a7\u00ac\u0001\u0000\u0000\u0000\u00a8\u00a9"+
+		"\u0005\u0015\u0000\u0000\u00a9\u00ab\u0003$\u0012\u0000\u00aa\u00a8\u0001"+
+		"\u0000\u0000\u0000\u00ab\u00ae\u0001\u0000\u0000\u0000\u00ac\u00aa\u0001"+
+		"\u0000\u0000\u0000\u00ac\u00ad\u0001\u0000\u0000\u0000\u00ad\'\u0001\u0000"+
+		"\u0000\u0000\u00ae\u00ac\u0001\u0000\u0000\u0000\u00af\u00b3\u0003,\u0016"+
+		"\u0000\u00b0\u00b3\u0005\u0006\u0000\u0000\u00b1\u00b3\u0005\b\u0000\u0000"+
+		"\u00b2\u00af\u0001\u0000\u0000\u0000\u00b2\u00b0\u0001\u0000\u0000\u0000"+
+		"\u00b2\u00b1\u0001\u0000\u0000\u0000\u00b3)\u0001\u0000\u0000\u0000\u00b4"+
+		"\u00b5\u00038\u001c\u0000\u00b5\u00b8\u0005$\u0000\u0000\u00b6\u00b9\u0003"+
+		"\u001a\r\u0000\u00b7\u00b9\u0003\u0016\u000b\u0000\u00b8\u00b6\u0001\u0000"+
+		"\u0000\u0000\u00b8\u00b7\u0001\u0000\u0000\u0000\u00b9+\u0001\u0000\u0000"+
+		"\u0000\u00ba\u00bb\u0005\f\u0000\u0000\u00bb\u00bc\u0003\u0016\u000b\u0000"+
+		"\u00bc-\u0001\u0000\u0000\u0000\u00bd\u00c0\u0003\u0014\n\u0000\u00be"+
+		"\u00c0\u0003\u0016\u000b\u0000\u00bf\u00bd\u0001\u0000\u0000\u0000\u00bf"+
+		"\u00be\u0001\u0000\u0000\u0000\u00c0/\u0001\u0000\u0000\u0000\u00c1\u00c2"+
+		"\u0005\u0007\u0000\u0000\u00c2\u00c3\u0003\f\u0006\u0000\u00c3\u00c4\u0003"+
+		"\u001a\r\u0000\u00c41\u0001\u0000\u0000\u0000\u00c5\u00c8\u0003\u0000"+
+		"\u0000\u0000\u00c6\u00c8\u0003.\u0017\u0000\u00c7\u00c5\u0001\u0000\u0000"+
+		"\u0000\u00c7\u00c6\u0001\u0000\u0000\u0000\u00c83\u0001\u0000\u0000\u0000"+
+		"\u00c9\u00cb\u00032\u0019\u0000\u00ca\u00c9\u0001\u0000\u0000\u0000\u00cb"+
+		"\u00ce\u0001\u0000\u0000\u0000\u00cc\u00ca\u0001\u0000\u0000\u0000\u00cc"+
+		"\u00cd\u0001\u0000\u0000\u0000\u00cd\u00cf\u0001\u0000\u0000\u0000\u00ce"+
+		"\u00cc\u0001\u0000\u0000\u0000\u00cf\u00d0\u0005\u0000\u0000\u0001\u00d0"+
+		"5\u0001\u0000\u0000\u0000\u00d1\u00d3\u0005\u0017\u0000\u0000\u00d2\u00d4"+
+		"\u0003\u001c\u000e\u0000\u00d3\u00d2\u0001\u0000\u0000\u0000\u00d3\u00d4"+
+		"\u0001\u0000\u0000\u0000\u00d4\u00d5\u0001\u0000\u0000\u0000\u00d5\u00d6"+
+		"\u0005\u0016\u0000\u0000\u00d67\u0001\u0000\u0000\u0000\u00d7\u00d9\u0005"+
+		"\u0017\u0000\u0000\u00d8\u00da\u0003\u0006\u0003\u0000\u00d9\u00d8\u0001"+
+		"\u0000\u0000\u0000\u00d9\u00da\u0001\u0000\u0000\u0000\u00da\u00db\u0001"+
+		"\u0000\u0000\u0000\u00db\u00dc\u0005\u0016\u0000\u0000\u00dc9\u0001\u0000"+
+		"\u0000\u0000\u0014IY^lv|\u0082\u0089\u0091\u0098\u00a2\u00a6\u00ac\u00b2"+
+		"\u00b8\u00bf\u00c7\u00cc\u00d3\u00d9";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -30,6 +30,7 @@
           <option name="encoding" value="" />
           <option name="pkg" value="org.lexasub.langosSecondTry" />
           <option name="language" value="" />
+          <option name="generateListener" value="false" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
       </list>
