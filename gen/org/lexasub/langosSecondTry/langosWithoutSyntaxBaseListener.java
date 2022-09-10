@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -23,6 +23,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitImport_(langosWithoutSyntaxParser.Import_Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -107,18 +119,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

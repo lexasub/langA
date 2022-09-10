@@ -24,7 +24,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
    }
    @Override
    public String visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx){
-       return ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
+       //return ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
+       return visitImport_(ctx.import_());
    }
     @Override
     public String visitImport_(langosWithoutSyntaxParser.Import_Context ctx){
@@ -39,7 +40,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     @Override
     public String visitFunction(langosWithoutSyntaxParser.FunctionContext ctx){
         return Asm.createFunction(visitType_name(ctx.type_name()),
-                                    visitId(ctx.ID()),
+                                    visitVar_name(ctx.var_name()),
                                     visitFunc_args(ctx.func_args()),
                                     visitBraced_element(ctx.braced_element()));
     }
@@ -87,7 +88,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public PairString visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx){
-        String res = Asm.intoScope(visitId(ctx.ID()));
+        String res = visitClass_name(ctx.class_name());
         String regName = IdGenerator.reg();
         res += Asm.MOVMEMBER(regName, visitMember_name(ctx.member_name()));
         return new PairString(res, regName);
@@ -109,7 +110,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.function_call_().isEmpty()) return visitFunction_call_(ctx.function_call_());
         if(!ctx.lambda().isEmpty()) return visitLambda(ctx.lambda());
         if(!ctx.get_member().isEmpty()) return visitGet_member(ctx.get_member()).a;//std::kostyl
-        if(ctx.ID().getText() != "") return visitId(ctx.ID());
+        //if(ctx.ID().getText() != "") return visitId(ctx.ID());
         return null;
     }
     @Override

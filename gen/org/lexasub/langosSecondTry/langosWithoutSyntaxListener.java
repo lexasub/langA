@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -17,6 +17,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitImport_(langosWithoutSyntaxParser.Import_Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
+	 * @param ctx the parse tree
+	 */
+	void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
+	 * @param ctx the parse tree
+	 */
+	void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#fun_name}.
 	 * @param ctx the parse tree
@@ -87,16 +97,6 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
-	 * @param ctx the parse tree
-	 */
-	void enterId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
-	 * @param ctx the parse tree
-	 */
-	void exitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_specifier}.
 	 * @param ctx the parse tree

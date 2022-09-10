@@ -3,21 +3,27 @@ grammar langosWithoutSyntax;
 
 //TODO WS support
 fragment ANY :  .  ;
-CHAR :  '\'' ANY '\'' ;
-STRING :  '\'' (ANY | '\\\'') *? '\'' ;
-//WS:  [ \r\n\t] -> skip  ;
+fragment ESCQUO : '\\\'' ;
+fragment STRINGBODY : ANY | ESCQUO ;
+fragment QUOTE : '\'' ;
 
-IMPORT : 'import';
-SYNTAX : 'syntax';
-RETURN : 'return';
-WITH : 'with';
-MAP : 'map';
-PAIRMAP : 'pairmap'; //pairmap(arr1,arr2, (i,j) -> i+j)
-IF : 'if';
-WHILE : 'while';
-CONTINUE : 'continue';
+CHAR :  QUOTE ANY QUOTE ;
+STRING :  QUOTE STRINGBODY*? QUOTE;
+
+WS:  [ \r\n\t] -> skip  ;
+
 BREAK : 'break';
 CLASS : 'class';
+CONTINUE : 'continue';
+
+IF : 'if';
+IMPORT : 'import';// {System.out.println("import "+getText());} ;
+MAP : 'map';
+PAIRMAP : 'pairmap'; //pairmap(arr1,arr2, (i,j) -> i+j)
+RETURN : 'return';
+SYNTAX : 'syntax';
+WHILE : 'while';
+WITH : 'with';
 KWD : IMPORT | SYNTAX;//....
 
 QUEST :  '?' ;
@@ -43,11 +49,11 @@ SEMI :  ';' ;
 COMA : ',';
 ARROW : '->';
 
-
-ID:  ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'0'..'9'|'_' )*   ;
+fragment LOWBAR: '_' ;
+ID:  [a-zA-Z] ([a-zA-Z]|[0-9]|LOWBAR)*;//   {System.out.println("ID "+getText());} ;
 import_ : IMPORT ID (DOT ID)* SEMI;
+id_strong : RPAREN ID LPAREN;
 fun_name : IF | WHILE | PAIRMAP | MAP | ID;
-
 id_list : ID (COMA ID)*;
 
 type_name: ID;
@@ -57,13 +63,12 @@ member_name : ID;
 
 namspce_obj : ID (DOUBLECOLON ID)+;
 
-id_strong : RPAREN ID LPAREN;
 function_specifier: '$' ;
-function: function_specifier? type_name ID func_args braced_element;
+function: function_specifier? type_name var_name func_args braced_element;
 
-expr : flow_control |  function_call_ | lambda| get_member | ID ;
+expr : flow_control |  function_call_ | lambda| get_member ;//| ID ;
 
-get_member : ID DOT member_name;
+get_member : class_name DOT member_name;
 
 braced_element: RBRACE element* LBRACE;
 expr_list: expr? (COMA expr)*;
@@ -83,7 +88,7 @@ class_ : CLASS class_name braced_element;
 
 
 program : import_ | element;
-entry_point : program* EOF;
+entry_point : import_ EOF;// {System.out.println("entry_point "+entry_point().getText());} ;
 
 
 parened_expr_list: RPAREN expr_list LPAREN;

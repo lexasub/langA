@@ -5,7 +5,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.lexasub.langos.langosLexer;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
-import org.lexasub.langosSecondTry.langosWithoutSyntaxVisitor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -30,7 +29,7 @@ public class IO {
 
         MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
         //visitor.visit(tree);
-
+        //System.out.print(visitor.visitVar_name(parser.var_name()));
        // System.out.print( visitor.visitImport_(parser.import_()));
         System.out.print(visitor.visitEntry_point(parser.entry_point()));
         //res.map(Promise::get);//...

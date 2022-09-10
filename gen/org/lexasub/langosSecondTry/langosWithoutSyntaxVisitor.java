@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosSecondTry;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -16,6 +16,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitImport_(langosWithoutSyntaxParser.Import_Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#fun_name}.
 	 * @param ctx the parse tree
@@ -58,12 +64,6 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#id_strong}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_specifier}.
 	 * @param ctx the parse tree
