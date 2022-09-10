@@ -26,6 +26,7 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
    public String visitEntry_point(langosWithoutSyntaxParser.Entry_pointContext ctx){
        //return ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
        return visitImport_(ctx.import_());
+       //return ctx.stop.getText();
    }
     @Override
     public String visitImport_(langosWithoutSyntaxParser.Import_Context ctx){
@@ -46,19 +47,19 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
     }
     @Override
     public String visitType_name(langosWithoutSyntaxParser.Type_nameContext ctx){
-        return visitId(ctx.ID().getText());
+        return visitid(ctx.ID().getText());
     }
     @Override
     public String visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx){
-        return Asm.intoScope(visitId(ctx.ID().getText()));
+        return Asm.intoScope(visitid(ctx.ID().getText()));
     }
     @Override
     public String visitVar_name(langosWithoutSyntaxParser.Var_nameContext ctx){
-        return visitId(ctx.ID().getText());
+        return visitid(ctx.ID().getText());
     }
     @Override
     public String visitMember_name(langosWithoutSyntaxParser.Member_nameContext ctx){
-        return visitId(ctx.ID().getText());
+        return visitid(ctx.ID().getText());
     }
     @Override
     public String visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx){
@@ -71,9 +72,8 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public String visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
-        return ctx.ID().stream().map(this::visitId).map(Asm::intoScope).reduce("", String::concat);
+        return ctx.ID().stream().map(this::visitid).map(Asm::intoScope).reduce("", String::concat);
     }
-
     @Override
     public String visitBraced_element(langosWithoutSyntaxParser.Braced_elementContext ctx){
         return ctx.element().stream().map(this::visitElement).reduce("", String::concat);//mb не совсем верно
@@ -98,10 +98,10 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         * */
     }
 
-    public String visitId(TerminalNode s){
-        return visitId(s.getText());
+    public String visitid(TerminalNode s){
+        return visitid(s.getText());
     }
-    public String visitId(String s){
+    public String visitid(String s){
         return s;//TODO
     }
     @Override
@@ -110,12 +110,12 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
         if(!ctx.function_call_().isEmpty()) return visitFunction_call_(ctx.function_call_());
         if(!ctx.lambda().isEmpty()) return visitLambda(ctx.lambda());
         if(!ctx.get_member().isEmpty()) return visitGet_member(ctx.get_member()).a;//std::kostyl
-        //if(ctx.ID().getText() != "") return visitId(ctx.ID());
+        //if(ctx.ID().getText() != "") return visitid(ctx.ID());
         return null;
     }
     @Override
     public String visitLambda(langosWithoutSyntaxParser.LambdaContext ctx){
-        Stream<String> s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitId);
+        Stream<String> s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid);
         String s2 = (ctx.expr().isEmpty())
                 ? visitBraced_element(ctx.braced_element())
                 : visitExpr(ctx.expr());
@@ -211,11 +211,11 @@ public class MylangosWithoutSyntaxVisitor implements langosWithoutSyntaxVisitor 
 
     @Override
     public String visitId_strong(langosWithoutSyntaxParser.Id_strongContext ctx) {
-        return visitId(ctx.ID());
+        return visitid(ctx.ID());
     }
-    @Override
+    //@Override
     public Stream<String> visitId_list(langosWithoutSyntaxParser.Id_listContext ctx) {
-        return ctx.ID().stream().map(this::visitId);//TODO check , i don't want ','
+        return ctx.ID().stream().map(this::visitid);//TODO check , i don't want ','
     }
 
     @Override

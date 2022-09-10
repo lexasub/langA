@@ -2,29 +2,31 @@
 grammar langosWithoutSyntax;
 
 //TODO WS support
-fragment ANY :  .  ;
+fragment NOTQUO :  ~[']  ;
 fragment ESCQUO : '\\\'' ;
-fragment STRINGBODY : ANY | ESCQUO ;
+fragment STRINGBODY : ESCQUO | NOTQUO;
 fragment QUOTE : '\'' ;
+fragment LOWBAR: '_' ;
 
-CHAR :  QUOTE ANY QUOTE ;
+CHAR :  QUOTE (NOTQUO | ESCQUO)  QUOTE ;
 STRING :  QUOTE STRINGBODY*? QUOTE;
 
 WS:  [ \r\n\t] -> skip  ;
 
+
+IMPORT : 'import';// {System.out.println("import "+getText());} ;/*(DOT id)**/
 BREAK : 'break';
 CLASS : 'class';
 CONTINUE : 'continue';
 
 IF : 'if';
-IMPORT : 'import';// {System.out.println("import "+getText());} ;
 MAP : 'map';
 PAIRMAP : 'pairmap'; //pairmap(arr1,arr2, (i,j) -> i+j)
 RETURN : 'return';
 SYNTAX : 'syntax';
 WHILE : 'while';
 WITH : 'with';
-KWD : IMPORT | SYNTAX;//....
+//KWD : IMPORT | SYNTAX;//....
 
 QUEST :  '?' ;
 STAR :  '*'  ;
@@ -49,9 +51,10 @@ SEMI :  ';' ;
 COMA : ',';
 ARROW : '->';
 
-fragment LOWBAR: '_' ;
-ID:  [a-zA-Z] ([a-zA-Z]|[0-9]|LOWBAR)*;//   {System.out.println("ID "+getText());} ;
-import_ : IMPORT ID (DOT ID)* SEMI;
+fragment ID1: [a-zA-Z] | LOWBAR;
+fragment ID2: [0-9];
+ID:  ID1+ (ID1 | ID2 )* ;//   {System.out.println("id "+getText());} ;
+import_ : IMPORT ID SEMI;
 id_strong : RPAREN ID LPAREN;
 fun_name : IF | WHILE | PAIRMAP | MAP | ID;
 id_list : ID (COMA ID)*;
@@ -66,13 +69,13 @@ namspce_obj : ID (DOUBLECOLON ID)+;
 function_specifier: '$' ;
 function: function_specifier? type_name var_name func_args braced_element;
 
-expr : flow_control |  function_call_ | lambda| get_member ;//| ID ;
+expr : flow_control |  function_call_ | lambda| get_member | CHAR | STRING | ID;
 
 get_member : class_name DOT member_name;
 
 braced_element: RBRACE element* LBRACE;
 expr_list: expr? (COMA expr)*;
-func_args: RPAREN type_name var_name (COMA type_name var_name)* LPAREN;
+func_args: RPAREN (type_name var_name)? (COMA type_name var_name)* LPAREN;
 method_call : (namspce_obj | class_name)  DOT function_call;
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;
@@ -91,6 +94,6 @@ program : import_ | element;
 entry_point : import_ EOF;// {System.out.println("entry_point "+entry_point().getText());} ;
 
 
-parened_expr_list: RPAREN expr_list LPAREN;
+parened_expr_list: RPAREN expr_list? LPAREN;
 parened_id_list : RPAREN id_list? LPAREN;
 
