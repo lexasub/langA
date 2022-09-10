@@ -66,9 +66,9 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     }
 
     @Override public String visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx){
-        return (ctx.member_name().isEmpty())
-                ?visitFunction_call(ctx.function_call())
-                :visitMember_name(ctx.member_name());
+        return (ctx.member_name() != null)
+                ?visitMember_name(ctx.member_name())
+                :visitFunction_call(ctx.function_call());
     }
     @Override
     public String visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx){
@@ -97,10 +97,12 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
         return null;
     }
     @Override public String visitLambda(langosWithoutSyntaxParser.LambdaContext ctx){
-        Stream<String> s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid);
-        String s2 = (ctx.expr().isEmpty())
-                ? visitBraced_element(ctx.braced_element())
-                : visitExpr(ctx.expr());
+        Stream<String> s1 = null;
+        if(ctx.parened_id_list().id_list() != null)
+            s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid);
+        String s2 = (ctx.expr() != null)
+                ? visitExpr(ctx.expr())
+                : visitBraced_element(ctx.braced_element());
         return Asm.createLambda(s1, s2);
     }
 
@@ -134,15 +136,15 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     }
 
     private static Function selectFunction(langosWithoutSyntaxParser.Fun_nameContext funname) {
-        if(!funname.IF().getText().isEmpty())
+        if(funname.IF() != null)
             return FunctionGenerators.ifGenerator();
-        if(!funname.WHILE().getText().isEmpty())
+        if(funname.WHILE() != null)
             return FunctionGenerators.whileGenerator();
-        if(!funname.PAIRMAP().getText().isEmpty())
+        if(funname.PAIRMAP() != null)
             return FunctionGenerators.pairMapGenerator();
-        if(!funname.MAP().getText().isEmpty())
+        if(funname.MAP() != null)
             return FunctionGenerators.mapGenerator();
-        if(!funname.ID().getText().isEmpty())//may be add ids.table.addfuntotable..//TODO?
+        if(funname.ID() != null)//may be add ids.table.addfuntotable..//TODO?
             return FunctionGenerators.userFunGenerator(funname.ID().getText());
         return null;
     }

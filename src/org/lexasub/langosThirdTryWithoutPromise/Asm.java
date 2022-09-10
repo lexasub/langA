@@ -33,7 +33,7 @@ public class Asm {
     private static String RET() {
         return "RET\n";
     }
-    public static String LABEL(String lbl) { return lbl + ":/n"; }
+    public static String LABEL(String lbl) { return lbl + ":\n"; }
 
     private static String endScope() {
         return "EXITSCOPE\n";
@@ -51,7 +51,7 @@ public class Asm {
         return JMP("END_" + name) +
                 LBL("BEGIN_" + name) +
                 newScope() +
-                args.reduce("", String::concat) +
+                ((args!=null)?args.reduce("", String::concat):"") +
                 body +
                 RET() +
                 endScope() +

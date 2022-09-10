@@ -59,7 +59,7 @@ public class FunctionGenerators {
     }
 
 
-    public static Function mapGenerator() {//TODO
+    public static Function mapGenerator() {//TODO//+надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
         return (expr) -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
             String coll1 = e.next();//first collection
@@ -77,8 +77,10 @@ public class FunctionGenerators {
 
     public static Function userFunGenerator(String text) {
         return (expr) -> {
-            Stream<String> e = (Stream<String>) expr;
-            return Asm.LABEL(text) + e.reduce("", String::concat);//May be some load
+            Iterator<String> e = ((Stream<String>) expr).iterator();
+            String res = Asm.LABEL(text);
+            while (e.hasNext()) res += e.next();
+            return  res ;//May be some load
 
         };
     }
