@@ -22,7 +22,7 @@ public class IO {
         langosWithoutSyntaxParser parser = new langosWithoutSyntaxParser(tokens);
         MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
         String s = visitor.visitEntry_point(parser.entry_point());
-        System.out.print(s);
+      System.out.print(s);
 
     }
 }

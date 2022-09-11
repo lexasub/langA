@@ -9,34 +9,37 @@ import java.util.stream.Stream;
 public class FunctionGenerators {
     public static Function ifGenerator() {
         return (expr) -> {
-            Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp = e.next();//logic expression lambda
-            String bodyTrue = e.next();//bodyTrue
-            String bodyFalse = "";
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            PairString exp = (PairString)e.next();//logic expression lambda
+            PairString bodyTrue = (PairString)e.next();//bodyTrue
+            PairString bodyFalse = null;
             if(e.hasNext())
-                bodyFalse = e.next();//bodyFalse
+                bodyFalse = (PairString) e.next();//bodyFalse
             String lbl = IdGenerator.label();
-            return exp +
+            //lambdaBegins.remove() не получится если будут вложенные лямбды((
+            return  Asm.CALL(exp.b) +
+                    exp.a +
                     Asm.EQ(lbl) +
-                        bodyTrue +
+                    Asm.CALL(bodyTrue.b) +
+                        bodyTrue.a +
                     Asm.JMP(lbl) +
-                        bodyFalse +
+                    Asm.CALL(bodyFalse.b) +
+                        bodyFalse.a +
                     Asm.LABEL(lbl);
         };
     }
 
     public static Function whileGenerator() {
         return (expr) -> {
-            Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp = e.next();//logic expression lambda
-            String body = e.next();//body
-            String lblStart = IdGenerator.label();
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            PairString exp = (PairString)e.next();//logic expression lambda
+            PairString body = (PairString)e.next();//body
             String lblEnd = IdGenerator.label();
-            return Asm.LABEL(lblStart) +
-                    exp +
+            return  exp.a +
                     Asm.EQ(lblEnd) +
-                    body +
-                    Asm.JMP(lblStart) +
+                    Asm.CALL(body.b) +
+                    body.a +
+                    Asm.JMP(exp.b) +
                     Asm.LABEL(lblEnd);
         };
     }
@@ -77,10 +80,18 @@ public class FunctionGenerators {
 
     public static Function userFunGenerator(String text) {
         return (expr) -> {
-            Iterator<String> e = ((Stream<String>) expr).iterator();
-            String res = Asm.LABEL(text);
-            while (e.hasNext()) res += e.next();
-            return  res ;//May be some load
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            String res = Asm.LABEL("CALL_" + text);
+            while (e.hasNext()) {
+                Object next = e.next();
+                if(next instanceof PairString){
+                    res += ((PairString)next).a + Asm.setArg(((PairString)next).b);
+                }
+                else {
+                    res += (String) next;
+                }
+            }
+            return  res + Asm.CALL(text);//May be some load
 
         };
     }

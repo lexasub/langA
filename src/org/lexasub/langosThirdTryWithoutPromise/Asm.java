@@ -64,16 +64,17 @@ public class Asm {
         return p("INTOSCOPE " + name + "\n");
     }
 
-    public static String createLambda(Stream<String> args, String body) {
+    public static PairString createLambda(Stream<String> args, String body) {
         String name = IdGenerator.lambda();
-        return JMP("END_" + name) +
-                LABEL("BEGIN_" + name) +
+        String lblBegin = LABEL("BEGIN_" + name);
+        return new PairString(JMP("END_" + name) +
+                lblBegin +
                 newScope() +
                 ((args != null) ? args.reduce("", String::concat) : "") + "\n" +
                 body +
                 RET() +
                 endScope() +
-                LABEL("END_" + name);
+                LABEL("END_" + name), lblBegin);
     }
 
     public static String MOVMEMBER(String regName, String field) {
@@ -94,5 +95,9 @@ public class Asm {
 
     public static String BREAK() {
         return p("BREAK\n");
+    }
+
+    public static String CALL(String s) {
+        return p("CALL " + s + "\n");
     }
 }

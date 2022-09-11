@@ -1,6 +1,6 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxBaseVisitor;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
@@ -88,27 +88,37 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     public String visitid(String s){
         return s;//TODO
     }
-    @Override public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx){
+
+    public String visitExprPart(langosWithoutSyntaxParser.ExprContext ctx){
         if(ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if(ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
-        if(ctx.lambda() != null) return visitLambda(ctx.lambda());
         if(ctx.get_member() != null) return visitGet_member(ctx.get_member());
         //if(ctx.ID().getText() != "") return visitid(ctx.ID());
         return null;
     }
-    @Override public String visitLambda(langosWithoutSyntaxParser.LambdaContext ctx){
+    @Override public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx){
+        if(ctx.lambda() != null) return visitLambda_(ctx.lambda()).a;
+        return visitExprPart(ctx);
+    }
+    public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx){
+        if(ctx.lambda() == null) return visitExprPart(ctx);
+        PairString lamd = visitLambda_(ctx.lambda());
+        return lamd;
+    }
+    public PairString visitLambda_(langosWithoutSyntaxParser.LambdaContext ctx){
         Stream<String> s1 = null;
         if(ctx.parened_id_list().id_list() != null)
             s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid);
         String s2 = (ctx.expr() != null)
                 ? visitExpr(ctx.expr())
                 : visitBraced_element(ctx.braced_element());
-        return Asm.createLambda(s1, s2);
+        PairString s = Asm.createLambda(s1, s2);
+        return s;
     }
 
     @Override public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
-        Stream<String> args = ctx.parened_expr_list().expr_list().expr().stream()
-                .map(this::visitExpr);
+        Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
+                .map(this::visitExprFuncall);
         return visitFun_name(ctx.fun_name(), args);
     }
 
@@ -129,7 +139,7 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
         return visitFunction_call(ctx.function_call()) + functionCalls;
     }
 
-     public  String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<String> args) {
+     public  String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<Object> args) {
         Function funGen = selectFunction(funname);
         String asm = (String) funGen.apply(args);
         return asm;
