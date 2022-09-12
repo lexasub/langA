@@ -35,7 +35,7 @@ public class FunctionGenerators {
             PairString exp = (PairString)e.next();//logic expression lambda
             PairString body = (PairString)e.next();//body
             String lblEnd = IdGenerator.label();
-            return  exp.a +
+            return exp.a +
                     Asm.EQ(lblEnd) +
                     Asm.CALL(body.b) +
                     body.a +
@@ -43,50 +43,60 @@ public class FunctionGenerators {
                     Asm.LABEL(lblEnd);
         };
     }
+    private static String buildMap(String collections, PairString body, String func){
+        String lblLambdaEnd = IdGenerator.label();
+        return Asm.JMP(lblLambdaEnd) + collections + body.a +  Asm.LABEL(lblLambdaEnd) + func;
+    }
 
     public static Function pairMapGenerator() {//TODO
         return (expr) -> {
-            Iterator<String> e = ((Stream<String>) expr).iterator();
-            String coll1 = e.next();//first collection
-            String coll2 = e.next();//second collection
-            String body = e.next();//body
-            String lblStart = IdGenerator.label();
-            String lblEnd = IdGenerator.label();
-            return Asm.LABEL(lblStart) +
-                    body +
-                    Asm.EQ(lblEnd) +
-                    body +
-                    Asm.JMP(lblStart) +
-                    Asm.LABEL(lblEnd);
-        };
-    }
-
-
-    public static Function mapGenerator() {//TODO//+надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
-        return (expr) -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
-            Object o = e.next();
-            String coll;
-            String lblCollBegin;
-            if(o instanceof String) {
-                coll = (String) o;//collection
-                lblCollBegin = IdGenerator.label();
+
+            //PairString .a prev, .b post
+            PairString arg1 = generateMapParts(e.next());//first collection
+            PairString arg2 = generateMapParts(e.next());//second collection
+
+            PairString body = (PairString) e.next();//body
+            String lambda = body.b.substring(0, body.b.length() - 2);
+            String arg_post;
+            if(arg1.a == ""){
+                if(arg2.a == "") arg_post = Asm.PAIRMAPoo(arg1.b, arg2.b, lambda);
+                else arg_post = Asm.PAIRMAPo_(arg1.b, arg2.b, lambda);
             }
             else {
-                coll = ((PairString)o).a;
-                lblCollBegin = ((PairString)o).b;
-                lblCollBegin = lblCollBegin.substring(0, lblCollBegin.length() - 2);
+                if(arg2.a == "")arg_post = Asm.PAIRMAP_o(arg1.b, arg2.b, lambda);
+                else arg_post = Asm.PAIRMAP(arg1.b, arg2.b, lambda);
             }
-            PairString body = (PairString) e.next();//body
-            String lblLambdaEnd = IdGenerator.label();
-            return Asm.JMP(lblLambdaEnd) +
-                    ((o instanceof String)?Asm.LABEL(lblCollBegin):"") +
-                    coll +
-                    body.a +
-                    Asm.LABEL(lblLambdaEnd) +
-                    Asm.MAP(lblCollBegin, body.b.substring(0, body.b.length() - 2));
+            return buildMap(arg1.a + arg2.a, body, arg_post);
         };
     }
+
+    private static PairString generateMapParts(Object collection) {
+        if(collection instanceof PairString p)//PairString->it's lambda
+            return new PairString(p.a, p.b.substring(0, p.b.length() - 2));
+        //else instanceof String
+        String s = (String) collection;
+        if(s.chars().filter(c->c==' ').count() == 0) //if it ID
+            return new PairString("", s.substring(0, s.length() - 1));//""-> o, not _
+        //if it not ID
+        String lblCollBegin = IdGenerator.label();
+        return new PairString(Asm.LABEL(lblCollBegin) + s + Asm.RET(), lblCollBegin);
+    }
+
+    public static Function mapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
+        return (expr) -> {
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+
+            //PairString .a prev, .b post
+            PairString arg = generateMapParts(e.next());//collection
+
+            PairString body = (PairString) e.next();//body
+            String lambda = body.b.substring(0, body.b.length() - 2);
+            if(arg.a == "") return buildMap(arg.a, body, Asm.MAPo(arg.b, lambda));
+            return buildMap(arg.a, body, Asm.MAP(arg.b, lambda));
+        };
+    }
+
 
     public static Function userFunGenerator(String text) {
         return (expr) -> {

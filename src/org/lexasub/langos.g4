@@ -1,7 +1,6 @@
 //это файл с грамматикой, можно из него получить распознаватель. в папку ген это кидается
 grammar langos;
 
-//TODO WS support
 WS:  [ \r\n\t] -> skip  ;
 
 IMPORT : 'import';

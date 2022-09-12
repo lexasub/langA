@@ -47,7 +47,7 @@ public class Asm {
         return p("JMP " + lbl + "\n");
     }
 
-    private static String RET() {
+    public static String RET() {
         return p("RET\n");
     }
 
@@ -127,6 +127,24 @@ public class Asm {
 
     public static String MAP(String lblCollBeg, String lblLambdaBegin) {
         return p("MAP " + lblCollBeg + ", " + lblLambdaBegin + "\n");
+    }
+    public static String PAIRMAP(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAP " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+    public static String MAPo(String lblCollBeg, String lblLambdaBegin) {
+        return p("MAPo " + lblCollBeg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAP_o(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAP_o " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAPo_(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAPo_ " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAPoo(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAPoo " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
     }
 
     private static String IMPORT_Sys(Iterator<String> it) {
