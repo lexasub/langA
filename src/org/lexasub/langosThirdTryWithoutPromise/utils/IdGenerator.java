@@ -5,17 +5,17 @@ import java.util.Objects;
 import java.util.Random;
 
 public class IdGenerator {
+    private static final Random random = new Random();
     static LinkedList<String> lambdas = new LinkedList<>();
     static LinkedList<String> elems = new LinkedList<>();
     static LinkedList<String> function_name = new LinkedList<>();
     static LinkedList<String> lbl_name = new LinkedList<>();
     static LinkedList<String> regs = new LinkedList<>();
+
     public static String randomString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
-        Random random = new Random();
-
         return random.ints(leftLimit, rightLimit + 1)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(targetStringLength)
