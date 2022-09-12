@@ -32,7 +32,7 @@ public class Asm {
     }
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
-        return LABEL(name) + newScope() + args + body + RET() + endScope();
+        return LABEL("FUNCTION_" + name) + newScope() + args + body + RET() + endScope();
     }
 
     public static String NEQ(String lbl) {

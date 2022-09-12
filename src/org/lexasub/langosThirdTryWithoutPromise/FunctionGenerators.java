@@ -25,7 +25,7 @@ public class FunctionGenerators {
                     Asm.JMP(lbl) +
                     Asm.CALL(bodyFalse.b) +
                         bodyFalse.a +
-                    Asm.LABEL(lbl);
+                    Asm.LABEL("ENDIF_" + lbl);
         };
     }
 
@@ -40,15 +40,27 @@ public class FunctionGenerators {
                     Asm.CALL(body.b) +
                     body.a +
                     Asm.JMP(exp.b) +
-                    Asm.LABEL(lblEnd);
+                    Asm.LABEL("ENDWHILE_" + lblEnd);
         };
     }
     private static String buildMap(String collections, PairString body, String func){
         String lblLambdaEnd = IdGenerator.label();
-        return Asm.JMP(lblLambdaEnd) + collections + body.a +  Asm.LABEL(lblLambdaEnd) + func;
+        return Asm.JMP(lblLambdaEnd) + collections + body.a +  Asm.LABEL("ENDMAP_" + lblLambdaEnd) + func;
     }
 
-    public static Function pairMapGenerator() {//TODO
+    private static PairString generateMapParts(Object collection) {
+        if(collection instanceof PairString p)//PairString->it's lambda
+            return new PairString(p.a, p.b.substring(0, p.b.length() - 2));
+        //else instanceof String
+        String s = (String) collection;
+        if(s.chars().filter(c->c==' ').count() == 0) //if it ID
+            return new PairString("", s.substring(0, s.length() - 1));//""-> o, not _
+        //if it not ID
+        String lblCollBegin = IdGenerator.label();
+        return new PairString(Asm.LABEL("MAP_ARGUMENT_" + lblCollBegin) + s + Asm.RET(), lblCollBegin);
+    }
+
+    public static Function pairMapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
         return (expr) -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
 
@@ -71,18 +83,6 @@ public class FunctionGenerators {
         };
     }
 
-    private static PairString generateMapParts(Object collection) {
-        if(collection instanceof PairString p)//PairString->it's lambda
-            return new PairString(p.a, p.b.substring(0, p.b.length() - 2));
-        //else instanceof String
-        String s = (String) collection;
-        if(s.chars().filter(c->c==' ').count() == 0) //if it ID
-            return new PairString("", s.substring(0, s.length() - 1));//""-> o, not _
-        //if it not ID
-        String lblCollBegin = IdGenerator.label();
-        return new PairString(Asm.LABEL(lblCollBegin) + s + Asm.RET(), lblCollBegin);
-    }
-
     public static Function mapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
         return (expr) -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
@@ -97,7 +97,6 @@ public class FunctionGenerators {
         };
     }
 
-
     public static Function userFunGenerator(String text) {
         return (expr) -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
@@ -105,8 +104,8 @@ public class FunctionGenerators {
             while (e.hasNext()) {
                 Object next = e.next();
                 if(next == null) continue;
-                if(next instanceof PairString){
-                    res += ((PairString)next).a + Asm.setArg(((PairString)next).b);
+                if(next instanceof PairString p){
+                    res += p.a + Asm.setArg(p.b);
                 }
                 else {
                     res += (String) next;

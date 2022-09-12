@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 public class IO {
     public static void main(String[] args) throws IOException {
-        CharStream stream = CharStreams.fromFileName("/home/su/IdeaProjects/langA/test", StandardCharsets.US_ASCII);
+        CharStream stream = CharStreams.fromFileName("test", StandardCharsets.US_ASCII);
         langosWithoutSyntaxLexer lexer = new langosWithoutSyntaxLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         langosWithoutSyntaxParser parser = new langosWithoutSyntaxParser(tokens);
