@@ -3,12 +3,13 @@ package org.lexasub.langosThirdTryWithoutPromise;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class FunctionGenerators {
     public static Function ifGenerator() {
-        return (expr) -> {
+        return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
             PairString exp = (PairString)e.next();//logic expression lambda
             PairString bodyTrue = (PairString)e.next();//bodyTrue
@@ -30,7 +31,7 @@ public class FunctionGenerators {
     }
 
     public static Function whileGenerator() {
-        return (expr) -> {
+        return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
             PairString exp = (PairString)e.next();//logic expression lambda
             PairString body = (PairString)e.next();//body
@@ -61,7 +62,7 @@ public class FunctionGenerators {
     }
 
     public static Function pairMapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
-        return (expr) -> {
+        return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
 
             //PairString .a prev, .b post
@@ -71,12 +72,12 @@ public class FunctionGenerators {
             PairString body = (PairString) e.next();//body
             String lambda = body.b.substring(0, body.b.length() - 2);
             String arg_post;
-            if(arg1.a == ""){
-                if(arg2.a == "") arg_post = Asm.PAIRMAPoo(arg1.b, arg2.b, lambda);
+            if(Objects.equals(arg1.a, "")){
+                if(Objects.equals(arg2.a, "")) arg_post = Asm.PAIRMAPoo(arg1.b, arg2.b, lambda);
                 else arg_post = Asm.PAIRMAPo_(arg1.b, arg2.b, lambda);
             }
             else {
-                if(arg2.a == "")arg_post = Asm.PAIRMAP_o(arg1.b, arg2.b, lambda);
+                if(Objects.equals(arg2.a, "")) arg_post = Asm.PAIRMAP_o(arg1.b, arg2.b, lambda);
                 else arg_post = Asm.PAIRMAP(arg1.b, arg2.b, lambda);
             }
             return buildMap(arg1.a + arg2.a, body, arg_post);
@@ -84,7 +85,7 @@ public class FunctionGenerators {
     }
 
     public static Function mapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
-        return (expr) -> {
+        return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
 
             //PairString .a prev, .b post
@@ -92,26 +93,26 @@ public class FunctionGenerators {
 
             PairString body = (PairString) e.next();//body
             String lambda = body.b.substring(0, body.b.length() - 2);
-            if(arg.a == "") return buildMap(arg.a, body, Asm.MAPo(arg.b, lambda));
+            if(Objects.equals(arg.a, "")) return buildMap(arg.a, body, Asm.MAPo(arg.b, lambda));
             return buildMap(arg.a, body, Asm.MAP(arg.b, lambda));
         };
     }
 
     public static Function userFunGenerator(String text) {
-        return (expr) -> {
+        return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
-            String res = Asm.LABEL("CALL_" + text);
+            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + text));
             while (e.hasNext()) {
                 Object next = e.next();
                 if(next == null) continue;
                 if(next instanceof PairString p){
-                    res += p.a + Asm.setArg(p.b);
+                    res.append(p.a).append(Asm.setArg(p.b));
                 }
                 else {
-                    res += (String) next;
+                    res.append((String) next);
                 }
             }
-            return  res + Asm.CALL(text);//May be some load
+            return res + Asm.CALL(text);//May be some load
 
         };
     }

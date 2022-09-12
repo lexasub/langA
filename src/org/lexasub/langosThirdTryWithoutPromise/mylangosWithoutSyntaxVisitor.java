@@ -5,6 +5,7 @@ import org.lexasub.langosSecondTry.langosWithoutSyntaxBaseVisitor;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 class PairString extends org.antlr.v4.runtime.misc.Pair<String,String> {//заглушка против java
@@ -96,7 +97,7 @@ public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
         if(ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if(ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if(ctx.get_member() != null) return visitGet_member(ctx.get_member());
-        if(ctx.ID().getText() != "") return visitid2(ctx.ID()) + "\n";
+        if(!Objects.equals(ctx.ID().getText(), "")) return visitid2(ctx.ID()) + "\n";
         return null;
     }
     @Override public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx){
@@ -105,8 +106,7 @@ public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     }
     public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx){
         if(ctx.lambda() == null) return visitExprPart(ctx);
-        PairString lamd = visitLambda_(ctx.lambda());
-        return lamd;
+        return visitLambda_(ctx.lambda());
     }
     public PairString visitLambda_(langosWithoutSyntaxParser.LambdaContext ctx){
         Stream<String> s1 = null;
@@ -115,8 +115,7 @@ public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
         String s2 = (ctx.expr() != null)
                 ? visitExpr(ctx.expr())
                 : visitBraced_element(ctx.braced_element());
-        PairString s = Asm.createLambda(s1, s2);
-        return s;
+        return Asm.createLambda(s1, s2);
     }
 
     @Override public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
@@ -144,8 +143,7 @@ public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
 
      public  String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<Object> args) {
         Function funGen = selectFunction(funname);
-        String asm = (String) funGen.apply(args);
-        return asm;
+         return (String) funGen.apply(args);
     }
 
     private static Function selectFunction(langosWithoutSyntaxParser.Fun_nameContext funname) {
@@ -164,8 +162,8 @@ public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
 
     @Override public String visitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx) {
         if(ctx.return_expr() != null) return visitReturn_expr(ctx.return_expr());
-        if(ctx.BREAK().getText() != "") return Asm.BREAK();
-        if(ctx.CONTINUE().getText() != "") return Asm.CONTINUE();
+        if(!Objects.equals(ctx.BREAK().getText(), "")) return Asm.BREAK();
+        if(!Objects.equals(ctx.CONTINUE().getText(), "")) return Asm.CONTINUE();
         return null;
     }
 

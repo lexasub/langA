@@ -5,6 +5,7 @@ import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Asm {
@@ -117,11 +118,11 @@ public class Asm {
 
     public static String IMPORT(Stream<String> visitid) {
         Iterator<String> it= visitid.iterator();
-        String path = it.next();
-        if(path == "system")
+        StringBuilder path = new StringBuilder(it.next());
+        if(Objects.equals(path, "system"))
             return IMPORT_Sys(it);
         while(it.hasNext())
-            path += "/" + it.next();
+            path.append("/" + it.next());
         return p("IMPORT " + path + "\n");
     }
 
@@ -154,15 +155,15 @@ public class Asm {
     static void print(String s) {
         if(!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
-        String tab = "";
+        StringBuilder tab = new StringBuilder("");
         while (str.hasNext()){
             String j = str.next();
             if(j.compareTo("TAB") == 0)
-                tab += "\t";
+                tab.append("\t");
             else if (j.compareTo( "UNTAB") == 0) {
-                tab = tab.substring(0, tab.length() - 1);
+                tab = new StringBuilder(tab.substring(0, tab.length() - 1));
             }
-            else System.out.println(tab + j);;
+            else System.out.println(tab + j);
         }
     }
 
