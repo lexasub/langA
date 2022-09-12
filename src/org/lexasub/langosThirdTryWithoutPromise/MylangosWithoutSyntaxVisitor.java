@@ -25,7 +25,7 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
    }
     @Override
    public String visitImport_(langosWithoutSyntaxParser.Import_Context ctx){
-        return "";
+        return Asm.IMPORT(ctx.ID().stream().map(this::visitid2));
     }
     @Override public String visitElement(langosWithoutSyntaxParser.ElementContext ctx){
         return (ctx.function() != null)
@@ -39,16 +39,16 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
                                     visitBraced_element(ctx.braced_element()));
     }
     @Override public String visitType_name(langosWithoutSyntaxParser.Type_nameContext ctx){
-        return visitid(ctx.ID().getText());
+        return visitid(ctx.ID());
     }
     @Override public String visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx){
-        return Asm.intoScope(visitid(ctx.ID().getText()));
+        return Asm.intoScope(visitid2(ctx.ID()));
     }
     @Override public String visitVar_name(langosWithoutSyntaxParser.Var_nameContext ctx){
-        return visitid(ctx.ID().getText());
+        return visitid2(ctx.ID());
     }
     @Override public String visitMember_name(langosWithoutSyntaxParser.Member_nameContext ctx){
-        return visitid(ctx.ID().getText());
+        return visitid(ctx.ID());
     }
     @Override public String visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx){
         //TODO
@@ -59,7 +59,7 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     }
 
     @Override public String visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
-        return ctx.ID().stream().map(this::visitid).map(Asm::intoScope).reduce("", String::concat);
+        return ctx.ID().stream().map(this::visitid2).map(Asm::intoScope).reduce("", String::concat);
     }
     @Override public String visitBraced_element(langosWithoutSyntaxParser.Braced_elementContext ctx){
         return ctx.element().stream().map(this::visitElement).reduce("", String::concat);//mb не совсем верно
@@ -83,6 +83,9 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
     }
 
     public String visitid(TerminalNode s){
+        return visitid("ID " + s.getText() + "\n");
+    }
+    public String visitid2(TerminalNode s){
         return visitid(s.getText());
     }
     public String visitid(String s){

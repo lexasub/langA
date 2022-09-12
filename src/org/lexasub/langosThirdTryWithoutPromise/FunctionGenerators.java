@@ -84,6 +84,7 @@ public class FunctionGenerators {
             String res = Asm.LABEL("CALL_" + text);
             while (e.hasNext()) {
                 Object next = e.next();
+                if(next == null) continue;
                 if(next instanceof PairString){
                     res += ((PairString)next).a + Asm.setArg(((PairString)next).b);
                 }

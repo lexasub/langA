@@ -53,7 +53,7 @@ ARROW : '->';
 fragment ID1: [a-zA-Z] | LOWBAR;
 fragment ID2: [0-9];
 ID:  ID1+ (ID1 | ID2 )* ;
-import_ : IMPORT ID SEMI;
+import_ : IMPORT ID (DOT ID)* SEMI;
 id_strong : RPAREN ID LPAREN;
 fun_name : IF | WHILE | PAIRMAP | MAP | ID;
 id_list : ID (COMA ID)*;

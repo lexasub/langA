@@ -23,14 +23,13 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/d" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/e" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint/issuestore/f" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint" />
+      <excludeFolder url="file://$MODULE_DIR$/src/org/lexasub/langosSecondTry" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="antlr4-runtime-4.10" level="project" />
-    <orderEntry type="library" name="antlr-4.10.1-complete" level="project" />
     <orderEntry type="library" name="antlr.antlr4" level="project" />
   </component>
 </module>

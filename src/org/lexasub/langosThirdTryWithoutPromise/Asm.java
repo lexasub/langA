@@ -3,12 +3,16 @@ package org.lexasub.langosThirdTryWithoutPromise;
 
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 public class Asm {
+    static boolean pretty = false;
+    static String tab = "";
     public static String p(String r) {
        // System.out.print("\t" + r);
-        return r;
+        return tab+r;
     }
 
     public static String POP(String s) {
@@ -26,7 +30,6 @@ public class Asm {
     public static Object setArg(String s) {
         return PUSH(s);
     }
-
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
         return LABEL(name) + newScope() + args + body + RET() + endScope();
@@ -53,11 +56,19 @@ public class Asm {
     }
 
     private static String endScope() {
-        return p("EXITSCOPE\n");
+        return untabulate() + p("EXITSCOPE\n");
+    }
+
+    private static String untabulate() {
+       return (pretty)?"UNTAB\n":"";
     }
 
     private static String newScope() {
-        return p("ENTERSCOPE\n");
+        return p("ENTERSCOPE\n") + tabulate();
+    }
+
+    private static String tabulate() {
+        return (pretty)?"TAB\n":"";
     }
 
     public static String intoScope(String name) {
@@ -67,14 +78,17 @@ public class Asm {
     public static PairString createLambda(Stream<String> args, String body) {
         String name = IdGenerator.lambda();
         String lblBegin = LABEL("BEGIN_" + name);
-        return new PairString(JMP("END_" + name) +
-                lblBegin +
-                newScope() +
-                ((args != null) ? args.reduce("", String::concat) : "") + "\n" +
-                body +
+        String s = JMP("END_" + name) +
+                lblBegin;
+        s += tabulate();
+        s += newScope() +
+                ((args != null) ? args.reduce("", String::concat) : "") +
+                ((body != null) ? body : "")  +
                 RET() +
-                endScope() +
-                LABEL("END_" + name), lblBegin);
+             endScope();
+        s += untabulate(); //+ "\n"
+        s+= LABEL("END_" + name);
+        return new PairString(s, lblBegin);
     }
 
     public static String MOVMEMBER(String regName, String field) {
@@ -99,5 +113,34 @@ public class Asm {
 
     public static String CALL(String s) {
         return p("CALL " + s + "\n");
+    }
+
+    public static String IMPORT(Stream<String> visitid) {
+        Iterator<String> it= visitid.iterator();
+        String path = it.next();
+        if(path == "system")
+            return IMPORT_Sys(it);
+        while(it.hasNext())
+            path += "/" + it.next();
+        return p("IMPORT " + path + "\n");
+    }
+
+    private static String IMPORT_Sys(Iterator<String> it) {
+        return "";
+    }
+
+    static void print(String s) {
+        if(!pretty) System.out.print(s);
+        Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
+        String tab = "";
+        while (str.hasNext()){
+            String j = str.next();
+            if(j.compareTo("TAB") == 0)
+                tab += "\t";
+            else if (j.compareTo( "UNTAB") == 0) {
+                tab = tab.substring(0, tab.length() - 1);
+            }
+            else System.out.println(tab + j);;
+        }
     }
 }
