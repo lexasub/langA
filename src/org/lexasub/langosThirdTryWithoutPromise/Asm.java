@@ -125,6 +125,10 @@ public class Asm {
         return p("IMPORT " + path + "\n");
     }
 
+    public static String MAP(String lblCollBeg, String lblLambdaBegin) {
+        return p("MAP " + lblCollBeg + ", " + lblLambdaBegin + "\n");
+    }
+
     private static String IMPORT_Sys(Iterator<String> it) {
         return "";
     }
@@ -143,4 +147,5 @@ public class Asm {
             else System.out.println(tab + j);;
         }
     }
+
 }

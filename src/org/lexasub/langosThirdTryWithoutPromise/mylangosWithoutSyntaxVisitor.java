@@ -12,7 +12,7 @@ class PairString extends org.antlr.v4.runtime.misc.Pair<String,String> {//заг
         super(s, s2);
     }
 }
-public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor<String>{
+public class mylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor<String>{
 
     @Override
    public String visitProgram(langosWithoutSyntaxParser.ProgramContext ctx){
@@ -96,7 +96,7 @@ public class MylangosWithoutSyntaxVisitor extends langosWithoutSyntaxBaseVisitor
         if(ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if(ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if(ctx.get_member() != null) return visitGet_member(ctx.get_member());
-        //if(ctx.ID().getText() != "") return visitid(ctx.ID());
+        if(ctx.ID().getText() != "") return visitid2(ctx.ID()) + "\n";
         return null;
     }
     @Override public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx){

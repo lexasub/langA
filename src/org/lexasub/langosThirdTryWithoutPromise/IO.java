@@ -17,7 +17,7 @@ public class IO {
         langosWithoutSyntaxParser parser = new langosWithoutSyntaxParser(tokens);
 
         Asm.pretty = true;//Set output with tabs
-        MylangosWithoutSyntaxVisitor visitor = new MylangosWithoutSyntaxVisitor();
+        mylangosWithoutSyntaxVisitor visitor = new mylangosWithoutSyntaxVisitor();
         Asm.print(visitor.visitEntry_point(parser.entry_point()));
     }
 

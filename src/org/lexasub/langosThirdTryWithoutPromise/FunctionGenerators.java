@@ -64,17 +64,27 @@ public class FunctionGenerators {
 
     public static Function mapGenerator() {//TODO//+надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
         return (expr) -> {
-            Iterator<String> e = ((Stream<String>) expr).iterator();
-            String coll1 = e.next();//first collection
-            String body = e.next();//body
-            String lblStart = IdGenerator.label();
-            String lblEnd = IdGenerator.label();
-            return Asm.LABEL(lblStart) +
-                    body +
-                    Asm.EQ(lblEnd) +
-                    body +
-                    Asm.JMP(lblStart) +
-                    Asm.LABEL(lblEnd);
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            Object o = e.next();
+            String coll;
+            String lblCollBegin;
+            if(o instanceof String) {
+                coll = (String) o;//collection
+                lblCollBegin = IdGenerator.label();
+            }
+            else {
+                coll = ((PairString)o).a;
+                lblCollBegin = ((PairString)o).b;
+                lblCollBegin = lblCollBegin.substring(0, lblCollBegin.length() - 2);
+            }
+            PairString body = (PairString) e.next();//body
+            String lblLambdaEnd = IdGenerator.label();
+            return Asm.JMP(lblLambdaEnd) +
+                    ((o instanceof String)?Asm.LABEL(lblCollBegin):"") +
+                    coll +
+                    body.a +
+                    Asm.LABEL(lblLambdaEnd) +
+                    Asm.MAP(lblCollBegin, body.b.substring(0, body.b.length() - 2));
         };
     }
 
