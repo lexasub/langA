@@ -77,7 +77,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
-        if (!Objects.equals(ctx.ID().getText(), "")) return visitid2(ctx.ID()) + "\n";
+        if (ctx.ID() != null) return visitid2(ctx.ID()) + "\n";
         return null;
     }
 

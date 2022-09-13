@@ -1,84 +1,98 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
+import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.lexasub.langosThirdTryWithoutPromise.TestHelper.*;
 
 class mylangosWithoutSyntaxVisitorTest {
+    private mylangosWithoutSyntaxVisitor v  = new mylangosWithoutSyntaxVisitor();
 
     @Test
-    void visitProgram() {
+    void testVisitElement() {
+        langosWithoutSyntaxParser.ElementContext dataService =
+                Mockito.mock(langosWithoutSyntaxParser.ElementContext.class);
+        langosWithoutSyntaxParser.FunctionContext s = spawnFunction(spawnTypeName("int"),spawnVarName("s"));
+        Mockito.when(dataService.function()).thenReturn(s);
+        Assertions.assertEquals("s", v.visitElement(dataService));
+    }
+    @Test
+    void testVisitFunction() {
+        langosWithoutSyntaxParser.FunctionContext s = spawnFunction(spawnTypeName("int"),spawnVarName("s"));
+        Assertions.assertEquals("s", v.visitFunction(s));
     }
 
     @Test
-    void visitEntry_point() {
+    void testVisitFunc_args() {
     }
 
     @Test
-    void visitElement() {
+    void testVisitBraced_element() {
     }
 
     @Test
-    void visitFunction() {
+    void testVisitFunction_call_helper() {
     }
 
     @Test
-    void visitFunc_args() {
+    void testVisitGet_member() {
+        String r = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{10}";
+        langosWithoutSyntaxParser.Get_memberContext dataService =
+                Mockito.mock(langosWithoutSyntaxParser.Get_memberContext.class);
+        langosWithoutSyntaxParser.Class_nameContext myclass = spawnClassName("myclass");
+        Mockito.when(dataService.class_name()).thenReturn(myclass);
+        langosWithoutSyntaxParser.Member_nameContext text = spawnMemberName("text");
+        Mockito.when(dataService.member_name()).thenReturn(text);
+        String actual = v.visitGet_member(dataService);
+        Assertions.assertTrue(actual.matches("INTOSCOPE myclass\n" +
+                "MOVMEMBER gr_" + r + ", ID text\n" +
+                "\n"));
     }
 
     @Test
-    void visitBraced_element() {
+    void testVisitExprPart() {
+        Assertions.assertEquals(v.visitExprPart(new langosWithoutSyntaxParser.ExprContext(null,0)), null);
     }
 
     @Test
-    void visitFunction_call_helper() {
+    void testVisitExpr() {
     }
 
     @Test
-    void visitGet_member() {
+    void testVisitExprFuncall() {
     }
 
     @Test
-    void visitExprPart() {
+    void testVisitLambda_() {
     }
 
     @Test
-    void visitExpr() {
+    void testVisitFunction_call() {
     }
 
     @Test
-    void visitExprFuncall() {
+    void testVisitMethod_call() {
     }
 
     @Test
-    void visitLambda_() {
+    void testVisitFunction_call_() {
     }
 
     @Test
-    void visitFunction_call() {
+    void testVisitFun_name() {
     }
 
     @Test
-    void visitMethod_call() {
+    void testVisitFlow_control() {
     }
 
     @Test
-    void visitFunction_call_() {
+    void testVisitReturn_expr() {
     }
 
     @Test
-    void visitFun_name() {
-    }
-
-    @Test
-    void visitFlow_control() {
-    }
-
-    @Test
-    void visitReturn_expr() {
-    }
-
-    @Test
-    void visitClass_() {
+    void testVisitClass_() {
     }
 }

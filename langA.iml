@@ -28,6 +28,7 @@
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/lexasub/langosSecondTry" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/example" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/lexasub/langos" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -44,5 +45,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-engine:1.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-suite-commons:1.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-launcher:1.8.1" level="project" />
+    <orderEntry type="library" name="mockito.core" level="project" />
   </component>
 </module>
