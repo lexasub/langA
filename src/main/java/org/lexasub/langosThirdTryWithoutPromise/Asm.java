@@ -1,6 +1,11 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.lexasub.langosSecondTry.langosWithoutSyntaxLexer;
+import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 
 import java.util.Arrays;
@@ -8,13 +13,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class Asm {
-    static boolean pretty = false;
-    static String tab = "";
-    public static String p(String r) {
-       // System.out.print("\t" + r);
-        return tab+r;
-    }
+public class Asm extends AsmUtils {
 
     public static String POP(String s) {
         return p("POP " + s + "\n");
@@ -31,6 +30,7 @@ public class Asm {
     public static Object setArg(String s) {
         return PUSH(s);
     }
+
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
         return LABEL("FUNCTION_" + name) + newScope() + args + body + RET() + endScope();
@@ -56,22 +56,6 @@ public class Asm {
         return p(lbl + ":\n");
     }
 
-    private static String endScope() {
-        return untabulate() + p("EXITSCOPE\n");
-    }
-
-    private static String untabulate() {
-       return (pretty)?"UNTAB\n":"";
-    }
-
-    private static String newScope() {
-        return p("ENTERSCOPE\n") + tabulate();
-    }
-
-    private static String tabulate() {
-        return (pretty)?"TAB\n":"";
-    }
-
     public static String intoScope(String name) {
         return p("INTOSCOPE " + name + "\n");
     }
@@ -84,11 +68,11 @@ public class Asm {
         s += tabulate();
         s += newScope() +
                 ((args != null) ? args.reduce("", String::concat) : "") +
-                ((body != null) ? body : "")  +
+                ((body != null) ? body : "") +
                 RET() +
-             endScope();
+                endScope();
         s += untabulate(); //+ "\n"
-        s+= LABEL("END_" + name);
+        s += LABEL("END_" + name);
         return new PairString(s, lblBegin);
     }
 
@@ -117,11 +101,11 @@ public class Asm {
     }
 
     public static String IMPORT(Stream<String> visitid) {
-        Iterator<String> it= visitid.iterator();
+        Iterator<String> it = visitid.iterator();
         StringBuilder path = new StringBuilder(it.next());
-        if(Objects.equals(path, "system"))
+        if (Objects.equals(path, "system"))
             return IMPORT_Sys(it);
-        while(it.hasNext())
+        while (it.hasNext())
             path.append("/" + it.next());
         return p("IMPORT " + path + "\n");
     }
@@ -129,9 +113,11 @@ public class Asm {
     public static String MAP(String lblCollBeg, String lblLambdaBegin) {
         return p("MAP " + lblCollBeg + ", " + lblLambdaBegin + "\n");
     }
+
     public static String PAIRMAP(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
         return p("PAIRMAP " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
     }
+
     public static String MAPo(String lblCollBeg, String lblLambdaBegin) {
         return p("MAPo " + lblCollBeg + ", " + lblLambdaBegin + "\n");
     }
@@ -148,23 +134,27 @@ public class Asm {
         return p("PAIRMAPoo " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
     }
 
-    private static String IMPORT_Sys(Iterator<String> it) {
-        return "";
-    }
 
     static void print(String s) {
-        if(!pretty) System.out.print(s);
+        if (!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
         StringBuilder tab = new StringBuilder("");
-        while (str.hasNext()){
+        while (str.hasNext()) {
             String j = str.next();
-            if(j.compareTo("TAB") == 0)
+            if (j.compareTo("TAB") == 0)
                 tab.append("\t");
-            else if (j.compareTo( "UNTAB") == 0) {
+            else if (j.compareTo("UNTAB") == 0) {
                 tab = new StringBuilder(tab.substring(0, tab.length() - 1));
-            }
-            else System.out.println(tab + j);
+            } else System.out.println(tab + j);
         }
     }
 
+    static String getIIR(String s) {
+        CharStream stream = CharStreams.fromString(s);
+        langosWithoutSyntaxLexer lexer = new langosWithoutSyntaxLexer(stream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        langosWithoutSyntaxParser parser = new langosWithoutSyntaxParser(tokens);
+        mylangosWithoutSyntaxVisitor visitor = new mylangosWithoutSyntaxVisitor();
+        return visitor.visitEntry_point(parser.entry_point());
+    }
 }

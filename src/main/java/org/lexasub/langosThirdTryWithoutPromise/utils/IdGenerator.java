@@ -22,6 +22,7 @@ public class IdGenerator {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+
     public static String lambda() {
         return getString(lambdas, "lambda_");
     }
@@ -31,22 +32,22 @@ public class IdGenerator {
     }
 
     public static String functionCall() {
-        return  getString(function_name, "function_call_");
+        return getString(function_name, "function_call_");
     }
 
     private static String getString(LinkedList<String> e, String text) {
         while (true) {
             String s = randomString();
-            if(e.stream().filter(i-> Objects.equals(i, s)).findFirst().isEmpty())
+            if (e.stream().filter(i -> Objects.equals(i, s)).findFirst().isEmpty())
                 return text + s;
         }
     }
 
     public static String label() {
-        return  getString(lbl_name, "lbl_");
+        return getString(lbl_name, "lbl_");
     }
 
     public static String reg() {
-        return  getString(regs, "gr_");
+        return getString(regs, "gr_");
     }
 }
