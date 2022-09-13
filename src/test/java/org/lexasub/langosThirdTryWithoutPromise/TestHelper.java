@@ -56,6 +56,6 @@ public class TestHelper {
                 name,
                 "",
                 "");*/
-        return null;
+        return terminalNode;
     }
 }
