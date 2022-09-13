@@ -51,8 +51,8 @@ public class FunctionGenerators {
     }
 
     private static PairString generateMapParts(Object collection) {
-        if (collection instanceof PairString p)//PairString->it's lambda
-            return new PairString(p.a, p.b.substring(0, p.b.length() - 2));
+        if (collection instanceof PairString)//PairString->it's lambda
+            return new PairString(((PairString) collection).a, ((PairString) collection).b.substring(0, ((PairString) collection).b.length() - 2));
         //else instanceof String
         String s = (String) collection;
         if (s.chars().filter(c -> c == ' ').count() == 0) //if it ID
