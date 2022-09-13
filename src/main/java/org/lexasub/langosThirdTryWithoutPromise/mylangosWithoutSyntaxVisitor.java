@@ -4,7 +4,6 @@ import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -136,8 +135,8 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitFlow_control(langosWithoutSyntaxParser.Flow_controlContext ctx) {
         if (ctx.return_expr() != null) return visitReturn_expr(ctx.return_expr());
-        if (!Objects.equals(ctx.BREAK().getText(), "")) return Asm.BREAK();
-        if (!Objects.equals(ctx.CONTINUE().getText(), "")) return Asm.CONTINUE();
+        if (ctx.BREAK() != null) return Asm.BREAK();
+        if (ctx.CONTINUE() != null) return Asm.CONTINUE();
         return null;
     }
 

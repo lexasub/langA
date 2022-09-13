@@ -11,14 +11,22 @@ import java.nio.charset.StandardCharsets;
 
 public class IO {
     public static void main(String[] args) throws IOException {
-        CharStream stream = CharStreams.fromFileName("test", StandardCharsets.US_ASCII);
+
+        Asm.pretty = true;//Set output with tabs
+        Asm.print(visit(getParser("test")));
+    }
+
+    public static langosWithoutSyntaxParser getParser(String filemame) throws IOException {
+        CharStream stream = CharStreams.fromFileName(filemame, StandardCharsets.UTF_8);
         langosWithoutSyntaxLexer lexer = new langosWithoutSyntaxLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         langosWithoutSyntaxParser parser = new langosWithoutSyntaxParser(tokens);
+        return parser;
+    }
 
-        Asm.pretty = true;//Set output with tabs
+    public static String visit(langosWithoutSyntaxParser parser) {
         mylangosWithoutSyntaxVisitor visitor = new mylangosWithoutSyntaxVisitor();
-        Asm.print(visitor.visitEntry_point(parser.entry_point()));
+        return visitor.visitEntry_point(parser.entry_point());
     }
 
 }
