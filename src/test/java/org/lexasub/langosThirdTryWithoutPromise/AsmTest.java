@@ -2,6 +2,7 @@ package org.lexasub.langosThirdTryWithoutPromise;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
 import java.util.LinkedList;
 import java.util.stream.Stream;
