@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 class IOTest {
 
+    private static String testPath = "/tmp/test";
     @Test
     void testVisit() throws IOException {
         LinkedList<Pair<String, String>> m = new LinkedList<>();
@@ -33,11 +34,11 @@ class IOTest {
     }
 
     private static void testMapPart2(String s, int i) throws IOException {
-        Assertions.assertEquals(s, IO.visit(IO.getParser("/tmp/test" + i + ".txt")));
+        Assertions.assertEquals(s, IO.visit(IO.getParser(testPath + i + ".txt")));
     }
 
     private static void testMapPart1(String s, int i) throws IOException {
-        DataOutputStream cout = createFile("/tmp/test" + i + ".txt");
+        DataOutputStream cout = createFile(testPath + i + ".txt");
         cout.writeBytes(s);
         cout.close();
     }

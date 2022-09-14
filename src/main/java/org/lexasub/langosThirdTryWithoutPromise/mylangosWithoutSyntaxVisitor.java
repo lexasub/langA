@@ -82,8 +82,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.lambda() != null) return visitLambda_(ctx.lambda()).a;
-        return visitExprPart(ctx);
+        if (ctx.lambda() == null)
+            return visitExprPart(ctx);
+        PairString l = visitLambda_(ctx.lambda());
+        return l.a + Asm.setArg(l.b);//sometimes CALL, sometimes setArg()??
     }
 
     public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx) {
