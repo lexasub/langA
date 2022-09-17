@@ -27,8 +27,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/sonarlint" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/lexasub/langosSecondTry" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/example" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/org/lexasub/langos" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
