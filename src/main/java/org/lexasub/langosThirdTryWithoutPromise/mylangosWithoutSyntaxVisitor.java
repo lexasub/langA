@@ -76,19 +76,19 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
-        if (ctx.ID() != null) return visitid2(ctx.ID()) + "\n";
         return null;
     }
 
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.lambda() == null)
-            return visitExprPart(ctx);
+        if (ctx.ID() != null) return visitid2(ctx.ID()) + "\n";
+        if (ctx.lambda() == null) return visitExprPart(ctx);
         PairString l = visitLambda_(ctx.lambda());
         return l.a + Asm.setArg(l.b);//sometimes CALL, sometimes setArg()??
     }
 
     public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx) {
+        if (ctx.ID() != null) return Asm.setArg(visitid2(ctx.ID()));
         if (ctx.lambda() == null) return visitExprPart(ctx);
         return visitLambda_(ctx.lambda());
     }
@@ -96,7 +96,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public PairString visitLambda_(langosWithoutSyntaxParser.LambdaContext ctx) {
         Stream<String> s1 = null;
         if (ctx.parened_id_list().id_list() != null)
-            s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid);
+            s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid2);
         String s2 = (ctx.expr() != null)
                 ? visitExpr(ctx.expr())
                 : visitBraced_element(ctx.braced_element());

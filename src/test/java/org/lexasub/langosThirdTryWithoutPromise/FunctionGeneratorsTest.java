@@ -22,42 +22,46 @@ class FunctionGeneratorsTest {
         l.push(findBeginInOneLambda(Asm.getIIR("(i)->f(i)")));
         l.push(findBeginInOneLambda(Asm.getIIR("(k)->p(k)")));
         String res = (String) g.apply(l.stream());
-        Assertions.assertTrue(res.matches("CALL BEGIN_lambda_"+r+"\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+        String regex = "CALL BEGIN_lambda_" + r + "\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID k\n" +
+                "POP k\n" +
                 "CALL_p:\n" +
-                "k\n" +
+                "PUSH k\n" +
                 "CALL p\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "EQ lbl_"+r+"\n" +
-                "CALL BEGIN_lambda_"+r+"\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "EQ lbl_" + r + "\n" +
+                "CALL BEGIN_lambda_" + r + "\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID i\n" +
+                "POP i\n" +
                 "CALL_f:\n" +
-                "i\n" +
+                "PUSH i\n" +
                 "CALL f\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "JMP lbl_"+r+"\n" +
-                "CALL BEGIN_lambda_"+r+"\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "JMP lbl_" + r + "\n" +
+                "CALL BEGIN_lambda_" + r + "\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID j\n" +
+                "POP j\n" +
                 "CALL_g:\n" +
-                "j\n" +
+                "PUSH j\n" +
                 "CALL g\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "ENDIF_lbl_"+r+":\n"));
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "ENDIF_lbl_" + r + ":\n";
+        Assertions.assertTrue(res.matches(regex));
     }
 
     private PairString findBeginInOneLambda(String iir) {
@@ -76,25 +80,27 @@ class FunctionGeneratorsTest {
         String regex = "JMP END_lambda_" + r + "\n" +
                 "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID i\n" +
+                "POP i\n" +
                 "CALL_f:\n" +
-                "i\n" +
+                "PUSH i\n" +
                 "CALL f\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
                 "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
                 "EQ lbl_" + r + "\n" +
                 "CALL BEGIN_lambda_" + r + "\n" +
                 "JMP END_lambda_" + r + "\n" +
                 "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID j\n" +
+                "POP j\n" +
                 "CALL_g:\n" +
-                "j\n" +
+                "PUSH j\n" +
                 "CALL g\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
                 "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
                 "JMP BEGIN_lambda_" + r + "\n" +
                 "ENDWHILE_lbl_" + r + ":\n";
         Assertions.assertTrue(res.matches(regex));
@@ -109,39 +115,42 @@ class FunctionGeneratorsTest {
         l.push(findBeginInOneLambda(Asm.getIIR("(j)->g(j)")));
         l.push(findBeginInOneLambda(Asm.getIIR("(h)->h(h)")));
         String res = (String) g.apply(l.stream());
-        String regex = "JMP lbl_"+r+"\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+        String regex = "JMP lbl_" + r + "\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID h\n" +
+                "POP h\n" +
                 "CALL_h:\n" +
-                "h\n" +
+                "PUSH h\n" +
                 "CALL h\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID j\n" +
+                "POP j\n" +
                 "CALL_g:\n" +
-                "j\n" +
+                "PUSH j\n" +
                 "CALL g\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID i\n" +
+                "POP i\n" +
                 "CALL_f:\n" +
-                "i\n" +
+                "PUSH i\n" +
                 "CALL f\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "ENDMAP_lbl_"+r+":\n" +
-                "PAIRMAP BEGIN_lambda_"+r8+", BEGIN_lambda_"+r8+", BEGIN_lambda_"+r8+"\n";
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "ENDMAP_lbl_" + r + ":\n" +
+                "PAIRMAP BEGIN_lambda_" + r8 + ", BEGIN_lambda_" + r8 + ", BEGIN_lambda_" + r8 + "\n";
         //TODO may be fix(r8)
         Assertions.assertTrue(res.matches(regex));
     }
@@ -154,7 +163,32 @@ class FunctionGeneratorsTest {
         l.push(findBeginInOneLambda(Asm.getIIR("(i)->f(i)")));
         l.push(findBeginInOneLambda(Asm.getIIR("(h)->h(h)")));
         String res = (String) g.apply(l.stream());
-        String regex = "JMP lbl_"+r+"\nJMP END_lambda_"+r+"\nBEGIN_lambda_"+r+":\nENTERSCOPE\nID h\nCALL_h:\nh\nCALL h\nRET\nEXITSCOPE\nEND_lambda_"+r+":\nJMP END_lambda_"+r+"\nBEGIN_lambda_"+r+":\nENTERSCOPE\nID i\nCALL_f:\ni\nCALL f\nRET\nEXITSCOPE\nEND_lambda_"+r+":\nENDMAP_lbl_"+r+":\nMAP BEGIN_lambda_"+r8+", BEGIN_lambda_"+r8+"\n";
+        String regex = "JMP lbl_" + r +  "\n" +
+                "JMP END_lambda_" + r +  "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
+                "ENTERSCOPE\n" +
+                "POP h\n" +
+                "CALL_h:" + "\n" +
+                "PUSH h" + "\n" +
+                "CALL h\n" +
+                "RET\n" +
+                "EXITSCOPE\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
+                "ENTERSCOPE\n" +
+                "POP i\n" +
+                "CALL_f:\n" +
+                "PUSH i\n" +
+                "CALL f\n" +
+                "RET\n" +
+                "EXITSCOPE\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
+                "ENDMAP_lbl_" + r + ":\n" +
+                "MAP BEGIN_lambda_" + r8 + ", BEGIN_lambda_" + r8 +
+                "\n";
         //TODO may be fix(r8)
         Assertions.assertTrue(res.matches(regex));
     }
@@ -163,20 +197,32 @@ class FunctionGeneratorsTest {
     void testUserFunGenerator() {
         Function g = userFunGenerator("myfunc");
         LinkedList<PairString> l = new LinkedList<>();
-        l.push(findBeginInOneLambda(Asm.getIIR("(i)->f(i)")));
-        String res = (String) g.apply(l.stream());
-        String regex = "CALL_myfunc:\n" +
-                "JMP END_lambda_"+r+"\n" +
-                "BEGIN_lambda_"+r+":\n" +
+        String iir = Asm.getIIR("(i)->f(i)");
+        Assertions.assertTrue(iir.matches("" +
+                "JMP END_lambda" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
                 "ENTERSCOPE\n" +
-                "ID i\n" +
+                "POP i\n" +
                 "CALL_f:\n" +
-                "i\n" +
+                "PUSH i\n" +
                 "CALL f\n" +
                 "RET\n" +
                 "EXITSCOPE\n" +
-                "END_lambda_"+r+":\n" +
-                "PUSH BEGIN_lambda_"+r+"\n" +
+                "END_lambda_" + r + ":\n"));
+        l.push(findBeginInOneLambda(iir));
+        String res = (String) g.apply(l.stream());
+        String regex = "CALL_myfunc:\n" +
+                "JMP END_lambda_" + r + "\n" +
+                "BEGIN_lambda_" + r + ":\n" +
+                "ENTERSCOPE\n" +
+                "POP i\n" +
+                "CALL_f:\n" +
+                "PUSH i\n" +
+                "CALL f\n" +
+                "RET\n" +
+                "EXITSCOPE\n" +
+                "END_lambda_" + r + ":\n" +
+                "PUSH BEGIN_lambda_" + r + ":\n\n" +
                 "CALL myfunc\n";
         Assertions.assertTrue(res.matches(regex));
     }

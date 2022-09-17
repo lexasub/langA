@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxLexer;
 import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
+import org.lexasub.langosThirdTryWithoutPromise.utils.AsmUtils;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
@@ -68,7 +69,7 @@ public class Asm extends AsmUtils {
                 lblBegin;
         s += tabulate();
         s += newScope() +
-                ((args != null) ? args.reduce("", String::concat) : "") +
+                ((args != null) ? args.map(Asm::getArg).reduce("", String::concat) : "") +
                 ((body != null) ? body : "") +
                 RET() +
                 endScope();
