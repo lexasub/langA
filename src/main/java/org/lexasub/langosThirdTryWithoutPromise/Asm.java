@@ -29,7 +29,7 @@ public class Asm extends AsmUtils {
         return POP(s);
     }
 
-    public static Object setArg(String s) {
+    public static String setArg(String s) {
         return PUSH(s);
     }
 

@@ -79,6 +79,19 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return null;
     }
 
+    public String visitExprLambda(langosWithoutSyntaxParser.ExprContext ctx) {
+        if (ctx.ID() != null) return Asm.setArg(visitid2(ctx.ID()));
+        if (ctx.lambda() == null) return visitExprPart(ctx);
+        PairString l = visitLambda_(ctx.lambda());
+        return l.a + Asm.setArg(l.b);//sometimes CALL, sometimes setArg()??
+    }
+
+    public String visitExprReturn(langosWithoutSyntaxParser.ExprContext ctx) {
+        if (ctx.ID() != null) return Asm.setArg(visitid2(ctx.ID()));
+        if (ctx.lambda() == null) return visitExprPart(ctx);
+        PairString l = visitLambda_(ctx.lambda());
+        return l.a + Asm.setArg(l.b);//sometimes CALL, sometimes setArg()??
+    }
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
         if (ctx.ID() != null) return visitid2(ctx.ID()) + "\n";
@@ -98,7 +111,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.parened_id_list().id_list() != null)
             s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid2);
         String s2 = (ctx.expr() != null)
-                ? visitExpr(ctx.expr())
+                ? visitExprLambda(ctx.expr())
                 : visitBraced_element(ctx.braced_element());
         return Asm.createLambda(s1, s2);
     }
@@ -144,9 +157,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
-        return visitExpr(ctx.expr()) +
-                Asm.setArgLastRes() +
-                Asm.RETURN();
+        return visitExprReturn(ctx.expr()) +
+                //Asm.setArgLastRes() +//TODO вроде не нужен
+                Asm.RETURN(); //TODO check//RETURN или RET
+               // Asm.RET();//RET избыточен, но не всегда
     }
 
     @Override

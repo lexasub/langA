@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="aaa">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
+    <list default="true" id="7e8ac9aa-2216-4155-bb1c-f7ff713b3b3a" name="Changes" comment="13.09">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/langA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/langA.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Asm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Asm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/ClassFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/FIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/MylangosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/MylangosWithoutSyntaxVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/PromisedFIR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/PromisedFIR.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/lexasub/langosSecondTry/Scope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lexasub/langosThirdTryWithoutPromise/Asm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lexasub/langosThirdTryWithoutPromise/Asm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/lexasub/langosThirdTryWithoutPromise/mylangosWithoutSyntaxVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/lexasub/langosThirdTryWithoutPromise/mylangosWithoutSyntaxVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
     </list>
     <list id="29b8ffca-600a-4723-a6dc-f812f9428926" name="Changes by danil" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +25,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -68,12 +65,15 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/su/IdeaProjects/langA/src/org/lexasub/langos/secondTry&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last.edited.regexp&quot;: &quot;JMP END_lambda_7\nBEGIN_lambda_7\nENTERSCOPE\nRET\nEXITSCOPE\nEND_lambda_8:\n&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/test&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -84,24 +84,116 @@
       <recent name="" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/org/lexasub/langosThirdTryWithoutPromise" />
       <recent name="$PROJECT_DIR$/src/org/lexasub/langos/secondTry" />
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="org.lexasub.langosThirdTryWithoutPromise.Asm" />
+      <recent name="org.lexasub.langosThirdTryWithoutPromise.AsmUtils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+      <recent name="$PROJECT_DIR$/src/org/lexasub" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="org.lexasub.langosThirdTryWithoutPromise" />
+      <recent name="org.lexasub.langosSecondTry" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.lexasub.langosThirdTryWithoutPromise" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.lexasub.langosThirdTryWithoutPromise" />
       <recent name="org.lexasub.langos.secondTry" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="org.lexasub.langos.IO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.lexasub.langos.IO" />
+  <component name="RunManager" selected="Application.IO">
+    <configuration name="IO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.lexasub.langosThirdTryWithoutPromise.IO" />
       <module name="langA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lexasub.langosThirdTryWithoutPromise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IOTest.testVisit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="langA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lexasub.langosThirdTryWithoutPromise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.lexasub.langosThirdTryWithoutPromise" />
+      <option name="MAIN_CLASS_NAME" value="org.lexasub.langosThirdTryWithoutPromise.IOTest" />
+      <option name="METHOD_NAME" value="testVisit" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mylangosWithoutSyntaxVisitorTest.testVisitExprPart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="langA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lexasub.langosThirdTryWithoutPromise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.lexasub.langosThirdTryWithoutPromise" />
+      <option name="MAIN_CLASS_NAME" value="org.lexasub.langosThirdTryWithoutPromise.mylangosWithoutSyntaxVisitorTest" />
+      <option name="METHOD_NAME" value="testVisitExprPart" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mylangosWithoutSyntaxVisitorTest.testVisitFunction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="langA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lexasub.langosThirdTryWithoutPromise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.lexasub.langosThirdTryWithoutPromise" />
+      <option name="MAIN_CLASS_NAME" value="org.lexasub.langosThirdTryWithoutPromise.mylangosWithoutSyntaxVisitorTest" />
+      <option name="METHOD_NAME" value="testVisitFunction" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.lexasub.langosThirdTryWithoutPromise in langA" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="langA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lexasub.langosThirdTryWithoutPromise.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.lexasub.langosThirdTryWithoutPromise" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.org.lexasub.langos.IO" />
+        <item itemvalue="Application.IO" />
+        <item itemvalue="JUnit.org.lexasub.langosThirdTryWithoutPromise in langA" />
+        <item itemvalue="JUnit.mylangosWithoutSyntaxVisitorTest.testVisitFunction" />
+        <item itemvalue="JUnit.IOTest.testVisit" />
+        <item itemvalue="JUnit.mylangosWithoutSyntaxVisitorTest.testVisitExprPart" />
       </list>
     </recent_temporary>
   </component>
@@ -268,7 +360,161 @@
       <option name="project" value="LOCAL" />
       <updated>1661886244854</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="02.09">
+      <created>1662146647976</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1662146647976</updated>
+    </task>
+    <task id="LOCAL-00024" summary="03.09">
+      <created>1662150157673</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1662150157673</updated>
+    </task>
+    <task id="LOCAL-00025" summary="03.09">
+      <created>1662183816685</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1662183816685</updated>
+    </task>
+    <task id="LOCAL-00026" summary="07.09">
+      <created>1662498778370</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1662498778370</updated>
+    </task>
+    <task id="LOCAL-00027" summary="third try">
+      <created>1662736389231</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1662736389231</updated>
+    </task>
+    <task id="LOCAL-00028" summary="sss">
+      <created>1662759161143</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1662759161143</updated>
+    </task>
+    <task id="LOCAL-00029" summary="sss">
+      <created>1662811409467</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1662811409467</updated>
+    </task>
+    <task id="LOCAL-00030" summary="sss">
+      <created>1662843778678</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1662843778679</updated>
+    </task>
+    <task id="LOCAL-00031" summary="working antlr4!!!">
+      <created>1662849095998</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1662849095998</updated>
+    </task>
+    <task id="LOCAL-00032" summary="first assembly(IIR)">
+      <created>1662850779513</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1662850779513</updated>
+    </task>
+    <task id="LOCAL-00033" summary="11.09">
+      <created>1662852953575</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1662852953575</updated>
+    </task>
+    <task id="LOCAL-00034" summary="add pretty print">
+      <created>1662996749847</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1662996749847</updated>
+    </task>
+    <task id="LOCAL-00035" summary="12.09">
+      <created>1662999918574</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1662999918574</updated>
+    </task>
+    <task id="LOCAL-00036" summary="12.09">
+      <created>1663011296032</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1663011296032</updated>
+    </task>
+    <task id="LOCAL-00037" summary="12.09">
+      <created>1663012247551</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1663012247551</updated>
+    </task>
+    <task id="LOCAL-00038" summary="small codestyle improvements">
+      <created>1663012898565</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1663012898565</updated>
+    </task>
+    <task id="LOCAL-00039" summary="small codestyle improvements">
+      <created>1663013059367</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1663013059367</updated>
+    </task>
+    <task id="LOCAL-00040" summary="some movements &amp;&amp; add first tests">
+      <created>1663028768280</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1663028768280</updated>
+    </task>
+    <task id="LOCAL-00041" summary="13.09">
+      <created>1663029353167</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1663029353167</updated>
+    </task>
+    <task id="LOCAL-00042" summary="13.09">
+      <created>1663087331779</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1663087331779</updated>
+    </task>
+    <task id="LOCAL-00043" summary="add IO class test">
+      <created>1663091060659</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1663091060659</updated>
+    </task>
+    <task id="LOCAL-00044" summary="13.09">
+      <created>1663091881978</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1663091881978</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -294,14 +540,61 @@
     <MESSAGE value="new subproject(oslang without syntax in runtime)" />
     <MESSAGE value="pp" />
     <MESSAGE value="aaa" />
-    <option name="LAST_COMMIT_MESSAGE" value="aaa" />
+    <MESSAGE value="02.09" />
+    <MESSAGE value="03.09" />
+    <MESSAGE value="07.09" />
+    <MESSAGE value="third try" />
+    <MESSAGE value="sss" />
+    <MESSAGE value="working antlr4!!!" />
+    <MESSAGE value="first assembly(IIR)" />
+    <MESSAGE value="11.09" />
+    <MESSAGE value="add pretty print" />
+    <MESSAGE value="12.09" />
+    <MESSAGE value="small codestyle improvements" />
+    <MESSAGE value="some movements &amp;&amp; add first tests" />
+    <MESSAGE value="add IO class test" />
+    <MESSAGE value="13.09" />
+    <option name="LAST_COMMIT_MESSAGE" value="13.09" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/lexasub/langosThirdTryWithoutPromise/FunctionGeneratorsTest.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="org.antlr.v4.runtime.CodePointCharStream$CodePoint8BitCharStream" memberName="byteArray" />
+        <PinnedItemInfo parentTag="org.antlr.v4.runtime.misc.Pair" memberName="a" />
+        <PinnedItemInfo parentTag="org.antlr.v4.runtime.CommonToken" memberName="source" />
         <PinnedItemInfo parentTag="org.antlr.v4.runtime.CommonTokenStream" memberName="tokens" />
         <PinnedItemInfo parentTag="langosParser" memberName="_input" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="e.next()" language="JAVA" />
+        <watch expression="e.next()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/langA_$AsmTest_and_1_more.ic" NAME="AsmTest and 1 more Coverage Results" MODIFIED="1663028503417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/langA_$mylangosWithoutSyntaxVisitorTest_testVisitExprPart.ic" NAME="mylangosWithoutSyntaxVisitorTest.testVisitExprPart Coverage Results" MODIFIED="1663087218750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.lexasub.langosThirdTryWithoutPromise.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/langA_$org_lexasub_langosThirdTryWithoutPromise_in_langA.ic" NAME="org.lexasub.langosThirdTryWithoutPromise in langA Coverage Results" MODIFIED="1663101054107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.lexasub.langosThirdTryWithoutPromise.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/langA_$AsmTest.ic" NAME="AsmTest Coverage Results" MODIFIED="1663020940356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.lexasub.langosThirdTryWithoutPromise.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/langA_$mylangosWithoutSyntaxVisitorTest_testVisitGet_member.ic" NAME="mylangosWithoutSyntaxVisitorTest.testVisitGet_member Coverage Results" MODIFIED="1663087169447" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.lexasub.langosThirdTryWithoutPromise.*</FILTER>
+    </SUITE>
   </component>
 </project>
