@@ -86,8 +86,17 @@ public class Asm extends AsmUtils {
         return p("LAST_RES_TO_STACK\n");
     }
 
+    /*
+    RETURN -> RET
+    f()  {
+        return d()
+    } -> ... RET
+    f() {
+        if(i->{return i})-> ... RET to if(not f())
+    }
+     */
     public static String RETURN() {
-        return p("RETURN\n");//???
+        return p("RET\n");//???
     }
 
     public static String CONTINUE() {
