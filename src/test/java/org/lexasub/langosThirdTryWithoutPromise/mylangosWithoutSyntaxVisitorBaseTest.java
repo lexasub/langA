@@ -3,7 +3,6 @@ package org.lexasub.langosThirdTryWithoutPromise;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.mockito.Mockito;
 
 import java.util.LinkedList;

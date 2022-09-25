@@ -1,5 +1,5 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/langosWithoutSyntax.g4 by ANTLR 4.10.1
-package org.lexasub.langosSecondTry;
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+package org.lexasub.langosThirdTryWithoutPromise;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -154,6 +154,30 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitElement(langosWithoutSyntaxParser.ElementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#with_body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWith_body(langosWithoutSyntaxParser.With_bodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#with_synonym}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#with_}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWith_(langosWithoutSyntaxParser.With_Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#parened_expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParened_expr(langosWithoutSyntaxParser.Parened_exprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#class_}.
 	 * @param ctx the parse tree

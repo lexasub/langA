@@ -1,6 +1,5 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
-import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
@@ -73,6 +72,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
 
     public String visitExprPart(langosWithoutSyntaxParser.ExprContext ctx) {
+        if (ctx.with_() != null) return visitWith_(ctx.with_());
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
@@ -161,7 +161,23 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
                 //Asm.setArgLastRes() +//TODO вроде не нужен
                 Asm.RET(); //TODO check//RETURN или RET
     }
+/*with_body : ARROW expr;
+with_synonym : RPAREN ID LPAREN;
+with_ : WITH parened_expr with_synonym RBRACE with_body (COMA with_body)* LBRACE;
+ */
 
+    @Override
+    public String visitWith_(langosWithoutSyntaxParser.With_Context ctx){
+        String expr = visitExpr(ctx.parened_expr().expr());
+        String id = visitWith_synonym(ctx.with_synonym());
+        Stream<String> bodys = ctx.with_body().stream().map(ctx1 -> visitExpr(ctx1.expr()));
+        return expr + Asm.getArg(id) + bodys.map(i -> i + "\n").reduce("", String::concat);
+    }
+
+    @Override
+    public String visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx){
+        return visitid2(ctx.ID());
+    }
     @Override
     public String visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
         return null;

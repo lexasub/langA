@@ -2,7 +2,6 @@ package org.lexasub.langosThirdTryWithoutPromise;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.mockito.Mockito;
 
 import static org.lexasub.langosThirdTryWithoutPromise.TestHelper.*;

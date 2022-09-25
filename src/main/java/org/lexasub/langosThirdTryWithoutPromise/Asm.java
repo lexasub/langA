@@ -4,8 +4,6 @@ package org.lexasub.langosThirdTryWithoutPromise;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.lexasub.langosSecondTry.langosWithoutSyntaxLexer;
-import org.lexasub.langosSecondTry.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.AsmUtils;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;

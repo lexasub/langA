@@ -1,4 +1,6 @@
 int a(s t){
-  return if((i)->i,(k) -> return s,(u)->u)
-  f()
+  with(t.calc()) (i) {
+    -> i().print()
+    -> parse(i)
+  }
 }
