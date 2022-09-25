@@ -1,26 +1,25 @@
-FUNCTION_main:
-ENTERSCOPE
 JMP ENDMAP_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
 ENTERSCOPE
-POP i
-CALL_i:
-CALL i
+POP h
+CALL_h:
+PUSH h
+CALL h
 RET
 EXITSCOPE
 END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+PUSH BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
 ENTERSCOPE
-POP j
-CALL_j:
-CALL j
+POP i
+CALL_f:
+PUSH i
+CALL f
 RET
 EXITSCOPE
 END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+PUSH BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 ENDMAP_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
 MAP BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
-RET
-RET
-EXITSCOPE

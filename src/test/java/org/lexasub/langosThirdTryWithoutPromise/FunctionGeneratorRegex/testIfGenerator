@@ -1,0 +1,39 @@
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+ENTERSCOPE
+POP k
+CALL_p:
+PUSH k
+CALL p
+RET
+EXITSCOPE
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+PUSH BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+EQ ENDIF_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+ENTERSCOPE
+POP i
+CALL_f:
+PUSH i
+CALL f
+RET
+EXITSCOPE
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+PUSH BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP ENDIF_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+ENTERSCOPE
+POP j
+CALL_g:
+PUSH j
+CALL g
+RET
+EXITSCOPE
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+PUSH BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+ENDIF_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:

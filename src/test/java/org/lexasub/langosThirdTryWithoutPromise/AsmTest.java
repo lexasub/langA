@@ -70,7 +70,7 @@ public class AsmTest {
                 "EXITSCOPE\n" +
                 "END_lambda_" + r + ":\n";
         Assertions.assertTrue(lambda.a.matches(regex));
-        Assertions.assertTrue(lambda.b.matches("BEGIN_lambda_"+r+":\n"));
+        Assertions.assertTrue(lambda.b.matches("BEGIN_lambda_"+r));
     }
 	@Test
     void testMOVMEMBER(){

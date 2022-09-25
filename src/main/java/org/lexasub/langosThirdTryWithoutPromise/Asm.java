@@ -64,9 +64,11 @@ public class Asm extends AsmUtils {
 
     public static PairString createLambda(Stream<String> args, String body) {
         String name = IdGenerator.lambda();
-        String lblBegin = LABEL("BEGIN_" + name);
-        String s = JMP("END_" + name) +
-                lblBegin;
+        String beginLambda = "BEGIN_" + name;
+        String lambdaBegin = LABEL(beginLambda);
+        String lambdaEnd = "END_" + name;
+        String s = JMP(lambdaEnd) +
+                lambdaBegin;
         s += tabulate();
         s += newScope() +
                 ((args != null) ? args.map(Asm::getArg).reduce("", String::concat) : "") +
@@ -74,8 +76,8 @@ public class Asm extends AsmUtils {
                 RET() +
                 endScope();
         s += untabulate(); //+ "\n"
-        s += LABEL("END_" + name);
-        return new PairString(s, lblBegin);
+        s += LABEL(lambdaEnd);
+        return new PairString(s, beginLambda);
     }
 
     public static String MOVMEMBER(String regName, String field) {
@@ -96,7 +98,7 @@ public class Asm extends AsmUtils {
     }
      */
     public static String RETURN() {
-        return p("RET\n");//???
+        return p("RETURN\n");//???
     }
 
     public static String CONTINUE() {

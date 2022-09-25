@@ -1,0 +1,3 @@
+int main() {
+    return map(collection, (j) -> j())
+}

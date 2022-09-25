@@ -159,8 +159,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
         return visitExprReturn(ctx.expr()) +
                 //Asm.setArgLastRes() +//TODO вроде не нужен
-                Asm.RETURN(); //TODO check//RETURN или RET
-               // Asm.RET();//RET избыточен, но не всегда
+                Asm.RET(); //TODO check//RETURN или RET
     }
 
     @Override

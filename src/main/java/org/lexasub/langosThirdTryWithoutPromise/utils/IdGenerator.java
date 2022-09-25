@@ -46,7 +46,18 @@ public class IdGenerator {
     public static String label() {
         return getString(lbl_name, "lbl_");
     }
-
+    public static String lblCollBegin() {
+        return "MAP_ARGUMENT_" + label();
+    }
+    public static String lblMapEnd() {
+        return "ENDMAP_" + label();
+    }
+    public static String lblWhileEnd() {
+        return "ENDWHILE_" + label();
+    }
+    public static String lblIfEnd() {
+        return "ENDIF_" + label();
+    }
     public static String reg() {
         return getString(regs, "gr_");
     }

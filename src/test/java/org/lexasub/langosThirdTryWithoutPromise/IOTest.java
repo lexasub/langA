@@ -78,8 +78,9 @@ class IOTest {
 
     private static void matchIR(String s, int i) throws IOException {
         String result = IO.visit(IO.getParser(testPath + i + ".txt"));
-        System.out.println("IO_RES:\n" + result + "IO_PATTERN:\n" + s);
-        Assertions.assertTrue(result.matches(s));
+        boolean matches = result.matches(s);
+        if(!matches) System.out.println("IO_RES:\n" + result + "IO_PATTERN:\n" + s);
+        Assertions.assertTrue(matches);
     }
 
     private static void writeSource(String s, int i) throws IOException {
