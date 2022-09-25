@@ -161,10 +161,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
                 //Asm.setArgLastRes() +//TODO вроде не нужен
                 Asm.RET(); //TODO check//RETURN или RET
     }
-/*with_body : ARROW expr;
-with_synonym : RPAREN ID LPAREN;
-with_ : WITH parened_expr with_synonym RBRACE with_body (COMA with_body)* LBRACE;
- */
 
     @Override
     public String visitWith_(langosWithoutSyntaxParser.With_Context ctx){
