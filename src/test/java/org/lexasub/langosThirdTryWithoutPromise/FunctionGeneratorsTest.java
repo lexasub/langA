@@ -15,8 +15,6 @@ import static org.lexasub.langosThirdTryWithoutPromise.FunctionGenerators.*;
 
 class FunctionGeneratorsTest {
 
-    private final String r = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{10}";
-
     public String getFileContent(String filename){
         try {
             return Files.readString(Paths.get (filename));
@@ -55,7 +53,6 @@ class FunctionGeneratorsTest {
 
     @Test
     void testPairMapGenerator() {
-        String r8 = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{8}";
         Function g = pairMapGenerator();
         LinkedList<PairString> l = new LinkedList<>();
         l.push(findBeginInOneLambda(Asm.getIIR("(i)->f(i)")));
@@ -69,7 +66,6 @@ class FunctionGeneratorsTest {
 
     @Test
     void testMapGenerator() {
-        String r8 = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{8}";
         Function g = mapGenerator();
         LinkedList<PairString> l = new LinkedList<>();
         l.push(findBeginInOneLambda(Asm.getIIR("(i)->f(i)")));
@@ -85,6 +81,7 @@ class FunctionGeneratorsTest {
         Function g = userFunGenerator("myfunc");
         LinkedList<PairString> l = new LinkedList<>();
         String iir = Asm.getIIR("(i)->f(i)");
+        String r = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{10}";
         Assertions.assertTrue(iir.matches("JMP END_lambda_"+r+"\n" +
                 "BEGIN_lambda_"+r+":\n" +
                 "ENTERSCOPE\n" +

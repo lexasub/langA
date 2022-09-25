@@ -4,7 +4,6 @@ import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -74,15 +73,19 @@ public class FunctionGenerators {
             PairString body = (PairString) e.next();//body
             String lambda = body.b;
             String arg_post;
-            if (Objects.equals(arg1.a, "")) {
-                if (Objects.equals(arg2.a, "")) arg_post = Asm.PAIRMAPoo(arg1.b, arg2.b, lambda);
+            if (isCollection(arg1)) {
+                if (isCollection(arg2)) arg_post = Asm.PAIRMAPoo(arg1.b, arg2.b, lambda);
                 else arg_post = Asm.PAIRMAPo_(arg1.b, arg2.b, lambda);
             } else {
-                if (Objects.equals(arg2.a, "")) arg_post = Asm.PAIRMAP_o(arg1.b, arg2.b, lambda);
+                if (isCollection(arg2)) arg_post = Asm.PAIRMAP_o(arg1.b, arg2.b, lambda);
                 else arg_post = Asm.PAIRMAP(arg1.b, arg2.b, lambda);
             }
             return buildMap(arg1.a + arg2.a, body, arg_post);
         };
+    }
+
+    private static boolean isCollection(PairString a) {
+        return a.a.startsWith("MAP_ARGUMENT");
     }
 
     public static Function mapGenerator() {//TODO +надо продумать map(collection, ()->s()) и m.map(()->s()) и map().map() любая комбинация
@@ -94,7 +97,7 @@ public class FunctionGenerators {
 
             PairString body = (PairString) e.next();//body
             String lambda = body.b;
-            if (arg.a.substring(0,12) == "MAP_ARGUMENT") return buildMap(arg.a, body, Asm.MAPo(arg.b, lambda));
+            if (isCollection(arg)) return buildMap(arg.a, body, Asm.MAPo(arg.b, lambda));
             return buildMap(arg.a, body, Asm.MAP(arg.b, lambda));
         };
     }
