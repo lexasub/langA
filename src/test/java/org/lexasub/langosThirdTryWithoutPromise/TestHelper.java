@@ -48,13 +48,45 @@ public class TestHelper {
                 Mockito.mock(langosWithoutSyntaxParser.FunctionContext.class);
         Mockito.when(terminalNode.type_name()).thenReturn(type);
         Mockito.when(terminalNode.var_name()).thenReturn(name);
-        LinkedList<String> s = new LinkedList<>();
-     /*   Mockito.when(terminalNode.func_args()).thenReturn(s.stream());
-        Mockito.when(terminalNode.braced_element()).thenReturn(name);*/
+        Mockito.when(terminalNode.func_args()).thenReturn(spawnFuncArgs());
+        Mockito.when(terminalNode.braced_element()).thenReturn(spawnBracedElement());
       /*  Asm.createFunction(type,
                 name,
                 "",
                 "");*/
         return terminalNode;
+    }
+
+    private static langosWithoutSyntaxParser.Braced_elementContext spawnBracedElement() {
+        langosWithoutSyntaxParser.Braced_elementContext s = Mockito.mock(langosWithoutSyntaxParser.Braced_elementContext.class);
+        return s;
+    }
+
+    private static langosWithoutSyntaxParser.Func_argsContext spawnFuncArgs() {
+        langosWithoutSyntaxParser.Func_argsContext s = Mockito.mock(langosWithoutSyntaxParser.Func_argsContext.class);
+        String a = "test";
+        LinkedList<langosWithoutSyntaxParser.Type_nameContext> t = getType_nameContextsList(s, a);
+        Mockito.when(s.type_name()).thenReturn(t);
+        String b = "test";
+        LinkedList<langosWithoutSyntaxParser.Var_nameContext> t1 = getVar_nameContextsList(b);
+        Mockito.when(s.var_name()).thenReturn(t1);
+        return s;
+    }
+
+    private static LinkedList<langosWithoutSyntaxParser.Var_nameContext> getVar_nameContextsList(String test1) {
+        langosWithoutSyntaxParser.Var_nameContext test2 = spawnVarName(test1);
+        LinkedList<langosWithoutSyntaxParser.Var_nameContext> t1 = new LinkedList<>();
+        t1.add(test2);
+        t1.add(test2);
+        return t1;
+    }
+
+    private static LinkedList<langosWithoutSyntaxParser.Type_nameContext> getType_nameContextsList(langosWithoutSyntaxParser.Func_argsContext s, String test3) {
+        langosWithoutSyntaxParser.Type_nameContext test = spawnTypeName(test3);
+        LinkedList<langosWithoutSyntaxParser.Type_nameContext> t = new LinkedList<>();
+        t.add(test);
+        t.add(test);
+        Mockito.when(s.type_name()).thenReturn(t);
+        return t;
     }
 }
