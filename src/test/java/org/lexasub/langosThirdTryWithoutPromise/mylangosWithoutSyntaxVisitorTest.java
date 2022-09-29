@@ -1,8 +1,11 @@
 package org.lexasub.langosThirdTryWithoutPromise;
 
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.util.LinkedList;
 
 import static org.lexasub.langosThirdTryWithoutPromise.TestHelper.*;
 
@@ -13,9 +16,10 @@ class mylangosWithoutSyntaxVisitorTest {
     void testVisitElement() {
         langosWithoutSyntaxParser.ElementContext dataService =
                 Mockito.mock(langosWithoutSyntaxParser.ElementContext.class);
-        langosWithoutSyntaxParser.FunctionContext s = spawnFunction(spawnTypeName("int"),spawnVarName("s"));
-        Mockito.when(dataService.function()).thenReturn(s);
-        Assertions.assertEquals("s", v.visitElement(dataService));
+        langosWithoutSyntaxParser.ExprContext s = spawnExpr(spawnID("s"));
+        Mockito.when(dataService.expr()).thenReturn(s);
+        String actual = v.visitElement(dataService);
+        Assertions.assertEquals("s\n", actual);
     }
     @Test
     void testVisitFunction() {
@@ -49,6 +53,36 @@ class mylangosWithoutSyntaxVisitorTest {
                 "MOVMEMBER gr_" + r + ", ID text\n" +
                 "\n"));
     }
+    @Test
+    void testVisitWith_(){
+        langosWithoutSyntaxParser.With_Context wc = Mockito.mock(langosWithoutSyntaxParser.With_Context.class);
+
+        TerminalNode test = spawnID("test");
+        langosWithoutSyntaxParser.ExprContext ec = spawnExpr(test);
+        langosWithoutSyntaxParser.Parened_exprContext pec = Mockito.mock(langosWithoutSyntaxParser.Parened_exprContext.class);
+        Mockito.when(pec.expr()).thenReturn(ec);
+        Mockito.when(wc.parened_expr()).thenReturn(pec);
+        langosWithoutSyntaxParser.With_synonymContext sc = Mockito.mock(langosWithoutSyntaxParser.With_synonymContext.class);
+        Mockito.when(sc.ID()).thenReturn(test);
+        Mockito.when(wc.with_synonym()).thenReturn(sc);
+        langosWithoutSyntaxParser.With_bodyContext r = Mockito.mock(langosWithoutSyntaxParser.With_bodyContext.class);
+        Mockito.when(r.expr()).thenReturn(ec);
+
+        LinkedList<langosWithoutSyntaxParser.With_bodyContext> t = new LinkedList<>();
+        t.add(r);
+        t.add(r);
+
+        Mockito.when(wc.with_body()).thenReturn(t);
+        String actual = v.visitWith_(wc);
+        Assertions.assertTrue(actual.matches("test\n" +
+                "POP test\n" +
+                "test\n" +
+                "\n" +
+                "test\n" +
+                "\n"));
+    }
+
+
 
     @Test
     void testVisitExprPart() {

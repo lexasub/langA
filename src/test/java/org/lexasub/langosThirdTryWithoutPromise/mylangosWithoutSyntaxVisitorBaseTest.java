@@ -50,7 +50,7 @@ class mylangosWithoutSyntaxVisitorBaseTest {
     @Test
     void testVisitClass_name() {
         langosWithoutSyntaxParser.Class_nameContext dataService = spawnClassName("s");
-        Assertions.assertEquals("INTOSCOPE s\n", v.visitClass_name(dataService));
+        Assertions.assertEquals("s", v.visitClass_name(dataService));
     }
 
 

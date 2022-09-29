@@ -1,6 +1,5 @@
-int a(s t){
-  with(t.calc()) (i) {
-    -> i().print()
-    -> parse(i)
-  }
+class i {
+    int f(float g){
+        g.toInt()
+    }
 }

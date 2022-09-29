@@ -68,7 +68,7 @@ namspce_obj : ID (DOUBLECOLON ID)+;
 function_specifier: '$' ;
 function: function_specifier? type_name var_name func_args braced_element;
 
-expr : with_ | flow_control |  function_call_ | lambda| get_member | CHAR | STRING | ID;
+expr : with_ | flow_control |  function_call_ | class_ | lambda| get_member | CHAR | STRING | ID;
 
 get_member : class_name DOT member_name;
 

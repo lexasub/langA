@@ -168,4 +168,20 @@ public class Asm extends AsmUtils {
         mylangosWithoutSyntaxVisitor visitor = new mylangosWithoutSyntaxVisitor();
         return visitor.visitEntry_point(parser.entry_point());
     }
+
+    public static String createClass(String className, String body) {
+        return CLASS(className) + intoScope(className) + body + ENDCLASS(className);
+    }
+
+    private static String ENDCLASS(String className) {
+        return "ENDCLASS " + className + "\n";
+    }
+
+    private static String CLASS(String className) {
+        return "CLASS " + className + "\n";
+    }
+
+    public static String outofScope() {
+        return "OUTOFSCOPE\n";
+    }
 }

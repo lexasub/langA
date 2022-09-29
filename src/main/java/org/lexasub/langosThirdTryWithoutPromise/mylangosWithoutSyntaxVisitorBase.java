@@ -31,7 +31,7 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
 
     @Override
     public String visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx) {
-        return Asm.intoScope(visitid2(ctx.ID()));
+        return visitid2(ctx.ID());
     }
 
     @Override

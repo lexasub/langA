@@ -60,7 +60,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) {
-        String res = visitClass_name(ctx.class_name());
+        String res = Asm.intoScope(visitClass_name(ctx.class_name()));
         String regName = IdGenerator.reg();
         res += Asm.MOVMEMBER(regName, visitMember_name(ctx.member_name()));
         return new PairString(res, regName).a;//std::kostyl
@@ -75,6 +75,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.with_() != null) return visitWith_(ctx.with_());
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
+        if (ctx.class_() != null) return visitClass_(ctx.class_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
         return null;
     }
@@ -120,7 +121,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
         Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExprFuncall);
-        return visitFun_name(ctx.fun_name(), args);
+        return visitFun_name(ctx.fun_name(), args);//TODO may be error, if exist member(not method call)
     }
 
     @Override
@@ -128,7 +129,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.namspce_obj() != null) {
             return visitNamspce_obj(ctx.namspce_obj()) + visitFunction_call(ctx.function_call());
         }
-        String cn = visitClass_name(ctx.class_name());//TODO check cn == INTOSCOPE ClassName
+        String cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
         return cn + visitFunction_call(ctx.function_call());
     }
 
@@ -139,7 +140,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.method_call() != null) {
             return visitMethod_call(ctx.method_call()) + functionCalls;
         }
-        return visitFunction_call(ctx.function_call()) + functionCalls;
+        return visitFunction_call(ctx.function_call()) + functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size());
+    }
+
+    @Override
+    public String visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
+        return Asm.createClass(visitClass_name(ctx.class_name()),
+        visitBraced_element(ctx.braced_element()));
     }
 
     public String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<Object> args) {
@@ -173,9 +180,5 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx){
         return visitid2(ctx.ID());
-    }
-    @Override
-    public String visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
-        return null;
     }
 }

@@ -59,9 +59,19 @@ public class TestHelper {
 
     private static langosWithoutSyntaxParser.Braced_elementContext spawnBracedElement() {
         langosWithoutSyntaxParser.Braced_elementContext s = Mockito.mock(langosWithoutSyntaxParser.Braced_elementContext.class);
+        LinkedList<langosWithoutSyntaxParser.ElementContext> t = new LinkedList<>();
+        langosWithoutSyntaxParser.ElementContext s2 = Mockito.mock(langosWithoutSyntaxParser.ElementContext.class);
+        langosWithoutSyntaxParser.ExprContext s3 = spawnExpr(spawnID("test"));
+        Mockito.when(s2.expr()).thenReturn(s3);
+        Mockito.when(s.element()).thenReturn(t);
+                //ctx.element().stream().map(this::visitElement).reduce("", String::concat);//mb не совсем верно
         return s;
     }
-
+    protected static langosWithoutSyntaxParser.ExprContext spawnExpr(TerminalNode test) {
+        langosWithoutSyntaxParser.ExprContext ec = Mockito.mock(langosWithoutSyntaxParser.ExprContext.class);
+        Mockito.when(ec.ID()).thenReturn(test);
+        return ec;
+    }
     private static langosWithoutSyntaxParser.Func_argsContext spawnFuncArgs() {
         langosWithoutSyntaxParser.Func_argsContext s = Mockito.mock(langosWithoutSyntaxParser.Func_argsContext.class);
         String a = "test";
@@ -86,7 +96,6 @@ public class TestHelper {
         LinkedList<langosWithoutSyntaxParser.Type_nameContext> t = new LinkedList<>();
         t.add(test);
         t.add(test);
-        Mockito.when(s.type_name()).thenReturn(t);
         return t;
     }
 }
