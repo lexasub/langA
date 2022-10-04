@@ -1,8 +1,9 @@
-package org.lexasub.langosThirdTryWithoutPromise;
+package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.antlr.v4.runtime.misc.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.IO;
 
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;

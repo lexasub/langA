@@ -1,5 +1,19 @@
-class i {
-    int f(float g){
-        g.toInt()
+class class1{
+    float f(lambda l){
+        return l.apply()
     }
+}
+
+class g {
+    class1 r(float k) {
+        return k.class1()
+    }
+}
+
+
+class i {
+    int f(float p){
+        g.r(p).f((i) -> i)
+    }
+
 }

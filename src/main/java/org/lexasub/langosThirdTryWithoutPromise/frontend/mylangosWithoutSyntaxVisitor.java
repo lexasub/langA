@@ -1,5 +1,6 @@
-package org.lexasub.langosThirdTryWithoutPromise;
+package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
+import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
@@ -53,9 +54,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx) {
-        return (ctx.member_name() != null)
-                ? visitMember_name(ctx.member_name())
-                : visitFunction_call(ctx.function_call());
+        String regName = IdGenerator.reg();
+        if (ctx.member_name() == null) return visitFunction_call(ctx.function_call());
+        String res = Asm.MOVMEMBER(regName, visitMember_name(ctx.member_name()));
+        return new PairString(res, regName).a;//std::kostyl
     }
 
     @Override
@@ -63,6 +65,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String res = Asm.intoScope(visitClass_name(ctx.class_name()));
         String regName = IdGenerator.reg();
         res += Asm.MOVMEMBER(regName, visitMember_name(ctx.member_name()));
+        res += Asm.outofScope();
         return new PairString(res, regName).a;//std::kostyl
         /*
          * INTOSCOPE myclass1
@@ -121,7 +124,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
         Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExprFuncall);
-        return visitFun_name(ctx.fun_name(), args);//TODO may be error, if exist member(not method call)
+        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText()) ;//TODO may be error, if exist member(not method call)
     }
 
     @Override
@@ -130,17 +133,28 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
             return visitNamspce_obj(ctx.namspce_obj()) + visitFunction_call(ctx.function_call());
         }
         String cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
-        return cn + visitFunction_call(ctx.function_call());
+        //чуваки которые в functionCall сами должны свои скопы закрывать
+        return cn + visitFunction_call(ctx.function_call())/* + Asm.outofScope()*/;
     }
 
     @Override
     public String visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) {
-        String functionCalls = ctx.function_call_helper().stream().map(this::visitFunction_call_helper)
-                .reduce("", String::concat);
-        if (ctx.method_call() != null) {
-            return visitMethod_call(ctx.method_call()) + functionCalls;
+        int intoScopeCounts;
+        if (ctx.method_call() == null) intoScopeCounts = 1; //f() -> intoscope(f)
+        else {
+            if (ctx.method_call().namspce_obj() != null)
+                intoScopeCounts = ctx.method_call().namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
+            else intoScopeCounts = 2;//s.d() -> intoscope(s,d)
         }
-        return visitFunction_call(ctx.function_call()) + functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size());
+        String s = (ctx.method_call() != null)
+                ? visitMethod_call(ctx.method_call())
+                : visitFunction_call(ctx.function_call());
+        String functionCalls = ctx.function_call_helper().stream().map(i -> visitFunction_call_helper(i)
+                        +((i.member_name() != null)
+                        ?Asm.intoScope(i.member_name().getText()) :""))
+                .reduce("", String::concat);
+        return s + functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
+                        intoScopeCounts);// + Asm.outofScope().repeat(ctx.function_call_helper().size())
     }
 
     @Override

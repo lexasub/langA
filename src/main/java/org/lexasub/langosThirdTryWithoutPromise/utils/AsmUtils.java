@@ -1,6 +1,6 @@
 package org.lexasub.langosThirdTryWithoutPromise.utils;
 
-import org.lexasub.langosThirdTryWithoutPromise.Asm;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 
 import java.util.Iterator;
 

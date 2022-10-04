@@ -1,9 +1,11 @@
-package org.lexasub.langosThirdTryWithoutPromise;
+package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxLexer;
+import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.AsmUtils;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
@@ -79,7 +81,8 @@ public class Asm extends AsmUtils {
     }
 
     public static String MOVMEMBER(String regName, String field) {
-        return p("MOVMEMBER " + regName + ", " + field + "\n");
+       // return p("MOVMEMBER " + regName + ", " + field + "\n");
+        return PUSH(field); //std::kostyl
     }
 
     public static String setArgLastRes() {
@@ -146,7 +149,7 @@ public class Asm extends AsmUtils {
     }
 
 
-    static void print(String s) {
+    public static void print(String s) {
         if (!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
         StringBuilder tab = new StringBuilder("");
@@ -170,7 +173,7 @@ public class Asm extends AsmUtils {
     }
 
     public static String createClass(String className, String body) {
-        return CLASS(className) + intoScope(className) + body + ENDCLASS(className);
+        return CLASS(className) + intoScope(className) + body + outofScope() + ENDCLASS(className);
     }
 
     private static String ENDCLASS(String className) {

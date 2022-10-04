@@ -1,7 +1,8 @@
-package org.lexasub.langosThirdTryWithoutPromise;
+package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.function.Function;
 
-import static org.lexasub.langosThirdTryWithoutPromise.FunctionGenerators.*;
+import static org.lexasub.langosThirdTryWithoutPromise.frontend.FunctionGenerators.*;
 
 class FunctionGeneratorsTest {
 
