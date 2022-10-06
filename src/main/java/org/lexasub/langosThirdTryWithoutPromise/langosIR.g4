@@ -23,6 +23,7 @@ NEQ :'NEQ';
 JMP :'JMP';
 BREAK :'BREAK';
 CONTINUE :'CONTINUE';
+FUNC :'FUNCTION_';
 CALL :'CALL';
 RET :'RET';
 
@@ -70,5 +71,6 @@ flow_control : call | RET | CONTINUE | BREAK | jmps;
 scope_control : intoscope | OUTOFSCOPE | ENTERSCOPE | EXITSCOPE;
 stack_cmds : push | pop;
 map_control : map | mapo | pairmap | pairmap_o | pairmapo_ | pairmapoo;
-program : import_ | class_full | flow_control | scope_control | map_control | stack_cmds | lbl;
+func : FUNC lbl ENTERSCOPE program* RET EXITSCOPE;
+program : import_ | class_full | flow_control | scope_control | map_control | stack_cmds | func | lbl;
 entry_point : program* EOF;
