@@ -23,11 +23,11 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return visitChildren(ctx); }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
         globalTree = globalTree.addChild(ctx.lbl().ID().getText());
-        //...
-        ctx.program().stream().map(this::visitProgram);//...
-        //...
-        //RET
+        String res = LLVMAsm.LBL("FUNCTION_" + ctx.lbl().ID().getText());
+        res += ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
+        res += LLVMAsm.RET();
         globalTree = globalTree.parent();
+        return res;
     }
     public String addClass(langosIRParser.Class_fullContext ctx){
         StructureGenerator struct = globalTree.addStructure(ctx.class_().ID().getText());
@@ -40,8 +40,8 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
             if(r.flow_control() != null) return "error flow in class";
             if(r.map_control() != null) return "error map in class";
             if(r.stack_cmds() != null) return "error stack in class";
-            if(r.lbl() != null) {}//hmm
-            if(r.scope_control() != null) {}
+            if(r.lbl() != null) return "hmm, lbl in class";
+            if(r.scope_control() != null) return "hmm, scope_control in class";
             if(r.func() != null) s += struct.addMethod(visitFunc(r.func()));
             if(r.class_full() != null) s += addClass(r.class_full());
 
@@ -66,6 +66,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
     @Override public String visitMap(langosIRParser.MapContext ctx) { return visitChildren(ctx); }//launch next() on obj//"rewrite" access to members in "runtime";
     // vector<int> a{3,4,5,1,4} - before a[2]=5 - map(a,(i) -> i*i) - after a[2] = 25 //on access, no on run map func
+    //oh no, it's wrong. i need TEMPORARY VIEW on obj
     @Override public String visitMapo(langosIRParser.MapoContext ctx) { return visitChildren(ctx); }
     @Override public String visitPairmap(langosIRParser.PairmapContext ctx) { return visitChildren(ctx); }
     @Override public String visitPairmap_o(langosIRParser.Pairmap_oContext ctx) { return visitChildren(ctx); }
