@@ -93,7 +93,8 @@ with_ : WITH parened_expr with_synonym RBRACE  (with_body)* LBRACE;
 
 parened_expr : RPAREN expr LPAREN ;
 
-class_ : CLASS class_name braced_element;
+declare_member: type_name var_name SEMI;//TODO
+class_ : CLASS class_name RBRACE (declare_member | element)* LBRACE;
 
 
 program : import_ | element;

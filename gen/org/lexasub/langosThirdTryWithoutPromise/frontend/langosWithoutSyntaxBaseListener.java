@@ -352,6 +352,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterClass_(langosWithoutSyntaxParser.Class_Context ctx) { }
 	/**
 	 * {@inheritDoc}

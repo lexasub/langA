@@ -288,6 +288,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 */
 	void exitParened_expr(langosWithoutSyntaxParser.Parened_exprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#declare_member}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#declare_member}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#class_}.
 	 * @param ctx the parse tree
 	 */

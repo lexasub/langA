@@ -1,6 +1,5 @@
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
@@ -156,11 +155,19 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return s + functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
                         intoScopeCounts);// + Asm.outofScope().repeat(ctx.function_call_helper().size())
     }
+    @Override
+    public String visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) {
 
+        visitType_name(ctx.type_name());
+        visitVar_name(ctx.var_name());
+        //MEMBER type, name ???
+    }
     @Override
     public String visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
         return Asm.createClass(visitClass_name(ctx.class_name()),
-        visitBraced_element(ctx.braced_element()));
+                ctx.declare_member().stream().map(this::visitDeclare_member).reduce("", String::concat) + //mb не совсем верно;
+                     ctx.element().stream().map(this::visitElement).reduce("", String::concat)
+        );
     }
 
     public String visitFun_name(langosWithoutSyntaxParser.Fun_nameContext funname, Stream<Object> args) {

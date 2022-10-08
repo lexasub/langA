@@ -179,6 +179,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParened_expr(langosWithoutSyntaxParser.Parened_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#declare_member}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#class_}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

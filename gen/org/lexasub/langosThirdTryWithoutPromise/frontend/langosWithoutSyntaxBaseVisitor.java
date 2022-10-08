@@ -213,6 +213,13 @@ public class langosWithoutSyntaxBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitClass_(langosWithoutSyntaxParser.Class_Context ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
