@@ -4,8 +4,6 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxLexer;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.utils.AsmUtils;
 import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
@@ -186,5 +184,9 @@ public class Asm extends AsmUtils {
 
     public static String outofScope() {
         return "OUTOFSCOPE\n";
+    }
+
+    public static String declareMember(String type, String name) {
+        return "MEMBER " + type + ", " + name + "\n";
     }
 }

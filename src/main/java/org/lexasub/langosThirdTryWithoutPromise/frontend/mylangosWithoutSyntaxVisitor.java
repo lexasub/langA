@@ -157,9 +157,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
     @Override
     public String visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) {
-
-        visitType_name(ctx.type_name());
-        visitVar_name(ctx.var_name());
+        return Asm.declareMember(visitType_name(ctx.type_name()), visitVar_name(ctx.var_name()));
         //MEMBER type, name ???
     }
     @Override
