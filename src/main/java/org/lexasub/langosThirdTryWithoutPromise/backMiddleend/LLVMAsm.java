@@ -22,7 +22,7 @@ public class LLVMAsm {
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
         return "%" + className + " = type{"
-                + stringStream.map(i->"%"+i+"*, ").reduce("",String::concat)
+                + stringStream.map(i->"%"+i+", ").reduce("",String::concat)
                 + "ptr, ".repeat(methodsCount)
                 + "}\n";
     }

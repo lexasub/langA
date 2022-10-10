@@ -37,7 +37,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         //%T1 = type {  i32, i32,.. }
         //типы все кастомные - так что %type
         //methods it's labels or pointers on functions
-        //%a = type{%a*,%a*,%a*} - example
+        //%a = type{%a,%a*,%a*} - example
         //%3 = getelementptr inbounds %structureName, ptr src, i32 0, i32 memberIDXinStruct //
         // , !dbg !36
         //походу i32 0 - всегда (мб это номер измерения)
