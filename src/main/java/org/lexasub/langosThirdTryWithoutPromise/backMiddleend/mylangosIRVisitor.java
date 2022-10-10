@@ -1,6 +1,8 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 
+import java.util.stream.Stream;
+
 public class mylangosIRVisitor extends mylangosIRVisitorBase {
     NamespaceTree globalTree = new NamespaceTree();
     @Override public String visitIntoscope(langosIRParser.IntoscopeContext ctx) {
@@ -28,7 +30,8 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         return res;
     }
     public String addClass(langosIRParser.Class_fullContext ctx){
-        StructureGenerator struct = globalTree.addStructure(ctx.class_().ID().getText());
+        String className = ctx.class_().ID().getText();
+        StructureGenerator struct = globalTree.addStructure(className);
         globalTree = struct.nm();
         String s = "";//....
         //%T1 = type {  i32, i32,.. }
@@ -38,15 +41,30 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         //%3 = getelementptr inbounds %structureName, ptr src, i32 0, i32 memberIDXinStruct //
         // , !dbg !36
         //походу i32 0 - всегда (мб это номер измерения)
-        s += ctx.member_declare().stream()
-                .map(this::visitMember_declare)
-                .reduce("",String::concat);
+
+        Stream<String> types = ctx.member_declare().stream()
+                .map(i -> visitMember_declare(i, struct));
+        Stream<String> funcNames = ctx.program().stream()
+                                                .filter(i -> i.func() != null)
+                                                .map(this::getFunctionName);
+        s += LLVMAsm.declareType(className, types, (int) funcNames.map(i -> methodDeclare(i, struct)).count());
+        //s += mb jmp to
         s += ctx.program().stream()
-                .map(i->visitProgramFromClass(i, struct))
+                .map(i -> visitProgramFromClass(i, struct))
                 .reduce("", String::concat);
+        //s += this label
 
         globalTree = globalTree.parent();
         return s;
+    }
+
+    private String methodDeclare(String i, StructureGenerator sg) {
+        return sg.addDeclareMethod(sg.name + "_" + i);
+    }
+
+    private String getFunctionName(langosIRParser.ProgramContext ctx) {//TODO may be +type of func
+        return ctx.func().lbl().ID().getText();
+        //ctx.func().
     }
 
     public String visitProgramFromClass(langosIRParser.ProgramContext r, StructureGenerator sg){
@@ -60,9 +78,10 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(r.class_full() != null) return addClass(r.class_full());
         return "";
     }
-    @Override public String visitMember_declare(langosIRParser.Member_declareContext ctx){
-
-
+    public String visitMember_declare(langosIRParser.Member_declareContext ctx, StructureGenerator sg){
+        //ctx.ID(0).getText()//type
+        //ctx.ID(1).getText()//name
+        return sg.addMemberToTable(ctx.ID(0).getText(),sg.name + "_" + ctx.ID(1).getText());
     }
     @Override public String visitClass_full(langosIRParser.Class_fullContext ctx) {
         return addClass(ctx);

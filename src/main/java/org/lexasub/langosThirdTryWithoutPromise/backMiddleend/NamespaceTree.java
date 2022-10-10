@@ -15,7 +15,7 @@ public class NamespaceTree {
     }
     public StructureGenerator addStructure(String name) {
 
-        StructureGenerator sg = new StructureGenerator(this);
+        StructureGenerator sg = new StructureGenerator(name, this);
 
         return sg;
     }
