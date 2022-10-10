@@ -1,8 +1,6 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 
-import java.util.Iterator;
-
 public class mylangosIRVisitor extends mylangosIRVisitorBase {
     NamespaceTree globalTree = new NamespaceTree();
     @Override public String visitIntoscope(langosIRParser.IntoscopeContext ctx) {
@@ -22,7 +20,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitClass(langosIRParser.ClassContext ctx) { return visitChildren(ctx); }
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return visitChildren(ctx); }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
-        globalTree = globalTree.addChild(ctx.lbl().ID().getText());
+        globalTree = globalTree.addChild("FUNCTION_" + ctx.lbl().ID().getText());
         String res = LLVMAsm.LBL("FUNCTION_" + ctx.lbl().ID().getText());
         res += ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
         res += LLVMAsm.RET();
@@ -33,22 +31,38 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         StructureGenerator struct = globalTree.addStructure(ctx.class_().ID().getText());
         globalTree = struct.nm();
         String s = "";//....
-        Iterator<langosIRParser.ProgramContext> it = ctx.program().iterator();
-        while(it.hasNext()){
-            langosIRParser.ProgramContext r = it.next();
-            if(r.import_() != null) return "error import in class";
-            if(r.flow_control() != null) return "error flow in class";
-            if(r.map_control() != null) return "error map in class";
-            if(r.stack_cmds() != null) return "error stack in class";
-            if(r.lbl() != null) return "hmm, lbl in class";
-            if(r.scope_control() != null) return "hmm, scope_control in class";
-            if(r.func() != null) s += struct.addMethod(visitFunc(r.func()));
-            if(r.class_full() != null) s += addClass(r.class_full());
+        //%T1 = type {  i32, i32,.. }
+        //типы все кастомные - так что %type
+        //methods it's labels or pointers on functions
+        //%a = type{%a*,%a*,%a*} - example
+        //%3 = getelementptr inbounds %structureName, ptr src, i32 0, i32 memberIDXinStruct //
+        // , !dbg !36
+        //походу i32 0 - всегда (мб это номер измерения)
+        s += ctx.member_declare().stream()
+                .map(this::visitMember_declare)
+                .reduce("",String::concat);
+        s += ctx.program().stream()
+                .map(i->visitProgramFromClass(i, struct))
+                .reduce("", String::concat);
 
-
-        }
         globalTree = globalTree.parent();
         return s;
+    }
+
+    public String visitProgramFromClass(langosIRParser.ProgramContext r, StructureGenerator sg){
+        if(r.import_() != null) return "error import in class";
+        if(r.flow_control() != null) return "error flow in class";
+        if(r.map_control() != null) return "error map in class";
+        if(r.stack_cmds() != null) return "error stack in class";
+        if(r.lbl() != null) return "hmm, lbl in class";
+        if(r.scope_control() != null) return "hmm, scope_control in class";
+        if(r.func() != null) return sg.addMethod(visitFunc(r.func()));
+        if(r.class_full() != null) return addClass(r.class_full());
+        return "";
+    }
+    @Override public String visitMember_declare(langosIRParser.Member_declareContext ctx){
+
+
     }
     @Override public String visitClass_full(langosIRParser.Class_fullContext ctx) {
         return addClass(ctx);

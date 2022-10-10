@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -112,6 +112,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLbl(langosIRParser.LblContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#member_declare}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMember_declare(langosIRParser.Member_declareContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#class_full}.
 	 * @param ctx the parse tree

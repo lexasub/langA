@@ -7,6 +7,7 @@ SLASH : '/';
 COMA : ',';
 CLASS :'CLASS';
 ENDCLASS :'ENDCLASS';
+MEMBER : 'MEMBER';
 IMPORT :'IMPORT';
 
 MAP :'MAP';
@@ -65,7 +66,8 @@ eq : EQ ID;
 neq : NEQ ID;
 
 lbl : ID COLON;
-class_full : class intoscope program* OUTOFSCOPE endclass;
+member_declare : MEMBER ID COMA ID;
+class_full : class intoscope (member_declare | program)* OUTOFSCOPE endclass;
 jmps : eq | jmp | neq;
 flow_control : call | RET | CONTINUE | BREAK | jmps;
 scope_control : intoscope | OUTOFSCOPE | ENTERSCOPE | EXITSCOPE;

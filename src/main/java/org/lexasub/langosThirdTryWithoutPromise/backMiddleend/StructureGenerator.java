@@ -8,8 +8,8 @@ public class StructureGenerator {
     public NamespaceTree nm() {
         return nm;
     }
-    public StructureGenerator addMethod(String name) {
+    public String addMethod(String name) {
 
-        return this;
+        return "";
     }
 }
