@@ -120,40 +120,55 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
 
     @Override
-    public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
+    public String visitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) {
+        int intoScopeCounts = 1; //f() -> intoscope(f)
         Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExprFuncall);
-        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText()) ;//TODO may be error, if exist member(not method call)
-    }
-
-    @Override
-    public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
-        if (ctx.namspce_obj() != null) {
-            return visitNamspce_obj(ctx.namspce_obj()) + visitFunction_call(ctx.function_call());
-        }
-        String cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
-        //чуваки которые в functionCall сами должны свои скопы закрывать
-        return cn + visitFunction_call(ctx.function_call())/* + Asm.outofScope()*/;
-    }
-
-    @Override
-    public String visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) {
-        int intoScopeCounts;
-        if (ctx.method_call() == null) intoScopeCounts = 1; //f() -> intoscope(f)
-        else {
-            if (ctx.method_call().namspce_obj() != null)
-                intoScopeCounts = ctx.method_call().namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
-            else intoScopeCounts = 2;//s.d() -> intoscope(s,d)
-        }
-        String s = (ctx.method_call() != null)
-                ? visitMethod_call(ctx.method_call())
-                : visitFunction_call(ctx.function_call());
         String functionCalls = ctx.function_call_helper().stream().map(i -> visitFunction_call_helper(i)
                         +((i.member_name() != null)
                         ?Asm.intoScope(i.member_name().getText()) :""))
                 .reduce("", String::concat);
-        return s + functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
-                        intoScopeCounts);// + Asm.outofScope().repeat(ctx.function_call_helper().size())
+        String s = functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
+                intoScopeCounts);
+        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText()) + s ;//TODO may be error, if exist member(not method call)
+    }
+    @Override
+    public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
+        Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
+                .map(this::visitExprFuncall);
+        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText());//TODO may be error, if exist member(not method call)
+    }
+    @Override
+    public String visitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx) {
+        Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
+                .map(this::visitExprFuncall);
+        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText()) ;//TODO may be error, if exist member(not method call)
+    }
+    @Override
+    public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
+        if (ctx.namspce_obj() != null) {
+            return visitNamspce_obj(ctx.namspce_obj()) + visitMethod_call_(ctx.method_call_());
+        }
+        int intoScopeCounts;
+        if (ctx.namspce_obj() != null)
+            intoScopeCounts = ctx.namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
+        else intoScopeCounts = 2;//s.d() -> intoscope(s,d)
+        String cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
+        //чуваки которые в functionCall сами должны свои скопы закрывать
+        String functionCalls = ctx.function_call_helper().stream().map(i -> visitFunction_call_helper(i)
+                        +((i.member_name() != null)
+                        ?Asm.intoScope(i.member_name().getText()) :""))
+                .reduce("", String::concat);
+        String s = functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
+                intoScopeCounts);// + Asm.outofScope().repeat(ctx.function_call_helper().size())
+        return cn + visitMethod_call_(ctx.method_call_()) + s /* + Asm.outofScope()*/;
+    }
+
+    @Override
+    public String visitFunction_call_(langosWithoutSyntaxParser.Function_call_Context ctx) {
+        return (ctx.method_call() != null)
+                ? visitMethod_call(ctx.method_call())
+                : visitFunction_call2(ctx.function_call2());
     }
     @Override
     public String visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) {

@@ -208,6 +208,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -227,6 +239,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

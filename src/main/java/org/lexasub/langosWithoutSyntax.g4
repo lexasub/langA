@@ -75,10 +75,15 @@ get_member : class_name DOT member_name;
 braced_element: RBRACE element* LBRACE;
 expr_list: expr? (COMA expr)*;
 func_args: RPAREN (type_name var_name)? (COMA type_name var_name)* LPAREN;
-method_call : (namspce_obj | class_name)  DOT function_call;
+
+method_call_ : fun_name parened_expr_list;
+method_call : (namspce_obj | class_name)  DOT method_call_ (DOT function_call_helper)* ;
+
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;
-function_call_ : (method_call | function_call) (DOT function_call_helper)* ;
+function_call2 : fun_name parened_expr_list (DOT function_call_helper)*;
+
+function_call_ : method_call | function_call2;
 
 
 flow_control : return_expr | BREAK | CONTINUE ;

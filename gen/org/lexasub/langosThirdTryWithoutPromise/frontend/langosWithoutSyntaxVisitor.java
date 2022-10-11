@@ -107,6 +107,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#method_call_}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#method_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -118,6 +124,12 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call_helper}.
 	 * @param ctx the parse tree

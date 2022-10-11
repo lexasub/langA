@@ -168,6 +168,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 */
 	void exitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#method_call_}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#method_call_}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#method_call}.
 	 * @param ctx the parse tree
 	 */
@@ -187,6 +197,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call_helper}.
 	 * @param ctx the parse tree
