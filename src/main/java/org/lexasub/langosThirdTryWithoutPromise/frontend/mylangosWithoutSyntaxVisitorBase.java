@@ -1,8 +1,6 @@
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxBaseVisitor;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 
 import java.util.function.Function;
 

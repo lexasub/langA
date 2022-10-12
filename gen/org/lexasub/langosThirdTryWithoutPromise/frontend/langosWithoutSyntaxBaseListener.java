@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -244,18 +244,6 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -263,6 +251,18 @@ public class langosWithoutSyntaxBaseListener implements langosWithoutSyntaxListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -198,16 +198,6 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 */
 	void exitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call_helper}.
 	 * @param ctx the parse tree
 	 */
@@ -217,6 +207,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call_}.
 	 * @param ctx the parse tree

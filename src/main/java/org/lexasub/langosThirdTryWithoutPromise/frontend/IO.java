@@ -3,8 +3,6 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxLexer;
-import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -125,17 +125,17 @@ public interface langosWithoutSyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call_helper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunction_call_helper(langosWithoutSyntaxParser.Function_call_helperContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosWithoutSyntaxParser#function_call_}.
 	 * @param ctx the parse tree

@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -28,7 +28,7 @@ public class langosWithoutSyntaxParser extends Parser {
 		RULE_namspce_obj = 8, RULE_function_specifier = 9, RULE_function = 10, 
 		RULE_expr = 11, RULE_get_member = 12, RULE_braced_element = 13, RULE_expr_list = 14, 
 		RULE_func_args = 15, RULE_method_call_ = 16, RULE_method_call = 17, RULE_function_call = 18, 
-		RULE_function_call2 = 19, RULE_function_call_helper = 20, RULE_function_call_ = 21, 
+		RULE_function_call_helper = 19, RULE_function_call2 = 20, RULE_function_call_ = 21, 
 		RULE_flow_control = 22, RULE_lambda = 23, RULE_return_expr = 24, RULE_element = 25, 
 		RULE_with_body = 26, RULE_with_synonym = 27, RULE_with_ = 28, RULE_parened_expr = 29, 
 		RULE_declare_member = 30, RULE_class_ = 31, RULE_program = 32, RULE_entry_point = 33, 
@@ -38,7 +38,7 @@ public class langosWithoutSyntaxParser extends Parser {
 			"import_", "id_strong", "fun_name", "id_list", "type_name", "var_name", 
 			"class_name", "member_name", "namspce_obj", "function_specifier", "function", 
 			"expr", "get_member", "braced_element", "expr_list", "func_args", "method_call_", 
-			"method_call", "function_call", "function_call2", "function_call_helper", 
+			"method_call", "function_call", "function_call_helper", "function_call2", 
 			"function_call_", "flow_control", "lambda", "return_expr", "element", 
 			"with_body", "with_synonym", "with_", "parened_expr", "declare_member", 
 			"class_", "program", "entry_point", "parened_expr_list", "parened_id_list"
@@ -1308,6 +1308,66 @@ public class langosWithoutSyntaxParser extends Parser {
 		return _localctx;
 	}
 
+	public static class Function_call_helperContext extends ParserRuleContext {
+		public Function_callContext function_call() {
+			return getRuleContext(Function_callContext.class,0);
+		}
+		public Member_nameContext member_name() {
+			return getRuleContext(Member_nameContext.class,0);
+		}
+		public Function_call_helperContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_function_call_helper; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_call_helper(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_call_helper(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_call_helper(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Function_call_helperContext function_call_helper() throws RecognitionException {
+		Function_call_helperContext _localctx = new Function_call_helperContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_function_call_helper);
+		try {
+			setState(194);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(192);
+				function_call();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(193);
+				member_name();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class Function_call2Context extends ParserRuleContext {
 		public Fun_nameContext fun_name() {
 			return getRuleContext(Fun_nameContext.class,0);
@@ -1346,91 +1406,31 @@ public class langosWithoutSyntaxParser extends Parser {
 
 	public final Function_call2Context function_call2() throws RecognitionException {
 		Function_call2Context _localctx = new Function_call2Context(_ctx, getState());
-		enterRule(_localctx, 38, RULE_function_call2);
+		enterRule(_localctx, 40, RULE_function_call2);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(192);
+			setState(196);
 			fun_name();
-			setState(193);
+			setState(197);
 			parened_expr_list();
-			setState(198);
+			setState(202);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==DOT) {
 				{
 				{
-				setState(194);
+				setState(198);
 				match(DOT);
-				setState(195);
+				setState(199);
 				function_call_helper();
 				}
 				}
-				setState(200);
+				setState(204);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Function_call_helperContext extends ParserRuleContext {
-		public Function_callContext function_call() {
-			return getRuleContext(Function_callContext.class,0);
-		}
-		public Member_nameContext member_name() {
-			return getRuleContext(Member_nameContext.class,0);
-		}
-		public Function_call_helperContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_function_call_helper; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).enterFunction_call_helper(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof langosWithoutSyntaxListener ) ((langosWithoutSyntaxListener)listener).exitFunction_call_helper(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof langosWithoutSyntaxVisitor ) return ((langosWithoutSyntaxVisitor<? extends T>)visitor).visitFunction_call_helper(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Function_call_helperContext function_call_helper() throws RecognitionException {
-		Function_call_helperContext _localctx = new Function_call_helperContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_function_call_helper);
-		try {
-			setState(203);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(201);
-				function_call();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(202);
-				member_name();
-				}
-				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -1480,19 +1480,15 @@ public class langosWithoutSyntaxParser extends Parser {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				{
 				setState(205);
 				method_call();
-				}
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				{
 				setState(206);
 				function_call2();
-				}
 				}
 				break;
 			}
@@ -2419,39 +2415,39 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0003\u0011\u00b3\b\u0011\u0001"+
 		"\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0005\u0011\u00b9\b\u0011\n"+
 		"\u0011\f\u0011\u00bc\t\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001"+
-		"\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0005\u0013\u00c5\b\u0013\n"+
-		"\u0013\f\u0013\u00c8\t\u0013\u0001\u0014\u0001\u0014\u0003\u0014\u00cc"+
-		"\b\u0014\u0001\u0015\u0001\u0015\u0003\u0015\u00d0\b\u0015\u0001\u0016"+
-		"\u0001\u0016\u0001\u0016\u0003\u0016\u00d5\b\u0016\u0001\u0017\u0001\u0017"+
-		"\u0001\u0017\u0001\u0017\u0003\u0017\u00db\b\u0017\u0001\u0018\u0001\u0018"+
-		"\u0001\u0018\u0001\u0019\u0001\u0019\u0003\u0019\u00e2\b\u0019\u0001\u001a"+
-		"\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b"+
-		"\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0005\u001c"+
-		"\u00f0\b\u001c\n\u001c\f\u001c\u00f3\t\u001c\u0001\u001c\u0001\u001c\u0001"+
-		"\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001"+
-		"\u001e\u0001\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001"+
-		"\u001f\u0005\u001f\u0104\b\u001f\n\u001f\f\u001f\u0107\t\u001f\u0001\u001f"+
-		"\u0001\u001f\u0001 \u0001 \u0003 \u010d\b \u0001!\u0005!\u0110\b!\n!\f"+
-		"!\u0113\t!\u0001!\u0001!\u0001\"\u0001\"\u0003\"\u0119\b\"\u0001\"\u0001"+
-		"\"\u0001#\u0001#\u0003#\u011f\b#\u0001#\u0001#\u0001#\u0000\u0000$\u0000"+
-		"\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c"+
-		"\u001e \"$&(*,.02468:<>@BDF\u0000\u0001\u0003\u0000\t\u000b\u000e\u000e"+
-		"%%\u011f\u0000H\u0001\u0000\u0000\u0000\u0002S\u0001\u0000\u0000\u0000"+
-		"\u0004W\u0001\u0000\u0000\u0000\u0006Y\u0001\u0000\u0000\u0000\ba\u0001"+
-		"\u0000\u0000\u0000\nc\u0001\u0000\u0000\u0000\fe\u0001\u0000\u0000\u0000"+
-		"\u000eg\u0001\u0000\u0000\u0000\u0010i\u0001\u0000\u0000\u0000\u0012p"+
-		"\u0001\u0000\u0000\u0000\u0014s\u0001\u0000\u0000\u0000\u0016\u0083\u0001"+
-		"\u0000\u0000\u0000\u0018\u0085\u0001\u0000\u0000\u0000\u001a\u0089\u0001"+
-		"\u0000\u0000\u0000\u001c\u0093\u0001\u0000\u0000\u0000\u001e\u009c\u0001"+
-		"\u0000\u0000\u0000 \u00ad\u0001\u0000\u0000\u0000\"\u00b2\u0001\u0000"+
-		"\u0000\u0000$\u00bd\u0001\u0000\u0000\u0000&\u00c0\u0001\u0000\u0000\u0000"+
-		"(\u00cb\u0001\u0000\u0000\u0000*\u00cf\u0001\u0000\u0000\u0000,\u00d4"+
-		"\u0001\u0000\u0000\u0000.\u00d6\u0001\u0000\u0000\u00000\u00dc\u0001\u0000"+
-		"\u0000\u00002\u00e1\u0001\u0000\u0000\u00004\u00e3\u0001\u0000\u0000\u0000"+
-		"6\u00e6\u0001\u0000\u0000\u00008\u00ea\u0001\u0000\u0000\u0000:\u00f6"+
-		"\u0001\u0000\u0000\u0000<\u00fa\u0001\u0000\u0000\u0000>\u00fe\u0001\u0000"+
-		"\u0000\u0000@\u010c\u0001\u0000\u0000\u0000B\u0111\u0001\u0000\u0000\u0000"+
-		"D\u0116\u0001\u0000\u0000\u0000F\u011c\u0001\u0000\u0000\u0000HI\u0005"+
+		"\u0013\u0001\u0013\u0003\u0013\u00c3\b\u0013\u0001\u0014\u0001\u0014\u0001"+
+		"\u0014\u0001\u0014\u0005\u0014\u00c9\b\u0014\n\u0014\f\u0014\u00cc\t\u0014"+
+		"\u0001\u0015\u0001\u0015\u0003\u0015\u00d0\b\u0015\u0001\u0016\u0001\u0016"+
+		"\u0001\u0016\u0003\u0016\u00d5\b\u0016\u0001\u0017\u0001\u0017\u0001\u0017"+
+		"\u0001\u0017\u0003\u0017\u00db\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018"+
+		"\u0001\u0019\u0001\u0019\u0003\u0019\u00e2\b\u0019\u0001\u001a\u0001\u001a"+
+		"\u0001\u001a\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001b\u0001\u001c"+
+		"\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0005\u001c\u00f0\b\u001c"+
+		"\n\u001c\f\u001c\u00f3\t\u001c\u0001\u001c\u0001\u001c\u0001\u001d\u0001"+
+		"\u001d\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001"+
+		"\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0005"+
+		"\u001f\u0104\b\u001f\n\u001f\f\u001f\u0107\t\u001f\u0001\u001f\u0001\u001f"+
+		"\u0001 \u0001 \u0003 \u010d\b \u0001!\u0005!\u0110\b!\n!\f!\u0113\t!\u0001"+
+		"!\u0001!\u0001\"\u0001\"\u0003\"\u0119\b\"\u0001\"\u0001\"\u0001#\u0001"+
+		"#\u0003#\u011f\b#\u0001#\u0001#\u0001#\u0000\u0000$\u0000\u0002\u0004"+
+		"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \""+
+		"$&(*,.02468:<>@BDF\u0000\u0001\u0003\u0000\t\u000b\u000e\u000e%%\u011f"+
+		"\u0000H\u0001\u0000\u0000\u0000\u0002S\u0001\u0000\u0000\u0000\u0004W"+
+		"\u0001\u0000\u0000\u0000\u0006Y\u0001\u0000\u0000\u0000\ba\u0001\u0000"+
+		"\u0000\u0000\nc\u0001\u0000\u0000\u0000\fe\u0001\u0000\u0000\u0000\u000e"+
+		"g\u0001\u0000\u0000\u0000\u0010i\u0001\u0000\u0000\u0000\u0012p\u0001"+
+		"\u0000\u0000\u0000\u0014s\u0001\u0000\u0000\u0000\u0016\u0083\u0001\u0000"+
+		"\u0000\u0000\u0018\u0085\u0001\u0000\u0000\u0000\u001a\u0089\u0001\u0000"+
+		"\u0000\u0000\u001c\u0093\u0001\u0000\u0000\u0000\u001e\u009c\u0001\u0000"+
+		"\u0000\u0000 \u00ad\u0001\u0000\u0000\u0000\"\u00b2\u0001\u0000\u0000"+
+		"\u0000$\u00bd\u0001\u0000\u0000\u0000&\u00c2\u0001\u0000\u0000\u0000("+
+		"\u00c4\u0001\u0000\u0000\u0000*\u00cf\u0001\u0000\u0000\u0000,\u00d4\u0001"+
+		"\u0000\u0000\u0000.\u00d6\u0001\u0000\u0000\u00000\u00dc\u0001\u0000\u0000"+
+		"\u00002\u00e1\u0001\u0000\u0000\u00004\u00e3\u0001\u0000\u0000\u00006"+
+		"\u00e6\u0001\u0000\u0000\u00008\u00ea\u0001\u0000\u0000\u0000:\u00f6\u0001"+
+		"\u0000\u0000\u0000<\u00fa\u0001\u0000\u0000\u0000>\u00fe\u0001\u0000\u0000"+
+		"\u0000@\u010c\u0001\u0000\u0000\u0000B\u0111\u0001\u0000\u0000\u0000D"+
+		"\u0116\u0001\u0000\u0000\u0000F\u011c\u0001\u0000\u0000\u0000HI\u0005"+
 		"\u0005\u0000\u0000IN\u0005%\u0000\u0000JK\u0005\u0015\u0000\u0000KM\u0005"+
 		"%\u0000\u0000LJ\u0001\u0000\u0000\u0000MP\u0001\u0000\u0000\u0000NL\u0001"+
 		"\u0000\u0000\u0000NO\u0001\u0000\u0000\u0000OQ\u0001\u0000\u0000\u0000"+
@@ -2506,19 +2502,19 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u00b1\u00b3\u0003\f\u0006\u0000\u00b2\u00b0\u0001\u0000\u0000\u0000\u00b2"+
 		"\u00b1\u0001\u0000\u0000\u0000\u00b3\u00b4\u0001\u0000\u0000\u0000\u00b4"+
 		"\u00b5\u0005\u0015\u0000\u0000\u00b5\u00ba\u0003 \u0010\u0000\u00b6\u00b7"+
-		"\u0005\u0015\u0000\u0000\u00b7\u00b9\u0003(\u0014\u0000\u00b8\u00b6\u0001"+
+		"\u0005\u0015\u0000\u0000\u00b7\u00b9\u0003&\u0013\u0000\u00b8\u00b6\u0001"+
 		"\u0000\u0000\u0000\u00b9\u00bc\u0001\u0000\u0000\u0000\u00ba\u00b8\u0001"+
 		"\u0000\u0000\u0000\u00ba\u00bb\u0001\u0000\u0000\u0000\u00bb#\u0001\u0000"+
 		"\u0000\u0000\u00bc\u00ba\u0001\u0000\u0000\u0000\u00bd\u00be\u0003\u0004"+
 		"\u0002\u0000\u00be\u00bf\u0003D\"\u0000\u00bf%\u0001\u0000\u0000\u0000"+
-		"\u00c0\u00c1\u0003\u0004\u0002\u0000\u00c1\u00c6\u0003D\"\u0000\u00c2"+
-		"\u00c3\u0005\u0015\u0000\u0000\u00c3\u00c5\u0003(\u0014\u0000\u00c4\u00c2"+
-		"\u0001\u0000\u0000\u0000\u00c5\u00c8\u0001\u0000\u0000\u0000\u00c6\u00c4"+
-		"\u0001\u0000\u0000\u0000\u00c6\u00c7\u0001\u0000\u0000\u0000\u00c7\'\u0001"+
-		"\u0000\u0000\u0000\u00c8\u00c6\u0001\u0000\u0000\u0000\u00c9\u00cc\u0003"+
-		"$\u0012\u0000\u00ca\u00cc\u0003\u000e\u0007\u0000\u00cb\u00c9\u0001\u0000"+
-		"\u0000\u0000\u00cb\u00ca\u0001\u0000\u0000\u0000\u00cc)\u0001\u0000\u0000"+
-		"\u0000\u00cd\u00d0\u0003\"\u0011\u0000\u00ce\u00d0\u0003&\u0013\u0000"+
+		"\u00c0\u00c3\u0003$\u0012\u0000\u00c1\u00c3\u0003\u000e\u0007\u0000\u00c2"+
+		"\u00c0\u0001\u0000\u0000\u0000\u00c2\u00c1\u0001\u0000\u0000\u0000\u00c3"+
+		"\'\u0001\u0000\u0000\u0000\u00c4\u00c5\u0003\u0004\u0002\u0000\u00c5\u00ca"+
+		"\u0003D\"\u0000\u00c6\u00c7\u0005\u0015\u0000\u0000\u00c7\u00c9\u0003"+
+		"&\u0013\u0000\u00c8\u00c6\u0001\u0000\u0000\u0000\u00c9\u00cc\u0001\u0000"+
+		"\u0000\u0000\u00ca\u00c8\u0001\u0000\u0000\u0000\u00ca\u00cb\u0001\u0000"+
+		"\u0000\u0000\u00cb)\u0001\u0000\u0000\u0000\u00cc\u00ca\u0001\u0000\u0000"+
+		"\u0000\u00cd\u00d0\u0003\"\u0011\u0000\u00ce\u00d0\u0003(\u0014\u0000"+
 		"\u00cf\u00cd\u0001\u0000\u0000\u0000\u00cf\u00ce\u0001\u0000\u0000\u0000"+
 		"\u00d0+\u0001\u0000\u0000\u0000\u00d1\u00d5\u00030\u0018\u0000\u00d2\u00d5"+
 		"\u0005\u0006\u0000\u0000\u00d3\u00d5\u0005\b\u0000\u0000\u00d4\u00d1\u0001"+
@@ -2564,7 +2560,7 @@ public class langosWithoutSyntaxParser extends Parser {
 		"\u011f\u0003\u0006\u0003\u0000\u011e\u011d\u0001\u0000\u0000\u0000\u011e"+
 		"\u011f\u0001\u0000\u0000\u0000\u011f\u0120\u0001\u0000\u0000\u0000\u0120"+
 		"\u0121\u0005\u0016\u0000\u0000\u0121G\u0001\u0000\u0000\u0000\u0019N^"+
-		"ns\u0083\u008d\u0093\u0099\u00a0\u00a8\u00b2\u00ba\u00c6\u00cb\u00cf\u00d4"+
+		"ns\u0083\u008d\u0093\u0099\u00a0\u00a8\u00b2\u00ba\u00c2\u00ca\u00cf\u00d4"+
 		"\u00da\u00e1\u00f1\u0103\u0105\u010c\u0111\u0118\u011e";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
