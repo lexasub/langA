@@ -146,14 +146,16 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
     @Override
     public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
-        if (ctx.namspce_obj() != null) {
-            return visitNamspce_obj(ctx.namspce_obj()) + visitMethod_call_(ctx.method_call_());
-        }
+        String cn;
         int intoScopeCounts;
-        if (ctx.namspce_obj() != null)
+        if (ctx.namspce_obj() != null) {
+            cn = visitNamspce_obj(ctx.namspce_obj()) + visitMethod_call_(ctx.method_call_());
             intoScopeCounts = ctx.namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
-        else intoScopeCounts = 2;//s.d() -> intoscope(s,d)
-        String cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
+        }
+        else {
+            intoScopeCounts = 2;//s.d() -> intoscope(s,d)
+            cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
+        }
         //чуваки которые в functionCall сами должны свои скопы закрывать
         String functionCalls = ctx.function_call_helper().stream().map(i -> visitFunction_call_helper(i)
                         +((i.member_name() != null)
@@ -162,6 +164,27 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String s = functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
                 intoScopeCounts);// + Asm.outofScope().repeat(ctx.function_call_helper().size())
         return cn + visitMethod_call_(ctx.method_call_()) + s /* + Asm.outofScope()*/;
+        /*
+        * NOW
+        * INTOSCOPE d
+        * INTOSCOPE b
+        * sss
+        * ss
+        * CALL f //run method
+        * POP q //getmember
+        * NEED in llvmIR
+        *
+        //%3 = getelementptr inbounds %structureName, ptr src, i32 0, i32 memberIDXinStruct
+        //походу i32 0 - всегда (мб это номер измерения)
+        * NEED in langosIR1
+        *
+        * GET_ELEMENT_PTR v, d, b
+        * GET_ELEMENT_PTR u, %v, f
+        * sss
+        * ss
+        * CALL %u
+        * POP q
+        * */
     }
 
     @Override
