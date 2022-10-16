@@ -45,10 +45,6 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
     }
 
 
-    @Override
-    public String visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
-        return ctx.ID().stream().map(this::visitid2).map(Asm::intoScope).reduce("", String::concat);
-    }
     public String visitid(TerminalNode s) {
         return visitid("ID " + s.getText() + "\n");
     }

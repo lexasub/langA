@@ -189,4 +189,8 @@ public class Asm extends AsmUtils {
     public static String declareMember(String type, String name) {
         return "MEMBER " + type + ", " + name + "\n";
     }
+
+    public static String GET_ELEMENT_PTR(String r, String base, String member) {
+        return "GET_ELEMENT_PTR " + r + ", " + base + ", " + member + "\n";
+    }
 }

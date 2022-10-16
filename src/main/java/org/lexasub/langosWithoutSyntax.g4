@@ -77,7 +77,8 @@ expr_list: expr? (COMA expr)*;
 func_args: RPAREN (type_name var_name)? (COMA type_name var_name)* LPAREN;
 
 method_call_ : fun_name parened_expr_list;
-method_call : (namspce_obj | class_name)  DOT method_call_ (DOT function_call_helper)* ;
+function_call_helper_method : function_call| member_name;
+method_call : (namspce_obj | class_name)  DOT method_call_ (DOT function_call_helper_method)* ;
 
 function_call : fun_name parened_expr_list;
 function_call_helper : function_call| member_name;
