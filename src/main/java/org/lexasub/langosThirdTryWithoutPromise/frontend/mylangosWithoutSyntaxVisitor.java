@@ -183,39 +183,25 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
         PairString cn;
-        int intoScopeCounts;
+        int intoScopeCounts = 0;
         String functionCalls;
         if (ctx.namspce_obj() != null) {
             cn = _visitNamspce_obj(ctx.namspce_obj());
-            intoScopeCounts = ctx.namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
+           // intoScopeCounts = ctx.namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
             //чуваки которые в functionCall сами должны свои скопы закрывать
             Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it = ctx.function_call_helper_method().iterator();
             String r = cn.b;
-            functionCalls = "";
-            while (it.hasNext()){
-                langosWithoutSyntaxParser.Function_call_helper_methodContext p = it.next();
-                PairString m = visitFunction_call_helper_method(p, r);
-                r = m.b;
-                functionCalls += m.a;
-            }
-            functionCalls += Asm.PUSH(r);
+            functionCalls = visitFunctionCalls(it, r);
         }
         else {
            // cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
             String reg = IdGenerator.reg();
             cn = new PairString(Asm.GET_ELEMENT_PTR(reg, ctx.class_name().ID().getText(), "method_name"), reg);
-            intoScopeCounts = 2;//s.d() -> intoscope(s,d)
+          //  intoScopeCounts = 2;//s.d() -> intoscope(s,d)
             //чуваки которые в functionCall сами должны свои скопы закрывать
             Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it = ctx.function_call_helper_method().iterator();
             String r = cn.b;
-            functionCalls = "";
-            while (it.hasNext()){
-                langosWithoutSyntaxParser.Function_call_helper_methodContext p = it.next();
-                PairString m = visitFunction_call_helper_method(p, r);
-                r = m.b;
-                functionCalls += m.a;
-            }
-            functionCalls += Asm.PUSH(r);
+            functionCalls = visitFunctionCalls(it, r);
         }
 
         String s = functionCalls + Asm.outofScope().repeat(ctx.function_call_helper_method().size()+
@@ -244,6 +230,18 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         * CALL %u
         * POP q
         * */
+    }
+
+    private String visitFunctionCalls(Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it, String r) {
+        String functionCalls="";
+        while (it.hasNext()){
+            langosWithoutSyntaxParser.Function_call_helper_methodContext p = it.next();
+            PairString m = visitFunction_call_helper_method(p, r);
+            r = m.b;
+            functionCalls += m.a;
+        }
+        functionCalls += Asm.PUSH(r);
+        return functionCalls;
     }
 
     @Override
