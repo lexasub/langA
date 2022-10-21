@@ -110,9 +110,10 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitPush(langosIRParser.PushContext ctx) { return visitChildren(ctx); }
 
     @Override public String visitFlow_control(langosIRParser.Flow_controlContext ctx) {
-        //call  | CONTINUE | BREAK;
+        //TODO call  | CONTINUE | BREAK;
         if(ctx.jmps() != null) return visitJmps(ctx.jmps());
         if(ctx.jmps() != null) return LLVMAsm.RET();//ну вроде тут без изменений
+        return null;
     }
     @Override public String visitCall(langosIRParser.CallContext ctx) {
         //LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()))//??or CALL s.s.c

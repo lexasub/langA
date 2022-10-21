@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -177,6 +177,16 @@ public interface langosWithoutSyntaxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call3}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosWithoutSyntaxParser#function_call3}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosWithoutSyntaxParser#function_call_helper_method}.
 	 * @param ctx the parse tree
