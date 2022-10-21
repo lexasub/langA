@@ -101,11 +101,11 @@ public class FunctionGenerators {
             return buildMap(arg.a, body, Asm.MAP(arg.b, lambda));
         };
     }
-
-    public static Function userFunGenerator(String text) {
+    public static Function userFunGenerator2(String lbl, String text) {
+        //TODO change
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
-            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + text));
+            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + lbl));
             while (e.hasNext()) {
                 Object next = e.next();
                 if (next == null) continue;
@@ -119,7 +119,8 @@ public class FunctionGenerators {
 
         };
     }
-    public static Function userFunGenerator2(String text) {
+    /*
+    public static Function userFunGenerator3(String text) {
         //TODO change
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
@@ -136,5 +137,5 @@ public class FunctionGenerators {
             return res + Asm.CALL(text);//May be some load
 
         };
-    }
+    }*/
 }

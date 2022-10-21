@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -161,7 +161,7 @@ public class langosWithoutSyntaxLexer extends Lexer {
 		"\u0015\u0006\u0017\u0007\u0019\b\u001b\t\u001d\n\u001f\u000b!\f#\r%\u000e"+
 		"\'\u000f)\u0010+\u0011-\u0012/\u00131\u00143\u00155\u00167\u00179\u0018"+
 		";\u0019=\u001a?\u001bA\u001cC\u001dE\u001eG\u001fI K!M\"O#Q$S\u0000U\u0000"+
-		"W%\u0001\u0000\u0004\u0001\u0000\'\'\u0003\u0000\t\n\r\r  \u0002\u0000"+
+		"W%\u0001\u0000\u0004\u0001\u0000\'\'\u0004\u0000\t\n\r\r  ;;\u0002\u0000"+
 		"AZaz\u0001\u000009\u00fd\u0000\u0001\u0001\u0000\u0000\u0000\u0000\r\u0001"+
 		"\u0000\u0000\u0000\u0000\u000f\u0001\u0000\u0000\u0000\u0000\u0011\u0001"+
 		"\u0000\u0000\u0000\u0000\u0013\u0001\u0000\u0000\u0000\u0000\u0015\u0001"+

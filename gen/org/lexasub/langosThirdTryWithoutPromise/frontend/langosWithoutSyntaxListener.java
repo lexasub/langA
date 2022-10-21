@@ -1,4 +1,4 @@
-// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
+// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosWithoutSyntax.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

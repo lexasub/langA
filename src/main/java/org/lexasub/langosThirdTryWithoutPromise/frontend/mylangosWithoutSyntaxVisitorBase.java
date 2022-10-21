@@ -15,7 +15,7 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
         if (funname.MAP() != null)
             return FunctionGenerators.mapGenerator();
         if (funname.ID() != null)//may be add ids.table.addfuntotable..//TODO?
-            return FunctionGenerators.userFunGenerator(funname.ID().getText());
+            return FunctionGenerators.userFunGenerator2(funname.ID().getText(),funname.ID().getText());
         return null;
     }
 

@@ -11,7 +11,7 @@ fragment LOWBAR: '_' ;
 CHAR :  QUOTE (NOTQUO | ESCQUO)  QUOTE ;
 STRING :  QUOTE STRINGBODY*? QUOTE;
 
-WS:  [ \r\n\t]  -> skip  ;
+WS:  [; \r\n\t]  -> skip  ;
 
 IMPORT : 'import';
 BREAK : 'break';
@@ -109,5 +109,5 @@ entry_point : program* EOF;
 
 
 parened_expr_list: RPAREN expr_list? LPAREN;
-parened_id_list : RPAREN id_list? LPAREN;
+parened_id_list : (RPAREN id_list? LPAREN) | id_list;
 

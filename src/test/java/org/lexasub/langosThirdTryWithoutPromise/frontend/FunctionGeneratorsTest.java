@@ -2,7 +2,6 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
 
 import java.io.IOException;
@@ -79,7 +78,7 @@ class FunctionGeneratorsTest {
 
     @Test
     void testUserFunGenerator() {
-        Function g = userFunGenerator("myfunc");
+        Function g = userFunGenerator2("myfunc", "myfunc");
         LinkedList<PairString> l = new LinkedList<>();
         String iir = Asm.getIIR("(i)->f(i)");
         String r = "[\\u0030-\\u003a\\u0041-\\u005b\\u0061-\\u007b]{10}";
