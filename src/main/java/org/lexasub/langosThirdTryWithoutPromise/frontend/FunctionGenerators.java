@@ -119,4 +119,22 @@ public class FunctionGenerators {
 
         };
     }
+    public static Function userFunGenerator2(String text) {
+        //TODO change
+        return expr -> {
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + text));
+            while (e.hasNext()) {
+                Object next = e.next();
+                if (next == null) continue;
+                if (next instanceof PairString p) {
+                    res.append(p.a).append(Asm.setArg(p.b));
+                } else {
+                    res.append((String) next);
+                }
+            }
+            return res + Asm.CALL(text);//May be some load
+
+        };
+    }
 }

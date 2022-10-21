@@ -152,8 +152,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx, String regIn, String regOut) {
         Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExprFuncall);//подачу аргументов можно наверное не менять
-        String s = (String) selectFunction(ctx.fun_name()).apply(args);
-        //TODO copy-change funGenerator?
+        //ctx.fun_name().getText() -> parent call//TODO
+        String s = (String)
+                FunctionGenerators.userFunGenerator2(regIn)//mb userFunGenerator? (not 2)
+                        .apply(args);
         return s + Asm.intoScope(ctx.fun_name().getText());//TODO may be error, if exist member(not method call)
         //r<- ....
         //r2<-r.funName(args..)
@@ -233,15 +235,15 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
 
     private String visitFunctionCalls(Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it, String r) {
-        String functionCalls="";
+        StringBuilder functionCalls = new StringBuilder();
         while (it.hasNext()){
             langosWithoutSyntaxParser.Function_call_helper_methodContext p = it.next();
             PairString m = visitFunction_call_helper_method(p, r);
             r = m.b;
-            functionCalls += m.a;
+            functionCalls.append(m.a);
         }
-        functionCalls += Asm.PUSH(r);
-        return functionCalls;
+        functionCalls.append(Asm.PUSH(r));
+        return functionCalls.toString();
     }
 
     @Override
