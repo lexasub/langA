@@ -1,19 +1,7 @@
-class class1{
-    float f(lambda l){
-        return l.apply()
+class b {
+	float f(lambda l){
+        return l.fetch;
     }
 }
 
-class g {
-    class1 r(float k) {
-        return k.class1()
-    }
-}
-
-
-class i {
-    int f(float p){
-        g.r(p).f((i) -> i)
-    }
-
-}
+b.f

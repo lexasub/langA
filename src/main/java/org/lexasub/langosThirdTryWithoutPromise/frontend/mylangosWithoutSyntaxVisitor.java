@@ -59,7 +59,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         }
         String member = Asm.GET_ELEMENT_PTR(regName, regName_in, ctx.function_call3().fun_name().getText());
         String outRegName = IdGenerator.reg();
-        //ctx.function_call3().fun_name().getText()
         return new PairString(member+visitFunction_call3(ctx.function_call3(), regName,outRegName),outRegName);
     }
 
@@ -76,13 +75,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String res = "";
         res += Asm.GET_ELEMENT_PTR(regName, visitClass_name(ctx.class_name()), visitMember_name(ctx.member_name()));
         res += Asm.setArg(regName);
-        /*res += Asm.intoScope(visitClass_name(ctx.class_name()));
-        res += Asm.MOVMEMBER(regName, visitMember_name(ctx.member_name()));
-        res += Asm.outofScope();*/
-        return new PairString(res, regName).a;//std::kostyl
+        return res;
         /*
-         * INTOSCOPE myclass1
-         * MOVMEMBER r0, name // ~mov r0,myclass1.name
+         * GET_ELEMENT_PTR gr_s5AWrF8YDD, b, f
+           PUSH gr_s5AWrF8YDD
          * */
     }
 
@@ -155,7 +151,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx, String regIn, String regOut) {
         Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(this::visitExprFuncall);//подачу аргументов можно наверное не менять
-        //ctx.fun_name().getText() -> parent call//TODO
         String s = (String)
                 FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), regIn)//mb userFunGenerator? (not 2)
                         .apply(args);
@@ -203,8 +198,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         else {
            // cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
             String reg = IdGenerator.reg();
-            langosWithoutSyntaxParser.Method_call_Context p = ctx.method_call_();
-            String methodName = p.fun_name().getText();
+            String methodName = ctx.method_call_().fun_name().getText();
             cn = new PairString(Asm.GET_ELEMENT_PTR(reg, ctx.class_name().ID().getText(), methodName), reg);
             //intoScopeCounts = 2;//s.d() -> intoscope(s,d)
             //чуваки которые в functionCall сами должны свои скопы закрывать
