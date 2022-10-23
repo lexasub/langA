@@ -9,6 +9,7 @@ CLASS :'CLASS';
 ENDCLASS :'ENDCLASS';
 MEMBER : 'MEMBER';
 IMPORT :'IMPORT';
+GET_ELEMENT_PTR : 'GET_ELEMENT_PTR';
 
 MAP :'MAP';
 MAPo :'MAPo';
@@ -74,5 +75,6 @@ scope_control : intoscope | OUTOFSCOPE | ENTERSCOPE | EXITSCOPE;
 stack_cmds : push | pop;
 map_control : map | mapo | pairmap | pairmap_o | pairmapo_ | pairmapoo;
 func : FUNC lbl ENTERSCOPE program* RET EXITSCOPE;
-program : import_ | class_full | flow_control | scope_control | map_control | stack_cmds | func | lbl;
+get_element_ptr : GET_ELEMENT_PTR ID COMA ID COMA ID;
+program : import_ | class_full | flow_control | scope_control | map_control | stack_cmds | func | lbl | get_element_ptr;
 entry_point : program* EOF;

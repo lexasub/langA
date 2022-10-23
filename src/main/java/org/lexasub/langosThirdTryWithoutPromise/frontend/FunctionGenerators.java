@@ -1,7 +1,7 @@
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
-import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
-import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -20,11 +20,11 @@ public class FunctionGenerators {
             //lambdaBegins.remove() не получится если будут вложенные лямбды((
             return Asm.CALL(exp.b) +
                     exp.a +
-                    Asm.EQ(lbl) +
+                    Asm.EQ(bodyFalse.b) +//Asm.EQ(lbl) +
                     Asm.CALL(bodyTrue.b) +
                     bodyTrue.a +
                     Asm.JMP(lbl) +
-                    Asm.CALL(bodyFalse.b) +
+                   // Asm.CALL(bodyFalse.b) +
                     bodyFalse.a +
                     Asm.LABEL(lbl);
         };
@@ -36,11 +36,14 @@ public class FunctionGenerators {
             PairString exp = (PairString) e.next();//logic expression lambda
             PairString body = (PairString) e.next();//body
             String lblEnd = IdGenerator.lblWhileEnd();
-            return exp.a +
+            return
+                    Asm.CALL(exp.b) +
+                    exp.a +
                     Asm.EQ(lblEnd) +
                     Asm.CALL(body.b) +
                     body.a +
-                    Asm.JMP(exp.b) +
+                    Asm.CALL(exp.b) +
+                    Asm.JMP(exp.b.replace("BEGIN", "END")) +
                     Asm.LABEL(lblEnd);
         };
     }
@@ -119,23 +122,27 @@ public class FunctionGenerators {
 
         };
     }
-    /*
-    public static Function userFunGenerator3(String text) {
-        //TODO change
+
+    private static String removePush(String a) {
+        return a.substring(Asm.PUSH("").length() - 1/*remove PUSH_*/, a.length() - 1/*remove \n*/);
+    }
+
+    public static Function swap() {
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
-            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + text));
-            while (e.hasNext()) {
-                Object next = e.next();
-                if (next == null) continue;
-                if (next instanceof PairString p) {
-                    res.append(p.a).append(Asm.setArg(p.b));
-                } else {
-                    res.append((String) next);
-                }
-            }
-            return res + Asm.CALL(text);//May be some load
-
+            String a = ((String) e.next());
+            String b = ((String) e.next());
+            return a + b + Asm.POP(removePush(a)) + Asm.POP(removePush(b));//swap(a, b)
         };
-    }*/
+    }
+
+    public static Function set() {
+        return expr -> {
+            Iterator<Object> e = ((Stream<Object>) expr).iterator();
+            String varName = (String) e.next();
+            String data = (String) e.next();//b.mod(two())
+            varName = Asm.POP(removePush(varName));//a=
+            return data + varName;
+        };
+    }
 }

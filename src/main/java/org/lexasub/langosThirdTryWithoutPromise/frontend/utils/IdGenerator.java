@@ -1,4 +1,4 @@
-package org.lexasub.langosThirdTryWithoutPromise.utils;
+package org.lexasub.langosThirdTryWithoutPromise.frontend.utils;
 
 import java.util.LinkedList;
 import java.util.Objects;

@@ -17,3 +17,21 @@ int gcd2(int a, int b) {
   return a;
 }
 
+int whileTest(){
+    while(
+        () -> i.isZero().not(),
+        () -> {
+            set(i, i.add(one()))
+        }
+    )
+}
+
+import yto;
+class v {
+    int m;
+
+    int p(){
+
+
+    }
+}

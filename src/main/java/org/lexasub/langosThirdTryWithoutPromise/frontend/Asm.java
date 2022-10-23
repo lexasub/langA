@@ -4,9 +4,9 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.lexasub.langosThirdTryWithoutPromise.utils.AsmUtils;
-import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
-import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.AsmUtils;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Arrays;
 import java.util.Iterator;

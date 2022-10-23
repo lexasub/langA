@@ -178,6 +178,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitLbl(langosIRParser.LblContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#member_declare}.
+	 * @param ctx the parse tree
+	 */
+	void enterMember_declare(langosIRParser.Member_declareContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#member_declare}.
+	 * @param ctx the parse tree
+	 */
+	void exitMember_declare(langosIRParser.Member_declareContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#class_full}.
 	 * @param ctx the parse tree
 	 */
@@ -247,6 +257,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunc(langosIRParser.FuncContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#get_element_ptr}.
+	 * @param ctx the parse tree
+	 */
+	void enterGet_element_ptr(langosIRParser.Get_element_ptrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#get_element_ptr}.
+	 * @param ctx the parse tree
+	 */
+	void exitGet_element_ptr(langosIRParser.Get_element_ptrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#program}.
 	 * @param ctx the parse tree

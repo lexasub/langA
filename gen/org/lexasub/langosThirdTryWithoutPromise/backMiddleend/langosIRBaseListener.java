@@ -220,6 +220,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMember_declare(langosIRParser.Member_declareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMember_declare(langosIRParser.Member_declareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterClass_full(langosIRParser.Class_fullContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -299,6 +311,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunc(langosIRParser.FuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGet_element_ptr(langosIRParser.Get_element_ptrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGet_element_ptr(langosIRParser.Get_element_ptrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

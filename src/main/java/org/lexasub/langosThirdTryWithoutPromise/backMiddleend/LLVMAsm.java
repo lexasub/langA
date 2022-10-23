@@ -30,4 +30,9 @@ public class LLVMAsm {
     public static String CALL(String s) {
 
     }
+
+    public static String getElementPtr(String variable, String className, String objName, String memberId) {
+        return "%" + variable + " = " + "getelementptr inbounds " + className +
+                ", ptr %" + objName + "i32 0, i32 " + memberId + "\n";
+    }
 }

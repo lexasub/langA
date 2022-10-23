@@ -1,7 +1,7 @@
 package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
-import org.lexasub.langosThirdTryWithoutPromise.utils.IdGenerator;
-import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -123,6 +123,8 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         Stream<String> s1 = null;
         if (ctx.parened_id_list().id_list() != null)
             s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid2);
+        else if(ctx.parened_id_list().ID() != null)
+            s1 = Stream.of(new String[]{visitid2(ctx.parened_id_list().ID())});
         String s2 = (ctx.expr() != null)
                 ? visitExprLambda(ctx.expr())
                 : visitBraced_element(ctx.braced_element());
@@ -138,9 +140,9 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
                         +((i.member_name() != null)
                         ?Asm.intoScope(i.member_name().getText()) :""))
                 .reduce("", String::concat);
-        String s = functionCalls + Asm.outofScope().repeat(ctx.function_call_helper().size()+
-                intoScopeCounts);
-        return visitFun_name(ctx.fun_name(), args) + Asm.intoScope(ctx.fun_name().getText()) + s;//TODO may be error, if exist member(not method call)
+        String s = functionCalls /*+ Asm.intoScope(ctx.fun_name().getText()) + Asm.outofScope().repeat(ctx.function_call_helper().size()+
+                intoScopeCounts)*/;
+        return visitFun_name(ctx.fun_name(), args) + s;//TODO may be error, if exist member(not method call)
     }
     @Override
     public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx) {
@@ -253,7 +255,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
     @Override
     public String visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) {
-        return Asm.declareMember(visitType_name(ctx.type_name()), visitVar_name(ctx.var_name()));
+        return Asm.declareMember(visitType_name2(ctx.type_name()), visitVar_name(ctx.var_name()));
         //MEMBER type, name ???
     }
     @Override
@@ -292,8 +294,4 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return expr + Asm.getArg(id) + bodys.map(i -> i + "\n").reduce("", String::concat);
     }
 
-    @Override
-    public String visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx){
-        return visitid2(ctx.ID());
-    }
 }

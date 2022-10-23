@@ -91,7 +91,7 @@ class mylangosWithoutSyntaxVisitorBaseTest {
                 "INTOSCOPE test1\n", s);
     }
 
-    @Test
+   /* @Test
     void testVisitid() {
         Assertions.assertEquals("ID s\n", v.visitid(spawnID("s")));
     }
@@ -100,7 +100,7 @@ class mylangosWithoutSyntaxVisitorBaseTest {
     void testVisitid2() {
         Assertions.assertEquals("s", v.visitid2(spawnID("s")));
     }
-
+*/
     @Test
     void testVisitid_() {
         Assertions.assertEquals("s", v.visitid("s"));

@@ -1,6 +1,6 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
-import org.lexasub.langosThirdTryWithoutPromise.utils.PairString;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Vector;
 

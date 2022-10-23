@@ -11,7 +11,7 @@ fragment LOWBAR: '_' ;
 CHAR :  QUOTE (NOTQUO | ESCQUO)  QUOTE ;
 STRING :  QUOTE STRINGBODY*? QUOTE;
 
-WS:  [; \r\n\t]  -> skip  ;
+WS:  [ \r\n\t]  -> skip  ;
 
 IMPORT : 'import';
 BREAK : 'break';
@@ -25,6 +25,8 @@ RETURN : 'return';
 SYNTAX : 'syntax';
 WHILE : 'while';
 WITH : 'with';
+SWAP : 'swap';
+SET : 'set';
 //KWD : IMPORT | SYNTAX;//....
 
 QUEST :  '?' ;
@@ -53,9 +55,9 @@ ARROW : '->';
 fragment ID1: [a-zA-Z] | LOWBAR;
 fragment ID2: [0-9];
 ID:  ID1+ (ID1 | ID2 )* ;
-import_ : IMPORT ID (DOT ID)* SEMI;
+import_ : IMPORT ID (DOT ID)* SEMI?;
 id_strong : RPAREN ID LPAREN;
-fun_name : IF | WHILE | PAIRMAP | MAP | ID;
+fun_name : IF | WHILE | PAIRMAP | MAP | SET | SWAP | ID;
 id_list : ID (COMA ID)*;
 
 type_name: ID;
@@ -68,12 +70,12 @@ namspce_obj : ID (DOUBLECOLON ID)+;
 function_specifier: '$' ;
 function: function_specifier? type_name var_name func_args braced_element;
 
-expr : with_ | flow_control |  function_call_ | class_ | lambda| get_member | CHAR | STRING | ID;
+expr : (with_ | flow_control |  function_call_ | class_ | lambda| get_member | CHAR | STRING | ID) SEMI?;
 
 get_member : class_name DOT member_name;
 
 braced_element: RBRACE element* LBRACE;
-expr_list: expr? (COMA expr)*;
+expr_list: expr?  (COMA expr )*;
 func_args: RPAREN (type_name var_name)? (COMA type_name var_name)* LPAREN;
 
 method_call_ : fun_name parened_expr_list;
@@ -109,5 +111,5 @@ entry_point : program* EOF;
 
 
 parened_expr_list: RPAREN expr_list? LPAREN;
-parened_id_list : (RPAREN id_list? LPAREN) | id_list;
+parened_id_list : (RPAREN id_list? LPAREN) | ID;
 
