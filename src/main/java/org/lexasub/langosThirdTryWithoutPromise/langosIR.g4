@@ -76,5 +76,5 @@ stack_cmds : push | pop;
 map_control : map | mapo | pairmap | pairmap_o | pairmapo_ | pairmapoo;
 func : FUNC lbl ENTERSCOPE program* RET EXITSCOPE;
 get_element_ptr : GET_ELEMENT_PTR ID COMA ID COMA ID;
-program : import_ | class_full | flow_control | scope_control | map_control | stack_cmds | func | lbl | get_element_ptr;
-entry_point : program* EOF;
+program :  lbl | import_ | class_full | flow_control | scope_control | map_control | stack_cmds | func |get_element_ptr;
+entry_point : program* EOF?;

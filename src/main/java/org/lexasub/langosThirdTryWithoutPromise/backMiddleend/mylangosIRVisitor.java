@@ -20,8 +20,8 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(ctx.EXITSCOPE() != null) {return "EXITSCOPE\n";}
         return "";
     }
-    @Override public String visitClass(langosIRParser.ClassContext ctx) { return visitChildren(ctx); }
-    @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return visitChildren(ctx); }
+    @Override public String visitClass(langosIRParser.ClassContext ctx) { return null; }
+    @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return null; }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
         globalTree = globalTree.addChild("FUNCTION_" + ctx.lbl().ID().getText());
         String res = LLVMAsm.LBL("FUNCTION_" + ctx.lbl().ID().getText());
@@ -98,7 +98,8 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(ctx.pairmapoo() != null) return visitPairmapoo(ctx.pairmapoo());
         return "";
     }
-    @Override public String visitMap(langosIRParser.MapContext ctx) { return visitChildren(ctx); }//launch next() on obj//"rewrite" access to members in "runtime";
+    @Override public String visitMap(langosIRParser.MapContext ctx) { return visitChildren(ctx); }
+    //launch next() on obj//"rewrite" access to members in "runtime";
     // vector<int> a{3,4,5,1,4} - before a[2]=5 - map(a,(i) -> i*i) - after a[2] = 25 //on access, no on run map func
     //oh no, it's wrong. i need TEMPORARY VIEW on obj
     @Override public String visitMapo(langosIRParser.MapoContext ctx) { return visitChildren(ctx); }
@@ -107,18 +108,19 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitPairmapo_(langosIRParser.Pairmapo_Context ctx) { return visitChildren(ctx); }
     @Override public String visitPairmapoo(langosIRParser.PairmapooContext ctx) { return visitChildren(ctx); }
 
-    @Override public String visitPop(langosIRParser.PopContext ctx) { return visitChildren(ctx); }
-    @Override public String visitPush(langosIRParser.PushContext ctx) { return visitChildren(ctx); }
+    @Override public String visitPop(langosIRParser.PopContext ctx) { return LLVMAsm.POP(ctx.ID().getText()); }
+    @Override public String visitPush(langosIRParser.PushContext ctx) { return LLVMAsm.PUSH(ctx.ID().getText()); }
 
     @Override public String visitFlow_control(langosIRParser.Flow_controlContext ctx) {
-        //TODO call  | CONTINUE | BREAK;
+        //TODO  CONTINUE | BREAK;
         if(ctx.jmps() != null) return visitJmps(ctx.jmps());
-        if(ctx.jmps() != null) return LLVMAsm.RET();//ну вроде тут без изменений
+        if(ctx.RET() != null) return LLVMAsm.RET();//ну вроде тут без изменений
+        if(ctx.call() != null) return visitCall(ctx.call());
         return null;
     }
     @Override public String visitCall(langosIRParser.CallContext ctx) {
         //LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()))//??or CALL s.s.c
-        return visitChildren(ctx);
+        return LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()));//TODO
     }
     @Override public String visitStack_cmds(langosIRParser.Stack_cmdsContext ctx) {
         if(ctx.pop() != null) return visitPop(ctx.pop());
@@ -147,7 +149,9 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
     @Override public String visitEntry_point(langosIRParser.Entry_pointContext ctx) {
         return ctx.program().stream()
-            .map(this::visitProgram).reduce("",String::concat);
+            .map(this::visitProgram)
+            .filter(i->i!=null)//std::kostyl
+            .reduce("",String::concat);
     }
 
 }

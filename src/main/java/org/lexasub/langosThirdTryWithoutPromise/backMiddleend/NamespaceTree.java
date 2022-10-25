@@ -1,5 +1,7 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.LinkedList;
 
 public class NamespaceTree {
@@ -32,5 +34,10 @@ public class NamespaceTree {
     public void addChild(NamespaceTree np) {
         childs.add(np);
         np.parent(this);
+    }
+
+    public String findLeaf(TerminalNode id) {
+        //...findChild(id.getText());
+        return id.getText();
     }
 }

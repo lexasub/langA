@@ -6,18 +6,23 @@ public class LLVMAsm {
     public static String typePtr = "ptr";
 
     public static String JMP(String text) {
+        return "JMP " + text + "\n";
     }
 
     public static String EQ(String text) {
+        return "JEQ " + text + "\n";
     }
 
     public static String NEQ(String text) {
+        return "JNZ " + text + "\n";
     }
 
     public static String LBL(String text) {
+        return text + ":[TODO LABEL change for llvmir]\n";
     }
 
     public static String RET() {
+        return "RET\n";
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
@@ -28,11 +33,19 @@ public class LLVMAsm {
     }
 
     public static String CALL(String s) {
-
+        return "call noundef i32 " + s + "()\n";
     }
 
     public static String getElementPtr(String variable, String className, String objName, String memberId) {
         return "%" + variable + " = " + "getelementptr inbounds " + className +
-                ", ptr %" + objName + "i32 0, i32 " + memberId + "\n";
+                ", ptr %" + objName + ", i32 0, i32 " + memberId + "\n";
+    }
+
+    public static String POP(String text) {
+        return "POP %" + text + "\n";
+    }
+
+    public static String PUSH(String text) {
+        return "PUSH %" + text + "\n";
     }
 }
