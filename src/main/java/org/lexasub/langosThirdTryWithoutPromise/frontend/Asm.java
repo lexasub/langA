@@ -68,11 +68,11 @@ public class Asm extends AsmUtils {
         String s = JMP(lambdaEnd) +
                 lambdaBegin;
         s += tabulate();
-        s += newScope() +
+        s += /*newScope() +*/
                 ((args != null) ? args.map(Asm::getArg).reduce("", String::concat) : "") +
                 ((body != null) ? body : "") +
-                RET() +
-                endScope();
+                RET() /*+
+                endScope()*/;
         s += untabulate(); //+ "\n"
         s += LABEL(lambdaEnd);
         return new PairString(s, beginLambda);
@@ -192,5 +192,9 @@ public class Asm extends AsmUtils {
 
     public static String GET_ELEMENT_PTR(String r, String base, String member) {
         return "GET_ELEMENT_PTR " + r + ", " + base + ", " + member + "\n";
+    }
+
+    public static String FUNCTION_ARGUMENT(String typeName, String varName) {
+        return "FUNCTION_ARGUMENT " + typeName + ", " + varName + "\n";
     }
 }

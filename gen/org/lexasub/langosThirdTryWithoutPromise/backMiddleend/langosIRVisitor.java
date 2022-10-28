@@ -155,6 +155,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMap_control(langosIRParser.Map_controlContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#function_argument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_argument(langosIRParser.Function_argumentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

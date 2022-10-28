@@ -28,11 +28,13 @@ public class StructureGenerator {
 
     public String addMemberToTable(String type, String name) {
         container.add(new PairString(name,type));
+        nm.addDeclare(name, type);
         return type;
     }
 
     public String addDeclareMethod(String i) {
         container.add(new PairString(i, LLVMAsm.typePtr));
+        nm.addDeclare(i, LLVMAsm.typePtr);
         //hmm..
         return LLVMAsm.typePtr;
     }

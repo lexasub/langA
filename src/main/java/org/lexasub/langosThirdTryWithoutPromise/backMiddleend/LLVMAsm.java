@@ -18,7 +18,7 @@ public class LLVMAsm {
     }
 
     public static String LBL(String text) {
-        return text + ":[TODO LABEL change for llvmir]\n";
+        return text + /*"[TODO LABEL change for llvmir]*/ ":\n";
     }
 
     public static String RET() {

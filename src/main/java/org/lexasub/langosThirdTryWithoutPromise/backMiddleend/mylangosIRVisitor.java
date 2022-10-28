@@ -17,14 +17,15 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
             return "";
         }
         if(ctx.ENTERSCOPE() != null) {return "ENTERSCOPE\n";}
-        if(ctx.EXITSCOPE() != null) {return "EXITSCOPE\n";}
+       // if(ctx.EXITSCOPE() != null) {return "EXITSCOPE\n";}
         return "";
     }
     @Override public String visitClass(langosIRParser.ClassContext ctx) { return null; }
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return null; }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
-        globalTree = globalTree.addChild("FUNCTION_" + ctx.lbl().ID().getText());
-        String res = LLVMAsm.LBL("FUNCTION_" + ctx.lbl().ID().getText());
+        globalTree = globalTree.addChild(ctx.FUNCID().getText());
+        String res = ctx.FUNCID().getText() + "\n";
+        res += ctx.function_argument().stream().map(this::visitFunction_argument).reduce("", String::concat);
         res += ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
         res += LLVMAsm.RET();
         globalTree = globalTree.parent();
@@ -64,7 +65,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
 
     private String getFunctionName(langosIRParser.ProgramContext ctx) {//TODO may be +type of func
-        return ctx.func().lbl().ID().getText();
+        return ctx.func().FUNCID().getText();
         //ctx.func().
     }
 
@@ -89,6 +90,12 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
 
     @Override public String visitImport_(langosIRParser.Import_Context ctx) { return visitChildren(ctx); }
+    @Override public String visitFunction_argument(langosIRParser.Function_argumentContext ctx){
+        globalTree.addDeclare(
+                ctx.ID(0).getText(),//type
+                ctx.ID(1).getText());//name
+        return "";
+    }
     @Override public String visitMap_control(langosIRParser.Map_controlContext ctx) {
         if(ctx.map() != null) return visitMap(ctx.map());
         if(ctx.mapo() != null) return visitMapo(ctx.mapo());
@@ -124,7 +131,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
     @Override public String visitStack_cmds(langosIRParser.Stack_cmdsContext ctx) {
         if(ctx.pop() != null) return visitPop(ctx.pop());
-        if(ctx.pop() != null) return visitPush(ctx.push());
+        if(ctx.push() != null) return visitPush(ctx.push());
         return  "";
     }
     @Override public String visitGet_element_ptr(langosIRParser.Get_element_ptrContext ctx) {
@@ -133,7 +140,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         String memberName = ctx.ID(2).getText();//.member)
         //TODO convert memberName to id(0..) - number in object
         //TODO find className
-        return LLVMAsm.getElementPtr(variable,"", objName, memberName);
+        return LLVMAsm.getElementPtr(variable,globalTree.declares.get(objName), objName, memberName);
     }
     @Override public String visitProgram(langosIRParser.ProgramContext ctx) {
         if(ctx.import_() != null) return visitImport_(ctx.import_());

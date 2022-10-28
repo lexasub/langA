@@ -4,7 +4,9 @@ import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBase{
@@ -38,10 +40,18 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx) {
         //TODO
-        Stream<String> s1 = ctx.type_name().stream().map(this::visitType_name);
-        Stream<String> s2 = ctx.var_name().stream().map(this::visitVar_name);
+        List<String> s2 = ctx.var_name().stream().map(this::visitVar_name).collect(Collectors.toList());
+
+        Iterator<String> it1 = ctx.type_name().stream().map(i->i.ID().getText()).iterator();
+        Iterator<String> it2 = s2.iterator();
+        StringBuilder s = new StringBuilder();
+        while(it1.hasNext()){
+            String typeName = it1.next();
+            String varName = it2.next();
+            s.append(Asm.FUNCTION_ARGUMENT(typeName, varName));
+        }
         //пока забъем на типы
-        return s2.map(Asm::getArg).reduce("", String::concat);
+        return s + s2.stream().map(Asm::getArg).reduce("", String::concat);
     }
 
 

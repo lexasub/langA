@@ -248,6 +248,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitMap_control(langosIRParser.Map_controlContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#function_argument}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_argument(langosIRParser.Function_argumentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#function_argument}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_argument(langosIRParser.Function_argumentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#func}.
 	 * @param ctx the parse tree
 	 */

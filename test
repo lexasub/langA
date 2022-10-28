@@ -1,17 +1,17 @@
 int gcd(int a, int b) {
   return if(
-    () -> b.isZero(),
+    () -> isZero(b),
     () -> a,
-    () -> gcd(b, a.mod(b))
+    () -> gcd(b, mod(a, b))
   )
   f()
 }
 
 int gcd2(int a, int b) {
   while(
-    () -> b.isZero().not(),
+    () -> not(isZero(b)),
     () -> {
-        set(a, a.mod(b))
+        set(a, mod(a, b))
        swap(a,b)
     }
   )
