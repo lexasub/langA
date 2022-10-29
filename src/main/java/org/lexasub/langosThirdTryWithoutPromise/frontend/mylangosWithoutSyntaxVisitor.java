@@ -51,7 +51,15 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
             s.append(Asm.FUNCTION_ARGUMENT(typeName, varName));
         }
         //пока забъем на типы
-        return s + s2.stream().map(Asm::getArg).reduce("", String::concat);
+        Iterator<String> it = s2.iterator();
+        int i = 0;
+        StringBuilder sb = new StringBuilder();
+        String funcName = ((langosWithoutSyntaxParser.FunctionContext) ctx.parent).var_name().ID().getText();
+        while (it.hasNext()){
+            sb.append(Asm.getArg(it.next(), funcName + "_arg" + i));
+            ++i;
+        }
+        return s + sb.toString();
     }
 
 
@@ -103,7 +111,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
 
     public String visitExprLambda(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.ID() != null) return Asm.setArg(visitid2(ctx.ID()));
+        if (ctx.ID() != null) return "ERROR ??  sm.setArg(visitid2(ctx.ID()))";
         if (ctx.lambda() == null) return visitExprPart(ctx);
         PairString l = visitLambda_(ctx.lambda());
         return l.a + Asm.setArg(l.b);//sometimes CALL, sometimes setArg()??

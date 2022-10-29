@@ -19,6 +19,7 @@ PAIRMAPo_ :'PAIRMAPo_';
 PAIRMAPoo :'PAIRMAPoo';
 POP :'POP';
 PUSH :'PUSH';
+MOV :'MOV';
 
 EQ :'EQ';
 NEQ :'NEQ';
@@ -79,5 +80,6 @@ map_control : map | mapo | pairmap | pairmap_o | pairmapo_ | pairmapoo;
 function_argument : FUNCTION_ARGUMENT ID COMA ID;
 func : FUNCID  ENTERSCOPE (function_argument*  program*) RET EXITSCOPE;
 get_element_ptr : GET_ELEMENT_PTR ID COMA ID COMA ID;
-program : import_ | class_full | flow_control | func | scope_control | map_control | stack_cmds | get_element_ptr | lbl;
+mov : MOV ID COMA ID;
+program : import_ | class_full | flow_control | func | scope_control | map_control | mov | stack_cmds | get_element_ptr | lbl;
 entry_point : program* EOF?;

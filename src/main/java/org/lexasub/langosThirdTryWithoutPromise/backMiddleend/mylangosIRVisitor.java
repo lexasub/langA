@@ -31,6 +31,10 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         globalTree = globalTree.parent();
         return res;
     }
+    @Override public String visitMov(langosIRParser.MovContext ctx) {
+        //TODO
+        return "";
+    }
     public String addClass(langosIRParser.Class_fullContext ctx){
         String className = ctx.class_().ID().getText();
         StructureGenerator struct = globalTree.addStructure(className);
@@ -152,6 +156,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(ctx.lbl() != null) return visitLbl(ctx.lbl());
         if(ctx.func() != null) return visitFunc(ctx.func());
         if(ctx.get_element_ptr() != null) return visitGet_element_ptr(ctx.get_element_ptr());
+        if(ctx.mov() != null) return visitMov(ctx.mov());
         return "";
     }
     @Override public String visitEntry_point(langosIRParser.Entry_pointContext ctx) {

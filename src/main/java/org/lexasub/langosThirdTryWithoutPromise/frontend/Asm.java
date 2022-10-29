@@ -26,6 +26,13 @@ public class Asm extends AsmUtils {
     public static String getArg(String s) {
         return POP(s);
     }
+    public static String setReturn(String src_reg, String func_name) {
+        return MOV(src_reg, func_name+"_res");
+    }
+
+    private static String MOV(String src_reg, String dest_reg) {
+        return "MOV " + dest_reg + ", " + src_reg + "\n";
+    }
 
     public static String setArg(String s) {
         return PUSH(s);
@@ -68,19 +75,32 @@ public class Asm extends AsmUtils {
         String s = JMP(lambdaEnd) +
                 lambdaBegin;
         s += tabulate();
-        s += /*newScope() +*/
-                ((args != null) ? args.map(Asm::getArg).reduce("", String::concat) : "") +
-                ((body != null) ? body : "") +
-                RET() /*+
-                endScope()*/;
+
+        StringBuilder sb = new StringBuilder();
+        if(args != null) {
+            Iterator<String> argsIT = args.iterator();
+            int i = 0;
+            while (argsIT.hasNext()) {
+                sb.append(getArg(argsIT.next(), name + "_arg" + i));
+                //hmm надо как то сделать, чтоб тот, кто вызывал лямбду - знал ее сгенерированное имя
+                ++i;
+            }
+        }
+        s +=/*newScope() +*/
+                sb + ((body != null) ? body : "") + RET()
+        /*+endScope()*/;
         s += untabulate(); //+ "\n"
         s += LABEL(lambdaEnd);
         return new PairString(s, beginLambda);
     }
 
+    public static String getArg(String regName, String from) {
+        return MOV(from, regName);
+    }
+
     public static String MOVMEMBER(String regName, String field) {
        // return p("MOVMEMBER " + regName + ", " + field + "\n");
-        return PUSH(field); //std::kostyl
+        return PUSH(field); //std::kostyl//TODO check may be it's wrong
     }
 
     public static String setArgLastRes() {
