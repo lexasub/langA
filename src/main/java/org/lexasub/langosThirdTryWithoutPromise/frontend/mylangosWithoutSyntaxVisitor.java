@@ -130,13 +130,14 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx) {
         PairString l = visitLambda_(ctx.lambda());//TODO check lambda_res is good using??
-        return l.a + Asm.MOV(l.b, "lambda_res");
+        return l.a + Asm.MOV(l.b, "lambda_res");//MOV to lambda_res????
     }
 
-    public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx, String to) {
+    public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx, String to) {//args
         if (ctx.ID() != null) return Asm.MOV(ctx.ID().getText(), to);
         if (ctx.lambda() == null) return visitExprPart(ctx);
-        return visitLambda_(ctx.lambda());
+        PairString l = visitLambda_(ctx.lambda());
+        return new PairString(l.a + Asm.MOV(l.b,  to), l.b);
     }
 
     public PairString visitLambda_(langosWithoutSyntaxParser.LambdaContext ctx) {
