@@ -48,4 +48,8 @@ public class LLVMAsm {
     public static String PUSH(String text) {
         return "PUSH %" + text + "\n";
     }
+
+    public static String MOV(String to, String from) {
+        return "MOV %" + to + ", %" + from + "\n";
+    }
 }

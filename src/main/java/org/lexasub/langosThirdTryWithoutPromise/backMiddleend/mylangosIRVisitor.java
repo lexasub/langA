@@ -32,8 +32,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         return res;
     }
     @Override public String visitMov(langosIRParser.MovContext ctx) {
-        //TODO
-        return "";
+        return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText());
     }
     public String addClass(langosIRParser.Class_fullContext ctx){
         String className = ctx.class_().ID().getText();

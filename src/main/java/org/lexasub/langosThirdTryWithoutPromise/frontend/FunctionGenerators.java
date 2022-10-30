@@ -123,16 +123,19 @@ public class FunctionGenerators {
         };
     }
 
-    private static String removePush(String a) {
-        return a.substring(Asm.PUSH("").length() - 1/*remove PUSH_*/, a.length() - 1/*remove \n*/);
-    }
+   //private static String removePush(String a) {
+     //   return a.substring(Asm.PUSH("").length() - 1/*remove PUSH_*/, a.length() - 1/*remove \n*/);
+    //}
 
     public static Function swap() {
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
             String a = ((String) e.next());
             String b = ((String) e.next());
-            return a + b + Asm.POP(removePush(a)) + Asm.POP(removePush(b));//swap(a, b)
+            String c = IdGenerator.reg();
+            a = a.substring("MOV swap_arg0, ".length(),a.length()-1);
+            b = b.substring("MOV swap_arg1, ".length(),b.length()-1);
+            return Asm.MOV(a, c) + Asm.MOV(b, a) + Asm.MOV(c, b);//TODO CHECK
         };
     }
 
@@ -141,8 +144,9 @@ public class FunctionGenerators {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
             String varName = (String) e.next();
             String data = (String) e.next();//b.mod(two())
-            varName = Asm.POP(removePush(varName));//a=
-            return data + varName;
+            varName = varName.substring("MOV set_arg0, ".length(),varName.length()-1);//a=
+
+            return data + Asm.MOV("last_res", varName);//TODO CHECK
         };
     }
 }

@@ -14,26 +14,31 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Asm extends AsmUtils {
-
+    @Deprecated
     public static String POP(String s) {
         return p("POP " + s + "\n");
     }
-
+    @Deprecated
     public static String PUSH(String r) {
         return p("PUSH " + r + "\n");
     }
 
-    public static String getArg(String s) {
-        return POP(s);
-    }
     public static String setReturn(String src_reg, String func_name) {
         return MOV(src_reg, func_name+"_res");
     }
+    public static String getReturn(String dst_reg, String func_name) {
+        return MOV(func_name+"_res", dst_reg);
+    }
 
-    private static String MOV(String src_reg, String dest_reg) {
+    public static String MOV(String src_reg, String dest_reg) {
         return "MOV " + dest_reg + ", " + src_reg + "\n";
     }
 
+    @Deprecated
+    public static String getArg(String s) {
+        return POP(s);
+    }
+    @Deprecated
     public static String setArg(String s) {
         return PUSH(s);
     }
@@ -87,7 +92,7 @@ public class Asm extends AsmUtils {
             }
         }
         s +=/*newScope() +*/
-                sb + ((body != null) ? body : "") + RET()
+                sb + ((body != null) ? body/*+Asm.MOV("last_res", "lambda_res")*/ : "") + RET()
         /*+endScope()*/;
         s += untabulate(); //+ "\n"
         s += LABEL(lambdaEnd);
@@ -97,12 +102,12 @@ public class Asm extends AsmUtils {
     public static String getArg(String regName, String from) {
         return MOV(from, regName);
     }
-
+/*
     public static String MOVMEMBER(String regName, String field) {
        // return p("MOVMEMBER " + regName + ", " + field + "\n");
         return PUSH(field); //std::kostyl//TODO check may be it's wrong
     }
-
+*/
     public static String setArgLastRes() {
         return p("LAST_RES_TO_STACK\n");
     }
