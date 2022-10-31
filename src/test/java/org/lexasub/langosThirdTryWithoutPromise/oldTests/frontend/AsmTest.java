@@ -1,7 +1,8 @@
-package org.lexasub.langosThirdTryWithoutPromise.frontend;
+package org.lexasub.langosThirdTryWithoutPromise.oldTests.frontend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 
 import java.util.LinkedList;
 import java.util.stream.Stream;

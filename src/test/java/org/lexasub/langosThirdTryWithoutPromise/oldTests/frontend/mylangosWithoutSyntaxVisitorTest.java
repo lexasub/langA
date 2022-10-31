@@ -1,15 +1,16 @@
-package org.lexasub.langosThirdTryWithoutPromise.frontend;
+package org.lexasub.langosThirdTryWithoutPromise.oldTests.frontend;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.langosWithoutSyntaxParser;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.mylangosWithoutSyntaxVisitor;
 import org.lexasub.langosThirdTryWithoutPromise.langosWithoutSyntaxParser;
 import org.mockito.Mockito;
 
 import java.util.LinkedList;
 
-import static org.lexasub.langosThirdTryWithoutPromise.TestHelper.*;
+import static org.lexasub.langosThirdTryWithoutPromise.oldTests.TestHelper.*;
 
 class mylangosWithoutSyntaxVisitorTest {
     private mylangosWithoutSyntaxVisitor v  = new mylangosWithoutSyntaxVisitor();

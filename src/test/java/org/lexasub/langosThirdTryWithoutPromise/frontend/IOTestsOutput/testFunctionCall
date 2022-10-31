@@ -1,0 +1,26 @@
+FUNCTION_b:
+ENTERSCOPE
+FUNCTION_ARGUMENT string, s
+FUNCTION_ARGUMENT string, b
+MOV s, b_arg0
+MOV b, b_arg1
+CALL_r:
+MOV r_arg0, s
+MOV r_arg1, b
+CALL FUNCTION_r
+MOV last_res, r_res
+RET
+RET
+EXITSCOPE
+FUNCTION_f:
+ENTERSCOPE
+CALL_b:
+MOV b_arg0, a
+CALL_one:
+CALL FUNCTION_one
+MOV b_arg1, one_res
+CALL FUNCTION_b
+MOV last_res, b_res
+RET
+RET
+EXITSCOPE

@@ -1,9 +1,9 @@
-package org.lexasub.langosThirdTryWithoutPromise.frontend;
-
+package org.lexasub.langosThirdTryWithoutPromise.oldTests.frontend;
 
 import org.antlr.v4.runtime.misc.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.IO;
 
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -31,19 +31,18 @@ class IOTest {
         }
     }
 
-    private static Stream<Pair<String,String >> readFiles(){
-        String TestsIn = "src/test/java/org/lexasub/langosThirdTryWithoutPromise/frontend/IOTestsInput";
-        String TestsOut = "src/test/java/org/lexasub/langosThirdTryWithoutPromise/frontend/IOTestsOutput";
+    private static Stream<Pair<String,String >> readFiles(String folderPath){
 
         Stream<Pair<String,String >> filesInFolder = null;
+        String folderPath2 = "src/test/java/org/lexasub/langosThirdTryWithoutPromise/testResults";
         try {
-            filesInFolder = Files.walk(Paths.get(TestsIn))
+            filesInFolder = Files.walk(Paths.get(folderPath))
                     .filter(Files::isRegularFile)
                     .map((i) -> {
                         try {
                             return new Pair<>(
                                     Files.readString(i), //readSource
-                                    readFile(TestsOut+"/"+i.toFile().getName()) //readNeeded
+                                    readFile(folderPath2+"/"+i.toFile().getName()) //readNeeded
                             );
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -57,8 +56,14 @@ class IOTest {
     @Test
     void testVisit() throws IOException {
         LinkedList<Pair<String, String>> m = new LinkedList<>();
-        Stream<Pair<String,String >> rStream = readFiles();
+        m.add(new Pair<>("import a.g.b;", "IMPORT a/g/b\n"));
+        String folderPath = "src/test/java/org/lexasub/langosThirdTryWithoutPromise/testFiles";
+        Stream<Pair<String,String >> rStream = readFiles(folderPath);
         m.addAll(rStream.collect(Collectors.toList()));
+        String s1 = "";
+        String s2 = "";
+        writeSource(s1, 999);
+        matchIR(s2, 999);
         testMap(m);
     }
 

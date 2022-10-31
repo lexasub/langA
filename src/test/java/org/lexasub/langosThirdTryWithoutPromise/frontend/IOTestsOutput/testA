@@ -1,0 +1,27 @@
+FUNCTION_main:
+ENTERSCOPE
+JMP ENDMAP_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV i, lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}_arg0
+CALL_i:
+CALL FUNCTION_i
+MOV lambda_res, i_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV map_arg0, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV j, lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}_arg0
+CALL_j:
+CALL FUNCTION_j
+MOV lambda_res, j_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV map_arg1, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+ENDMAP_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MAP BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV last_res, map_res
+RET
+RET
+EXITSCOPE

@@ -1,0 +1,6 @@
+int b(string s, string b){
+     return r(s, b)
+ }
+ int f(){
+     return b(a, one());
+ }

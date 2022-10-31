@@ -20,3 +20,6 @@ int gcd2(int a, int b) {
   map((l) -> map(a, (i) -> {return i}), (u) -> u)
 }
 
+int main() {
+    return map((i)->i(), (j) -> j())
+}

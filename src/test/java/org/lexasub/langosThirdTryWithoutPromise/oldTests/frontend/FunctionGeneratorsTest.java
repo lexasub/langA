@@ -1,7 +1,8 @@
-package org.lexasub.langosThirdTryWithoutPromise.frontend;
+package org.lexasub.langosThirdTryWithoutPromise.oldTests.frontend;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.io.IOException;

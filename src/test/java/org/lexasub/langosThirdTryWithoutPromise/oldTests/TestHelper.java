@@ -1,4 +1,4 @@
-package org.lexasub.langosThirdTryWithoutPromise;
+package org.lexasub.langosThirdTryWithoutPromise.oldTests;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.mockito.Mockito;
