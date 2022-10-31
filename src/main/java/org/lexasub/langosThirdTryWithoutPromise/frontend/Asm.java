@@ -34,15 +34,6 @@ public class Asm extends AsmUtils {
         return "MOV " + dest_reg + ", " + src_reg + "\n";
     }
 
-    @Deprecated
-    public static String getArg(String s) {
-        return POP(s);
-    }
-    @Deprecated
-    public static String setArg(String s) {
-        return PUSH(s);
-    }
-
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
         return LABEL("FUNCTION_" + name) + newScope() + args + body + RET() + endScope();
@@ -102,25 +93,6 @@ public class Asm extends AsmUtils {
     public static String getArg(String regName, String from) {
         return MOV(from, regName);
     }
-/*
-    public static String MOVMEMBER(String regName, String field) {
-       // return p("MOVMEMBER " + regName + ", " + field + "\n");
-        return PUSH(field); //std::kostyl//TODO check may be it's wrong
-    }
-*/
-    public static String setArgLastRes() {
-        return p("LAST_RES_TO_STACK\n");
-    }
-
-    /*
-    RETURN -> RET
-    f()  {
-        return d()
-    } -> ... RET
-    f() {
-        if(i->{return i})-> ... RET to if(not f())
-    }
-     */
     public static String RETURN() {
         return p("RETURN\n");//???
     }

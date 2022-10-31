@@ -4,7 +4,7 @@ int gcd(int a, int b) {
     () -> a,
     () -> gcd(b, mod(a, b))
   )
-  f()
+  return f()
 }
 
 int gcd2(int a, int b) {
@@ -16,5 +16,7 @@ int gcd2(int a, int b) {
     }
   )
   return a;
+  a.r((i) -> {return (k)->{return plus(k, i)}})
+  map((l) -> map(a, (i) -> {return i}), (u) -> u)
 }
 

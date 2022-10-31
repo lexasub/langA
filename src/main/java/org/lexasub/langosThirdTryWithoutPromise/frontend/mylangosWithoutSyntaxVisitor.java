@@ -90,7 +90,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String regName = IdGenerator.reg();
         String res = "";
         res += Asm.GET_ELEMENT_PTR(regName, visitClass_name(ctx.class_name()), visitMember_name(ctx.member_name()));
-        res += Asm.setArg(regName);
+        res += Asm.PUSH(regName);
         return res;
         /*
          * GET_ELEMENT_PTR gr_s5AWrF8YDD, b, f
@@ -117,8 +117,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
 
     public String visitExprReturn(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.ID() != null) return Asm.setArg(visitid2(ctx.ID()));//hmm
-        if (ctx.lambda() == null) return visitExprPart(ctx);
+        if (ctx.ID() != null) return Asm.MOV(visitid2(ctx.ID()), "last_res");//TODO hmm
+        if (ctx.with_() != null) return visitWith_(ctx.with_());
+        if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
+        if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_()) +
+                Asm.MOV(ctx.function_call_().function_call2().fun_name().getText()+"_res", "last_res");//std::kostyl
+        if (ctx.class_() != null) return visitClass_(ctx.class_());
+        if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
         return lambdaForExpr(ctx);
     }
     @Override
@@ -159,10 +164,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
                 .map(i->visitExprFuncall(i));*/
         Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
         LinkedList args = getFunExprArgs(_args, ctx.fun_name());
-        /*String functionCalls = ctx.function_call_helper().stream().map(i -> visitFunction_call_helper(i)
-                        +((i.member_name() != null)
-                        ?Asm.intoScope(i.member_name().getText()) :""))
-                .reduce("", String::concat);*/
         StringBuilder functionCalls = new StringBuilder();
         Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         String from = ctx.fun_name().getText() + "_res";
@@ -176,8 +177,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         }
 
         String s = functionCalls.toString() ;//+ Asm.MOV(from, "last_res")//полурабочий костыль//TODO
-                /*+ Asm.intoScope(ctx.fun_name().getText()) + Asm.outofScope().repeat(ctx.function_call_helper().size()+
-                intoScopeCounts)*/;
         return visitFun_name(ctx.fun_name(), args.stream()) + s;//TODO may be error, if exist member(not method call)
     }
 
@@ -216,7 +215,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         LinkedList args = getFunExprArgs(_args, ctx.fun_name());
         Function funGen = FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), reg);
         //    visitFun_name(ctx.fun_name(), args)   ->    (String) funGen.apply(ctx.fun_name().getText(), args);
-        //  + Asm.intoScope(ctx.fun_name().getText())
         return  (String) funGen.apply(args.stream());//TODO may be error, if exist member(not method call)
     }
     public PairString _visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
@@ -238,21 +236,15 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitMethod_call(langosWithoutSyntaxParser.Method_callContext ctx) {
         PairString cn;
-        int intoScopeCounts = 0;
         String r = IdGenerator.reg();//cn.b;
         Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it = ctx.function_call_helper_method().iterator();
         if (ctx.namspce_obj() != null) {
             cn = _visitNamspce_obj(ctx.namspce_obj());
-            //intoScopeCounts = ctx.namspce_obj().ID().size() + 1;//s::s::s.d -> intoscope x n+1
-            //чуваки которые в functionCall сами должны свои скопы закрывать
         }
         else {
-           // cn = Asm.intoScope(visitClass_name(ctx.class_name()));//TODO check cn == INTOSCOPE ClassName
             String reg = IdGenerator.reg();
             String methodName = ctx.method_call_().fun_name().getText();
             cn = new PairString(Asm.GET_ELEMENT_PTR(reg, ctx.class_name().ID().getText(), methodName), reg);
-            //intoScopeCounts = 2;//s.d() -> intoscope(s,d)
-            //чуваки которые в functionCall сами должны свои скопы закрывать
         }
 
         String functionCalls = "";
@@ -264,31 +256,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
            // else functionCalls += s.member_name().ID().getText();//std::MayBeStrange
         }
         //else functionCalls = Asm.MOV(ctx.method_call_().fun_name().ID().getText() + "_res", "last_res");//полурабочий костыль//TODO
-        /* + Asm.outofScope().repeat(ctx.function_call_helper_method().size()+ intoScopeCounts)*/
-        return cn.a + visitMethod_call_(ctx.method_call_(), cn.b) + functionCalls /* + Asm.outofScope()*/;
-        /*
-        * NOW in langosIR1
-        * INTOSCOPE d
-        * INTOSCOPE b
-        * INTOSCOPE k
-        * sss
-        * ss
-        * CALL f //run method
-        * POP q //getmember
-        * NEED in llvmIR
-        *
-        //%3 = getelementptr inbounds %structureName, ptr src, i32 0, i32 memberIDXinStruct
-        //походу i32 0 - всегда (мб это номер измерения)
-        * NEED in langosIR1
-        *
-        * GET_ELEMENT_PTR  m, d, b
-        * GET_ELEMENT_PTR  v, %m, k
-        * sss
-        * ss
-        * GET_ELEMENT_PTR u, %v, f
-        * CALL %u
-        * POP q
-        * */
+        return cn.a + visitMethod_call_(ctx.method_call_(), cn.b) + functionCalls;
     }
 
     private String visitFunctionCalls(Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it, String r) {
@@ -312,7 +280,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitDeclare_member(langosWithoutSyntaxParser.Declare_memberContext ctx) {
         return Asm.declareMember(visitType_name2(ctx.type_name()), visitVar_name(ctx.var_name()));
-        //MEMBER type, name ???
     }
     @Override
     public String visitClass_(langosWithoutSyntaxParser.Class_Context ctx) {
@@ -338,7 +305,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     @Override
     public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
         return visitExprReturn(ctx.expr()) +
-                //Asm.setArgLastRes() +//TODO вроде не нужен
                 Asm.RET(); //TODO check//RETURN или RET
     }
 
@@ -347,7 +313,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String expr = visitExpr(ctx.parened_expr().expr());
         String id = visitWith_synonym(ctx.with_synonym());
         Stream<String> bodys = ctx.with_body().stream().map(ctx1 -> visitExpr(ctx1.expr()));
-        return expr + Asm.getArg(id) + bodys.map(i -> i + "\n").reduce("", String::concat);
+        return expr + Asm.POP(id) + bodys.map(i -> i + "\n").reduce("", String::concat);
     }
 
 }

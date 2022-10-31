@@ -113,7 +113,7 @@ public class FunctionGenerators {
                 Object next = e.next();
                 if (next == null) continue;
                 if (next instanceof PairString p) {
-                    res.append(p.a).append(Asm.setReturn(p.b, lbl));//set return
+                    res.append(p.a).append(Asm.setReturn(p.b, lbl));//set return//TODO check generator of stream
                 } else {
                     res.append((String) next);
                 }
