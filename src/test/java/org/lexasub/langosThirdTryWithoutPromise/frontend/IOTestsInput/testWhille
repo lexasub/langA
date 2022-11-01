@@ -1,0 +1,7 @@
+int main(int i) {
+   set(i, one())
+   while(
+       () -> not(izZero(i)),
+       () -> set(i, add(i, one()))
+   )
+}

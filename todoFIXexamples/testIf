@@ -1,0 +1,3 @@
+int main(int i) {
+  f(a.eq(i))
+}

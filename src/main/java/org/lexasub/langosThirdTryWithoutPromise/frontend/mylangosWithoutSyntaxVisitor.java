@@ -159,7 +159,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitFunction_call2(langosWithoutSyntaxParser.Function_call2Context ctx) {
-        int intoScopeCounts = 1; //f() -> intoscope(f)
+        //f() -> intoscope(f)
         /*Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(i->visitExprFuncall(i));*/
         Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();

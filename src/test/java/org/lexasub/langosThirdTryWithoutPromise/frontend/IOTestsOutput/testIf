@@ -1,0 +1,37 @@
+FUNCTION_main:
+ENTERSCOPE
+FUNCTION_ARGUMENT int, i
+MOV i, main_arg0
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+CALL_eq:
+MOV eq_arg0, a
+MOV eq_arg1, i
+CALL FUNCTION_eq
+MOV lambda_res, eq_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV if_arg0, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+EQ BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV lambda_res, a
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV if_arg1, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP ENDIF_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+CALL_mul:
+MOV mul_arg0, a
+MOV mul_arg1, i
+CALL FUNCTION_mul
+MOV lambda_res, mul_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV if_arg2, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+ENDIF_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+RET
+EXITSCOPE

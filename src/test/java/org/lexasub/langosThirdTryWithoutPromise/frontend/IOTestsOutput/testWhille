@@ -1,0 +1,40 @@
+FUNCTION_main:
+ENTERSCOPE
+FUNCTION_ARGUMENT int, i
+MOV i, main_arg0
+CALL_one:
+CALL FUNCTION_one
+MOV i, last_res
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+CALL_not:
+CALL_izZero:
+MOV izZero_arg0, i
+CALL FUNCTION_izZero
+MOV not_arg0, izZero_res
+CALL FUNCTION_not
+MOV lambda_res, not_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV while_arg0, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+EQ ENDWHILE_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+CALL_add:
+MOV add_arg0, i
+CALL_one:
+CALL FUNCTION_one
+MOV add_arg1, one_res
+CALL FUNCTION_add
+MOV i, last_res
+MOV lambda_res, set_res
+RET
+END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+MOV while_arg1, BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+CALL BEGIN_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+JMP END_lambda_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+ENDWHILE_lbl_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}:
+RET
+EXITSCOPE

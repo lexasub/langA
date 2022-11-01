@@ -1,0 +1,7 @@
+int main() {
+   swap(a, b)
+   swap(b, c)
+   swap(b, d)
+   swap(b, v)
+   swap(a, b)
+}

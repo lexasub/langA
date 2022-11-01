@@ -1,0 +1,11 @@
+class vasyan {
+int a;
+int b;
+    int f(){
+    }
+    int g(){
+    }
+}
+int main(){
+    vasyan.f();
+}

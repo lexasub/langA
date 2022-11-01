@@ -1,0 +1,4 @@
+int main() {
+   pairmap(i, j, (x, y) -> mul(x,u))
+   pairmap(()->i, ()->j, (f,g) -> f(g))
+}

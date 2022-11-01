@@ -1,0 +1,12 @@
+FUNCTION_main:
+ENTERSCOPE
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, p, r
+CALL_r:
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}_res
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, u
+CALL_u:
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, u_res
+RET
+EXITSCOPE

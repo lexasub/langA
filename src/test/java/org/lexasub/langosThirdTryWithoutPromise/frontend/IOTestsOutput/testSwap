@@ -1,0 +1,19 @@
+FUNCTION_main:
+ENTERSCOPE
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, a
+MOV a, b
+MOV b, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, b
+MOV b, c
+MOV c, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, b
+MOV b, d
+MOV d, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, b
+MOV b, v
+MOV v, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, a
+MOV a, b
+MOV b, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+RET
+EXITSCOPE
