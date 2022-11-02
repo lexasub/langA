@@ -122,7 +122,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_()) +
                 Asm.MOV(ctx.function_call_().function_call2().fun_name().getText()+"_res", "last_res");//std::kostyl
-        if (ctx.class_() != null) return visitClass_(ctx.class_());
+        //if (ctx.class_() != null) return visitClass_(ctx.class_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
         return lambdaForExpr(ctx);
     }
@@ -214,8 +214,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
         LinkedList args = getFunExprArgs(_args, ctx.fun_name());
         Function funGen = FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), reg);
-        //    visitFun_name(ctx.fun_name(), args)   ->    (String) funGen.apply(ctx.fun_name().getText(), args);
-        return  (String) funGen.apply(args.stream());//TODO may be error, if exist member(not method call)
+        return (String) funGen.apply(args.stream());//TODO may be error, if exist member(not method call)
     }
     public PairString _visitNamspce_obj(langosWithoutSyntaxParser.Namspce_objContext ctx) {
         Iterator<String> it = ctx.ID().stream().map(this::visitid2).iterator();
@@ -240,6 +239,9 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         Iterator<langosWithoutSyntaxParser.Function_call_helper_methodContext> it = ctx.function_call_helper_method().iterator();
         if (ctx.namspce_obj() != null) {
             cn = _visitNamspce_obj(ctx.namspce_obj());
+            String id = IdGenerator.reg();
+            cn = new PairString(cn.a + Asm.GET_ELEMENT_PTR(id, cn.b, ctx.method_call_().fun_name().getText()), id);
+
         }
         else {
             String reg = IdGenerator.reg();
