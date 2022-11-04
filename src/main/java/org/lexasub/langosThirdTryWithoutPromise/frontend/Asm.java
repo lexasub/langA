@@ -30,7 +30,7 @@ public class Asm extends AsmUtils {
         return MOV(func_name+"_res", dst_reg);
     }
 
-    public static String MOV(String src_reg, String dest_reg) {
+    public static String MOV(String src_reg, String dest_reg) {//TODO src_reg - normalF_res, but not dfakof34_res
         return "MOV " + dest_reg + ", " + src_reg + "\n";
     }
 

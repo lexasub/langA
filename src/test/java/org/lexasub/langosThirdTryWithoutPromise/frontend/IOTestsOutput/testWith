@@ -1,0 +1,19 @@
+FUNCTION_f:
+ENTERSCOPE
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, u, vasya
+MOV last_res, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV i, last_res
+CALL_i:
+MOV i_arg0, j
+CALL FUNCTION_i
+
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, l, d
+CALL_d:
+MOV d_arg0, i
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+
+MOV last_res, i
+RET
+
+RET
+EXITSCOPE

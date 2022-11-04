@@ -17,5 +17,19 @@ GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, gr_[\u0030-\u0
 CALL_t:
 CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
 MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, t_res
+CALL_f:
+CALL FUNCTION_f
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, f_res, g
+CALL_g:
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, g_res
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, m
+CALL_m:
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, m_res
+GET_ELEMENT_PTR gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, p
+CALL_p:
+CALL gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}
+MOV gr_[\u0030-\u003a\u0041-\u005b\u0061-\u007b]{10}, p_res
 RET
 EXITSCOPE
