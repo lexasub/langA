@@ -112,7 +112,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.lambda() == null) return visitExprPart(ctx)
                 + Asm.getReturn("lambda_res", (ctx.function_call_() != null)?ctx.function_call_().function_call2().fun_name().getText():""
                 );//TODO
-        return lambdaForExpr(ctx);//TODO
+        return lambdaForExpr(ctx, "lambda_res");//TODO
     }
 
     public String visitExprReturn(langosWithoutSyntaxParser.ExprContext ctx) {
@@ -123,18 +123,18 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
                 Asm.MOV(ctx.function_call_().function_call2().fun_name().getText()+"_res", "last_res");//std::kostyl
         //if (ctx.class_() != null) return visitClass_(ctx.class_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
-        return lambdaForExpr(ctx);
+        return lambdaForExpr(ctx, "last_res");
     }
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
         if (ctx.ID() != null) return "error visitExpr visitid2(ctx.ID()) + \n";//TODO check
         if (ctx.lambda() == null) return visitExprPart(ctx);
-        return lambdaForExpr(ctx);
+        return lambdaForExpr(ctx, "lambda_res");
     }
 
-    private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx) {//TODO make tests
+    private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx, String result) {//TODO make tests
         PairString l = visitLambda_(ctx.lambda());//TODO check lambda_res is good using??
-        return l.a + Asm.MOV(l.b, "lambda_res");//MOV to lambda_res????
+        return l.a + Asm.MOV(l.b, result);//MOV to lambda_res????
     }
 
     public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx, String to) {//args

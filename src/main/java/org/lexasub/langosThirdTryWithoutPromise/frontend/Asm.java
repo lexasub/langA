@@ -31,6 +31,8 @@ public class Asm extends AsmUtils {
     }
 
     public static String MOV(String src_reg, String dest_reg) {//TODO src_reg - normalF_res, but not dfakof34_res
+        if(dest_reg == "lambda_res")
+            return "MOV " + dest_reg + ", " + src_reg + "\n";
         return "MOV " + dest_reg + ", " + src_reg + "\n";
     }
 
