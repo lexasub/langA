@@ -3,6 +3,7 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend.utils;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class AsmUtils {
     public static boolean pretty = false;
@@ -27,6 +28,91 @@ public class AsmUtils {
         return tab + r;
     }
     protected static String newScope() {
-        return Asm.p("ENTERSCOPE\n") + Asm.tabulate();
+        return p("ENTERSCOPE\n") + tabulate();
     }
+    public static String MOV(String src_reg, String dest_reg) {//TODO src_reg - normalF_res, but not dfakof34_res
+        if(Objects.equals(dest_reg, "lambda_res"))
+            return p("MOV " + dest_reg + ", " + src_reg + "\n");
+        return p("MOV " + dest_reg + ", " + src_reg + "\n");
+    }
+    public static String NEQ(String lbl) {
+        return p("NEQ " + lbl + "\n");
+    }
+    public static String EQ(String lbl) {
+        return p("EQ " + lbl + "\n");
+    }
+
+    public static String JMP(String lbl) {
+        return p("JMP " + lbl + "\n");
+    }
+
+    public static String RET() {
+        return p("RET\n");
+    }
+
+    public static String LABEL(String lbl) {
+        return p(lbl + ":\n");
+    }
+
+    public static String intoScope(String name) {
+        return p("INTOSCOPE " + name + "\n");
+    }
+    public static String CONTINUE() {
+        return p("CONTINUE\n");
+    }
+
+    public static String BREAK() {
+        return p("BREAK\n");
+    }
+
+    public static String CALL(String s) {
+        return p("CALL " + s + "\n");
+    }
+    public static String MAP(String lblCollBeg, String lblLambdaBegin) {
+        return p("MAP " + lblCollBeg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAP(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAP " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String MAPo(String lblCollBeg, String lblLambdaBegin) {
+        return p("MAPo " + lblCollBeg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAP_o(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAP_o " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAPo_(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAPo_ " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+
+    public static String PAIRMAPoo(String lblColl1Beg, String lblColl2Beg, String lblLambdaBegin) {
+        return p("PAIRMAPoo " + lblColl1Beg + ", " + lblColl2Beg + ", " + lblLambdaBegin + "\n");
+    }
+    public static String ENDCLASS(String className) {
+        return p("ENDCLASS " + className + "\n");
+    }
+
+    public static String CLASS(String className) {
+        return p("CLASS " + className + "\n");
+    }
+
+    public static String outofScope() {
+        return p("OUTOFSCOPE\n");
+    }
+
+    public static String declareMember(String type, String name) {
+        return p("MEMBER " + type + ", " + name + "\n");
+    }
+
+    public static String GET_ELEMENT_PTR(String r, String base, String member) {
+        return p("GET_ELEMENT_PTR " + r + ", " + base + ", " + member + "\n");
+    }
+
+    public static String FUNCTION_ARGUMENT(String typeName, String varName) {
+        return p("FUNCTION_ARGUMENT " + typeName + ", " + varName + "\n");
+    }
+
 }

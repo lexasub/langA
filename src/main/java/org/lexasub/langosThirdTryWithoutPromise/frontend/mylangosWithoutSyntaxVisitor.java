@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBase{
@@ -40,7 +39,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitFunc_args(langosWithoutSyntaxParser.Func_argsContext ctx) {
-        List<String> s2 = ctx.var_name().stream().map(this::visitVar_name).collect(Collectors.toList());
+        List<String> s2 = ctx.var_name().stream().map(this::visitVar_name).toList();
 
         Iterator<String> it1 = ctx.type_name().stream().map(i->i.ID().getText()).iterator();
         Iterator<String> it2 = s2.iterator();
@@ -120,7 +119,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.with_() != null) return visitWith_(ctx.with_());
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_()) +
-                Asm.MOV(ctx.function_call_().function_call2().fun_name().getText()+"_res", "last_res");//std::kostyl
+                Asm.getReturn("last_res", ctx.function_call_().function_call2().fun_name().getText());//std::kostyl
         //if (ctx.class_() != null) return visitClass_(ctx.class_());
         if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
         return lambdaForExpr(ctx, "last_res");
@@ -198,7 +197,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String id = IdGenerator.reg();
         String res = Asm.GET_ELEMENT_PTR(id, from, ctx.fun_name().getText());
         res += FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), id).apply(args.stream());
-        res += Asm.MOV(ctx.fun_name().getText() + "_res", to);
+        res += Asm.getReturn(to, ctx.fun_name().getText());
         return res;//TODO may be error, if exist member(not method call)
     }
     public String visitFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx, String regIn, String regOut) {

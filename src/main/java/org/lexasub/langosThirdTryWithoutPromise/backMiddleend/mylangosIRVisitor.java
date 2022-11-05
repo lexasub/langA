@@ -26,7 +26,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         globalTree = globalTree.addChild(ctx.FUNCID().getText());
         String res = ctx.FUNCID().getText() + "\n";
         res += ctx.function_argument().stream().map(this::visitFunction_argument).reduce("", String::concat);
-        res += ctx.program().stream().map(this::visitProgram).reduce("", String::concat);
+        res += ctx.program().stream().map(this::visitProgram).filter(i->i != null).reduce("", String::concat);
         res += LLVMAsm.RET();
         globalTree = globalTree.parent();
         return res;

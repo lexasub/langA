@@ -6,7 +6,7 @@ public class LLVMAsm {
     public static String typePtr = "ptr";
 
     public static String JMP(String text) {
-        return "JMP " + text + "\n";
+        return "br label %" + text + "\n";
     }
 
     public static String EQ(String text) {
@@ -22,7 +22,7 @@ public class LLVMAsm {
     }
 
     public static String RET() {
-        return "RET\n";
+        return "ret\n";
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
@@ -33,7 +33,7 @@ public class LLVMAsm {
     }
 
     public static String CALL(String s) {
-        return "call noundef i32 " + s + "()\n";
+        return "call noundef i32 @" + s + "()\n";
     }
 
     public static String getElementPtr(String variable, String className, String objName, String memberId) {
@@ -50,6 +50,7 @@ public class LLVMAsm {
     }
 
     public static String MOV(String to, String from) {
-        return "MOV %" + to + ", %" + from + "\n";
+        //return "MOV %" + to + ", %" + from + "\n";
+        return "%" + to + " = add i32 %"+from+", 0\n";//TODO std::kostyl'
     }
 }
