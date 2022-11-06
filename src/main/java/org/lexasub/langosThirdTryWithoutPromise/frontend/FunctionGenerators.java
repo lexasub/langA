@@ -24,7 +24,6 @@ public class FunctionGenerators {
                     Asm.CALL(bodyTrue.b) +
                     bodyTrue.a +
                     Asm.JMP(lbl) +
-                   // Asm.CALL(bodyFalse.b) +
                     bodyFalse.a +
                     Asm.LABEL(lbl);
         };
@@ -108,7 +107,7 @@ public class FunctionGenerators {
         //TODO change
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
-            StringBuilder res = new StringBuilder(Asm.LABEL("CALL_" + lbl));
+            StringBuilder res = new StringBuilder(/*Asm.LABEL("CALL_" + lbl)*/);
             while (e.hasNext()) {
                 Object next = e.next();
                 if (next == null) continue;

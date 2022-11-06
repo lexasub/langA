@@ -208,6 +208,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunc_lbl(langosIRParser.Func_lblContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunc_lbl(langosIRParser.Func_lblContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMember_declare(langosIRParser.Member_declareContext ctx) { }
 	/**
 	 * {@inheritDoc}

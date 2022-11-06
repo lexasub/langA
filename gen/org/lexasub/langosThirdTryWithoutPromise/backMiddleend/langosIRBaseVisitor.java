@@ -129,6 +129,13 @@ public class langosIRBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFunc_lbl(langosIRParser.Func_lblContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitMember_declare(langosIRParser.Member_declareContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -168,6 +168,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitLbl(langosIRParser.LblContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#func_lbl}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunc_lbl(langosIRParser.Func_lblContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#func_lbl}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunc_lbl(langosIRParser.Func_lblContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#member_declare}.
 	 * @param ctx the parse tree
 	 */

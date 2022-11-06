@@ -2,6 +2,8 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class LLVMAsm {
@@ -23,9 +25,11 @@ public class LLVMAsm {
     }
 
     public static String LBL(String text) {
-        return text + /*"[TODO LABEL change for llvmir]*/ ":\n";
+        return JMP(text) + text + ":\n";//std::kostyl
     }
-
+    public static String RET(String type, String arg) {
+        return "ret "+type + " " + arg + "\n";
+    }
     public static String RET() {
         return "ret i32 0\n";
     }
@@ -56,6 +60,24 @@ public class LLVMAsm {
 
     public static String MOV(String to, String from) {
         //return "MOV %" + to + ", %" + from + "\n";
-        return "";//"%" + to + " = add i32 %"+from+", 0\n";//TODO std::kostyl'
+        boolean b = Objects.equals(to, "lambda_res") || Objects.equals(to, "last_res");
+        if(from.contains("lambda"))
+            //bitcast i8* blockaddress(@main, %BEGIN_lambda_v1Xei4yfzS) to i8*;
+        {
+            if(b)
+                return RET("i8*", "blockaddress(@main, %" + from + ")");
+            else return "%" + to + " = bitcast i8* blockaddress(@main, %" + from + ") to i8*\n";
+        }
+        if(b)
+            return RET("i32", "%" + from);
+        return "%" + to + " = bitcast i32 %" + from + " to i32\n";
+        //" = add i32 %"+from+", 0\n";//TODO std::kostyl'
+    }
+
+    public static String declareFuncHeader(String funcName, Stream<String> args) {
+        Iterator<String> it = args.iterator();
+        StringBuilder sb = new StringBuilder("i32 " + it.next());
+        while(it.hasNext()) sb.append(", i32" + it.next());
+        return "define i32 @" + funcName + "(" + sb + ")  {";
     }
 }

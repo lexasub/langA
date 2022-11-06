@@ -107,6 +107,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLbl(langosIRParser.LblContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#func_lbl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunc_lbl(langosIRParser.Func_lblContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#member_declare}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -3,10 +3,12 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBase{
@@ -44,19 +46,21 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         Iterator<String> it1 = ctx.type_name().stream().map(i->i.ID().getText()).iterator();
         Iterator<String> it2 = s2.iterator();
         StringBuilder s = new StringBuilder();
-        while(it1.hasNext()){
+        /*while(it1.hasNext()){
             String typeName = it1.next();
             String varName = it2.next();
             s.append(Asm.FUNCTION_ARGUMENT(typeName, varName));
-        }
+        }*/
         //пока забъем на типы
         Iterator<String> it = s2.iterator();
         int i = 0;
         StringBuilder sb = new StringBuilder();
-        String funcName = ((langosWithoutSyntaxParser.FunctionContext) ctx.parent).var_name().ID().getText();
+       // String funcName = ((langosWithoutSyntaxParser.FunctionContext) ctx.parent).var_name().ID().getText();
+        sb.append(it.next());
         while (it.hasNext()){
-           sb.append(Asm.getArg(it.next(), funcName + "_arg" + i));
-            ++i;
+           //sb.append(Asm.getArg(it.next(), funcName + "_arg" + i));
+            //++i;
+            sb.append(", " + it.next());
         }
         return s + sb.toString();
     }
@@ -83,16 +87,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.member_name() != null) return Asm.GET_ELEMENT_PTR(to, from, visitMember_name(ctx.member_name()));
         return visitFunction_call(ctx.function_call(), from, to);
     }
-    @Override
-    public String visitGet_member(langosWithoutSyntaxParser.Get_memberContext ctx) {
+    public PairString visitGet_member_(langosWithoutSyntaxParser.Get_memberContext ctx) {
         String regName = IdGenerator.reg();
         String res = "";
         res += Asm.GET_ELEMENT_PTR(regName, visitClass_name(ctx.class_name()), visitMember_name(ctx.member_name()));
-        res += Asm.MOV(regName, "last_res");
-        return res;
+        return new PairString(res, regName);
         /*
          * GET_ELEMENT_PTR gr_s5AWrF8YDD, b, f
-           PUSH gr_s5AWrF8YDD
          * */
     }
 
@@ -100,14 +101,15 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     public String visitExprPart(langosWithoutSyntaxParser.ExprContext ctx) {
         if (ctx.with_() != null) return visitWith_(ctx.with_());
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
-        if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
         if (ctx.class_() != null) return visitClass_(ctx.class_());
-        if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
         return null;
     }
 
     public String visitExprLambda(langosWithoutSyntaxParser.ExprContext ctx) {
         if (ctx.ID() != null) return Asm.MOV(ctx.ID().getText(), "lambda_res");//TODO check lambda_res is good using??
+
+        if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
+        if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx)
                 + Asm.getReturn("lambda_res", (ctx.function_call_() != null)?ctx.function_call_().function_call2().fun_name().getText():""
                 );//TODO
@@ -121,12 +123,15 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_()) +
                 Asm.getReturn("last_res", ctx.function_call_().function_call2().fun_name().getText());//std::kostyl
         //if (ctx.class_() != null) return visitClass_(ctx.class_());
-        if (ctx.get_member() != null) return visitGet_member(ctx.get_member());
+        if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         return lambdaForExpr(ctx, "last_res");
     }
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
         if (ctx.ID() != null) return "error visitExpr visitid2(ctx.ID()) + \n";//TODO check
+
+        if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());
+        if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx);
         return lambdaForExpr(ctx, "lambda_res");
     }
@@ -136,11 +141,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return l.a + Asm.MOV(l.b, result);//MOV to lambda_res????
     }
 
-    public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx, String to) {//args
-        if (ctx.ID() != null) return Asm.MOV(ctx.ID().getText(), to);
-        if (ctx.lambda() == null) return visitExprPart(ctx);
+    public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx) {//args
+        if (ctx.ID() != null) return ctx.ID().getText();
+        if (ctx.get_member() != null) return visitGet_member_(ctx.get_member());
+        if (ctx.function_call_() != null) return visitFunction_call_(ctx.function_call_());//TODO CHECK
+       // if (ctx.lambda() == null) return visitExprPart(ctx);
         PairString l = visitLambda_(ctx.lambda());
-        return new PairString(l.a + Asm.MOV(l.b,  to), l.b);
+        return new PairString(l.a, l.b);
     }
 
     public PairString visitLambda_(langosWithoutSyntaxParser.LambdaContext ctx) {
@@ -160,8 +167,8 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         //f() -> intoscope(f)
         /*Stream<Object> args = ctx.parened_expr_list().expr_list().expr().stream()
                 .map(i->visitExprFuncall(i));*/
-        Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
-        LinkedList args = getFunExprArgs(_args, ctx.fun_name());
+        List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
+        PairString args = getFunExprArgs(_args, ctx.fun_name());
         StringBuilder functionCalls = new StringBuilder();
         Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         String from = ctx.fun_name().getText() + "_res";
@@ -175,25 +182,35 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         }
 
         String s = functionCalls.toString() ;//+ Asm.MOV(from, "last_res")//полурабочий костыль//TODO
-        return visitFun_name(ctx.fun_name(), args.stream()) + s;//TODO may be error, if exist member(not method call)
+        return args.a + visitFun_name(ctx.fun_name(), Arrays.stream(args.b.split(", "))) + s;//TODO may be error, if exist member(not method call)
     }
 
-    private LinkedList getFunExprArgs(Iterator<langosWithoutSyntaxParser.ExprContext> _args, langosWithoutSyntaxParser.Fun_nameContext ctx) {
-        LinkedList args = new LinkedList();
-        int l = 0;
+    private PairString getFunExprArgs(List<langosWithoutSyntaxParser.ExprContext> _v, langosWithoutSyntaxParser.Fun_nameContext ctx) {
+        Iterator<langosWithoutSyntaxParser.ExprContext> _args = _v.iterator();
+        StringBuilder sb = new StringBuilder();
+        langosWithoutSyntaxParser.ExprContext next = _args.next();
+        LinkedList<String> args = new LinkedList();
+        addArg(args, sb, next, "");
         while (_args.hasNext()){
-            langosWithoutSyntaxParser.ExprContext next = _args.next();
-            args.add(visitExprFuncall(next, ctx.getText() + "_arg" + l));
-            if(next.function_call_() != null) args.add(
-                    Asm.getReturn(ctx.getText() + "_arg" + l,next.function_call_().function_call2().fun_name().getText()));//may be exception(funcal2 is null)
-            ++l;
+            next = _args.next();
+            addArg(args, sb, next, ", ");
         }
-        return args;
+        return new PairString(sb.toString(), args.stream().map(Object::toString).collect(Collectors.joining("")));
+    }
+
+    private void addArg(LinkedList args, StringBuilder sb, langosWithoutSyntaxParser.ExprContext next, String prefix) {
+        Object e = visitExprFuncall(next);
+        if(e instanceof String s)
+            args.add(prefix + s);
+        else if (e instanceof PairString p) {
+            sb.append(prefix + p.a);
+            args.add(p.b);
+        }
     }
 
     public String visitFunction_call(langosWithoutSyntaxParser.Function_callContext ctx, String from, String to) {
-        Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
-        LinkedList args = getFunExprArgs(_args, ctx.fun_name());
+        List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
+        PairString args = getFunExprArgs(_args, ctx.fun_name());
         String id = IdGenerator.reg();
         String res = Asm.GET_ELEMENT_PTR(id, from, ctx.fun_name().getText());
         res += FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), id).apply(args.stream());
@@ -201,18 +218,19 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return res;//TODO may be error, if exist member(not method call)
     }
     public String visitFunction_call3(langosWithoutSyntaxParser.Function_call3Context ctx, String regIn, String regOut) {
-        Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
-        LinkedList args = getFunExprArgs(_args, ctx.fun_name());
-        String s = FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), regIn)//mb userFunGenerator? (not 2)
-                .apply(args.stream()) + Asm.getReturn(regOut, ctx.fun_name().getText());
+        List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
+        PairString args = getFunExprArgs(_args, ctx.fun_name());
+        String s = (String) FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), regIn)//mb userFunGenerator? (not 2)
+                .apply(args.stream());
+        s += Asm.getReturn(regOut, ctx.fun_name().getText());
         return s /*+ Asm.getArg(regOut)*//*+ Asm.intoScope(ctx.fun_name().getText())*/;//TODO may be error, if exist member(not method call)
         //r<- ....
         //r2<-r.funName(args..)
     }
 
     public String visitMethod_call_(langosWithoutSyntaxParser.Method_call_Context ctx, String reg) {
-        Iterator<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr().iterator();
-        LinkedList args = getFunExprArgs(_args, ctx.fun_name());
+        List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
+        PairString args = getFunExprArgs(_args, ctx.fun_name());
         Function funGen = FunctionGenerators.userFunGenerator2(ctx.fun_name().getText(), reg);
         return (String) funGen.apply(args.stream());//TODO may be error, if exist member(not method call)
     }

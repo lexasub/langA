@@ -24,7 +24,8 @@ public class Asm extends AsmUtils {
 
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
-        return LABEL("FUNCTION_" + name) + newScope() + args + body + RET() + endScope();
+        return "FUNCTION_" + name + " (" + args + ")" + ": \n"
+                + newScope()  + body + RET() + endScope();
     }
 
 
@@ -32,26 +33,25 @@ public class Asm extends AsmUtils {
     public static PairString createLambda(Stream<String> args, String body) {
         String name = IdGenerator.lambda();
         String beginLambda = "BEGIN_" + name;
-        String lambdaBegin = LABEL(beginLambda);
         String lambdaEnd = "END_" + name;
-        String s = JMP(lambdaEnd) +
-                lambdaBegin;
-        s += tabulate();
+        String s = beginLambda ;
+                //JMP(lambdaEnd)
+        s += " (";
 
         StringBuilder sb = new StringBuilder();
         if(args != null) {
             Iterator<String> argsIT = args.iterator();
-            int i = 0;
+            sb.append(argsIT.next());
+            //int i = 0;
             while (argsIT.hasNext()) {
-                sb.append(getArg(argsIT.next(), name + "_arg" + i));
+              //  sb.append(getArg(argsIT.next(), name + "_arg" + i));
+                sb.append(", " + argsIT.next());
                 //hmm надо как то сделать, чтоб тот, кто вызывал лямбду - знал ее сгенерированное имя
-                ++i;
+                //++i;
             }
         }
-        s +=/*newScope() +*/
-                sb + ((body != null) ? body/*+Asm.MOV("last_res", "lambda_res")*/ : "") + RET()
-        /*+endScope()*/;
-        s += untabulate(); //+ "\n"
+        s += sb + ") :\n" + tabulate() + ((body != null) ? body : "")  + RET();
+        s += untabulate();
         s += LABEL(lambdaEnd);
         return new PairString(s, beginLambda);
     }

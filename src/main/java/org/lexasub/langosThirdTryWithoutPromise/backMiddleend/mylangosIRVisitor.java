@@ -23,11 +23,11 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitClass(langosIRParser.ClassContext ctx) { return null; }
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return null; }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
-        globalTree = globalTree.addChild(ctx.FUNCID().getText());
-        String res = ctx.FUNCID().getText() + "\n";
-        res += ctx.function_argument().stream().map(this::visitFunction_argument).reduce("", String::concat);
+        globalTree = globalTree.addChild(ctx.func_lbl().ID_().getText());
+        String res = visitFunc_lbl(ctx.func_lbl());
         res += ctx.program().stream().map(this::visitProgram).filter(i->i != null).reduce("", String::concat);
         res += LLVMAsm.RET();
+        res += "}";
         globalTree = globalTree.parent();
         return res;
     }
@@ -68,7 +68,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
 
     private String getFunctionName(langosIRParser.ProgramContext ctx) {//TODO may be +type of func
-        return ctx.func().FUNCID().getText();
+        return ctx.func().func_lbl().ID_().getText();
         //ctx.func().
     }
 
@@ -141,10 +141,16 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         String variable = ctx.ID(0).getText();//a=
         String objName = ctx.ID(1).getText();//&(classObj
         String memberName = ctx.ID(2).getText();//.member)
-        //TODO convert memberName to id(0..) - number in object
-        //TODO find className
         return LLVMAsm.getElementPtr(variable,globalTree.declares.get(objName), objName, globalTree.findChildNum(memberName));
     }
+
+    @Override
+    public String visitFunc_lbl(langosIRParser.Func_lblContext ctx) {
+        String funcName = ctx.ID_().getText();
+        Stream<String> args = ctx.ID().stream().map(i -> i.getText());
+        return LLVMAsm.declareFuncHeader(funcName, args);
+    }
+
     @Override public String visitProgram(langosIRParser.ProgramContext ctx) {
         if(ctx.import_() != null) return visitImport_(ctx.import_());
         if(ctx.class_full() != null) return visitClass_full(ctx.class_full());

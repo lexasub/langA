@@ -7,12 +7,12 @@ int gcd(int a, int b) {
   return f()
 }
 
-int gcd2(int a, int b) {
+int gcd2(int v, int k) {
   while(
-    () -> not(isZero(b)),
+    () -> not(isZero(k)),
     () -> {
-        set(a, mod(a, b))
-       swap(a,b)
+        set(v, mod(v, k))
+       swap(v,k)
     }
   )
 }
