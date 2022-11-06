@@ -1,7 +1,5 @@
 package org.lexasub.langosThirdTryWithoutPromise.frontend.utils;
 
-import org.lexasub.langosThirdTryWithoutPromise.frontend.Asm;
-
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -35,11 +33,9 @@ public class AsmUtils {
             return p("MOV " + dest_reg + ", " + src_reg + "\n");
         return p("MOV " + dest_reg + ", " + src_reg + "\n");
     }
-    public static String NEQ(String lbl) {
-        return p("NEQ " + lbl + "\n");
-    }
-    public static String EQ(String lbl) {
-        return p("EQ " + lbl + "\n");
+
+    public static String EQ(String lbl, String arg) {
+        return p("EQ " + arg + ", " + lbl + "\n");
     }
 
     public static String JMP(String lbl) {

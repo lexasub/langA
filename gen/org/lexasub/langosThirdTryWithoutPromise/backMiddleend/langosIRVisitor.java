@@ -101,12 +101,6 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEq(langosIRParser.EqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosIRParser#neq}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNeq(langosIRParser.NeqContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosIRParser#lbl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

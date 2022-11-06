@@ -6,15 +6,11 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         return LLVMAsm.JMP(ctx.ID().getText());
     }
     @Override public String visitEq(langosIRParser.EqContext ctx) {
-        return LLVMAsm.EQ(ctx.ID().getText());
-    }
-    @Override public String visitNeq(langosIRParser.NeqContext ctx) {
-        return LLVMAsm.NEQ(ctx.ID().getText());
+        return LLVMAsm.EQ(ctx.ID(0).getText(),ctx.ID(1).getText());
     }
     @Override public String visitJmps(langosIRParser.JmpsContext ctx) {
         if(ctx.jmp() != null) return visitJmp(ctx.jmp());
         if(ctx.eq() != null) return visitEq(ctx.eq());
-        if(ctx.neq() != null) return visitNeq(ctx.neq());
         return "";
     }
     @Override public String visitLbl(langosIRParser.LblContext ctx) {

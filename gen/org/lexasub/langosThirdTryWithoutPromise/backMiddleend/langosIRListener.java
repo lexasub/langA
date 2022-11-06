@@ -158,16 +158,6 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitEq(langosIRParser.EqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link langosIRParser#neq}.
-	 * @param ctx the parse tree
-	 */
-	void enterNeq(langosIRParser.NeqContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosIRParser#neq}.
-	 * @param ctx the parse tree
-	 */
-	void exitNeq(langosIRParser.NeqContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link langosIRParser#lbl}.
 	 * @param ctx the parse tree
 	 */

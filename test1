@@ -35,3 +35,12 @@ class v {
 
     }
 }
+
+  return a;
+  a.r((i) -> {return (k)->{return plus(k, i)}})
+  map((l) -> map(a, (i) -> {return i}), (u) -> u)
+
+int main() {
+    return map((i)->i(), (j) -> j())
+}
+

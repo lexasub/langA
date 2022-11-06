@@ -20,7 +20,7 @@ public class FunctionGenerators {
             //lambdaBegins.remove() не получится если будут вложенные лямбды((
             return Asm.CALL(exp.b) +
                     exp.a +
-                    Asm.EQ(bodyFalse.b) +//Asm.EQ(lbl) +
+                    Asm.EQ(bodyFalse.b, "lambda_res") +
                     Asm.CALL(bodyTrue.b) +
                     bodyTrue.a +
                     Asm.JMP(lbl) +
@@ -39,7 +39,7 @@ public class FunctionGenerators {
             return
                     Asm.CALL(exp.b) +
                     exp.a +
-                    Asm.EQ(lblEnd) +
+                    Asm.EQ(lblEnd, "lambda_res") +
                     Asm.CALL(body.b) +
                     body.a +
                     Asm.CALL(exp.b) +

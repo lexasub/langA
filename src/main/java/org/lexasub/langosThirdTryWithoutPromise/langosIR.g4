@@ -22,7 +22,6 @@ PUSH :'PUSH';
 MOV :'MOV';
 
 EQ :'EQ';
-NEQ :'NEQ';
 JMP :'JMP';
 BREAK :'BREAK';
 CONTINUE :'CONTINUE';
@@ -65,14 +64,13 @@ push : PUSH ID;
 
 jmp : JMP ID;
 call : CALL ID;
-eq : EQ ID;
-neq : NEQ ID;
+eq : EQ ID COMA ID;
 
 lbl : ID COLON;
 FUNCID : FUNC ID COLON;
 member_declare : MEMBER ID COMA ID;
 class_full : class intoscope (member_declare | program)* OUTOFSCOPE endclass;
-jmps : eq | jmp | neq;
+jmps : eq | jmp ;
 flow_control : call | RET | CONTINUE | BREAK | jmps;
 scope_control : ENTERSCOPE | intoscope | OUTOFSCOPE/* | EXITSCOPE*/;
 stack_cmds : push | pop;

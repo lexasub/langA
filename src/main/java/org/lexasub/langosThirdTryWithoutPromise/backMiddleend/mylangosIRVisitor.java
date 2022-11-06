@@ -143,7 +143,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         String memberName = ctx.ID(2).getText();//.member)
         //TODO convert memberName to id(0..) - number in object
         //TODO find className
-        return LLVMAsm.getElementPtr(variable,globalTree.declares.get(objName), objName, memberName);
+        return LLVMAsm.getElementPtr(variable,globalTree.declares.get(objName), objName, globalTree.findChildNum(memberName));
     }
     @Override public String visitProgram(langosIRParser.ProgramContext ctx) {
         if(ctx.import_() != null) return visitImport_(ctx.import_());

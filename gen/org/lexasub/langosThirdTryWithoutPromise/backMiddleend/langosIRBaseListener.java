@@ -196,18 +196,6 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNeq(langosIRParser.NeqContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNeq(langosIRParser.NeqContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLbl(langosIRParser.LblContext ctx) { }
 	/**
 	 * {@inheritDoc}

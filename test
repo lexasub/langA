@@ -15,12 +15,4 @@ int gcd2(int a, int b) {
        swap(a,b)
     }
   )
-  return a;
-  a.r((i) -> {return (k)->{return plus(k, i)}})
-  map((l) -> map(a, (i) -> {return i}), (u) -> u)
 }
-
-int main() {
-    return map((i)->i(), (j) -> j())
-}
-

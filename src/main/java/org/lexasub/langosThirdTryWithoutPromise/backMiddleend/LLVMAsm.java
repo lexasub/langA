@@ -1,5 +1,7 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
+
 import java.util.stream.Stream;
 
 public class LLVMAsm {
@@ -9,8 +11,11 @@ public class LLVMAsm {
         return "br label %" + text + "\n";
     }
 
-    public static String EQ(String text) {
-        return "JEQ " + text + "\n";
+    public static String EQ(String lbl, String arg) {
+        String id = IdGenerator.reg();
+        String id2 = IdGenerator.reg();
+        return "%"+id2+" = icmp eq i32 0, %" + lbl + "\n" +
+                "br i1 %"+id2+", label %" + arg + ", label %" + id + "\n" + LBL(id);
     }
 
     public static String NEQ(String text) {
@@ -22,7 +27,7 @@ public class LLVMAsm {
     }
 
     public static String RET() {
-        return "ret\n";
+        return "ret i32 0\n";
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
@@ -36,8 +41,8 @@ public class LLVMAsm {
         return "call noundef i32 @" + s + "()\n";
     }
 
-    public static String getElementPtr(String variable, String className, String objName, String memberId) {
-        return "%" + variable + " = " + "getelementptr inbounds " + className +
+    public static String getElementPtr(String variable, String className, String objName, int memberId) {
+        return "%" + variable + " = " + "getelementptr inbounds %" + className +
                 ", ptr %" + objName + ", i32 0, i32 " + memberId + "\n";
     }
 
@@ -51,6 +56,6 @@ public class LLVMAsm {
 
     public static String MOV(String to, String from) {
         //return "MOV %" + to + ", %" + from + "\n";
-        return "%" + to + " = add i32 %"+from+", 0\n";//TODO std::kostyl'
+        return "";//"%" + to + " = add i32 %"+from+", 0\n";//TODO std::kostyl'
     }
 }
