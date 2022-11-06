@@ -108,16 +108,18 @@ public class FunctionGenerators {
         return expr -> {
             Iterator<Object> e = ((Stream<Object>) expr).iterator();
             StringBuilder res = new StringBuilder(/*Asm.LABEL("CALL_" + lbl)*/);
+            res.append((String) e.next());
             while (e.hasNext()) {
                 Object next = e.next();
                 if (next == null) continue;
                 if (next instanceof PairString p) {
-                    res.append(p.a).append(Asm.setReturn(p.b, lbl));//set return//TODO check generator of stream
+                    res.append(", " +p.a);
+                    res.append(Asm.setReturn(p.b, lbl));//set return//TODO check generator of stream
                 } else {
-                    res.append((String) next);
+                    res.append(", " + next);
                 }
             }
-            return res + Asm.CALL(text);//May be some load
+            return Asm.CALL(text + "(" + res + ")");//May be some load
 
         };
     }
