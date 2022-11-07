@@ -56,9 +56,6 @@ public class Asm extends AsmUtils {
         return new PairString(s, beginLambda);
     }
 
-    public static String getArg(String regName, String from) {
-        return MOV(from, regName);
-    }
 
 
     public static String IMPORT(Stream<String> visitid) {

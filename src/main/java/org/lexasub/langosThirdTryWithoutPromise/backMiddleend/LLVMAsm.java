@@ -76,8 +76,9 @@ public class LLVMAsm {
 
     public static String declareFuncHeader(String funcName, Stream<String> args) {
         Iterator<String> it = args.iterator();
-        StringBuilder sb = new StringBuilder("i32 " + it.next());
-        while(it.hasNext()) sb.append(", i32" + it.next());
-        return "define i32 @" + funcName + "(" + sb + ")  {";
+        StringBuilder sb = new StringBuilder();
+        if(it.hasNext())  sb.append("i32 %" + it.next());
+        while(it.hasNext()) sb.append(", i32 %" + it.next());
+        return "define i32 @" + funcName + "(" + sb + ")  {\n";
     }
 }

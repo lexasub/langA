@@ -16,11 +16,12 @@ public class FunctionGenerators {
             String bodyFalse = null;
             if (e.hasNext())
                 bodyFalse = e.next();//bodyFalse
-            String lbl = IdGenerator.lblIfEnd();
+            String endIf = IdGenerator.lblIfEnd();
             //lambdaBegins.remove() не получится если будут вложенные лямбды((
             return Asm.CALL(exp) +
-                    Asm.EQ(bodyFalse, "lambda_res") +
-                    Asm.CALL(bodyTrue);
+                    Asm.EQCALL_THEN_JMP(bodyFalse, "lambda_res", endIf) +
+                    Asm.CALL(bodyTrue) +
+                    Asm.LABEL(endIf);
         };
     }
 

@@ -8,6 +8,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface langosIRListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(langosIRParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(langosIRParser.IdContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#intoscope}.
 	 * @param ctx the parse tree
 	 */
@@ -158,15 +168,15 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitEq(langosIRParser.EqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link langosIRParser#lbl}.
+	 * Enter a parse tree produced by {@link langosIRParser#eQCALL_THEN_JMP}.
 	 * @param ctx the parse tree
 	 */
-	void enterLbl(langosIRParser.LblContext ctx);
+	void enterEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link langosIRParser#lbl}.
+	 * Exit a parse tree produced by {@link langosIRParser#eQCALL_THEN_JMP}.
 	 * @param ctx the parse tree
 	 */
-	void exitLbl(langosIRParser.LblContext ctx);
+	void exitEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
@@ -177,6 +187,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunc_lbl(langosIRParser.Func_lblContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#lbl}.
+	 * @param ctx the parse tree
+	 */
+	void enterLbl(langosIRParser.LblContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#lbl}.
+	 * @param ctx the parse tree
+	 */
+	void exitLbl(langosIRParser.LblContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#member_declare}.
 	 * @param ctx the parse tree

@@ -11,6 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#id}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId(langosIRParser.IdContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#intoscope}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -101,17 +107,23 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEq(langosIRParser.EqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosIRParser#lbl}.
+	 * Visit a parse tree produced by {@link langosIRParser#eQCALL_THEN_JMP}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLbl(langosIRParser.LblContext ctx);
+	T visitEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunc_lbl(langosIRParser.Func_lblContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#lbl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLbl(langosIRParser.LblContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#member_declare}.
 	 * @param ctx the parse tree

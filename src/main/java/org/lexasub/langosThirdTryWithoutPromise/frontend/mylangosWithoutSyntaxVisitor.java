@@ -206,8 +206,10 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if(e instanceof String s)
             args.add(prefix + s);
         else if (e instanceof PairString p) {
-            sb.append(p.a);
             args.add(prefix + p.b);
+            if (next.lambda() != null)
+                sb.append(Asm.JMP(p.b.replace("BEGIN", "END")));
+            sb.append(p.a);
         }
     }
 

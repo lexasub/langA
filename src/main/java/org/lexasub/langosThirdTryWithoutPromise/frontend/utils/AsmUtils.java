@@ -37,7 +37,9 @@ public class AsmUtils {
     public static String EQ(String lbl, String arg) {
         return p("EQ " + arg + ", " + lbl + "\n");
     }
-
+    public static String EQCALL_THEN_JMP(String lbl, String arg, String last) {
+        return p("EQCALL_THEN_JMP " + arg + ", " + lbl + ", " + last + "\n");
+    }
     public static String JMP(String lbl) {
         return p("JMP " + lbl + "\n");
     }

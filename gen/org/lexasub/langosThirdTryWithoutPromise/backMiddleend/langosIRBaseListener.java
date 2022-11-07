@@ -16,6 +16,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterId(langosIRParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId(langosIRParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIntoscope(langosIRParser.IntoscopeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -196,13 +208,13 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLbl(langosIRParser.LblContext ctx) { }
+	@Override public void enterEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLbl(langosIRParser.LblContext ctx) { }
+	@Override public void exitEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -215,6 +227,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunc_lbl(langosIRParser.Func_lblContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLbl(langosIRParser.LblContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLbl(langosIRParser.LblContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
