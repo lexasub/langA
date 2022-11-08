@@ -4,6 +4,7 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import java.util.stream.Stream;
 
 public class mylangosIRVisitor extends mylangosIRVisitorBase {
+    StringBuilder funcs = new StringBuilder();
     NamespaceTree globalTree = new NamespaceTree();
     @Override public String visitIntoscope(langosIRParser.IntoscopeContext ctx) {
         globalTree = globalTree.findChild(ctx.ID().getText());
@@ -24,12 +25,12 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return null; }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
         globalTree = globalTree.addChild(ctx.func_lbl().id().getText());
-        String res = visitFunc_lbl(ctx.func_lbl());
-        res += ctx.program().stream().map(this::visitProgram).filter(i->i != null).reduce("", String::concat);
-        res += LLVMAsm.RET();
-        res += "}";
+        String res = LLVMAsm.createFunction(
+                visitFunc_lbl(ctx.func_lbl()),
+                ctx.program().stream().map(this::visitProgram).filter(i -> i != null).reduce("", String::concat));
         globalTree = globalTree.parent();
-        return res;
+        funcs.append(res);
+        return (globalTree.parent() != null)?LLVMAsm.CALL(ctx.func_lbl().id().getText()):"";//std::kostyl'
     }
     @Override public String visitMov(langosIRParser.MovContext ctx) {
         return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText());
@@ -166,10 +167,11 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         return "";
     }
     @Override public String visitEntry_point(langosIRParser.Entry_pointContext ctx) {
-        return ctx.program().stream()
-            .map(this::visitProgram)
-            .filter(i->i!=null)//std::kostyl
-            .reduce("",String::concat);
+        String code = ctx.program().stream()
+                .map(this::visitProgram)
+                .filter(i -> i != null)//std::kostyl
+                .reduce("", String::concat);
+        return funcs + code;
     }
 
 }

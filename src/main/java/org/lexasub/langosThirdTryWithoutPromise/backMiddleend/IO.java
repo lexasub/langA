@@ -11,10 +11,11 @@ public class IO {
 
         //Asm.pretty = true;//Set output with tabs
         //Asm.print(visit(getParser("test")));
+        LLVMAsm.pretty = true;
         org.lexasub.langosThirdTryWithoutPromise.frontend.langosWithoutSyntaxParser r =
                 org.lexasub.langosThirdTryWithoutPromise.frontend.IO.getParser("test");
         String asm = org.lexasub.langosThirdTryWithoutPromise.frontend.IO.visit(r);
-        System.out.println(visit(getParser(asm)));
+        LLVMAsm.print(visit(getParser(asm)));
     }
 
     public static langosIRParser getParser(String data) throws IOException {

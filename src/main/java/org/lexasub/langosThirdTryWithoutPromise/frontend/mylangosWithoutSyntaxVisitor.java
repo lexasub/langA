@@ -56,7 +56,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         int i = 0;
         StringBuilder sb = new StringBuilder();
        // String funcName = ((langosWithoutSyntaxParser.FunctionContext) ctx.parent).var_name().ID().getText();
-        sb.append(it.next());
+        if(it.hasNext()) sb.append(it.next());
         while (it.hasNext()){
            //sb.append(Asm.getArg(it.next(), funcName + "_arg" + i));
             //++i;

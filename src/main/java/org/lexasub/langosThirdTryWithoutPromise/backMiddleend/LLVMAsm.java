@@ -2,60 +2,60 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class LLVMAsm {
-    public static String typePtr = "ptr";
+public class LLVMAsm extends LLVMAsmUtils {
 
     public static String JMP(String text) {
-        return "br label %" + text + "\n";
+        return p("br label %" + text + "\n");
     }
 
     public static String EQ(String lbl, String arg) {
         String id = IdGenerator.reg();
         String id2 = IdGenerator.reg();
-        return "%"+id2+" = icmp eq i32 0, %" + lbl + "\n" +
-                "br i1 %"+id2+", label %" + arg + ", label %" + id + "\n" + LBL(id);
+        return p("%"+id2+" = icmp eq i32 0, %" + lbl + "\n" +
+                "br i1 %"+id2+", label %" + arg + ", label %" + id + "\n" + LBL(id));
     }
 
     public static String NEQ(String text) {
-        return "JNZ " + text + "\n";
+        return p("JNZ " + text + "\n");
     }
 
     public static String LBL(String text) {
-        return JMP(text) + text + ":\n";//std::kostyl
+        return p(JMP(text) + text + ":\n") /*+ tabulate()*/;//std::kostyl
     }
     public static String RET(String type, String arg) {
-        return "ret "+type + " " + arg + "\n";
+        return p("ret "+type + " " + arg + "\n");
     }
     public static String RET() {
-        return "ret i32 0\n";
+        return p("ret i32 0\n");
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
-        return "%" + className + " = type{"
+        return p("%" + className + " = type{"
                 + stringStream.map(i->"%"+i+", ").reduce("",String::concat)
                 + "ptr, ".repeat(methodsCount)
-                + "}\n";
+                + "}\n");
     }
 
     public static String CALL(String s) {
-        return "call noundef i32 @" + s + "()\n";
+        return p("call noundef i32 @" + s + "()\n");
     }
 
     public static String getElementPtr(String variable, String className, String objName, int memberId) {
-        return "%" + variable + " = " + "getelementptr inbounds %" + className +
-                ", ptr %" + objName + ", i32 0, i32 " + memberId + "\n";
+        return p("%" + variable + " = " + "getelementptr inbounds %" + className +
+                ", ptr %" + objName + ", i32 0, i32 " + memberId + "\n");
     }
 
     public static String POP(String text) {
-        return "POP %" + text + "\n";
+        return p("POP %" + text + "\n");
     }
 
     public static String PUSH(String text) {
-        return "PUSH %" + text + "\n";
+        return p("PUSH %" + text + "\n");
     }
 
     public static String MOV(String to, String from) {
@@ -66,11 +66,11 @@ public class LLVMAsm {
         {
             if(b)
                 return RET("i8*", "blockaddress(@main, %" + from + ")");
-            else return "%" + to + " = bitcast i8* blockaddress(@main, %" + from + ") to i8*\n";
+            else return p("%" + to + " = bitcast i8* blockaddress(@main, %" + from + ") to i8*\n");
         }
         if(b)
             return RET("i32", "%" + from);
-        return "%" + to + " = bitcast i32 %" + from + " to i32\n";
+        return p("%" + to + " = bitcast i32 %" + from + " to i32\n");
         //" = add i32 %"+from+", 0\n";//TODO std::kostyl'
     }
 
@@ -79,6 +79,23 @@ public class LLVMAsm {
         StringBuilder sb = new StringBuilder();
         if(it.hasNext())  sb.append("i32 %" + it.next());
         while(it.hasNext()) sb.append(", i32 %" + it.next());
-        return "define i32 @" + funcName + "(" + sb + ")  {\n";
+        return p("define i32 @" + funcName + "(" + sb + ")  {\n") + tabulate();
+    }
+    public static void print(String s) {
+        if (!pretty) System.out.print(s);
+        Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
+        StringBuilder tab = new StringBuilder("");
+        while (str.hasNext()) {
+            String j = str.next();
+            if (j.compareTo("TAB") == 0)
+                tab.append("\t");
+            else if (j.compareTo("UNTAB") == 0) {
+                tab = new StringBuilder(tab.substring(0, tab.length() - 1));
+            } else System.out.println(tab + j);
+        }
+    }
+
+    public static String createFunction(String funcName, String body) {
+        return funcName + body + LLVMAsm.RET() + untabulate() +"}\n";
     }
 }
