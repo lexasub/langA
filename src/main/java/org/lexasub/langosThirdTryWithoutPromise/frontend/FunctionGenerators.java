@@ -32,6 +32,7 @@ public class FunctionGenerators {
             Iterator<String> e = ((Stream<String>) expr).iterator();
             String exp =  e.next();//logic expression lambda
             String body = e.next();//body
+            String reg = e.next();//reg
             String lblEnd = IdGenerator.lblWhileEnd();
             String lbl = IdGenerator.lbl();
             return
@@ -40,7 +41,7 @@ public class FunctionGenerators {
                     /*Asm.EQ(GlobalStatic.last_lambda_ret_reg, lblEnd) +
                     Asm.CALL(body) +
                     Asm.JMP(lbl) +*/
-                    Asm.NEQCALL_THEN_JMP_EXTENDED("GlobalStatic.last_lambda_ret_reg TODO replace", body, lbl, lblEnd) +
+                    Asm.NEQCALL_THEN_JMP_EXTENDED(reg, body, lbl, lblEnd) +
                     Asm.LABEL(lblEnd);
             /*
 

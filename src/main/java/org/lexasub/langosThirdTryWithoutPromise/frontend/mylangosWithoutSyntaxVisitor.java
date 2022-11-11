@@ -137,8 +137,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.function_call_() != null) return visitFunction_callAsArg(ctx.function_call_()).a;
         if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx);
-        GlobalStatic.last_lambda_ret_reg = IdGenerator.lambda() + "res";
-        return lambdaForExpr(ctx, GlobalStatic.last_lambda_ret_reg);
+        return lambdaForExpr(ctx, IdGenerator.lambda() + "res");
     }
 
     private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx, String result) {//TODO make tests
@@ -165,7 +164,6 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String s2 = (ctx.expr() != null)
                 ? visitExprLambda(ctx.expr(),lambdaName)
                 : visitBraced_element(ctx.braced_element());
-        GlobalStatic.last_lambda_ret_reg = lambdaName;
         return Asm.createLambda(s1, s2, lambdaName);
     }
 
@@ -194,6 +192,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
         Stream<Object> args1 = Arrays.stream(split);
         if(ctx.fun_name().IF() != null) args1 = Stream.concat(args1,Stream.of(split[0].replace("BEGIN_","") + "_res"));
+        if(ctx.fun_name().WHILE() != null) args1 = Stream.concat(args1,Stream.of(split[0].replace("BEGIN_","") + "_res"));
         return new PairString(args.a + visitFun_name(ctx.fun_name(), args1) + s, from);//TODO may be error, if exist member(not method call)
     }
 
