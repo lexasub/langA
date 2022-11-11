@@ -1,19 +1,9 @@
-int gcd(int a, int b) {
+int k(int a, int b) {
   if(
     () -> isZero(b),
     () -> a,
-    () -> gcd(b, mod(a, b))
+    () -> set(a, f(a))
   )
   return a
-  return f()
 }
 
-int gcd2(int v, int k) {
-  while(
-    () -> not(isZero(k)),
-    () -> {
-        set(v, mod(v, k))
-       swap(v,k)
-    }
-  )
-}

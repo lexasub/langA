@@ -113,6 +113,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#nEQCALL_THEN_JMP_EXTENDED}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -178,6 +178,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitEQCALL_THEN_JMP(langosIRParser.EQCALL_THEN_JMPContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#nEQCALL_THEN_JMP_EXTENDED}.
+	 * @param ctx the parse tree
+	 */
+	void enterNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#nEQCALL_THEN_JMP_EXTENDED}.
+	 * @param ctx the parse tree
+	 */
+	void exitNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
 	 */

@@ -34,11 +34,17 @@ public class AsmUtils {
         return p("MOV " + dest_reg + ", " + src_reg + "\n");
     }
 
-    public static String EQ(String lbl, String arg) {
-        return p("EQ " + arg + ", " + lbl + "\n");
+    public static String EQ( String check, String lbl) {
+        return p("EQ " + check + ", " + lbl + "\n");
     }
-    public static String EQCALL_THEN_JMP(String lbl, String arg, String last) {
-        return p("EQCALL_THEN_JMP " + arg + ", " + lbl + ", " + last + "\n");
+    public static String EQCALL_THEN_JMP(String check, String lbl, String last) {
+        return p("EQCALL_THEN_JMP " + check + ", " + lbl + ", " + last + "\n");
+    }
+
+
+    public static String NEQCALL_THEN_JMP_EXTENDED(String check, String ifFalse, String jmpToAfterCall, String jmpIfTrue) {
+        return p("NEQCALL_THEN_JMP_EXTENDED " + check + ", " + ifFalse + ", " + jmpToAfterCall + ", " + jmpIfTrue + "\n");
+
     }
     public static String JMP(String lbl) {
         return p("JMP " + lbl + "\n");
@@ -46,6 +52,9 @@ public class AsmUtils {
 
     public static String RET() {
         return p("RET\n");
+    }
+    public static String RET(String reg) {
+        return p("RET " + reg + "\n");
     }
 
     public static String LABEL(String lbl) {

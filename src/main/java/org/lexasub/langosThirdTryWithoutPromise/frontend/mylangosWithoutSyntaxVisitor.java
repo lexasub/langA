@@ -105,28 +105,30 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         return null;
     }
 
-    public String visitExprLambda(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.ID() != null) return Asm.MOV(ctx.ID().getText(), "lambda_res");//TODO check lambda_res is good using??
+    public String visitExprLambda(langosWithoutSyntaxParser.ExprContext ctx, String lambda_name) {//TODO check lambda_res is good using??
+        if (ctx.ID() != null) return Asm.RET(ctx.ID().getText());
 
         if (ctx.function_call_() != null) {
             PairString p = visitFunction_callAsArg(ctx.function_call_());
-            return p.a + Asm.MOV(p.b, "lambda_res");
+            return p.a + Asm.RET(p.b);
         }
         if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx);
                // + Asm.getReturn("lambda_res","");//TODO
-        return lambdaForExpr(ctx, "lambda_res");//TODO
+        return lambdaForExpr(ctx, lambda_name);//TODO
     }
 
     public String visitExprReturn(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.ID() != null) return Asm.MOV(visitid2(ctx.ID()), "last_res");//TODO hmm
-        if (ctx.with_() != null) return visitWith_(ctx.with_());
-        if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
-        if (ctx.function_call_() != null) return visitFunction_callAsArg(ctx.function_call_()).a +
-                Asm.getReturn("last_res", ctx.function_call_().function_call2().fun_name().getText());//std::kostyl
+        if (ctx.ID() != null) return Asm.MOV(visitid2(ctx.ID()), "last_res")+ Asm.RET();//TODO hmm
+        if (ctx.with_() != null) return visitWith_(ctx.with_())+ Asm.RET();
+        if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control())+ Asm.RET();
+        PairString p = null;
+        if (ctx.lambda() != null)  p = visitLambda_(ctx.lambda());
+        if (ctx.get_member() != null) p = visitGet_member_(ctx.get_member());
+        if (ctx.function_call_() != null) p = visitFunction_callAsArg(ctx.function_call_());
+        return p.a + Asm.RET(p.b);
+                //Asm.getReturn("last_res", ctx.function_call_().function_call2().fun_name().getText());//std::kostyl
         //if (ctx.class_() != null) return visitClass_(ctx.class_());
-        if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
-        return lambdaForExpr(ctx, "last_res");
     }
     @Override
     public String visitExpr(langosWithoutSyntaxParser.ExprContext ctx) {
@@ -135,12 +137,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.function_call_() != null) return visitFunction_callAsArg(ctx.function_call_()).a;
         if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx);
-        return lambdaForExpr(ctx, "lambda_res");
+        GlobalStatic.last_lambda_ret_reg = IdGenerator.lambda() + "res";
+        return lambdaForExpr(ctx, GlobalStatic.last_lambda_ret_reg);
     }
 
     private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx, String result) {//TODO make tests
-        PairString l = visitLambda_(ctx.lambda());//TODO check lambda_res is good using??
-        return l.a + Asm.MOV(l.b, result);//MOV to lambda_res????
+        PairString l = visitLambda_(ctx.lambda());
+        return l.a + Asm.MOV(l.b, result);
     }
 
     public Object visitExprFuncall(langosWithoutSyntaxParser.ExprContext ctx) {//args
@@ -158,10 +161,12 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
             s1 = ctx.parened_id_list().id_list().ID().stream().map(this::visitid2);
         else if(ctx.parened_id_list().ID() != null)
             s1 = Stream.of(new String[]{visitid2(ctx.parened_id_list().ID())});
+        String lambdaName = IdGenerator.lambda();
         String s2 = (ctx.expr() != null)
-                ? visitExprLambda(ctx.expr())
+                ? visitExprLambda(ctx.expr(),lambdaName)
                 : visitBraced_element(ctx.braced_element());
-        return Asm.createLambda(s1, s2);
+        GlobalStatic.last_lambda_ret_reg = lambdaName;
+        return Asm.createLambda(s1, s2, lambdaName);
     }
 
     public PairString visitFunction_call2_(langosWithoutSyntaxParser.Function_call2Context ctx) {
@@ -183,7 +188,13 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         }
 
         String s = functionCalls.toString() ;//+ Asm.MOV(from, "last_res")//полурабочий костыль//TODO
-        return new PairString(args.a + visitFun_name(ctx.fun_name(), Arrays.stream(args.b.split(", "))) + s, from);//TODO may be error, if exist member(not method call)
+        String b = args.b;
+
+        String[] split = b.split(", ");
+
+        Stream<Object> args1 = Arrays.stream(split);
+        if(ctx.fun_name().IF() != null) args1 = Stream.concat(args1,Stream.of(split[0].replace("BEGIN_","") + "_res"));
+        return new PairString(args.a + visitFun_name(ctx.fun_name(), args1) + s, from);//TODO may be error, if exist member(not method call)
     }
 
     private PairString getFunExprArgs(List<langosWithoutSyntaxParser.ExprContext> _v) {
@@ -208,7 +219,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         else if (e instanceof PairString p) {
             args.add(prefix + p.b);
             if (next.lambda() != null)
-                sb.append(Asm.JMP(p.b.replace("BEGIN", "END")));
+                sb.append(Asm.JMP(p.b.replace("BEGIN", "END")));//обход лямбды
             sb.append(p.a);
         }
     }
@@ -329,7 +340,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
-        return visitExprReturn(ctx.expr()) + Asm.RET();
+        return visitExprReturn(ctx.expr()) ;
     }
 
     @Override

@@ -12,26 +12,30 @@ public class LLVMAsm extends LLVMAsmUtils {
     public static String JMP(String text) {
         return p("br label %" + text + "\n");
     }
-
-    public static String EQ(String lbl, String arg) {
-        String id = IdGenerator.reg();
-        String id2 = IdGenerator.reg();
-        return p("%"+id2+" = icmp eq i32 0, %" + lbl + "\n" +
-                "br i1 %"+id2+", label %" + arg + ", label %" + id + "\n" + LBL(id));
+    public static String NEQ(String check, String ifEq, String ifNeq) {
+        return EQ(check, ifNeq, ifEq);
     }
-
-    public static String NEQ(String text) {
-        return p("JNZ " + text + "\n");
+    public static String EQ(String check, String ifEq, String ifNeq) {
+        String id = IdGenerator.reg();
+        return p("%"+id+" = icmp eq i32 0, %" + check + "\n" +
+                "br i1 %"+id+", label %" + ifEq + ", label %" + ifNeq + "\n");
+    }
+    public static String EQ(String check, String arg) {
+        String id = IdGenerator.reg();
+        return EQ(check, arg, id) + LBL(id);
     }
 
     public static String LBL(String text) {
-        return p(JMP(text) + text + ":\n") /*+ tabulate()*/;//std::kostyl
+        return p(JMP(text) + text + ":\n") ;//std::kostyl' подтыкаем костыли для llvm
     }
     public static String RET(String type, String arg) {
         return p("ret "+type + " " + arg + "\n");
     }
+    public static String RET(String arg) {
+        return p(RET("i32", "%" + arg));
+    }
     public static String RET() {
-        return p("ret i32 0\n");
+        return p(RET("i32","0"));
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
@@ -42,9 +46,14 @@ public class LLVMAsm extends LLVMAsmUtils {
     }
 
     public static String CALL(String s) {
-        return p("call noundef i32 @" + s + "()\n");
+        return CALL(s, "");
     }
-
+    public static String CALL(String s, String args) {
+        String v = "";
+        if (s.contains("FUNCTION_")) v="%"+s.replace("FUNCTION_", "")+"_res = ";//std::smallKostyl'
+        if (s.contains("_lambda_")) v="%" +s.replace("BEGIN_","")+"_res = ";//std::smallKostyl'
+        return p( v + "call noundef i32 @" + s + "("+args+")\n");
+    }
     public static String getElementPtr(String variable, String className, String objName, int memberId) {
         return p("%" + variable + " = " + "getelementptr inbounds %" + className +
                 ", ptr %" + objName + ", i32 0, i32 " + memberId + "\n");
@@ -79,7 +88,7 @@ public class LLVMAsm extends LLVMAsmUtils {
         StringBuilder sb = new StringBuilder();
         if(it.hasNext())  sb.append("i32 %" + it.next());
         while(it.hasNext()) sb.append(", i32 %" + it.next());
-        return p("define i32 @" + funcName + "(" + sb + ")  {\n") + tabulate();
+        return p("define i32 @" + funcName + "(" + sb + ")  {\n");
     }
     public static void print(String s) {
         if (!pretty) System.out.print(s);
@@ -95,7 +104,7 @@ public class LLVMAsm extends LLVMAsmUtils {
         }
     }
 
-    public static String createFunction(String funcName, String body) {
-        return funcName + body + LLVMAsm.RET() + untabulate() +"}\n";
+    public static String createFunction(String funcName, String ret, String body) {
+        return funcName + tabulate() + body + ret + untabulate() +"}\n";
     }
 }

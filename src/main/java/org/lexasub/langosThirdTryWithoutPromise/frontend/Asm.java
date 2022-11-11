@@ -5,7 +5,6 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.AsmUtils;
-import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.Arrays;
@@ -14,9 +13,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Asm extends AsmUtils {
-    public static String setReturn(String src_reg, String func_name) {
-        return MOV(src_reg, func_name+"_res");
-    }
     public static String getReturn(String dst_reg, String func_name) {
         return MOV(func_name+"_res", dst_reg);
     }
@@ -30,8 +26,7 @@ public class Asm extends AsmUtils {
 
 
 
-    public static PairString createLambda(Stream<String> args, String body) {
-        String name = IdGenerator.lambda();
+    public static PairString createLambda(Stream<String> args, String body, String name) {
         String beginLambda = "BEGIN_" + name;
         String lambdaEnd = "END_" + name;
         String s = beginLambda ;
@@ -50,8 +45,9 @@ public class Asm extends AsmUtils {
                 //++i;
             }
         }
-        s += sb + ") :\n" + tabulate() + ((body != null) ? body : "")  + RET();
-        s += untabulate();
+        s += sb + ") :\n" + newScope();
+        s += ((body != null) ? body : "")  + RET();
+        s += endScope();
         s += LABEL(lambdaEnd);
         return new PairString(s, beginLambda);
     }
@@ -96,6 +92,5 @@ public class Asm extends AsmUtils {
     public static String createClass(String className, String body) {
         return CLASS(className) + intoScope(className) + body + outofScope() + ENDCLASS(className);
     }
-
 
 }

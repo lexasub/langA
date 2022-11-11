@@ -13,13 +13,15 @@ public class FunctionGenerators {
             Iterator<String> e = ((Stream<String>) expr).iterator();
             String exp =  e.next();//logic expression lambda
             String bodyTrue = e.next();//bodyTrue
+            String bodyFalseOrRetReg = e.next();
             String bodyFalse = null;
-            if (e.hasNext())
-                bodyFalse = e.next();//bodyFalse
+            if (e.hasNext()) {//если это не последний аргумент- то предыдущий был bodyFalse
+                bodyFalse = bodyFalseOrRetReg;//bodyFalse
+                bodyFalseOrRetReg = e.next();//retReg
+            }
             String endIf = IdGenerator.lblIfEnd();
-            //lambdaBegins.remove() не получится если будут вложенные лямбды((
             return Asm.CALL(exp) +
-                    Asm.EQCALL_THEN_JMP(bodyFalse, "lambda_res", endIf) +
+                    Asm.EQCALL_THEN_JMP(bodyFalseOrRetReg, bodyFalse, endIf) +
                     Asm.CALL(bodyTrue) +
                     Asm.LABEL(endIf);
         };
@@ -35,10 +37,15 @@ public class FunctionGenerators {
             return
                     Asm.LABEL(lbl) +
                     Asm.CALL(exp) +
-                    Asm.EQ(lblEnd, "lambda_res") +
+                    /*Asm.EQ(GlobalStatic.last_lambda_ret_reg, lblEnd) +
                     Asm.CALL(body) +
-                    Asm.JMP(lbl) +
+                    Asm.JMP(lbl) +*/
+                    Asm.NEQCALL_THEN_JMP_EXTENDED("GlobalStatic.last_lambda_ret_reg TODO replace", body, lbl, lblEnd) +
                     Asm.LABEL(lblEnd);
+            /*
+
+                   Asm.NEQCALL_THEN_JMP_EXTENDED(GlobalStatic.last_lambda_ret_reg, false->body, false->then lbl, true->lblEnd)
+             */
         };
     }
 
@@ -109,7 +116,7 @@ public class FunctionGenerators {
                 if (next == null) continue;
                 if (next instanceof PairString p) {//сейчас вроде никогда не происходит
                     res.append(", " + p.a);
-                    res.append(Asm.setReturn(p.b, lbl));//set return//TODO check generator of stream
+                    res.append("wrong"/* + Asm.setReturn(p.b, lbl)*/);//set return//TODO check generator of stream
                 } else {
                     res.append(", " + next);
                 }
@@ -136,7 +143,7 @@ public class FunctionGenerators {
             String data = e.next();//b.mod(two())
 
            // return data + Asm.MOV("last_res", varName);//TODO CHECK
-           return  Asm.MOV(data, varName);//ex: move from myFunc_res
+           return  Asm.MOV(data, varName) + Asm.MOV(data, "set_res");//ex: move from myFunc_res//std::kostyl'
         };
     }
 }

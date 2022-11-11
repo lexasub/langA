@@ -5,6 +5,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.function.Function;
 
 public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVisitor<String> {
+
+
     protected static Function selectFunction(langosWithoutSyntaxParser.Fun_nameContext funname) {
         if (funname.IF() != null)
             return FunctionGenerators.ifGenerator();
