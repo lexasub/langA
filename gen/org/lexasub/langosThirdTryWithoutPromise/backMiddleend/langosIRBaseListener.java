@@ -28,18 +28,6 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntoscope(langosIRParser.IntoscopeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntoscope(langosIRParser.IntoscopeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterClass(langosIRParser.ClassContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -232,6 +220,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterId_list(langosIRParser.Id_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId_list(langosIRParser.Id_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunc_lbl(langosIRParser.Func_lblContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -311,18 +311,6 @@ public class langosIRBaseListener implements langosIRListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitScope_control(langosIRParser.Scope_controlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStack_cmds(langosIRParser.Stack_cmdsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStack_cmds(langosIRParser.Stack_cmdsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

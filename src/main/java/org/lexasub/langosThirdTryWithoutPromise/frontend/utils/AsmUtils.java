@@ -61,9 +61,6 @@ public class AsmUtils {
         return p(lbl + ":\n");
     }
 
-    public static String intoScope(String name) {
-        return p("INTOSCOPE " + name + "\n");
-    }
     public static String CONTINUE() {
         return p("CONTINUE\n");
     }
@@ -106,9 +103,6 @@ public class AsmUtils {
         return p("CLASS " + className + "\n");
     }
 
-    public static String outofScope() {
-        return p("OUTOFSCOPE\n");
-    }
 
     public static String declareMember(String type, String name) {
         return p("MEMBER " + type + ", " + name + "\n");

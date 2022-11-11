@@ -8,18 +8,8 @@ import java.util.stream.Stream;
 
 public class mylangosIRVisitor extends mylangosIRVisitorBase {
     StringBuilder funcs = new StringBuilder();
-    NamespaceTree globalTree = new NamespaceTree();
-    @Override public String visitIntoscope(langosIRParser.IntoscopeContext ctx) {
-        globalTree = globalTree.findChild(ctx.ID().getText());
-        return "";
-    }
 
     @Override public String visitScope_control(langosIRParser.Scope_controlContext ctx) {
-        if(ctx.intoscope() != null) return visitIntoscope(ctx.intoscope());
-        if(ctx.OUTOFSCOPE() != null){
-            globalTree = globalTree.parent();
-            return "";
-        }
         if(ctx.ENTERSCOPE() != null) {return "ENTERSCOPE\n";}
        // if(ctx.EXITSCOPE() != null) {return "EXITSCOPE\n";}
         return "";
@@ -28,17 +18,17 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitEndclass(langosIRParser.EndclassContext ctx) { return null; }
     @Override public String visitFunc(langosIRParser.FuncContext ctx) {
         globalTree = globalTree.addChild(ctx.func_lbl().id().getText());
-        String res = LLVMAsm.createFunction(
-                visitFunc_lbl(ctx.func_lbl()),
-                (ctx.id() != null)?
-                        LLVMAsm.RET(ctx.id().getText()):
-                        LLVMAsm.RET(),
-                ctx.program().stream().map(this::visitProgram).filter(i -> i != null).reduce("", String::concat) + toFuncEndPop()
-        );
+        String funHeader = visitFunc_lbl(ctx.func_lbl());
+        String body = ctx.program().stream().map(this::visitProgram).filter(i -> i != null).reduce("", String::concat) + toFuncEndPop();
+        String ret = (ctx.id() != null) ?
+                LLVMAsm.RET(ctx.id().getText(), globalTree) :
+                LLVMAsm.RET();
+        String s = LLVMAsm.transStreamOfAdditionalArgs(globalTree.needVars.entrySet().stream());
         globalTree = globalTree.parent();
-        funcs.append(res);
+        funHeader += s + ")  {\n";
+        funcs.append(LLVMAsm.createFunction(funHeader, body, ret));
         if (globalTree.parent() == null) return "";//std::kostyl'
-        if(ctx.parent instanceof langosIRParser.ProgramContext r) {
+        if (ctx.parent instanceof langosIRParser.ProgramContext r) {
             ParserRuleContext parent = r.getParent();
             int id = parent.children.indexOf(r);
             //if (id == 0) //hmm func_lbl + enterscope -> (id == 2)?? then return ???
@@ -55,10 +45,10 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
                 }
             }
         }
-        return LLVMAsm.CALL(ctx.func_lbl().id().getText());
+        return LLVMAsm.CALL(ctx.func_lbl().id().getText(), globalTree);
     }
     @Override public String visitMov(langosIRParser.MovContext ctx) {
-        return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText());
+        return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText(), globalTree);
     }
     public String addClass(langosIRParser.Class_fullContext ctx){
         String className = ctx.class_().ID().getText();
@@ -102,7 +92,6 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(r.import_() != null) return "error import in class";
         if(r.flow_control() != null) return "error flow in class";
         if(r.map_control() != null) return "error map in class";
-        if(r.stack_cmds() != null) return "error stack in class";
         if(r.lbl() != null) return "hmm, lbl in class";
         if(r.scope_control() != null) return "hmm, scope_control in class";
         if(r.func() != null) return sg.addMethod(visitFunc(r.func()));
@@ -144,13 +133,13 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     @Override public String visitPairmapo_(langosIRParser.Pairmapo_Context ctx) { return visitChildren(ctx); }
     @Override public String visitPairmapoo(langosIRParser.PairmapooContext ctx) { return visitChildren(ctx); }
 
-    @Override public String visitPop(langosIRParser.PopContext ctx) { return LLVMAsm.POP(ctx.ID().getText()); }
-    @Override public String visitPush(langosIRParser.PushContext ctx) { return LLVMAsm.PUSH(ctx.ID().getText()); }
 
     @Override public String visitFlow_control(langosIRParser.Flow_controlContext ctx) {
         //TODO  CONTINUE | BREAK;
         if(ctx.jmps() != null) return visitJmps(ctx.jmps());
-        if(ctx.RET() != null) return (ctx.id() != null)?LLVMAsm.RET(ctx.id().getText()):LLVMAsm.RET();//ну вроде тут без изменений
+        if(ctx.RET() != null) return (ctx.id() != null)
+                                                       ?LLVMAsm.RET(ctx.id().getText(), globalTree)
+                                                       :LLVMAsm.RET();//ну вроде тут без изменений
         if(ctx.call() != null) return visitCall(ctx.call());
         return null;
     }
@@ -158,25 +147,22 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         //LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()))//??or CALL s.s.c
         String args = ctx.ID().stream().map(i -> "i32 %"+i.getText()+",").reduce("", String::concat);
         if(!args.equals("")) args = args.substring(0, args.length() -1);
-        return LLVMAsm.CALL(globalTree.findLeaf(ctx.id().ID()), args);//TODO
-    }
-    @Override public String visitStack_cmds(langosIRParser.Stack_cmdsContext ctx) {
-        if(ctx.pop() != null) return visitPop(ctx.pop());
-        if(ctx.push() != null) return visitPush(ctx.push());
-        return  "";
+        return LLVMAsm.CALL(globalTree.findLeaf(ctx.id().ID()), args, globalTree);//TODO
     }
     @Override public String visitGet_element_ptr(langosIRParser.Get_element_ptrContext ctx) {
         String variable = ctx.ID(0).getText();//a=
         String objName = ctx.ID(1).getText();//&(classObj
         String memberName = ctx.ID(2).getText();//.member)
-        return LLVMAsm.getElementPtr(variable,globalTree.declares.get(objName), objName, globalTree.findChildNum(memberName));
+        return LLVMAsm.getElementPtr(variable,globalTree.getDeclares(objName), objName, globalTree.findChildNum(memberName));
     }
 
     @Override
     public String visitFunc_lbl(langosIRParser.Func_lblContext ctx) {
         String funcName = ctx.id().getText();
-        Stream<String> args = ctx.ID().stream().map(i -> i.getText());
-        return LLVMAsm.declareFuncHeader(funcName, args);
+        Stream<String> args = ctx.id_list(0).ID().stream().map(i -> i.getText());
+        //id_list(1) -> additional args(example a)//set(a,5);()->a//may be TODO
+        //id_list(2) -> return args??
+        return LLVMAsm.declareFuncHeader(funcName, args, globalTree);
     }
 
     @Override public String visitProgram(langosIRParser.ProgramContext ctx) {
@@ -185,7 +171,6 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if(ctx.flow_control() != null) return visitFlow_control(ctx.flow_control());
         if(ctx.scope_control() != null) return visitScope_control(ctx.scope_control());
         if(ctx.map_control() != null) return visitMap_control(ctx.map_control());
-        if(ctx.stack_cmds() != null) return visitStack_cmds(ctx.stack_cmds());
         if(ctx.lbl() != null) return visitLbl(ctx.lbl());
         if(ctx.func() != null) return visitFunc(ctx.func());
         if(ctx.get_element_ptr() != null) return visitGet_element_ptr(ctx.get_element_ptr());

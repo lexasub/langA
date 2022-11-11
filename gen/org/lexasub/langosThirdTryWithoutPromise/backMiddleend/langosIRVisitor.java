@@ -17,12 +17,6 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitId(langosIRParser.IdContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link langosIRParser#intoscope}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIntoscope(langosIRParser.IntoscopeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link langosIRParser#class}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -119,6 +113,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#id_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId_list(langosIRParser.Id_listContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -160,12 +160,6 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitScope_control(langosIRParser.Scope_controlContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link langosIRParser#stack_cmds}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStack_cmds(langosIRParser.Stack_cmdsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#map_control}.
 	 * @param ctx the parse tree

@@ -2,11 +2,13 @@ grammar langosIR;
 
 fragment LOWBAR: '_' ;
 
+ARROW : '->';
 COLON :  ':' ;
 SLASH : '/';
 COMA : ',';
 LPAREN : ')'  ;
 RPAREN  : '(' ;
+SHARP : '#';
 CLASS :'CLASS';
 ENDCLASS :'ENDCLASS';
 MEMBER : 'MEMBER';
@@ -33,8 +35,6 @@ FUNC :'FUNCTION_';
 CALL :'CALL';
 RET :'RET';
 
-INTOSCOPE :'INTOSCOPE';
-OUTOFSCOPE :'OUTOFSCOPE';
 ENTERSCOPE:'ENTERSCOPE';
 EXITSCOPE:'EXITSCOPE';
 FUNCTION_ARGUMENT:'FUNCTION_ARGUMENT';
@@ -51,7 +51,6 @@ fragment ID2: [0-9];
 ID:  ID1+ (ID1 | ID2 )* ;
 id : ID;
 
-intoscope : INTOSCOPE ID;
 class : CLASS ID;
 endclass : ENDCLASS ID;
 import_ : IMPORT ID (SLASH ID)*;
@@ -71,20 +70,19 @@ call : CALL id (RPAREN (ID (COMA ID)*)? LPAREN)?;
 eq : EQ ID COMA ID;
 eQCALL_THEN_JMP : EQCALL_THEN_JMP ID COMA ID COMA ID;
 nEQCALL_THEN_JMP_EXTENDED : NEQCALL_THEN_JMP_EXTENDED ID COMA ID COMA ID COMA ID;
-
-func_lbl : id RPAREN (ID (COMA ID)*)? LPAREN COLON;
+id_list : (ID (COMA ID)*)?;
+func_lbl : id RPAREN id_list LPAREN COLON SHARP? id_list? ARROW? id_list?;//may be TODO
 lbl : ID COLON;
 FUNCID : FUNC ID COLON;
 member_declare : MEMBER ID COMA ID;
-class_full : class intoscope (member_declare | program)* OUTOFSCOPE endclass;
+class_full : class ENTERSCOPE (member_declare | program)* EXITSCOPE endclass;
 jmps : nEQCALL_THEN_JMP_EXTENDED | eQCALL_THEN_JMP | eq | jmp ;
 flow_control : call | RET id? | CONTINUE | BREAK | jmps;
-scope_control : ENTERSCOPE | intoscope | OUTOFSCOPE/* | EXITSCOPE*/;
-stack_cmds : push | pop;
+scope_control : ENTERSCOPE /* | EXITSCOPE*/;
 map_control : map | mapo | pairmap | pairmap_o | pairmapo_ | pairmapoo;
 function_argument : FUNCTION_ARGUMENT ID COMA ID;
 func : func_lbl  ENTERSCOPE ( program*) RET id? EXITSCOPE;
 get_element_ptr : GET_ELEMENT_PTR ID COMA ID COMA ID;
 mov : MOV ID COMA ID;
-program : import_ | class_full | flow_control | func | scope_control | map_control | mov | stack_cmds | get_element_ptr | lbl;
+program : import_ | class_full | flow_control | func | scope_control | map_control | mov  | get_element_ptr | lbl;
 entry_point : program* EOF?;

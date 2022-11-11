@@ -3,6 +3,7 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 
 public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
+    NamespaceTree globalTree = new NamespaceTree();
     private StringBuilder toFuncEnd = new StringBuilder();
     public String toFuncEndPop(){
         String s = toFuncEnd.toString();
@@ -28,7 +29,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         toFuncEnd.append(LLVMAsm.LBL(lblName))
                 .append(LLVMAsm.EQ(check, lbl, lblRet))
                 .append(LLVMAsm.LBL(lbl))
-                .append(LLVMAsm.CALL(callLbl))
+                .append(LLVMAsm.CALL(callLbl, globalTree))
                 .append(LLVMAsm.JMP(jmpTo));
         return LLVMAsm.JMP(lblName) + LLVMAsm.LBL(lblRet);
     }
@@ -44,7 +45,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         toFuncEnd.append(LLVMAsm.LBL(lblName))
                 .append(LLVMAsm.NEQ(check, lbl, jmpTrue))
                 .append(LLVMAsm.LBL(lbl))
-                .append(LLVMAsm.CALL(ifFalse))
+                .append(LLVMAsm.CALL(ifFalse, globalTree))
                 .append(LLVMAsm.JMP(jmpTo));
         return LLVMAsm.JMP(lblName);
     }

@@ -90,7 +90,7 @@ public class Asm extends AsmUtils {
     }
 
     public static String createClass(String className, String body) {
-        return CLASS(className) + intoScope(className) + body + outofScope() + ENDCLASS(className);
+        return CLASS(className) + newScope() + body + endScope() + ENDCLASS(className);
     }
 
 }

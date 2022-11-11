@@ -17,4 +17,9 @@ public class LLVMAsmUtils {
         // System.out.print("\t" + r);
         return tab + r;
     }
+
+    protected static String MOVER(String to, String from) {//copy some expr to variable
+        return p("%" + to + " = " + from + "\n");
+    }
+
 }

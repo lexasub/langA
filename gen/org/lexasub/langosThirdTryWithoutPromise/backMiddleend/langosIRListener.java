@@ -18,16 +18,6 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitId(langosIRParser.IdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link langosIRParser#intoscope}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntoscope(langosIRParser.IntoscopeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosIRParser#intoscope}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntoscope(langosIRParser.IntoscopeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link langosIRParser#class}.
 	 * @param ctx the parse tree
 	 */
@@ -188,6 +178,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#id_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterId_list(langosIRParser.Id_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#id_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitId_list(langosIRParser.Id_listContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#func_lbl}.
 	 * @param ctx the parse tree
 	 */
@@ -257,16 +257,6 @@ public interface langosIRListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitScope_control(langosIRParser.Scope_controlContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link langosIRParser#stack_cmds}.
-	 * @param ctx the parse tree
-	 */
-	void enterStack_cmds(langosIRParser.Stack_cmdsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link langosIRParser#stack_cmds}.
-	 * @param ctx the parse tree
-	 */
-	void exitStack_cmds(langosIRParser.Stack_cmdsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#map_control}.
 	 * @param ctx the parse tree
