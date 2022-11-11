@@ -119,7 +119,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
     }
 
     public String visitExprReturn(langosWithoutSyntaxParser.ExprContext ctx) {
-        if (ctx.ID() != null) return Asm.MOV(visitid2(ctx.ID()), "last_res")+ Asm.RET();//TODO hmm
+        if (ctx.ID() != null) return Asm.RET(visitid2(ctx.ID()));
         if (ctx.with_() != null) return visitWith_(ctx.with_())+ Asm.RET();
         if (ctx.flow_control() != null) return visitFlow_control(ctx.flow_control())+ Asm.RET();
         PairString p = null;
@@ -137,7 +137,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         if (ctx.function_call_() != null) return visitFunction_callAsArg(ctx.function_call_()).a;
         if (ctx.get_member() != null) return visitGet_member_(ctx.get_member()).a;//std::kostyl'
         if (ctx.lambda() == null) return visitExprPart(ctx);
-        return lambdaForExpr(ctx, IdGenerator.lambda() + "res");
+        return lambdaForExpr(ctx, IdGenerator.lambda() + "_res");
     }
 
     private String lambdaForExpr(langosWithoutSyntaxParser.ExprContext ctx, String result) {//TODO make tests
@@ -339,7 +339,7 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     @Override
     public String visitReturn_expr(langosWithoutSyntaxParser.Return_exprContext ctx) {
-        return visitExprReturn(ctx.expr()) ;
+        return visitExprReturn(ctx.expr());
     }
 
     @Override

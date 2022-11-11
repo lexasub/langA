@@ -2,12 +2,13 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class LLVMAsm extends LLVMAsmUtils {
+
+    private static LinkedList usedVars = new LinkedList();
+    private static HashMap replace_vars = new HashMap();
 
     public static String JMP(String text) {
         return p("br label %" + text + "\n");
@@ -78,9 +79,20 @@ public class LLVMAsm extends LLVMAsmUtils {
             else return p("%" + to + " = bitcast i8* blockaddress(@main, %" + from + ") to i8*\n");
         }
         if(b)
-            return RET("i32", "%" + from);
+           return RET("i32", "%" + from);
+        if(!usedVars.contains(to))
+            usedVars.add(to);
+        else
+            to = usedVarsNext(to);
         return p("%" + to + " = bitcast i32 %" + from + " to i32\n");
-        //" = add i32 %"+from+", 0\n";//TODO std::kostyl'
+    }
+
+    private static String usedVarsNext(String to) {
+        int i = 0;
+        while (usedVars.contains(to + "_" + i)) ++i;
+        usedVars.add(to + "_" + i);
+        replace_vars.put(to, to + "_" + i);
+        return to + "_" + i;
     }
 
     public static String declareFuncHeader(String funcName, Stream<String> args) {
