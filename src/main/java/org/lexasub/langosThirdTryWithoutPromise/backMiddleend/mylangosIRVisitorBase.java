@@ -52,6 +52,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         if(ctx.jmp() != null) return visitJmp(ctx.jmp());
         if(ctx.eq() != null) return visitEq(ctx.eq());
         if(ctx.eQCALL_THEN_JMP() != null) return visitEQCALL_THEN_JMP(ctx.eQCALL_THEN_JMP());
+        if(ctx.nEQCALL_THEN_JMP_EXTENDED() != null) return visitNEQCALL_THEN_JMP_EXTENDED(ctx.nEQCALL_THEN_JMP_EXTENDED());
         return "";
     }
     @Override public String visitLbl(langosIRParser.LblContext ctx) {
