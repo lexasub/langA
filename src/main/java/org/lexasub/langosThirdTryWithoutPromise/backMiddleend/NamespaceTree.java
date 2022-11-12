@@ -67,14 +67,14 @@ public class NamespaceTree {
 
     public String mayBeRenameReg(String reg) {
         if(!declares.containsKey(reg) && !needVars.containsKey(reg)) {
-            declares.put(reg, "i32");
+            addDeclare("i32", reg);
             return reg;
         }
         else {
             int i = 0;
             while (declares.containsKey(reg + "_" + i)) ++i;
             String val = reg + "_" + i;
-            declares.put(val, "i32");//declare my_var_0
+            addDeclare("i32", val);//declare my_var_0
             replace_vars.put(reg, val);//create replace
             return val;
         }
