@@ -51,9 +51,13 @@ public class LLVMAsm extends LLVMAsmUtils {
     public static String CALL(String s, String args, NamespaceTree globalTree) {
         String v = "";
         //TODO may be add lambda call from function argument(~~tryAddNeeded)
-        if (s.contains("FUNCTION_")) v=s.replace("FUNCTION_", "")+"_res";//TODO bad std::smallKostyl'
-        else if (s.contains("_lambda_")) v=s.replace("BEGIN_","")+"_res";//TODO bad std::smallKostyl'
-        else s=globalTree.mayBeRenameReg(s);
+        if (s.contains("FUNCTION_")) v=s.replace("FUNCTION_", "");//TODO bad std::smallKostyl'
+        else if (s.contains("_lambda_")) v=s.replace("BEGIN_","");//TODO bad std::smallKostyl'
+        else {
+            v = s;
+            s = globalTree.getSSAReg(s);
+        }
+        v = globalTree.mayBeRenameReg(v+ "_res");
         return MOVER(v, "call noundef i32 @" + s + "(" + args + ")");
     }
     public static String getElementPtr(String variable, String className, String objName, int memberId) {

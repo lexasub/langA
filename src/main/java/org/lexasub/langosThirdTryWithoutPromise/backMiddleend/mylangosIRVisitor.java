@@ -145,7 +145,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
     @Override public String visitCall(langosIRParser.CallContext ctx) {
         //LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()))//??or CALL s.s.c
-        String args = ctx.ID().stream().map(i -> "i32 %"+i.getText()+",").reduce("", String::concat);
+        String args = ctx.ID().stream().map(i -> "i32 %"+globalTree.getSSAReg(i.getText())+",").reduce("", String::concat);
         if(!args.equals("")) args = args.substring(0, args.length() -1);
         return LLVMAsm.CALL(globalTree.findLeaf(ctx.id().ID()), args, globalTree);//TODO
     }

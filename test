@@ -1,8 +1,19 @@
-int k(int a, int b) {
-  while(
-    () -> not(isZero(b)),
-    () -> set(b, minus(b, one()))
+int gcd(int a, int b) {
+  if(
+    () -> isZero(b),
+    () -> return a,
+    () -> gcd(b, mod(a, b))
   )
   return a
 }
 
+int gcd2(int v, int k) {
+  while(
+    () -> not(isZero(k)),
+    () -> {
+       set(v, mod(v, k))
+       swap(v,k)
+    }
+  )
+  return v
+}
