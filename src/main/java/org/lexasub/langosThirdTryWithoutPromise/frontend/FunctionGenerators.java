@@ -143,8 +143,7 @@ public class FunctionGenerators {
             String varName = e.next();
             String data = e.next();//b.mod(two())
 
-           // return data + Asm.MOV("last_res", varName);//TODO CHECK
-           return  Asm.MOV(data, varName) + Asm.MOV(data, "set_res");//ex: move from myFunc_res//std::kostyl'
+            return  Asm.MOV(data, varName) + Asm.MOV(data, "set_res");//std::kostyl'
         };
     }
 }
