@@ -18,10 +18,10 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
             return FunctionGenerators.mapGenerator();
         if (funname.SWAP() != null)
             return FunctionGenerators.swap();
-        if(funname.SET() != null)
+        if (funname.SET() != null)
             return FunctionGenerators.set();
         if (funname.ID() != null)//may be add ids.table.addfuntotable..//TODO?
-            return FunctionGenerators.userFunGenerator2(funname.ID().getText(),"FUNCTION_" + funname.ID().getText());
+            return FunctionGenerators.userFunGenerator2(funname.ID().getText(), "FUNCTION_" + funname.ID().getText());
         return null;
     }
 
@@ -32,15 +32,18 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
 
     @Override
     public String visitType_name(langosWithoutSyntaxParser.Type_nameContext ctx) {
-        return visitid("ID " + ctx.ID().getText() + "\n");
+        return "ID " + ctx.ID().getText() + "\n";
     }
+
     public String visitType_name2(langosWithoutSyntaxParser.Type_nameContext ctx) {
         return visitid2(ctx.ID());
     }
+
     @Override
-    public String visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx){
+    public String visitWith_synonym(langosWithoutSyntaxParser.With_synonymContext ctx) {
         return visitid2(ctx.ID());
     }
+
     @Override
     public String visitClass_name(langosWithoutSyntaxParser.Class_nameContext ctx) {
         return visitid2(ctx.ID());
@@ -57,10 +60,6 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
     }
 
     public String visitid2(TerminalNode s) {
-        return visitid(s.getText());
-    }
-
-    public String visitid(String s) {
-        return s;//TODO
+        return s.getText();
     }
 }

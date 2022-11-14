@@ -5,17 +5,21 @@ import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
     NamespaceTree globalTree = new NamespaceTree();
     private StringBuilder toFuncEnd = new StringBuilder();
-    public String toFuncEndPop(){
+
+    public String toFuncEndPop() {
         String s = toFuncEnd.toString();
         toFuncEnd = new StringBuilder();
         return s;
     }
 
-    @Override public String visitJmp(langosIRParser.JmpContext ctx) {
+    @Override
+    public String visitJmp(langosIRParser.JmpContext ctx) {
         return LLVMAsm.JMP(ctx.ID().getText());
     }
-    @Override public String visitEq(langosIRParser.EqContext ctx) {
-        return LLVMAsm.EQ(ctx.ID(0).getText(),ctx.ID(1).getText());
+
+    @Override
+    public String visitEq(langosIRParser.EqContext ctx) {
+        return LLVMAsm.EQ(ctx.ID(0).getText(), ctx.ID(1).getText());
     }
 
     @Override
@@ -33,6 +37,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
                 .append(LLVMAsm.JMP(jmpTo));
         return LLVMAsm.JMP(lblName) + LLVMAsm.LBL(lblRet);
     }
+
     @Override
     public String visitNEQCALL_THEN_JMP_EXTENDED(langosIRParser.NEQCALL_THEN_JMP_EXTENDEDContext ctx) {
         String check = ctx.ID(0).getText();
@@ -49,14 +54,33 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
                 .append(LLVMAsm.JMP(jmpTo));
         return LLVMAsm.JMP(lblName);
     }
-    @Override public String visitJmps(langosIRParser.JmpsContext ctx) {
-        if(ctx.jmp() != null) return visitJmp(ctx.jmp());
-        if(ctx.eq() != null) return visitEq(ctx.eq());
-        if(ctx.eQCALL_THEN_JMP() != null) return visitEQCALL_THEN_JMP(ctx.eQCALL_THEN_JMP());
-        if(ctx.nEQCALL_THEN_JMP_EXTENDED() != null) return visitNEQCALL_THEN_JMP_EXTENDED(ctx.nEQCALL_THEN_JMP_EXTENDED());
+
+    @Override
+    public String visitJmps(langosIRParser.JmpsContext ctx) {
+        if (ctx.jmp() != null) return visitJmp(ctx.jmp());
+        if (ctx.eq() != null) return visitEq(ctx.eq());
+        if (ctx.eQCALL_THEN_JMP() != null) return visitEQCALL_THEN_JMP(ctx.eQCALL_THEN_JMP());
+        if (ctx.nEQCALL_THEN_JMP_EXTENDED() != null)
+            return visitNEQCALL_THEN_JMP_EXTENDED(ctx.nEQCALL_THEN_JMP_EXTENDED());
         return "";
     }
-    @Override public String visitLbl(langosIRParser.LblContext ctx) {
+
+
+    @Override
+    public String visitMov(langosIRParser.MovContext ctx) {
+        return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText(), globalTree);
+    }
+
+    @Override
+    public String visitLbl(langosIRParser.LblContext ctx) {
         return LLVMAsm.LBL(ctx.ID().getText());
+    }
+
+    @Override
+    public String visitGet_element_ptr(langosIRParser.Get_element_ptrContext ctx) {
+        String variable = ctx.ID(0).getText();//a=
+        String objName = ctx.ID(1).getText();//&(classObj
+        String memberName = ctx.ID(2).getText();//.member)
+        return LLVMAsm.getElementPtr(variable, globalTree.getDeclares(objName), objName, globalTree.findChildNum(memberName));
     }
 }

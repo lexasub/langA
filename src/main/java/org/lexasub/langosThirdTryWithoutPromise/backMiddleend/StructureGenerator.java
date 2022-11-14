@@ -5,17 +5,19 @@ import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 import java.util.Vector;
 
 public class StructureGenerator {
-    private NamespaceTree nm = new NamespaceTree();
     public String name;
-
     Vector<PairString> container;//for methods and members
-    StructureGenerator (String name, NamespaceTree p){
+    private NamespaceTree nm = new NamespaceTree();
+
+    StructureGenerator(String name, NamespaceTree p) {
         p.addChild(nm);
         this.name = name;
     }
+
     public NamespaceTree nm() {
         return nm;
     }
+
     public String addMethod(String name) {
 
 
@@ -27,14 +29,14 @@ public class StructureGenerator {
     }
 
     public String addMemberToTable(String type, String name) {
-        container.add(new PairString(name,type));
-        nm.addDeclare(name, type);
+        container.add(new PairString(name, type));
+        nm.addDeclare(type, name);
         return type;
     }
 
     public String addDeclareMethod(String i) {
         container.add(new PairString(i, LLVMAsm.typePtr));
-        nm.addDeclare(i, LLVMAsm.typePtr);
+        nm.addDeclare(LLVMAsm.typePtr, i);
         //hmm..
         return LLVMAsm.typePtr;
     }

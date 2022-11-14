@@ -13,45 +13,36 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Asm extends AsmUtils {
-    public static String getReturn(String dst_reg, String func_name) {
-        return MOV(func_name+"_res", dst_reg);
-    }
-
-
     public static String createFunction(String type, String name, String args, String body) {
         //TODO add type
         return "FUNCTION_" + name + " (" + args + ")" + ": \n"
-                + newScope()  + body + RET() + endScope();
+                + newScope() + body + RET() + endScope();
     }
-
-
-
     public static PairString createLambda(Stream<String> args, String body, String name) {
         String beginLambda = "BEGIN_" + name;
         String lambdaEnd = "END_" + name;
-        String s = beginLambda ;
-                //JMP(lambdaEnd)
+        String s = beginLambda;
+        //JMP(lambdaEnd)
         s += " (";
 
         StringBuilder sb = new StringBuilder();
-        if(args != null) {
+        if (args != null) {
             Iterator<String> argsIT = args.iterator();
             sb.append(argsIT.next());
             //int i = 0;
             while (argsIT.hasNext()) {
-              //  sb.append(getArg(argsIT.next(), name + "_arg" + i));
+                //  sb.append(getArg(argsIT.next(), name + "_arg" + i));
                 sb.append(", " + argsIT.next());
                 //hmm надо как то сделать, чтоб тот, кто вызывал лямбду - знал ее сгенерированное имя
                 //++i;
             }
         }
         s += sb + ") :\n" + newScope();
-        s += ((body != null) ? body : "")  + RET();
+        s += ((body != null) ? body : "") + RET();
         s += endScope();
         s += LABEL(lambdaEnd);
         return new PairString(s, beginLambda);
     }
-
 
 
     public static String IMPORT(Stream<String> visitid) {
@@ -63,7 +54,6 @@ public class Asm extends AsmUtils {
             path.append("/" + it.next());
         return p("IMPORT " + path + "\n");
     }
-
 
 
     public static void print(String s) {

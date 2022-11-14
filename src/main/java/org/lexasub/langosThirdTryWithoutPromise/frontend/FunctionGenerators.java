@@ -11,7 +11,7 @@ public class FunctionGenerators {
     public static Function ifGenerator() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp =  e.next();//logic expression lambda
+            String exp = e.next();//logic expression lambda
             String bodyTrue = e.next();//bodyTrue
             String bodyFalseOrRetReg = e.next();
             String bodyFalse = null;
@@ -20,33 +20,23 @@ public class FunctionGenerators {
                 bodyFalseOrRetReg = e.next();//retReg
             }
             String endIf = IdGenerator.lblIfEnd();
-            return Asm.CALL(exp) +
+            return  Asm.CALL(exp) +
                     Asm.EQCALL_THEN_JMP(bodyFalseOrRetReg, bodyFalse, endIf) +
-                    Asm.CALL(bodyTrue) +
-                    Asm.LABEL(endIf);
+                    Asm.CALL(bodyTrue) + Asm.LABEL(endIf);
         };
     }
 
     public static Function whileGenerator() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp =  e.next();//logic expression lambda
+            String exp = e.next();//logic expression lambda
             String body = e.next();//body
             String reg = e.next();//reg
             String lblEnd = IdGenerator.lblWhileEnd();
             String lbl = IdGenerator.lbl();
-            return
-                    Asm.LABEL(lbl) +
-                    Asm.CALL(exp) +
-                    /*Asm.EQ(GlobalStatic.last_lambda_ret_reg, lblEnd) +
-                    Asm.CALL(body) +
-                    Asm.JMP(lbl) +*/
+            return  Asm.LABEL(lbl) + Asm.CALL(exp) +
                     Asm.NEQCALL_THEN_JMP_EXTENDED(reg, body, lbl, lblEnd) +
                     Asm.LABEL(lblEnd);
-            /*
-
-                   Asm.NEQCALL_THEN_JMP_EXTENDED(GlobalStatic.last_lambda_ret_reg, false->body, false->then lbl, true->lblEnd)
-             */
         };
     }
 
@@ -56,7 +46,7 @@ public class FunctionGenerators {
     }
 
     private static PairString generateMapParts(Object collection) {
-       // if (collection instanceof PairString)//PairString->it's lambda
+        // if (collection instanceof PairString)//PairString->it's lambda
         //    return new PairString(((PairString) collection).a, ((PairString) collection).b);
         //else instanceof String
         String s = (String) collection;
@@ -106,6 +96,7 @@ public class FunctionGenerators {
             return buildMap(arg.a, body, Asm.MAP(arg.b, lambda));
         };
     }
+
     public static Function userFunGenerator2(String lbl, String text) {
         //TODO change
         return expr -> {
@@ -143,7 +134,7 @@ public class FunctionGenerators {
             String varName = e.next();
             String data = e.next();//b.mod(two())
 
-            return  Asm.MOV(data, varName) + Asm.MOV(data, "set_res");//std::kostyl'
+            return Asm.MOV(data, varName)/* + Asm.MOV(data, "set_res")*/;//std::kostyl'//after changing return type, it's not needed
         };
     }
 }

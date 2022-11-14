@@ -1,35 +1,43 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.PairString;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.stream.Stream;
 
 public class NamespaceTree {
+    public String funcPrefix = "";
+    public String funcType = "i32";
+    HashMap<String, String> needVars = new HashMap<>();
     private String name;
-
     private HashMap replace_vars = new HashMap();
     private HashMap<String, String> declares = new HashMap<>();
-    HashMap<String, String> needVars = new HashMap<>();
     private NamespaceTree parent = null;
     private LinkedList<NamespaceTree> childs = new LinkedList<>();
+
     public NamespaceTree findChild(String name) {
-        return childs.stream().filter(i->name == name).findFirst().get();
+        return childs.stream().filter(i -> name == name).findFirst().get();
     }
+
     public int findChildNum(String name) {
         Iterator<NamespaceTree> it = childs.iterator();
         int i = 0;
-        for (; it.hasNext() && it.next().name != name; i++) {}
+        for (; it.hasNext() && it.next().name != name; i++) {
+        }
         return i;
     }
 
     public NamespaceTree parent() {
         return parent;
     }
+
     public void parent(NamespaceTree p) {
         parent = p;
     }
+
     public StructureGenerator addStructure(String name) {
 
         StructureGenerator sg = new StructureGenerator(name, this);
@@ -43,6 +51,7 @@ public class NamespaceTree {
         addChild(np);
         return np;
     }
+
     public void addChild(NamespaceTree np) {
         childs.add(np);
         np.parent(this);
@@ -53,28 +62,29 @@ public class NamespaceTree {
         return id.getText();
     }
 
-    public void addDeclare(String type, String name) {
+    public void addDeclare(String name, String type) {
         declares.put(name, type);
     }
 
     public String getSSAReg(String arg) {
         //if(variable is arg of func or was assigned- then good, else push to neededVars
-        if(declares.containsKey(arg)) return replace_vars.containsKey(arg)? (String) replace_vars.get(arg) :arg;//all is ok
-        if(needVars.containsKey(arg)) return arg;//if variable in needVars, then replace_vars.containsKey(arg) == false
+        if (declares.containsKey(arg))
+            return replace_vars.containsKey(arg) ? (String) replace_vars.get(arg) : arg;//all is ok
+        if (needVars.containsKey(arg)) return arg;//if variable in needVars, then replace_vars.containsKey(arg) == false
         needVars.put(arg, "i32");//if variable is not declared, then replace_vars.containsKey(arg) == false
+        declares.put(arg, "i32");//and declare it
         return arg;
     }
 
     public String mayBeRenameReg(String reg) {
-        if(!declares.containsKey(reg) && !needVars.containsKey(reg)) {
-            addDeclare("i32", reg);
+        if (!declares.containsKey(reg) && !needVars.containsKey(reg)) {
+            addDeclare(reg, "i32");
             return reg;
-        }
-        else {
+        } else {
             int i = 0;
             while (declares.containsKey(reg + "_" + i)) ++i;
             String val = reg + "_" + i;
-            addDeclare("i32", val);//declare my_var_0
+            addDeclare(val, "i32");//declare my_var_0
             replace_vars.put(reg, val);//create replace
             return val;
         }
@@ -82,5 +92,16 @@ public class NamespaceTree {
 
     public String getDeclares(String decl) {
         return declares.get(decl);
+    }
+
+    public Stream<PairString> declaresCrossReplaced() {
+        return declares.entrySet().stream()
+                .filter(a -> replace_vars.containsKey(a.getKey()))
+                .map(i -> {
+                            String key = i.getKey();
+                            while (replace_vars.containsKey(key)) key = (String) replace_vars.get(key);
+                            return new PairString(i.getValue(), key);
+                        }
+                );
     }
 }
