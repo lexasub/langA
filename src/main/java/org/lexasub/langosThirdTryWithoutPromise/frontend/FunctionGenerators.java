@@ -11,7 +11,7 @@ public class FunctionGenerators {
     public static Function ifGenerator() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp = e.next();//logic expression lambda
+          /*  String exp = e.next();//logic expression lambda
             String bodyTrue = e.next();//bodyTrue
             String bodyFalseOrRetReg = e.next();
             String bodyFalse = null;
@@ -22,21 +22,55 @@ public class FunctionGenerators {
             String endIf = IdGenerator.lblIfEnd();
             return  Asm.CALL("i1", exp) +
                     Asm.EQCALL_THEN_JMP(bodyFalseOrRetReg, bodyFalse, endIf) +
-                    Asm.CALL(bodyTrue) + Asm.LABEL(endIf);
+                    Asm.CALL(bodyTrue) + Asm.LABEL(endIf);*/
+            String exp = e.next();
+            String bodyTrue = e.next();
+            String bodyFalse = e.next();
+            String lblT = IdGenerator.lbl();
+            String lblF = IdGenerator.lbl();
+            String lblEndIf = IdGenerator.lblIfEnd();
+            return
+                              exp       + Asm.JMP(lblT, lblF) +
+            Asm.LABEL(lblT) + bodyTrue  + Asm.JMP(lblEndIf) +
+            Asm.LABEL(lblF) + bodyFalse + Asm.JMP(lblEndIf) +
+            Asm.LABEL(lblEndIf);
         };
     }
 
     public static Function whileGenerator() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
-            String exp = e.next();//logic expression lambda
+           /* String exp = e.next();//logic expression lambda
             String body = e.next();//body
             String reg = e.next();//reg
             String lblEnd = IdGenerator.lblWhileEnd();
             String lbl = IdGenerator.lbl();
             return  Asm.LABEL(lbl) + Asm.CALL("i1", exp) +
                     Asm.NEQCALL_THEN_JMP_EXTENDED(reg, body, lbl, lblEnd) +
-                    Asm.LABEL(lblEnd);
+                    Asm.LABEL(lblEnd);*/
+            String exp = e.next();
+            String body = e.next();//TODO add phi-nodes
+            String lblLambda = IdGenerator.lambda();
+            String lblBody = IdGenerator.lbl();
+            return
+            Asm.LABEL("BEGIN_" + lblBody) + exp  + Asm.JMP(lblBody, "END_" + lblLambda) +
+            Asm.LABEL(lblBody)                + body + Asm.JMP("BEGIN_" + lblBody) +
+            Asm.LABEL("END_" + lblLambda);
+            /*
+              %ve = alloca i32
+              store i32 %q1, ptr %ve
+              %dd = load i32, ptr %ve
+            BEGIN_:
+              exp
+            lblBody:
+              %v1 = phi i32 [ %q1, %body ], [ %k, %entry ]
+              %v2 = phi i32 [ %v1, %body ], [ %v, %entry ]
+
+              %q[] <- body
+              then + exp(autoReplace is done)
+            END_:
+              %z = phi i32 [ %v, %entry ], [ %v1, %body ]
+             */
         };
     }
 

@@ -14,6 +14,8 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
 
     @Override
     public String visitJmp(langosIRParser.JmpContext ctx) {
+        if(ctx.id() != null)
+            return LLVMAsm.JMP(ctx.ID().getText(), ctx.id().getText());
         return LLVMAsm.JMP(ctx.ID().getText());
     }
 

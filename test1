@@ -44,16 +44,12 @@ int main() {
     return map((i)->i(), (j) -> j())
 }
 
-
-
 int gcd(int a, int b) {
   if(
     () -> isZero(b),
-    () -> a,
-    () -> gcd(b, mod(a, b))
+    () -> return a,
+    () -> return gcd(b, mod(a, b))
   )
-  return a
-  return f()
 }
 
 int gcd2(int v, int k) {

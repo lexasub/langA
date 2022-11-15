@@ -153,20 +153,35 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
 
     public PairString visitFunction_call2_(langosWithoutSyntaxParser.Function_call2Context ctx) {
         List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
-        PairString args = getFunExprArgs(_args);
-        StringBuilder functionCalls = new StringBuilder();
-        Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
         String from = ctx.fun_name().getText() + "_res";
-        String to = "";
+
+        if (ctx.fun_name().IF() != null){
+            Stream<langosWithoutSyntaxParser.LambdaContext> threeLambdas = _args.stream().map(i -> i.lambda());
+            Stream<Object> ifArgs = threeLambdas.map(i -> (i.expr() != null) ?
+                    visitExpr(i.expr()) :
+                    visitBraced_element(i.braced_element()));
+            return new PairString(visitFun_name(ctx.fun_name(), ifArgs), from);
+        }
+        if (ctx.fun_name().WHILE() != null){
+            Stream<langosWithoutSyntaxParser.LambdaContext> Lambdas = _args.stream().map(i -> i.lambda());
+            Stream<Object> whileArgs = Lambdas.map(i -> (i.expr() != null) ?
+                    visitExpr(i.expr()) :
+                    visitBraced_element(i.braced_element()));
+            return new PairString(visitFun_name(ctx.fun_name(), whileArgs), from);
+        }
+        PairString args = getFunExprArgs(_args);
+        Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();
+        /* StringBuilder functionCalls = new StringBuilder();
+        String to = "";  //for a...().f().g()
         while (it.hasNext()) {
             langosWithoutSyntaxParser.Function_call_helperContext i = it.next();
             to = IdGenerator.reg();
             functionCalls.append(visitFunction_call_helper(i, from, to));
             //functionCalls.append(((i.member_name() != null)?Asm.intoScope(i.member_name().getText()) :""));
             from = to;
-        }
+        }*/
 
-        String s = functionCalls.toString();//+ Asm.MOV(from, "last_res")//полурабочий костыль//TODO
+        String s = "" /*functionCalls.toString()*/;//+ Asm.MOV(from, "last_res")//полурабочий костыль//TODO
         String b = args.b;
 
         String[] split = b.split(", ");

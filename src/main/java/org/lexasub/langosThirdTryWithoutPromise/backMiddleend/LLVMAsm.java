@@ -164,4 +164,8 @@ public class LLVMAsm extends LLVMAsmUtils {
         String r = s.map(i -> i.getValue() + " %" + i.getKey() + ", ").reduce("", String::concat);
         return (r != "") ? r.substring(0, r.length() - 2) : "";
     }
+
+    public static String JMP(String ifEq, String ifNeq) {
+        return EQ("how????", ifNeq, ifEq);
+    }
 }

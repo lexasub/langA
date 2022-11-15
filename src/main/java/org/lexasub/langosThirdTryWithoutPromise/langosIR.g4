@@ -65,7 +65,7 @@ pairmapoo : PAIRMAPoo ID COMA ID COMA ID;
 pop : POP ID;
 push : PUSH ID;
 
-jmp : JMP ID;
+jmp : JMP ID (COMA id)?;
 call : CALL id COMA id (RPAREN (ID (COMA ID)*)? LPAREN)?;
 eq : EQ ID COMA ID;
 eQCALL_THEN_JMP : EQCALL_THEN_JMP ID COMA ID COMA ID;

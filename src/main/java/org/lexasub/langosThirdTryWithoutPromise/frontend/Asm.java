@@ -83,4 +83,7 @@ public class Asm extends AsmUtils {
         return CLASS(className) + newScope() + body + endScope() + ENDCLASS(className);
     }
 
+    public static String JMP(String lblT, String lblF) {
+        return p("JMP " + lblT + ", " + lblF + "\n");
+    }
 }
