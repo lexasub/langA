@@ -20,7 +20,7 @@ public class FunctionGenerators {
                 bodyFalseOrRetReg = e.next();//retReg
             }
             String endIf = IdGenerator.lblIfEnd();
-            return  Asm.CALL(exp) +
+            return  Asm.CALL("i1", exp) +
                     Asm.EQCALL_THEN_JMP(bodyFalseOrRetReg, bodyFalse, endIf) +
                     Asm.CALL(bodyTrue) + Asm.LABEL(endIf);
         };
@@ -34,7 +34,7 @@ public class FunctionGenerators {
             String reg = e.next();//reg
             String lblEnd = IdGenerator.lblWhileEnd();
             String lbl = IdGenerator.lbl();
-            return  Asm.LABEL(lbl) + Asm.CALL(exp) +
+            return  Asm.LABEL(lbl) + Asm.CALL("i1", exp) +
                     Asm.NEQCALL_THEN_JMP_EXTENDED(reg, body, lbl, lblEnd) +
                     Asm.LABEL(lblEnd);
         };

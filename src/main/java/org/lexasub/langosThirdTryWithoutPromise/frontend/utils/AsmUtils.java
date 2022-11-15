@@ -78,9 +78,11 @@ public class AsmUtils {
     public static String BREAK() {
         return p("BREAK\n");
     }
-
     public static String CALL(String s) {
-        return p("CALL " + s + "\n");
+        return CALL("i32", s);
+    }
+    public static String CALL(String type, String s) {
+        return p("CALL " + type + ", " + s + "\n");
     }
 
     public static String MAP(String lblCollBeg, String lblLambdaBegin) {

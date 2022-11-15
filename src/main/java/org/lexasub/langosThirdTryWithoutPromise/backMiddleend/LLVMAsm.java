@@ -13,7 +13,7 @@ public class LLVMAsm extends LLVMAsmUtils {
 
     public static String EQ(String check, String ifEq, String ifNeq) {
         String id = IdGenerator.reg();
-        return MOVER(id, "icmp eq i32 0, %" + check) +
+        return MOVER(id, "icmp eq i1 0, %" + check) +
                 p("br i1 %" + id + ", label %" + ifEq + ", label %" + ifNeq + "\n");
     }
 
@@ -60,10 +60,10 @@ public class LLVMAsm extends LLVMAsmUtils {
     }
 
     public static String CALL(String s, NamespaceTree globalTree) {
-        return CALL(s, "", globalTree);
+        return CALL(s, "", globalTree, "i32");
     }
 
-    public static String CALL(String s, String args, NamespaceTree globalTree) {
+    public static String CALL(String s, String args, NamespaceTree globalTree, String type) {
         String v = "";
         //TODO may be add lambda call from function argument(~~tryAddNeeded)
         if (s.contains("FUNCTION_")) v = s.replace("FUNCTION_", "");//TODO bad std::smallKostyl'
@@ -73,7 +73,7 @@ public class LLVMAsm extends LLVMAsmUtils {
             s = globalTree.getSSAReg(s);
         }
         v = globalTree.mayBeRenameReg(v + "_res");
-        return MOVER(v, "call noundef i32 @" + s + "(" + args + ")");
+        return MOVER(v, "call noundef "+type+" @" + s + "(" + args + ")");
     }
 
     public static String getElementPtr(String variable, String className, String objName, int memberId) {
@@ -121,6 +121,28 @@ public class LLVMAsm extends LLVMAsmUtils {
     }
 
     public static void print(String s) {
+        s += "define i1 @FUNCTION_isZero(i32 %b)  {\n" +
+                "    %u = icmp eq i32 0, %b\n" +
+                "\tret i1 %u\n" +
+                "}\n" +
+                "\n" +
+                "define i32 @FUNCTION_mod(i32 %b, i32 %c)  {\n" +
+                "    %z = srem i32 %b, %c\n" +
+                "\tret i32 %z\n" +
+                "}\n" +
+                "\n" +
+                "@.str = private unnamed_addr constant [3 x i8] c\"%d\\00\", align 1\n" +
+                " \n" +
+                "\n" +
+                "define i32 @main() {\n" +
+                "entry:\n" +
+                "  %d = call noundef i32 @FUNCTION_gcd(i32 24826148,i32 45296490)\n" +
+                "  %u = srem i32 526, 1\n" +
+                "  %r = call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %d)\n" +
+                "  ret i32 1\n" +
+                "}\n" +
+                "\n" +
+                "declare i32 @printf(i8*, ...)";
         if (!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
         StringBuilder tab = new StringBuilder("");
