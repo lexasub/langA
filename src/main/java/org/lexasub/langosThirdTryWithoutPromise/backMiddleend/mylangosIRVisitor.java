@@ -61,6 +61,8 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
                 ? LLVMAsm.RET(ctx.id().getText(), globalTree)
                 : LLVMAsm.RETDefault(globalTree);
         String additionalArgs = LLVMAsm.transStreamOfAdditionalArgs(globalTree.needVars.entrySet().stream());
+        if(additionalArgs != "" && ctx.func_lbl().id_list(0).ID().size() != 0)
+            additionalArgs = ", " + additionalArgs;
         funcs.append(LLVMAsm.createFunction(LLVMAsm.declareFuncHeader2(funHeader, additionalArgs,
                         globalTree.funcPrefix, globalTree.funcType),
                 body, ret));
@@ -222,6 +224,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if (ctx.lbl() != null) return visitLbl(ctx.lbl());
         if (ctx.func() != null) return visitFunc(ctx.func());
         if (ctx.get_element_ptr() != null) return visitGet_element_ptr(ctx.get_element_ptr());
+        if (ctx.movPhi() != null) return visitMovPhi(ctx.movPhi());
         if (ctx.mov() != null) return visitMov(ctx.mov());
         return "";
     }

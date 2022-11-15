@@ -2,6 +2,7 @@ package org.lexasub.langosThirdTryWithoutPromise.frontend;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVisitor<String> {
@@ -21,7 +22,13 @@ public class mylangosWithoutSyntaxVisitorBase extends langosWithoutSyntaxBaseVis
         if (funname.SET() != null)
             return FunctionGenerators.set();
         if (funname.ID() != null)//may be add ids.table.addfuntotable..//TODO?
+        {
+            if (Objects.equals(funname.ID().getText(), "def"))
+                return FunctionGenerators.def();
+            if (Objects.equals(funname.ID().getText(), "phi"))
+                return FunctionGenerators.phi();
             return FunctionGenerators.userFunGenerator2(funname.ID().getText(), "FUNCTION_" + funname.ID().getText());
+        }
         return null;
     }
 

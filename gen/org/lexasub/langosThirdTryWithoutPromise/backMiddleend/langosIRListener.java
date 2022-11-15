@@ -308,6 +308,26 @@ public interface langosIRListener extends ParseTreeListener {
 	 */
 	void exitMov(langosIRParser.MovContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link langosIRParser#phi}.
+	 * @param ctx the parse tree
+	 */
+	void enterPhi(langosIRParser.PhiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#phi}.
+	 * @param ctx the parse tree
+	 */
+	void exitPhi(langosIRParser.PhiContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#movPhi}.
+	 * @param ctx the parse tree
+	 */
+	void enterMovPhi(langosIRParser.MovPhiContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#movPhi}.
+	 * @param ctx the parse tree
+	 */
+	void exitMovPhi(langosIRParser.MovPhiContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link langosIRParser#program}.
 	 * @param ctx the parse tree
 	 */

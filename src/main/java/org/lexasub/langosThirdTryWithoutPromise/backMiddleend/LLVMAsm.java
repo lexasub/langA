@@ -83,6 +83,7 @@ public class LLVMAsm extends LLVMAsmUtils {
 
 
     public static String MOV(String to, String from, NamespaceTree globalTree) {//caller is visitMov
+        //if(Objects.equals(from, "phi_res"))
         boolean b = Objects.equals(to, "lambda_res") || Objects.equals(to, "last_res");//TODO remove std::kostyl' after fix
         if (from.contains("lambda"))
         //bitcast i8* blockaddress(@main, %BEGIN_lambda_v1Xei4yfzS) to i8*;
@@ -167,5 +168,9 @@ public class LLVMAsm extends LLVMAsmUtils {
 
     public static String JMP(String ifEq, String ifNeq) {
         return EQ("how????", ifNeq, ifEq);
+    }
+
+    public static String PHI(String to, String alt1, String alt0) {//TODO
+        return MOVER(to, "phi i32 [%" + alt1 + ", %lbl_lbl_h17MiTvWka], [%" + alt0 +  ", %BEGIN_lbl_lbl_h17MiTvWka]");
     }
 }

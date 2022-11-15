@@ -67,7 +67,9 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         return "";
     }
 
-
+    public String visitMovPhi(langosIRParser.MovPhiContext ctx) {
+        return LLVMAsm.PHI(ctx.ID().getText(), ctx.phi().ID(0).getText(), ctx.phi().ID(1).getText());
+    }
     @Override
     public String visitMov(langosIRParser.MovContext ctx) {
         return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText(), globalTree);

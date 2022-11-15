@@ -86,4 +86,8 @@ public class Asm extends AsmUtils {
     public static String JMP(String lblT, String lblF) {
         return p("JMP " + lblT + ", " + lblF + "\n");
     }
+
+    public static String PHI(String alt1, String alt0) {
+        return p("PHI " + alt1 + ", " + alt0 + "\n");
+    }
 }

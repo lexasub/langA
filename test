@@ -2,8 +2,11 @@ int gcd2(int v, int k) {
   while(
     () -> not(isZero(k)),
     () -> {
-        set(v, mod(v, k))
-       swap(v,k)
+       def(v0, phi (t1, v))
+       def(v1, phi (t0, k))
+
+       def(t0, mod(v0, v1))
+       def(t1, v1)
     }
   )
 }

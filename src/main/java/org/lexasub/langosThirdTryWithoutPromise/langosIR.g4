@@ -24,6 +24,7 @@ PAIRMAPoo :'PAIRMAPoo';
 POP :'POP';
 PUSH :'PUSH';
 MOV :'MOV';
+PHI : 'PHI';
 
 EQCALL_THEN_JMP : 'EQCALL_THEN_JMP';
 NEQCALL_THEN_JMP_EXTENDED : 'NEQCALL_THEN_JMP_EXTENDED';
@@ -84,5 +85,7 @@ function_argument : FUNCTION_ARGUMENT ID COMA ID;
 func : func_lbl  ENTERSCOPE ( program*) RET id? EXITSCOPE;
 get_element_ptr : GET_ELEMENT_PTR ID COMA ID COMA ID;
 mov : MOV ID COMA ID;
-program : import_ | class_full | flow_control | func | scope_control | map_control | mov  | get_element_ptr | lbl;
+phi : PHI ID COMA ID;
+movPhi : phi MOV ID COMA 'phi_res';
+program : import_ | class_full | flow_control | func | scope_control | map_control | movPhi | mov | get_element_ptr | lbl;
 entry_point : program* EOF?;

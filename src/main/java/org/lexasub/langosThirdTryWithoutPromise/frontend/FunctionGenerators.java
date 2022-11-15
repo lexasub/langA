@@ -152,6 +152,7 @@ public class FunctionGenerators {
         };
     }
 
+    @Deprecated
     public static Function swap() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
@@ -162,6 +163,7 @@ public class FunctionGenerators {
         };
     }
 
+    @Deprecated
     public static Function set() {
         return expr -> {
             Iterator<String> e = ((Stream<String>) expr).iterator();
@@ -169,6 +171,22 @@ public class FunctionGenerators {
             String data = e.next();//b.mod(two())
 
             return Asm.MOV(data, varName)/* + Asm.MOV(data, "set_res")*/;//std::kostyl'//after changing return type, it's not needed
+        };
+    }
+    public static Function def() {
+        return expr -> {
+            Iterator<String> e = ((Stream<String>) expr).iterator();
+            String to = e.next();
+            String from = e.next();
+            return Asm.MOV(from, to);
+        };
+    }
+    public static Function phi() {
+        return expr -> {
+            Iterator<String> e = ((Stream<String>) expr).iterator();
+            String alt1 = e.next();
+            String alt0 = e.next();
+            return Asm.PHI(alt1, alt0);
         };
     }
 }

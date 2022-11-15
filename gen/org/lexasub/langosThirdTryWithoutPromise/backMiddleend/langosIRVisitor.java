@@ -191,6 +191,18 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMov(langosIRParser.MovContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link langosIRParser#phi}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPhi(langosIRParser.PhiContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#movPhi}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMovPhi(langosIRParser.MovPhiContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link langosIRParser#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
