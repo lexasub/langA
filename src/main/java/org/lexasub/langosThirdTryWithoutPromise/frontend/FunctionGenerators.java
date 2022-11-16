@@ -56,6 +56,7 @@ public class FunctionGenerators {
             Asm.LABEL("BEGIN_" + lblBody) + exp  + Asm.JMP(lblBody, "END_" + lblLambda) +
             Asm.LABEL(lblBody)                + body + Asm.JMP("BEGIN_" + lblBody) +
             Asm.LABEL("END_" + lblLambda);
+            //body.replace()
             /*
               %ve = alloca i32
               store i32 %q1, ptr %ve

@@ -68,6 +68,8 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
     }
 
     public String visitMovPhi(langosIRParser.MovPhiContext ctx) {
+     //   langosIRParser.Id_listContext args = ((langosIRParser.FuncContext) ((langosIRParser.ProgramContext) ctx.parent).parent)
+      //                                          .func_lbl().id_list(0);
         return LLVMAsm.PHI(ctx.ID().getText(), ctx.phi().ID(0).getText(), ctx.phi().ID(1).getText());
     }
     @Override
