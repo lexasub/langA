@@ -3,6 +3,7 @@ package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import org.lexasub.langosThirdTryWithoutPromise.frontend.utils.IdGenerator;
 
 public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
+    protected PHIScope phiScope = new PHIScope();
     NamespaceTree globalTree = new NamespaceTree();
     private StringBuilder toFuncEnd = new StringBuilder();
 
@@ -14,9 +15,9 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
 
     @Override
     public String visitJmp(langosIRParser.JmpContext ctx) {
-        if(ctx.id() != null)
-            return LLVMAsm.JMP(ctx.ID().getText(), ctx.id().getText());
-        return LLVMAsm.JMP(ctx.ID().getText());
+        if (ctx.beid(1) != null)
+            return LLVMAsm.JMP(ctx.beid(0).getText(), ctx.beid(1).getText());
+        return LLVMAsm.JMP(ctx.beid(0).getText());
     }
 
     @Override
@@ -68,10 +69,15 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
     }
 
     public String visitMovPhi(langosIRParser.MovPhiContext ctx) {
-     //   langosIRParser.Id_listContext args = ((langosIRParser.FuncContext) ((langosIRParser.ProgramContext) ctx.parent).parent)
-      //                                          .func_lbl().id_list(0);
-        return LLVMAsm.PHI(ctx.ID().getText(), ctx.phi().ID(0).getText(), ctx.phi().ID(1).getText());
+        //   langosIRParser.Id_listContext args = ((langosIRParser.FuncContext) ((langosIRParser.ProgramContext) ctx.parent).parent)
+        //                                          .func_lbl().id_list(0);
+        String phiRes = ctx.ID().getText();
+        String phi1 = ctx.phi().ID(0).getText();
+        String phi0 = ctx.phi().ID(1).getText();
+        phiScope.addPhi(phiRes, phi1, phi0);
+        return LLVMAsm.PHI(phiRes, phi1, phi0, phiScope.getCurScope(), phiScope.getParentScope(), globalTree);
     }
+
     @Override
     public String visitMov(langosIRParser.MovContext ctx) {
         return LLVMAsm.MOV(ctx.ID(0).getText(), ctx.ID(1).getText(), globalTree);

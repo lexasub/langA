@@ -41,6 +41,7 @@ public class AsmUtils {
     public static String getReturn(String dst_reg, String func_name) {
         return MOV(func_name + "_res", dst_reg);
     }
+
     public static String EQ(String check, String lbl) {
         return p("EQ " + check + ", " + lbl + "\n");
     }
@@ -78,9 +79,11 @@ public class AsmUtils {
     public static String BREAK() {
         return p("BREAK\n");
     }
+
     public static String CALL(String s) {
         return CALL("i32", s);
     }
+
     public static String CALL(String type, String s) {
         return p("CALL " + type + ", " + s + "\n");
     }

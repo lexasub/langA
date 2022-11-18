@@ -32,7 +32,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     public String visitFunc(langosIRParser.FuncContext ctx) {
         generateFunction(ctx);//->funcs
         if (globalTree.parent() != null && generateFunctionCall(ctx.parent))
-            return LLVMAsm.CALL(ctx.func_lbl().id().getText(), globalTree);
+            return LLVMAsm.CALL(ctx.func_lbl().FUNC_ID().getText(), globalTree);
         return "";
     }
 
@@ -45,7 +45,7 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
                 langosIRParser.JmpsContext f = prev.flow_control().jmps();
                 if (prev.flow_control() != null && next.lbl() != null &&
                         f != null && f.jmp() != null &&
-                        Objects.equals(f.jmp().ID().getText(), next.lbl().ID().getText()))
+                        Objects.equals(f.jmp().beid(0).getText(), next.lbl().ID().getText()))
                     return false;
             }
         }
@@ -53,21 +53,22 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
 
     private void generateFunction(langosIRParser.FuncContext ctx) {
-        globalTree = globalTree.addChild(ctx.func_lbl().id().getText());
+        globalTree = globalTree.addChild(ctx.func_lbl().FUNC_ID().getText());
         String funHeader = visitFunc_lbl(ctx.func_lbl());
         String body = ctx.program().stream().map(this::visitProgram).filter(i -> i != null).reduce("", String::concat) + toFuncEndPop();
 
-        String ret = (ctx.id() != null)
-                ? LLVMAsm.RET(ctx.id().getText(), globalTree)
-                : LLVMAsm.RETDefault(globalTree);
+        String ret = (ctx.ID() != null)
+                ? LLVMAsm.RET(ctx.ID().getText(), globalTree, phiScope)
+                : LLVMAsm.RETDefault(globalTree, phiScope);
         String additionalArgs = LLVMAsm.transStreamOfAdditionalArgs(globalTree.needVars.entrySet().stream());
-        if(additionalArgs != "" && ctx.func_lbl().id_list(0).ID().size() != 0)
+        if (additionalArgs != "" && ctx.func_lbl().id_list().ID().size() != 0)
             additionalArgs = ", " + additionalArgs;
         funcs.append(LLVMAsm.createFunction(LLVMAsm.declareFuncHeader2(funHeader, additionalArgs,
                         globalTree.funcPrefix, globalTree.funcType),
                 body, ret));
         globalTree = globalTree.parent();
     }
+
     public String addClass(langosIRParser.Class_fullContext ctx) {
         String className = ctx.class_().ID().getText();
         StructureGenerator struct = globalTree.addStructure(className);
@@ -102,11 +103,11 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     }
 
     private String getFunctionName(langosIRParser.ProgramContext ctx) {//TODO may be +type of func
-        return ctx.func().func_lbl().id().getText();
+        return ctx.func().func_lbl().FUNC_ID().getText();
         //ctx.func().
     }
 
-    public String visitProgramFromClass(langosIRParser.ProgramContext r, StructureGenerator sg) {
+    public String visitProgramFromClass(langosIRParser.ProgramContext r, StructureGenerator sg) {//TODO
         if (r.import_() != null) return "error import in class";
         if (r.flow_control() != null) return "error flow in class";
         if (r.map_control() != null) return "error map in class";
@@ -190,26 +191,26 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     public String visitFlow_control(langosIRParser.Flow_controlContext ctx) {
         //TODO  CONTINUE | BREAK;
         if (ctx.jmps() != null) return visitJmps(ctx.jmps());
-        if (ctx.RET() != null) return (ctx.id() != null)
-                ? LLVMAsm.RET(ctx.id().getText(), globalTree)
-                : LLVMAsm.RETDefault(globalTree);
+        if (ctx.RET() != null) return (ctx.ID() != null)
+                ? LLVMAsm.RET(ctx.ID().getText(), globalTree, phiScope)
+                : LLVMAsm.RETDefault(globalTree, phiScope);
         if (ctx.call() != null) return visitCall(ctx.call());
         return null;
     }
 
     @Override
     public String visitCall(langosIRParser.CallContext ctx) {
-        //LLVMAsm.CALL(globalTree.findLeaf(ctx.ID()))//??or CALL s.s.c
+        //LLVMAsm.CALL(globalTree.findLeaf(ctx.id()))//??or CALL s.s.c
         //->funcs//ctx.func_lbl().id_list(0)//args
-        String args = ctx.ID().stream().map(i -> "i32 %" + globalTree.getSSAReg(i.getText()) + ", ").reduce("", String::concat);
+        String args = ctx.id3().stream().map(i -> "i32 %" + globalTree.getSSAReg(i.getText()) + ", ").reduce("", String::concat);
         if (!args.equals("")) args = args.substring(0, args.length() - 2);
-        return LLVMAsm.CALL(globalTree.findLeaf(ctx.id(1).ID()), args, globalTree, ctx.id(0).ID().getText());//TODO
+        return LLVMAsm.CALL(ctx.fid().getText(), args, globalTree, ctx.ID().getText());//TODO
     }
 
     @Override
     public String visitFunc_lbl(langosIRParser.Func_lblContext ctx) {
-        String funcName = ctx.id().getText();
-        Stream<String> args = ctx.id_list(0).ID().stream().map(i -> i.getText());
+        String funcName = ctx.FUNC_ID().getText();
+        Stream<String> args = ctx.id_list().ID().stream().map(i -> i.getText());
         //id_list(1) -> additional args(example a)//set(a,5);()->a//may be TODO
         //id_list(2) -> return args??
         return LLVMAsm.declareFuncHeader(funcName, args, globalTree);
@@ -227,7 +228,21 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
         if (ctx.get_element_ptr() != null) return visitGet_element_ptr(ctx.get_element_ptr());
         if (ctx.movPhi() != null) return visitMovPhi(ctx.movPhi());
         if (ctx.mov() != null) return visitMov(ctx.mov());
+        if (ctx.block() != null) return visitBlock(ctx.block());
         return "";
+    }
+
+    @Override
+    public String visitBlock(langosIRParser.BlockContext ctx) {
+        phiScope.enter(ctx.BEGINID().getText());
+        String s = LLVMAsm.LBL(ctx.BEGINID().getText())
+                + ctx.program().stream()
+                .map(this::visitProgram)
+                .filter(i -> i != null)//std::kostyl
+                .reduce("", String::concat)
+                + LLVMAsm.LBL(ctx.ENDID().getText());
+        phiScope.exit(ctx.BEGINID().getText());
+        return s;
     }
 
     @Override

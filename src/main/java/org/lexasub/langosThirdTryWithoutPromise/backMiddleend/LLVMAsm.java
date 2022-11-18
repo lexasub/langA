@@ -7,13 +7,14 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class LLVMAsm extends LLVMAsmUtils {
+
     public static String NEQ(String check, String ifEq, String ifNeq) {
         return EQ(check, ifNeq, ifEq);
     }
 
     public static String EQ(String check, String ifEq, String ifNeq) {
         String id = IdGenerator.reg();
-        return MOVER(id, "icmp eq i1 0, %" + check) +
+        return MOVER(id, "icmp eq i32 0, %" + check) +
                 p("br i1 %" + id + ", label %" + ifEq + ", label %" + ifNeq + "\n");
     }
 
@@ -22,34 +23,47 @@ public class LLVMAsm extends LLVMAsmUtils {
         return EQ(check, ifEq, id) + LBL(id);
     }
 
-    private static String returnReassigned(Stream<PairString> ret_args, StringBuilder sb) {
-        return ret_args.map(i -> {
-                    sb.append(i.a + ", ");
-                    return i.a + " %" + i.b + ", ";
-                }
-        ).reduce("", String::concat);
+    private static Stream<String> returnReassigned(List<PairString> ret_args, StringBuilder sb, PHIScope phiScope, StringBuilder phis,
+                                           NamespaceTree globalTree) {
+        return ret_args.stream().map(i -> {
+            PairString phi = phiScope.getPhi(i.b, globalTree);
+            phis.append(phi.a);
+            String reg = (Objects.equals(phi.b, "")) ? i.b : phi.b;
+            sb.append(i.a + ", ");
+            return i.a + " %" + reg + ", ";
+        });
     }
-    private static String retHelper(NamespaceTree globalTree, String arg, int n, String arg1) {
-        Stream<PairString> ret_args = globalTree.declaresCrossReplaced();
+
+    private static String retHelper(NamespaceTree globalTree, String arg, int n, String arg1, PHIScope phiScope) {
+        List<PairString> ret_args = globalTree.declaresCrossReplaced().toList();
         StringBuilder sb = new StringBuilder();
-        String args = returnReassigned(ret_args, sb);
-        if (sb.isEmpty()) return RET("i32", arg);
+        StringBuilder phis = new StringBuilder();
+        if (!Objects.equals(arg, "")) {
+            PairString phi = phiScope.getPhi(arg, globalTree);//TODO check
+            return phi.a + RET("i32", (Objects.equals(phi.b, "")) ? arg : phi.b);
+        }
+        String args = returnReassigned(ret_args, sb, phiScope, phis, globalTree).reduce("", String::concat);
+        if (sb.isEmpty()) {
+            PairString phi = phiScope.getPhi(arg, globalTree);
+            return phi.a + RET("i32", (Objects.equals(phi.b, "")) ? arg : phi.b);
+        }
         if (globalTree.funcPrefix.isEmpty()) {
             globalTree.funcType = "%" + IdGenerator.type();
             globalTree.funcPrefix = globalTree.funcType + " = type {" + sb.substring(0, sb.length() - n)
-                    + (n == 0?"i32 ":"") + "}\n";
+                    + (n == 0 ? "i32 " : "") + "}\n";
         }
-        if(n == 0) args += "i32 %" + arg1;
+        if (n == 0) args += "i32 %" + arg1;
         //%T1 = type { <type list> }
-        return RET(globalTree.funcType, "{ " + args.substring(0, args.length() - n) + " }");
-    }
-    public static String RET(String arg, NamespaceTree globalTree) {
-        arg = globalTree.getSSAReg(arg);
-        return retHelper(globalTree, "%" + arg, 0, arg);
+        return phis + RET(globalTree.funcType, "{ " + args.substring(0, args.length() - n) + " }");
     }
 
-    public static String RETDefault(NamespaceTree globalTree) {
-        return retHelper(globalTree, "0", 2, "");
+    public static String RET(String arg, NamespaceTree globalTree, PHIScope phiScope) {
+        arg = globalTree.getSSAReg(arg);
+        return retHelper(globalTree, "%" + arg, 0, arg, phiScope);
+    }
+
+    public static String RETDefault(NamespaceTree globalTree, PHIScope phiScope) {
+        return retHelper(globalTree, "0", 2, "", phiScope);
     }
 
     public static String declareType(String className, Stream<String> stringStream, int methodsCount) {
@@ -73,7 +87,7 @@ public class LLVMAsm extends LLVMAsmUtils {
             s = globalTree.getSSAReg(s);
         }
         v = globalTree.mayBeRenameReg(v + "_res");
-        return MOVER(v, "call noundef "+type+" @" + s + "(" + args + ")");
+        return MOVER(v, "call noundef " + type + " @" + s + "(" + args + ")");
     }
 
     public static String getElementPtr(String variable, String className, String objName, int memberId) {
@@ -107,12 +121,12 @@ public class LLVMAsm extends LLVMAsmUtils {
         if (it.hasNext()) {
             String next = it.next();
             sb.append("i32 %" + next);
-            globalTree.addDeclare(next, "i32");//add argument of function
+            globalTree.addDeclareFuncParam(next, "i32");//add argument of function
         }
         while (it.hasNext()) {
             String next = it.next();
             sb.append(", i32 %" + next);
-            globalTree.addDeclare(next, "i32");//add argument of function
+            globalTree.addDeclareFuncParam(next, "i32");//add argument of function
         }
         return p(funcName + "(" + sb);
     }
@@ -132,18 +146,22 @@ public class LLVMAsm extends LLVMAsmUtils {
                 "\tret i32 %z\n" +
                 "}\n" +
                 "\n" +
-                "@.str = private unnamed_addr constant [3 x i8] c\"%d\\00\", align 1\n" +
+                "@.str = private unnamed_addr constant [4 x i8] c\"%d \\00\", align 1\n" +
                 " \n" +
                 "\n" +
                 "define i32 @main() {\n" +
                 "entry:\n" +
-                "  %d = call noundef i32 @FUNCTION_gcd(i32 24826148,i32 45296490)\n" +
+                "  %d = call noundef i32 @FUNCTION_gcd2(i32 24826148,i32 45296490)\n" +
                 "  %u = srem i32 526, 1\n" +
                 "  %r = call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %d)\n" +
                 "  ret i32 1\n" +
                 "}\n" +
                 "\n" +
-                "declare i32 @printf(i8*, ...)";
+                "declare i32 @printf(i8*, ...)" +
+                "define i1 @FUNCTION_not(i1 %b)  {\n" +
+                "\t%isZero_res = xor i1 %b, 1\n" +
+                "\tret i1 %isZero_res\n" +
+                "}";
         if (!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
         StringBuilder tab = new StringBuilder("");
@@ -170,7 +188,7 @@ public class LLVMAsm extends LLVMAsmUtils {
         return EQ("how????", ifNeq, ifEq);
     }
 
-    public static String PHI(String to, String alt1, String alt0) {//TODO
-        return MOVER(to, "phi i32 [%" + alt1 + ", %lbl_lbl_h17MiTvWka], [%" + alt0 +  ", %BEGIN_lbl_lbl_h17MiTvWka]");
+    public static String PHI(String to, String alt1, String alt0, String alt1Lbl, String alt0Lbl, NamespaceTree globalTree) {//TODO
+        return MOVER(globalTree.mayBeRenameReg(to), "phi i32 [%" + alt1 + ", %" + alt1Lbl + "], [%" + alt0 + ", %" + alt0Lbl + "]");
     }
 }

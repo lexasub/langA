@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface langosIRListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link langosIRParser#id}.
+	 * Enter a parse tree produced by {@link langosIRParser#id3}.
 	 * @param ctx the parse tree
 	 */
-	void enterId(langosIRParser.IdContext ctx);
+	void enterId3(langosIRParser.Id3Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link langosIRParser#id}.
+	 * Exit a parse tree produced by {@link langosIRParser#id3}.
 	 * @param ctx the parse tree
 	 */
-	void exitId(langosIRParser.IdContext ctx);
+	void exitId3(langosIRParser.Id3Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#class}.
 	 * @param ctx the parse tree
@@ -127,6 +127,26 @@ public interface langosIRListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPush(langosIRParser.PushContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#fid}.
+	 * @param ctx the parse tree
+	 */
+	void enterFid(langosIRParser.FidContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#fid}.
+	 * @param ctx the parse tree
+	 */
+	void exitFid(langosIRParser.FidContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#beid}.
+	 * @param ctx the parse tree
+	 */
+	void enterBeid(langosIRParser.BeidContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#beid}.
+	 * @param ctx the parse tree
+	 */
+	void exitBeid(langosIRParser.BeidContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#jmp}.
 	 * @param ctx the parse tree
@@ -327,6 +347,16 @@ public interface langosIRListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMovPhi(langosIRParser.MovPhiContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link langosIRParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(langosIRParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link langosIRParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(langosIRParser.BlockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link langosIRParser#program}.
 	 * @param ctx the parse tree

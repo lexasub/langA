@@ -18,6 +18,7 @@ public class Asm extends AsmUtils {
         return "FUNCTION_" + name + " (" + args + ")" + ": \n"
                 + newScope() + body + RET() + endScope();
     }
+
     public static PairString createLambda(Stream<String> args, String body, String name) {
         String beginLambda = "BEGIN_" + name;
         String lambdaEnd = "END_" + name;

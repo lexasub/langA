@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,13 +16,13 @@ public class langosIRBaseListener implements langosIRListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(langosIRParser.IdContext ctx) { }
+	@Override public void enterId3(langosIRParser.Id3Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(langosIRParser.IdContext ctx) { }
+	@Override public void exitId3(langosIRParser.Id3Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,6 +155,30 @@ public class langosIRBaseListener implements langosIRListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPush(langosIRParser.PushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFid(langosIRParser.FidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFid(langosIRParser.FidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBeid(langosIRParser.BeidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBeid(langosIRParser.BeidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -395,6 +419,18 @@ public class langosIRBaseListener implements langosIRListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMovPhi(langosIRParser.MovPhiContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBlock(langosIRParser.BlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBlock(langosIRParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

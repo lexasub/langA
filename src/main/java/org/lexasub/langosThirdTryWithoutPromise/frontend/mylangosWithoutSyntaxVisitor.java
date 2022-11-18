@@ -155,14 +155,14 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         List<langosWithoutSyntaxParser.ExprContext> _args = ctx.parened_expr_list().expr_list().expr();
         String from = ctx.fun_name().getText() + "_res";
 
-        if (ctx.fun_name().IF() != null){
+        if (ctx.fun_name().IF() != null) {
             Stream<langosWithoutSyntaxParser.LambdaContext> threeLambdas = _args.stream().map(i -> i.lambda());
             Stream<Object> ifArgs = threeLambdas.map(i -> (i.expr() != null) ?
                     visitExpr(i.expr()) :
                     visitBraced_element(i.braced_element()));
             return new PairString(visitFun_name(ctx.fun_name(), ifArgs), from);
         }
-        if (ctx.fun_name().WHILE() != null){
+        if (ctx.fun_name().WHILE() != null) {
             Stream<langosWithoutSyntaxParser.LambdaContext> Lambdas = _args.stream().map(i -> i.lambda());
             Stream<Object> whileArgs = Lambdas.map(i -> (i.expr() != null) ?
                     visitExpr(i.expr()) :

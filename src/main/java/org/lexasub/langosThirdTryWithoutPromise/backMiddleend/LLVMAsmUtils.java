@@ -22,9 +22,11 @@ public class LLVMAsmUtils {
     protected static String MOVER(String to, String from) {//copy some expr to variable
         return p("%" + to + " = " + from + "\n");
     }
+
     protected static String RET(String type, String arg) {//!!! arg != regName
         return p("ret " + type + " " + arg + "\n");
     }
+
     public static String JMP(String text) {
         return p("br label %" + text + "\n");
     }

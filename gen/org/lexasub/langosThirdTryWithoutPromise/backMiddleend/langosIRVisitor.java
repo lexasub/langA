@@ -1,4 +1,4 @@
-// Generated from /home/support-pc/Рабочий стол/техподдержка/отчеты/Копытцев А А/others/inteljidea/langA_/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
+// Generated from /home/su/IdeaProjects/langA/src/main/java/org/lexasub/langosThirdTryWithoutPromise/langosIR.g4 by ANTLR 4.10.1
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link langosIRParser#id}.
+	 * Visit a parse tree produced by {@link langosIRParser#id3}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitId(langosIRParser.IdContext ctx);
+	T visitId3(langosIRParser.Id3Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#class}.
 	 * @param ctx the parse tree
@@ -82,6 +82,18 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPush(langosIRParser.PushContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#fid}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFid(langosIRParser.FidContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#beid}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBeid(langosIRParser.BeidContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#jmp}.
 	 * @param ctx the parse tree
@@ -202,6 +214,12 @@ public interface langosIRVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMovPhi(langosIRParser.MovPhiContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link langosIRParser#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(langosIRParser.BlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link langosIRParser#program}.
 	 * @param ctx the parse tree
