@@ -202,9 +202,10 @@ public class mylangosIRVisitor extends mylangosIRVisitorBase {
     public String visitCall(langosIRParser.CallContext ctx) {
         //LLVMAsm.CALL(globalTree.findLeaf(ctx.id()))//??or CALL s.s.c
         //->funcs//ctx.func_lbl().id_list(0)//args
-        String args = ctx.id3().stream().map(i -> "i32 %" + globalTree.getSSAReg(i.getText()) + ", ").reduce("", String::concat);
+        StringBuilder sb = new StringBuilder();
+        String args = ctx.id3().stream().map(i -> "i32 %" + phiScope.getPhiOrSSAReg(i.getText(), globalTree, sb) + ", ").reduce("", String::concat);
         if (!args.equals("")) args = args.substring(0, args.length() - 2);
-        return LLVMAsm.CALL(ctx.fid().getText(), args, globalTree, ctx.ID().getText());//TODO
+        return sb + LLVMAsm.CALL(ctx.fid().getText(), args, globalTree, ctx.ID().getText());//TODO
     }
 
     @Override

@@ -156,18 +156,26 @@ public class mylangosWithoutSyntaxVisitor extends mylangosWithoutSyntaxVisitorBa
         String from = ctx.fun_name().getText() + "_res";
 
         if (ctx.fun_name().IF() != null) {
-            Stream<langosWithoutSyntaxParser.LambdaContext> threeLambdas = _args.stream().map(i -> i.lambda());
-            Stream<Object> ifArgs = threeLambdas.map(i -> (i.expr() != null) ?
+            langosWithoutSyntaxParser.LambdaContext exp = _args.get(0).lambda();
+            langosWithoutSyntaxParser.ExprContext v = (exp.expr() != null) ?
+                    exp.expr() :
+                    exp.braced_element().element(exp.braced_element().element().size() - 1).expr();//функция не может быть в условии
+            String u = visitFunction_callAsArg(exp.expr().function_call_()).b;//TODO пока в условии только вызов функции.
+            Stream<Object> ifArgs = _args.stream().map(i1 -> i1.lambda()).map(i -> (i.expr() != null) ?
                     visitExpr(i.expr()) :
                     visitBraced_element(i.braced_element()));
-            return new PairString(visitFun_name(ctx.fun_name(), ifArgs), from);
+            return new PairString(visitFun_name(ctx.fun_name(), Stream.concat(ifArgs, Stream.of(u))), from);
         }
         if (ctx.fun_name().WHILE() != null) {
-            Stream<langosWithoutSyntaxParser.LambdaContext> Lambdas = _args.stream().map(i -> i.lambda());
-            Stream<Object> whileArgs = Lambdas.map(i -> (i.expr() != null) ?
+            langosWithoutSyntaxParser.LambdaContext exp = _args.get(0).lambda();
+            langosWithoutSyntaxParser.ExprContext v = (exp.expr() != null) ?
+                    exp.expr() :
+                    exp.braced_element().element(exp.braced_element().element().size() - 1).expr();//функция не может быть в условии
+            String u = visitFunction_callAsArg(exp.expr().function_call_()).b;//TODO пока в условии только вызов функции.
+            Stream<Object> whileArgs = _args.stream().map(i1 -> i1.lambda()).map(i -> (i.expr() != null) ?
                     visitExpr(i.expr()) :
                     visitBraced_element(i.braced_element()));
-            return new PairString(visitFun_name(ctx.fun_name(), whileArgs), from);
+            return new PairString(visitFun_name(ctx.fun_name(), Stream.concat(whileArgs,Stream.of(u))), from);
         }
         PairString args = getFunExprArgs(_args);
         Iterator<langosWithoutSyntaxParser.Function_call_helperContext> it = ctx.function_call_helper().iterator();

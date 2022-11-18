@@ -8,7 +8,7 @@ int gcd2(int v, int k) {
        def(t0, mod(v0, v1))
     }
   )
-  return v0
+  return v1
 }
 int gcd(int a, int b) {
   if(
@@ -16,7 +16,4 @@ int gcd(int a, int b) {
     () -> return a,
     () -> return gcd(b, mod(a, b))
   )
-}
-int res() {
-    return gcd2(two(), mul(two(), ten()))
 }

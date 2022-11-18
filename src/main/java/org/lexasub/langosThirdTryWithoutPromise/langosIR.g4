@@ -74,7 +74,7 @@ pop : POP ID;
 push : PUSH ID;
 fid : FUNC_ID | ID;
 beid : BEGINID | ENDID | ID;
-jmp : JMP beid (COMA beid)?;
+jmp : JMP (ID COMA)? beid (COMA beid)?;
 call : CALL ID COMA fid (RPAREN (id3 (COMA id3)*)? LPAREN)?;
 eq : EQ ID COMA ID;
 eQCALL_THEN_JMP : EQCALL_THEN_JMP ID COMA ID COMA ID;

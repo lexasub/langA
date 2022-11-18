@@ -84,8 +84,8 @@ public class Asm extends AsmUtils {
         return CLASS(className) + newScope() + body + endScope() + ENDCLASS(className);
     }
 
-    public static String JMP(String lblT, String lblF) {
-        return p("JMP " + lblT + ", " + lblF + "\n");
+    public static String JMP(String cond, String lblT, String lblF) {
+        return p("JMP " + cond + ", " + lblT + ", " + lblF + "\n");
     }
 
     public static String PHI(String alt1, String alt0) {

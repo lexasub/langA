@@ -59,4 +59,12 @@ public class PHIScope {
         String k = globalTree.mayBeRenameReg(u.getKey());
         return new PairString(LLVMAsm.PHI(k, u.getValue().b, u.getValue().a, v.b, v.a, globalTree), k);//TODO rename u.getKey()+"_" +  int()
     }
+
+    public String getPhiOrSSAReg(String reg, NamespaceTree globalTree, StringBuilder sb) {
+        //PairString r = getPhi(reg, globalTree);
+        Optional<Map.Entry<String, PairString>> r = phiS.entrySet().stream().filter(i -> Objects.equals(i.getValue().a, reg)).findFirst();
+        if(r.isEmpty()) return globalTree.getSSAReg(reg);
+       // sb.append(r.a);
+        return r.get().getValue().b;
+    }
 }

@@ -26,12 +26,13 @@ public class FunctionGenerators {
             String exp = e.next();
             String bodyTrue = e.next();
             String bodyFalse = e.next();
+            String expRes = e.next();
             String lblT = IdGenerator.label();
             String lblF = IdGenerator.label();
             String lblEndIf = IdGenerator.lblIfEnd();
             return
                     Asm.LABEL(lblEndIf.replace("END", "BEGIN")) +
-                            exp + Asm.JMP("BEGIN_" + lblT, "BEGIN_" + lblF) +
+                            exp + Asm.JMP(expRes, "BEGIN_" + lblT, "BEGIN_" + lblF) +
                             Asm.LABEL("BEGIN_" + lblT) + bodyTrue + Asm.LABEL("END_" + lblT) + Asm.JMP(lblEndIf) +
                             Asm.LABEL("BEGIN_" + lblF) + bodyFalse + Asm.LABEL("END_" + lblF) + Asm.JMP(lblEndIf) +
                             Asm.LABEL(lblEndIf);
@@ -51,12 +52,13 @@ public class FunctionGenerators {
                     Asm.LABEL(lblEnd);*/
             String exp = e.next();
             String body = e.next();//TODO add phi-nodes
+            String expRes = e.next();
             String lblLambda = IdGenerator.label();
             String lblBody = IdGenerator.label();
             return
-                    Asm.LABEL("BEGIN_" + lblLambda) + exp + Asm.JMP("BEGIN_" + lblBody, "END_" + lblLambda) +
+                    Asm.LABEL("BEGIN_" + lblLambda) + exp + Asm.JMP(expRes, "BEGIN_" + lblBody, "END_" + lblLambda) +
                             Asm.LABEL("BEGIN_" + lblBody) + body + Asm.LABEL("END_" + lblBody) /* lbl for finding phi-scopes*/+
-                            exp + Asm.JMP("BEGIN_" + lblBody, "END_" + lblLambda) +
+                            exp + Asm.JMP(expRes, "BEGIN_" + lblBody, "END_" + lblLambda) +
                             Asm.LABEL("END_" + lblLambda);
             //body.replace()
             /*

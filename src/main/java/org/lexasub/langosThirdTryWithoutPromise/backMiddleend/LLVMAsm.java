@@ -105,7 +105,8 @@ public class LLVMAsm extends LLVMAsmUtils {
             //TODO globalTree.tryAddNeeded(from);??
             if (b)
                 return RET("i8*", "blockaddress(@main, %" + from + ")");
-            else return MOVER(to, "bitcast i8* blockaddress(@main, %" + from + ") to i8*");
+
+            return MOVER(to, "bitcast i8* blockaddress(@main, %" + from + ") to i8*");
         }
         from = globalTree.getSSAReg(from);
         if (b)
@@ -151,10 +152,13 @@ public class LLVMAsm extends LLVMAsmUtils {
                 "\n" +
                 "define i32 @main() {\n" +
                 "entry:\n" +
-                "  %d = call noundef i32 @FUNCTION_gcd2(i32 24826148,i32 45296490)\n" +
+                   " %d = call noundef i32 @FUNCTION_gcd2(i32 24826148,i32 45296490)\n" +
+                "  %dd = call noundef i32 @FUNCTION_gcd(i32 24826148,i32 45296490)\n" +
                 "  %u = srem i32 526, 1\n" +
                 "  %r = call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %d)\n" +
-                "  ret i32 1\n" +
+                " call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %dd)\n" +
+                "  \n" +
+                "  ret i32 1" +
                 "}\n" +
                 "\n" +
                 "declare i32 @printf(i8*, ...)" +
@@ -184,11 +188,11 @@ public class LLVMAsm extends LLVMAsmUtils {
         return (r != "") ? r.substring(0, r.length() - 2) : "";
     }
 
-    public static String JMP(String ifEq, String ifNeq) {
-        return EQ("how????", ifNeq, ifEq);
+    public static String JMP(String cond, String ifEq, String ifNeq, NamespaceTree globalTree) {
+        return EQ(globalTree.getSSAReg(cond), ifNeq, ifEq);
     }
 
     public static String PHI(String to, String alt1, String alt0, String alt1Lbl, String alt0Lbl, NamespaceTree globalTree) {//TODO
-        return MOVER(globalTree.mayBeRenameReg(to), "phi i32 [%" + alt1 + ", %" + alt1Lbl + "], [%" + alt0 + ", %" + alt0Lbl + "]");
+        return MOVER(to, "phi i32 [%" + alt1 + ", %" + alt1Lbl + "], [%" + alt0 + ", %" + alt0Lbl + "]");
     }
 }

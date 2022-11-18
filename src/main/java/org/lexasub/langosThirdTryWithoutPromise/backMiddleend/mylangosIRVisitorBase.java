@@ -16,7 +16,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
     @Override
     public String visitJmp(langosIRParser.JmpContext ctx) {
         if (ctx.beid(1) != null)
-            return LLVMAsm.JMP(ctx.beid(0).getText(), ctx.beid(1).getText());
+            return LLVMAsm.JMP(ctx.ID().getText(), ctx.beid(0).getText(), ctx.beid(1).getText(), globalTree);
         return LLVMAsm.JMP(ctx.beid(0).getText());
     }
 
@@ -75,7 +75,7 @@ public class mylangosIRVisitorBase extends langosIRBaseVisitor<String> {
         String phi1 = ctx.phi().ID(0).getText();
         String phi0 = ctx.phi().ID(1).getText();
         phiScope.addPhi(phiRes, phi1, phi0);
-        return LLVMAsm.PHI(phiRes, phi1, phi0, phiScope.getCurScope(), phiScope.getParentScope(), globalTree);
+        return LLVMAsm.PHI(globalTree.mayBeRenameReg(phiRes), phi1, phi0, phiScope.getCurScope(), phiScope.getParentScope(), globalTree);
     }
 
     @Override

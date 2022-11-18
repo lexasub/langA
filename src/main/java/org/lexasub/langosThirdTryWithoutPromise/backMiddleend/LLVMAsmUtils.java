@@ -32,7 +32,7 @@ public class LLVMAsmUtils {
     }
 
     public static String LBL(String text) {
-        return JMP(text) + text + ":\n";//std::kostyl' подтыкаем костыли для llvm
+        return /*JMP(text) + */text + ":\n";//std::kostyl' подтыкаем костыли для llvm
     }
 
 }
