@@ -17,3 +17,38 @@ int gcd(int a, int b) {
     () -> return gcd(b, mod(a, b))
   )
 }
+
+int bf(int instr, int pos){
+
+    def(one, one_())
+    if(() -> opPlus(instr),
+    () -> {
+        mapsSet(pos, add(mapsGet(pos), one))
+        return bfStep(instr, pos)
+    })
+    if(() -> opMinus(instr),
+    () -> {
+        mapsSet(pos, add(mapsGet(pos), neg(one)))
+        return bfStep(instr, pos)
+    })
+    if(() -> opGr(instr),
+    () -> return bfStep(instr, add(pos,one)))
+
+    if(() -> opLe(instr),
+    () -> return bfStep(instr, add(pos,neg(one))))
+
+    if(() -> opDot(instr),
+    () -> {
+        writeChar(mapsGet(pos))
+        return bfStep(instr, pos)
+    })
+    return one
+}
+
+int bfStep(int instr, int ptr){
+    def(one, one_())
+    def(instr_, add(instr,one))
+    if(()-> gr(instr_, _1123),
+    () -> return zero())
+    return bf(instr_, ptr)
+}

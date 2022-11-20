@@ -137,11 +137,12 @@ public class LLVMAsm extends LLVMAsmUtils {
     }
 
     public static void print(String s) {
-        s += "define i1 @FUNCTION_isZero(i32 %b)  {\n" +
+        s += "define i32 @FUNCTION_isZero(i32 %b)  {\n" +
                 "    %u = icmp eq i32 0, %b\n" +
-                "\tret i1 %u\n" +
-                "}\n" +
-                "\n" +
+                "    %not_res = call noundef i32 @FUNCTION_not(i1 %u)\n" +
+                "\t%not_res1 = call noundef i32 @FUNCTION_not(i32 %not_res)\n" +
+                "\tret i32 %not_res1\n" +
+                "}" +
                 "define i32 @FUNCTION_mod(i32 %b, i32 %c)  {\n" +
                 "    %z = srem i32 %b, %c\n" +
                 "\tret i32 %z\n" +
@@ -150,6 +151,74 @@ public class LLVMAsm extends LLVMAsmUtils {
                 "@.str = private unnamed_addr constant [4 x i8] c\"%d \\00\", align 1\n" +
                 " \n" +
                 "\n" +
+                "define i32 @FUNCTION_add(i32 %b, i32 %c)  {\n" +
+                "    %z = add i32 %b, %c\n" +
+                "\tret i32 %z\n" +
+                "}\n" +
+                "define i1 @FUNCTION_gr(i32 %b, i32 %c)  {\n" +
+                "    %z = icmp ugt i32 %b, %c\n" +
+                "\tret i1 %z\n" +
+                "}\n" +
+                "\n" +
+                "define i32 @FUNCTION_neg(i32 %b)  {\n" +
+                "    %v = sub i32 0, %b\n" +
+                "\tret i32 %v\n" +
+                "}\n" +
+                "define i32 @FUNCTION_one()  {\n" +
+                "\tret i32 1\n" +
+                "}\n" +
+                "define i32 @FUNCTION_zero()  {\n" +
+                "\tret i32 0\n" +
+                "}\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "define i1 @FUNCTION_opDot(i32 %b)  {\n" +
+                "    %mapsGet_res = call noundef i8 @FUNCTION_mapsGet2(i32 %b)\n" +
+                "    %res = icmp eq i8 %mapsGet_res, 46\n" +
+                "\tret i1 %res\n" +
+                "}\n" +
+                "define i1 @FUNCTION_opGr(i32 %b)  {\n" +
+                "\t%mapsGet_res = call noundef i8 @FUNCTION_mapsGet2(i32 %b)\n" +
+                "    %res = icmp eq i8 %mapsGet_res, 62\n" +
+                "\tret i1 %res\n" +
+                "}\n" +
+                "define i1 @FUNCTION_opLe(i32 %b)  {\n" +
+                "\t%mapsGet_res = call noundef i8 @FUNCTION_mapsGet2(i32 %b)\n" +
+                "    %res = icmp eq i8 %mapsGet_res, 60\n" +
+                "\tret i1 %res\n" +
+                "}\n" +
+                "define i1 @FUNCTION_opMinus(i32 %b)  {\n" +
+                "\t%mapsGet_res = call noundef i8 @FUNCTION_mapsGet2(i32 %b)\n" +
+                "    %res = icmp eq i8 %mapsGet_res, 45\n" +
+                "\tret i1 %res\n" +
+                "}\n" +
+                "define i1 @FUNCTION_opPlus(i32 %b)  {\n" +
+                "\t%mapsGet_res = call noundef i8 @FUNCTION_mapsGet2(i32 %b)\n" +
+                "    %res = icmp eq i8 %mapsGet_res, 43\n" +
+                "\tret i1 %res\n" +
+                "}\n" +
+                "define void @FUNCTION_writeChar(i8 %b)  {\n" +
+                "call i32 (ptr, ...) @printf(ptr noundef @.str, i8 noundef %b)\n" +
+                "\tret void\n" +
+                "}\n" +
+                "define i8 @FUNCTION_mapsGet2(i32 %b)  {\n" +
+                "    %v = getelementptr inbounds i8, ptr @.bf2_ , i32 %b;\n" +
+                "    %u = load i8, ptr %v\n" +
+                "\tret i8 %u\n" +
+                "}\n" +
+                "define i8 @FUNCTION_mapsGet(i32 %b)  {\n" +
+                "    %v = getelementptr inbounds i8, ptr @.bf_ , i32 %b;\n" +
+                "    %u = load i8, ptr %v\n" +
+                "\tret i8 %u\n" +
+                "}\n" +
+                "define void @FUNCTION_mapsSet(i32 %b, i8 %c)  {\n" +
+                "\t%v = getelementptr inbounds i8, ptr @.bf_ , i32 %b;\n" +
+                "    store i8 %c, ptr %v\n" +
+                "    ret void \n" +
+                "}" +
                 "define i32 @main() {\n" +
                 "entry:\n" +
                    " %d = call noundef i32 @FUNCTION_gcd2(i32 24826148,i32 45296490)\n" +
@@ -158,6 +227,8 @@ public class LLVMAsm extends LLVMAsmUtils {
                 "  %r = call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %d)\n" +
                 " call i32 (ptr, ...) @printf(ptr noundef @.str, i32 noundef %dd)\n" +
                 "  \n" +
+                "\n" +
+                "  call noundef i32 @FUNCTION_bfStep(i32 0, i32 0)" +
                 "  ret i32 1" +
                 "}\n" +
                 "\n" +
@@ -165,7 +236,10 @@ public class LLVMAsm extends LLVMAsmUtils {
                 "define i1 @FUNCTION_not(i1 %b)  {\n" +
                 "\t%isZero_res = xor i1 %b, 1\n" +
                 "\tret i1 %isZero_res\n" +
-                "}";
+                "}" + "\n" +
+                "@.bf_ = private unnamed_addr global [1123 x i8] zeroinitializer, align 1\n" +
+                "@.bf2_ = private unnamed_addr global [367 x i8] c\"+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.+++++++++++++++++++++++++++++.+++++++..+++.-------------------------------------------------------------------------------.+++++++++++++++++++++++++++++++++++++++++++++++++++++++.++++++++++++++++++++++++.+++.------.--------.-------------------------------------------------------------------.\\00\", align 1\n" +
+                " ";
         if (!pretty) System.out.print(s);
         Iterator<String> str = Arrays.stream(s.split("\n")).iterator();
         StringBuilder tab = new StringBuilder("");

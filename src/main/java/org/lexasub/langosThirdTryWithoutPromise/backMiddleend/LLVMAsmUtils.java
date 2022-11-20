@@ -1,5 +1,7 @@
 package org.lexasub.langosThirdTryWithoutPromise.backMiddleend;
 
+import java.util.Objects;
+
 public class LLVMAsmUtils {
 
     public static boolean pretty = false;
@@ -32,7 +34,7 @@ public class LLVMAsmUtils {
     }
 
     public static String LBL(String text) {
-        return /*JMP(text) + */text + ":\n";//std::kostyl' подтыкаем костыли для llvm
+        return Objects.equals(text,"END_phi_scope")?"":(text + ":\n");//std::kostyl' подтыкаем костыли для llvm
     }
 
 }
